@@ -1,0 +1,170 @@
+﻿origin,destination,reachable,distance_miles,travel_days,freight_gp_per_100_lb,leg_count,uses_inferred,path,leg_modes,leg_connections
+Waterdeep,Waterdeep,True,0,0,0,0,False,Waterdeep,,
+Waterdeep,Amphail,True,89.657842,3.39613,0.547728,1,False,Waterdeep -> Amphail,road,The Long Road
+Waterdeep,Baldur's Gate,True,466.667955,5.401249,0.785052,1,False,Waterdeep -> Baldur's Gate,sea,The Sword Coast Run
+Waterdeep,Caer Calidyrr,True,527.457677,7.71137,1.182881,2,False,Waterdeep -> Mintarn -> Caer Calidyrr,sea -> sea,Sea of Swords coasting run -> Sea of Swords coasting run
+Waterdeep,Daggerford,True,128.404415,4.115526,0.681531,1,False,Waterdeep -> Daggerford,road,The Trade Way
+Waterdeep,Goldenfields,True,140.922145,5.909086,0.958445,2,False,Waterdeep -> Amphail -> Goldenfields,road -> road,The Long Road -> Long Road: Mirabar to Waterdeep
+Waterdeep,Leilon,True,337.209947,5.874353,0.941078,2,False,Waterdeep -> Neverwinter -> Leilon,sea -> road,The Sword Coast Run -> The High Road
+Waterdeep,Mintarn,True,369.250186,5.398395,0.822417,1,False,Waterdeep -> Mintarn,sea,Sea of Swords coasting run
+Waterdeep,Neverwinter,True,246.606671,2.854244,0.414854,1,False,Waterdeep -> Neverwinter,sea,The Sword Coast Run
+Waterdeep,Orlumbor,True,268.341424,3.726964,0.554742,1,False,Waterdeep -> Orlumbor,sea,The Nelanther Passage
+Waterdeep,Red Larch,True,109.158829,3.937909,0.687614,1,False,Waterdeep -> Red Larch,river+road,The Dessarin
+Waterdeep,Ruathym,True,675.999434,8.743394,1.428542,4,False,Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,sea -> sea -> sea -> sea,The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Waterdeep,Secomber,True,248.063218,12.159962,2.066221,1,False,Waterdeep -> Secomber,road,The Delimbiyr Route
+Amphail,Waterdeep,True,89.657842,3.39613,0.547728,1,False,Amphail -> Waterdeep,road,The Long Road
+Amphail,Amphail,True,0,0,0,0,False,Amphail,,
+Amphail,Baldur's Gate,True,556.325797,8.79738,1.33278,2,False,Amphail -> Waterdeep -> Baldur's Gate,road -> sea,The Long Road -> The Sword Coast Run
+Amphail,Caer Calidyrr,True,617.115519,11.1075,1.730609,3,False,Amphail -> Waterdeep -> Mintarn -> Caer Calidyrr,road -> sea -> sea,The Long Road -> Sea of Swords coasting run -> Sea of Swords coasting run
+Amphail,Daggerford,True,218.062258,7.511657,1.229259,2,False,Amphail -> Waterdeep -> Daggerford,road -> road,The Long Road -> The Trade Way
+Amphail,Goldenfields,True,51.264303,2.512956,0.410718,1,False,Amphail -> Goldenfields,road,Long Road: Mirabar to Waterdeep
+Amphail,Leilon,True,426.867789,9.270483,1.488806,3,False,Amphail -> Waterdeep -> Neverwinter -> Leilon,road -> sea -> road,The Long Road -> The Sword Coast Run -> The High Road
+Amphail,Mintarn,True,458.908029,8.794525,1.370145,2,False,Amphail -> Waterdeep -> Mintarn,road -> sea,The Long Road -> Sea of Swords coasting run
+Amphail,Neverwinter,True,336.264513,6.250374,0.962582,2,False,Amphail -> Waterdeep -> Neverwinter,road -> sea,The Long Road -> The Sword Coast Run
+Amphail,Orlumbor,True,357.999267,7.123095,1.10247,2,False,Amphail -> Waterdeep -> Orlumbor,road -> sea,The Long Road -> The Nelanther Passage
+Amphail,Red Larch,True,47.614476,1.803579,0.31036,1,False,Amphail -> Red Larch,road,The Long Road
+Amphail,Ruathym,True,765.657277,12.139525,1.97627,5,False,Amphail -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,road -> sea -> sea -> sea -> sea,The Long Road -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Amphail,Secomber,True,337.72106,15.556092,2.613949,2,False,Amphail -> Waterdeep -> Secomber,road -> road,The Long Road -> The Delimbiyr Route
+Baldur's Gate,Waterdeep,True,466.667955,5.401249,0.785052,1,False,Baldur's Gate -> Waterdeep,sea,The Sword Coast Run
+Baldur's Gate,Amphail,True,556.325797,8.79738,1.33278,2,False,Baldur's Gate -> Waterdeep -> Amphail,sea -> road,The Sword Coast Run -> The Long Road
+Baldur's Gate,Baldur's Gate,True,0,0,0,0,False,Baldur's Gate,,
+Baldur's Gate,Caer Calidyrr,True,469.016628,6.629769,1.040762,2,False,Baldur's Gate -> Mintarn -> Caer Calidyrr,sea -> sea,The Nelanther Passage -> Sea of Swords coasting run
+Baldur's Gate,Daggerford,True,595.07237,9.516776,1.466583,2,False,Baldur's Gate -> Waterdeep -> Daggerford,sea -> road,The Sword Coast Run -> The Trade Way
+Baldur's Gate,Goldenfields,True,607.5901,11.310336,1.743498,3,False,Baldur's Gate -> Waterdeep -> Amphail -> Goldenfields,sea -> road -> road,The Sword Coast Run -> The Long Road -> Long Road: Mirabar to Waterdeep
+Baldur's Gate,Leilon,True,803.877902,11.275603,1.72613,3,False,Baldur's Gate -> Waterdeep -> Neverwinter -> Leilon,sea -> sea -> road,The Sword Coast Run -> The Sword Coast Run -> The High Road
+Baldur's Gate,Mintarn,True,310.809138,4.316794,0.680299,1,False,Baldur's Gate -> Mintarn,sea,The Nelanther Passage
+Baldur's Gate,Neverwinter,True,713.274625,8.255493,1.199906,2,False,Baldur's Gate -> Waterdeep -> Neverwinter,sea -> sea,The Sword Coast Run -> The Sword Coast Run
+Baldur's Gate,Orlumbor,True,203.807802,2.979646,0.459147,1,False,Baldur's Gate -> Orlumbor,sea,Sea of Swords coasting run
+Baldur's Gate,Red Larch,True,575.826784,9.339158,1.472666,2,False,Baldur's Gate -> Waterdeep -> Red Larch,sea -> river+road,The Sword Coast Run -> The Dessarin
+Baldur's Gate,Ruathym,True,1142.667389,14.144644,2.213595,5,False,Baldur's Gate -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,sea -> sea -> sea -> sea -> sea,The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Baldur's Gate,Secomber,True,714.731173,17.561211,2.851273,2,False,Baldur's Gate -> Waterdeep -> Secomber,sea -> road,The Sword Coast Run -> The Delimbiyr Route
+Caer Calidyrr,Waterdeep,True,527.457677,7.71137,1.182881,2,False,Caer Calidyrr -> Mintarn -> Waterdeep,sea -> sea,Sea of Swords coasting run -> Sea of Swords coasting run
+Caer Calidyrr,Amphail,True,617.115519,11.1075,1.730609,3,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Amphail,sea -> sea -> road,Sea of Swords coasting run -> Sea of Swords coasting run -> The Long Road
+Caer Calidyrr,Baldur's Gate,True,469.016628,6.629769,1.040762,2,False,Caer Calidyrr -> Mintarn -> Baldur's Gate,sea -> sea,Sea of Swords coasting run -> The Nelanther Passage
+Caer Calidyrr,Caer Calidyrr,True,0,0,0,0,False,Caer Calidyrr,,
+Caer Calidyrr,Daggerford,True,655.862092,11.826896,1.864412,3,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Daggerford,sea -> sea -> road,Sea of Swords coasting run -> Sea of Swords coasting run -> The Trade Way
+Caer Calidyrr,Goldenfields,True,668.379822,13.620456,2.141326,4,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Amphail -> Goldenfields,sea -> sea -> road -> road,Sea of Swords coasting run -> Sea of Swords coasting run -> The Long Road -> Long Road: Mirabar to Waterdeep
+Caer Calidyrr,Leilon,True,864.667623,13.585723,2.123959,4,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Neverwinter -> Leilon,sea -> sea -> sea -> road,Sea of Swords coasting run -> Sea of Swords coasting run -> The Sword Coast Run -> The High Road
+Caer Calidyrr,Mintarn,True,158.20749,2.312975,0.360463,1,False,Caer Calidyrr -> Mintarn,sea,Sea of Swords coasting run
+Caer Calidyrr,Neverwinter,True,774.064347,10.565613,1.597735,3,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Neverwinter,sea -> sea -> sea,Sea of Swords coasting run -> Sea of Swords coasting run -> The Sword Coast Run
+Caer Calidyrr,Orlumbor,True,368.309228,5.231055,0.830545,2,False,Caer Calidyrr -> Mintarn -> Orlumbor,sea -> sea,Sea of Swords coasting run -> The Nelanther Passage
+Caer Calidyrr,Red Larch,True,636.616506,11.649278,1.870495,3,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Red Larch,sea -> sea -> river+road,Sea of Swords coasting run -> Sea of Swords coasting run -> The Dessarin
+Caer Calidyrr,Ruathym,True,1203.457111,16.454764,2.611423,6,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,sea -> sea -> sea -> sea -> sea -> sea,Sea of Swords coasting run -> Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Caer Calidyrr,Secomber,True,775.520894,19.871331,3.249101,3,False,Caer Calidyrr -> Mintarn -> Waterdeep -> Secomber,sea -> sea -> road,Sea of Swords coasting run -> Sea of Swords coasting run -> The Delimbiyr Route
+Daggerford,Waterdeep,True,128.404415,4.115526,0.681531,1,False,Daggerford -> Waterdeep,road,The Trade Way
+Daggerford,Amphail,True,218.062258,7.511657,1.229259,2,False,Daggerford -> Waterdeep -> Amphail,road -> road,The Trade Way -> The Long Road
+Daggerford,Baldur's Gate,True,595.07237,9.516776,1.466583,2,False,Daggerford -> Waterdeep -> Baldur's Gate,road -> sea,The Trade Way -> The Sword Coast Run
+Daggerford,Caer Calidyrr,True,655.862092,11.826896,1.864412,3,False,Daggerford -> Waterdeep -> Mintarn -> Caer Calidyrr,road -> sea -> sea,The Trade Way -> Sea of Swords coasting run -> Sea of Swords coasting run
+Daggerford,Daggerford,True,0,0,0,0,False,Daggerford,,
+Daggerford,Goldenfields,True,269.326561,10.024613,1.639977,3,False,Daggerford -> Waterdeep -> Amphail -> Goldenfields,road -> road -> road,The Trade Way -> The Long Road -> Long Road: Mirabar to Waterdeep
+Daggerford,Leilon,True,465.614362,9.989879,1.622609,3,False,Daggerford -> Waterdeep -> Neverwinter -> Leilon,road -> sea -> road,The Trade Way -> The Sword Coast Run -> The High Road
+Daggerford,Mintarn,True,497.654602,9.513921,1.503948,2,False,Daggerford -> Waterdeep -> Mintarn,road -> sea,The Trade Way -> Sea of Swords coasting run
+Daggerford,Neverwinter,True,375.011086,6.96977,1.096385,2,False,Daggerford -> Waterdeep -> Neverwinter,road -> sea,The Trade Way -> The Sword Coast Run
+Daggerford,Orlumbor,True,396.74584,7.84249,1.236273,2,False,Daggerford -> Waterdeep -> Orlumbor,road -> sea,The Trade Way -> The Nelanther Passage
+Daggerford,Red Larch,True,237.563245,8.053435,1.369145,2,False,Daggerford -> Waterdeep -> Red Larch,road -> river+road,The Trade Way -> The Dessarin
+Daggerford,Ruathym,True,804.40385,12.858921,2.110074,5,False,Daggerford -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,road -> sea -> sea -> sea -> sea,The Trade Way -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Daggerford,Secomber,True,161.176084,10.406514,2.058022,1,False,Daggerford -> Secomber,river+portage,The Delimbiyr
+Goldenfields,Waterdeep,True,140.922145,5.909086,0.958445,2,False,Goldenfields -> Amphail -> Waterdeep,road -> road,Long Road: Mirabar to Waterdeep -> The Long Road
+Goldenfields,Amphail,True,51.264303,2.512956,0.410718,1,False,Goldenfields -> Amphail,road,Long Road: Mirabar to Waterdeep
+Goldenfields,Baldur's Gate,True,607.5901,11.310336,1.743498,3,False,Goldenfields -> Amphail -> Waterdeep -> Baldur's Gate,road -> road -> sea,Long Road: Mirabar to Waterdeep -> The Long Road -> The Sword Coast Run
+Goldenfields,Caer Calidyrr,True,668.379822,13.620456,2.141326,4,False,Goldenfields -> Amphail -> Waterdeep -> Mintarn -> Caer Calidyrr,road -> road -> sea -> sea,Long Road: Mirabar to Waterdeep -> The Long Road -> Sea of Swords coasting run -> Sea of Swords coasting run
+Goldenfields,Daggerford,True,269.326561,10.024613,1.639977,3,False,Goldenfields -> Amphail -> Waterdeep -> Daggerford,road -> road -> road,Long Road: Mirabar to Waterdeep -> The Long Road -> The Trade Way
+Goldenfields,Goldenfields,True,0,0,0,0,False,Goldenfields,,
+Goldenfields,Leilon,True,478.132092,11.783439,1.899523,4,False,Goldenfields -> Amphail -> Waterdeep -> Neverwinter -> Leilon,road -> road -> sea -> road,Long Road: Mirabar to Waterdeep -> The Long Road -> The Sword Coast Run -> The High Road
+Goldenfields,Mintarn,True,510.172331,11.307481,1.780863,3,False,Goldenfields -> Amphail -> Waterdeep -> Mintarn,road -> road -> sea,Long Road: Mirabar to Waterdeep -> The Long Road -> Sea of Swords coasting run
+Goldenfields,Neverwinter,True,387.528816,8.76333,1.3733,3,False,Goldenfields -> Amphail -> Waterdeep -> Neverwinter,road -> road -> sea,Long Road: Mirabar to Waterdeep -> The Long Road -> The Sword Coast Run
+Goldenfields,Orlumbor,True,409.26357,9.636051,1.513188,3,False,Goldenfields -> Amphail -> Waterdeep -> Orlumbor,road -> road -> sea,Long Road: Mirabar to Waterdeep -> The Long Road -> The Nelanther Passage
+Goldenfields,Red Larch,True,52.719778,2.584303,0.439125,1,False,Goldenfields -> Red Larch,road,Long Road: Mirabar to Waterdeep
+Goldenfields,Ruathym,True,816.92158,14.652481,2.386988,6,False,Goldenfields -> Amphail -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,road -> road -> sea -> sea -> sea -> sea,Long Road: Mirabar to Waterdeep -> The Long Road -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Goldenfields,Secomber,True,198.928872,14.957058,2.778553,1,False,Goldenfields -> Secomber,trail,Red Larch and Goldenfields branch toward Secomber
+Leilon,Waterdeep,True,337.209947,5.874353,0.941078,2,False,Leilon -> Neverwinter -> Waterdeep,road -> sea,The High Road -> The Sword Coast Run
+Leilon,Amphail,True,426.867789,9.270483,1.488806,3,False,Leilon -> Neverwinter -> Waterdeep -> Amphail,road -> sea -> road,The High Road -> The Sword Coast Run -> The Long Road
+Leilon,Baldur's Gate,True,803.877902,11.275603,1.72613,3,False,Leilon -> Neverwinter -> Waterdeep -> Baldur's Gate,road -> sea -> sea,The High Road -> The Sword Coast Run -> The Sword Coast Run
+Leilon,Caer Calidyrr,True,864.667623,13.585723,2.123959,4,False,Leilon -> Neverwinter -> Waterdeep -> Mintarn -> Caer Calidyrr,road -> sea -> sea -> sea,The High Road -> The Sword Coast Run -> Sea of Swords coasting run -> Sea of Swords coasting run
+Leilon,Daggerford,True,465.614362,9.989879,1.622609,3,False,Leilon -> Neverwinter -> Waterdeep -> Daggerford,road -> sea -> road,The High Road -> The Sword Coast Run -> The Trade Way
+Leilon,Goldenfields,True,478.132092,11.783439,1.899523,4,False,Leilon -> Neverwinter -> Waterdeep -> Amphail -> Goldenfields,road -> sea -> road -> road,The High Road -> The Sword Coast Run -> The Long Road -> Long Road: Mirabar to Waterdeep
+Leilon,Leilon,True,0,0,0,0,False,Leilon,,
+Leilon,Mintarn,True,706.460133,11.272748,1.763495,3,False,Leilon -> Neverwinter -> Waterdeep -> Mintarn,road -> sea -> sea,The High Road -> The Sword Coast Run -> Sea of Swords coasting run
+Leilon,Neverwinter,True,90.603276,3.020109,0.526224,1,False,Leilon -> Neverwinter,road,The High Road
+Leilon,Orlumbor,True,605.551371,9.601317,1.49582,3,False,Leilon -> Neverwinter -> Waterdeep -> Orlumbor,road -> sea -> sea,The High Road -> The Sword Coast Run -> The Nelanther Passage
+Leilon,Red Larch,True,446.368776,9.812262,1.628692,3,False,Leilon -> Neverwinter -> Waterdeep -> Red Larch,road -> sea -> river+road,The High Road -> The Sword Coast Run -> The Dessarin
+Leilon,Ruathym,True,519.99604,8.90926,1.539912,4,False,Leilon -> Neverwinter -> Port Llast -> Luskan -> Ruathym,road -> sea -> sea -> sea,The High Road -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Leilon,Secomber,True,585.273165,18.034315,3.007299,3,False,Leilon -> Neverwinter -> Waterdeep -> Secomber,road -> sea -> road,The High Road -> The Sword Coast Run -> The Delimbiyr Route
+Mintarn,Waterdeep,True,369.250186,5.398395,0.822417,1,False,Mintarn -> Waterdeep,sea,Sea of Swords coasting run
+Mintarn,Amphail,True,458.908029,8.794525,1.370145,2,False,Mintarn -> Waterdeep -> Amphail,sea -> road,Sea of Swords coasting run -> The Long Road
+Mintarn,Baldur's Gate,True,310.809138,4.316794,0.680299,1,False,Mintarn -> Baldur's Gate,sea,The Nelanther Passage
+Mintarn,Caer Calidyrr,True,158.20749,2.312975,0.360463,1,False,Mintarn -> Caer Calidyrr,sea,Sea of Swords coasting run
+Mintarn,Daggerford,True,497.654602,9.513921,1.503948,2,False,Mintarn -> Waterdeep -> Daggerford,sea -> road,Sea of Swords coasting run -> The Trade Way
+Mintarn,Goldenfields,True,510.172331,11.307481,1.780863,3,False,Mintarn -> Waterdeep -> Amphail -> Goldenfields,sea -> road -> road,Sea of Swords coasting run -> The Long Road -> Long Road: Mirabar to Waterdeep
+Mintarn,Leilon,True,706.460133,11.272748,1.763495,3,False,Mintarn -> Waterdeep -> Neverwinter -> Leilon,sea -> sea -> road,Sea of Swords coasting run -> The Sword Coast Run -> The High Road
+Mintarn,Mintarn,True,0,0,0,0,False,Mintarn,,
+Mintarn,Neverwinter,True,615.856857,8.252638,1.237271,2,False,Mintarn -> Waterdeep -> Neverwinter,sea -> sea,Sea of Swords coasting run -> The Sword Coast Run
+Mintarn,Orlumbor,True,210.101737,2.91808,0.470082,1,False,Mintarn -> Orlumbor,sea,The Nelanther Passage
+Mintarn,Red Larch,True,478.409015,9.336303,1.510031,2,False,Mintarn -> Waterdeep -> Red Larch,sea -> river+road,Sea of Swords coasting run -> The Dessarin
+Mintarn,Ruathym,True,1045.249621,14.141789,2.25096,5,False,Mintarn -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,sea -> sea -> sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Mintarn,Secomber,True,617.313404,17.558356,2.888638,2,False,Mintarn -> Waterdeep -> Secomber,sea -> road,Sea of Swords coasting run -> The Delimbiyr Route
+Neverwinter,Waterdeep,True,246.606671,2.854244,0.414854,1,False,Neverwinter -> Waterdeep,sea,The Sword Coast Run
+Neverwinter,Amphail,True,336.264513,6.250374,0.962582,2,False,Neverwinter -> Waterdeep -> Amphail,sea -> road,The Sword Coast Run -> The Long Road
+Neverwinter,Baldur's Gate,True,713.274625,8.255493,1.199906,2,False,Neverwinter -> Waterdeep -> Baldur's Gate,sea -> sea,The Sword Coast Run -> The Sword Coast Run
+Neverwinter,Caer Calidyrr,True,774.064347,10.565613,1.597735,3,False,Neverwinter -> Waterdeep -> Mintarn -> Caer Calidyrr,sea -> sea -> sea,The Sword Coast Run -> Sea of Swords coasting run -> Sea of Swords coasting run
+Neverwinter,Daggerford,True,375.011086,6.96977,1.096385,2,False,Neverwinter -> Waterdeep -> Daggerford,sea -> road,The Sword Coast Run -> The Trade Way
+Neverwinter,Goldenfields,True,387.528816,8.76333,1.3733,3,False,Neverwinter -> Waterdeep -> Amphail -> Goldenfields,sea -> road -> road,The Sword Coast Run -> The Long Road -> Long Road: Mirabar to Waterdeep
+Neverwinter,Leilon,True,90.603276,3.020109,0.526224,1,False,Neverwinter -> Leilon,road,The High Road
+Neverwinter,Mintarn,True,615.856857,8.252638,1.237271,2,False,Neverwinter -> Waterdeep -> Mintarn,sea -> sea,The Sword Coast Run -> Sea of Swords coasting run
+Neverwinter,Neverwinter,True,0,0,0,0,False,Neverwinter,,
+Neverwinter,Orlumbor,True,514.948095,6.581208,0.969596,2,False,Neverwinter -> Waterdeep -> Orlumbor,sea -> sea,The Sword Coast Run -> The Nelanther Passage
+Neverwinter,Red Larch,True,355.7655,6.792153,1.102468,2,False,Neverwinter -> Waterdeep -> Red Larch,sea -> river+road,The Sword Coast Run -> The Dessarin
+Neverwinter,Ruathym,True,429.392764,5.889151,1.013688,3,False,Neverwinter -> Port Llast -> Luskan -> Ruathym,sea -> sea -> sea,The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Neverwinter,Secomber,True,494.669888,15.014206,2.481075,2,False,Neverwinter -> Waterdeep -> Secomber,sea -> road,The Sword Coast Run -> The Delimbiyr Route
+Orlumbor,Waterdeep,True,268.341424,3.726964,0.554742,1,False,Orlumbor -> Waterdeep,sea,The Nelanther Passage
+Orlumbor,Amphail,True,357.999267,7.123095,1.10247,2,False,Orlumbor -> Waterdeep -> Amphail,sea -> road,The Nelanther Passage -> The Long Road
+Orlumbor,Baldur's Gate,True,203.807802,2.979646,0.459147,1,False,Orlumbor -> Baldur's Gate,sea,Sea of Swords coasting run
+Orlumbor,Caer Calidyrr,True,368.309228,5.231055,0.830545,2,False,Orlumbor -> Mintarn -> Caer Calidyrr,sea -> sea,The Nelanther Passage -> Sea of Swords coasting run
+Orlumbor,Daggerford,True,396.74584,7.84249,1.236273,2,False,Orlumbor -> Waterdeep -> Daggerford,sea -> road,The Nelanther Passage -> The Trade Way
+Orlumbor,Goldenfields,True,409.26357,9.636051,1.513188,3,False,Orlumbor -> Waterdeep -> Amphail -> Goldenfields,sea -> road -> road,The Nelanther Passage -> The Long Road -> Long Road: Mirabar to Waterdeep
+Orlumbor,Leilon,True,605.551371,9.601317,1.49582,3,False,Orlumbor -> Waterdeep -> Neverwinter -> Leilon,sea -> sea -> road,The Nelanther Passage -> The Sword Coast Run -> The High Road
+Orlumbor,Mintarn,True,210.101737,2.91808,0.470082,1,False,Orlumbor -> Mintarn,sea,The Nelanther Passage
+Orlumbor,Neverwinter,True,514.948095,6.581208,0.969596,2,False,Orlumbor -> Waterdeep -> Neverwinter,sea -> sea,The Nelanther Passage -> The Sword Coast Run
+Orlumbor,Orlumbor,True,0,0,0,0,False,Orlumbor,,
+Orlumbor,Red Larch,True,377.500254,7.664873,1.242356,2,False,Orlumbor -> Waterdeep -> Red Larch,sea -> river+road,The Nelanther Passage -> The Dessarin
+Orlumbor,Ruathym,True,944.340859,12.470359,1.983285,5,False,Orlumbor -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,sea -> sea -> sea -> sea -> sea,The Nelanther Passage -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Orlumbor,Secomber,True,516.404642,15.886926,2.620963,2,False,Orlumbor -> Waterdeep -> Secomber,sea -> road,The Nelanther Passage -> The Delimbiyr Route
+Red Larch,Waterdeep,True,109.158829,3.937909,0.687614,1,False,Red Larch -> Waterdeep,river+road,The Dessarin
+Red Larch,Amphail,True,47.614476,1.803579,0.31036,1,False,Red Larch -> Amphail,road,The Long Road
+Red Larch,Baldur's Gate,True,575.826784,9.339158,1.472666,2,False,Red Larch -> Waterdeep -> Baldur's Gate,river+road -> sea,The Dessarin -> The Sword Coast Run
+Red Larch,Caer Calidyrr,True,636.616506,11.649278,1.870495,3,False,Red Larch -> Waterdeep -> Mintarn -> Caer Calidyrr,river+road -> sea -> sea,The Dessarin -> Sea of Swords coasting run -> Sea of Swords coasting run
+Red Larch,Daggerford,True,237.563245,8.053435,1.369145,2,False,Red Larch -> Waterdeep -> Daggerford,river+road -> road,The Dessarin -> The Trade Way
+Red Larch,Goldenfields,True,52.719778,2.584303,0.439125,1,False,Red Larch -> Goldenfields,road,Long Road: Mirabar to Waterdeep
+Red Larch,Leilon,True,446.368776,9.812262,1.628692,3,False,Red Larch -> Waterdeep -> Neverwinter -> Leilon,river+road -> sea -> road,The Dessarin -> The Sword Coast Run -> The High Road
+Red Larch,Mintarn,True,478.409015,9.336303,1.510031,2,False,Red Larch -> Waterdeep -> Mintarn,river+road -> sea,The Dessarin -> Sea of Swords coasting run
+Red Larch,Neverwinter,True,355.7655,6.792153,1.102468,2,False,Red Larch -> Waterdeep -> Neverwinter,river+road -> sea,The Dessarin -> The Sword Coast Run
+Red Larch,Orlumbor,True,377.500254,7.664873,1.242356,2,False,Red Larch -> Waterdeep -> Orlumbor,river+road -> sea,The Dessarin -> The Nelanther Passage
+Red Larch,Red Larch,True,0,0,0,0,False,Red Larch,,
+Red Larch,Ruathym,True,785.158264,12.681303,2.116156,5,False,Red Larch -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,river+road -> sea -> sea -> sea -> sea,The Dessarin -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Red Larch,Secomber,True,357.222047,16.09787,2.753835,2,False,Red Larch -> Waterdeep -> Secomber,river+road -> road,The Dessarin -> The Delimbiyr Route
+Ruathym,Waterdeep,True,675.999434,8.743394,1.428542,4,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep,sea -> sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run
+Ruathym,Amphail,True,765.657277,12.139525,1.97627,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Amphail,sea -> sea -> sea -> sea -> road,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Long Road
+Ruathym,Baldur's Gate,True,1142.667389,14.144644,2.213595,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Baldur's Gate,sea -> sea -> sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run
+Ruathym,Caer Calidyrr,True,1203.457111,16.454764,2.611423,6,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Mintarn -> Caer Calidyrr,sea -> sea -> sea -> sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run -> Sea of Swords coasting run
+Ruathym,Daggerford,True,804.40385,12.858921,2.110074,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Daggerford,sea -> sea -> sea -> sea -> road,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Trade Way
+Ruathym,Goldenfields,True,816.92158,14.652481,2.386988,6,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Amphail -> Goldenfields,sea -> sea -> sea -> sea -> road -> road,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Long Road -> Long Road: Mirabar to Waterdeep
+Ruathym,Leilon,True,519.99604,8.90926,1.539912,4,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Leilon,sea -> sea -> sea -> road,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The High Road
+Ruathym,Mintarn,True,1045.249621,14.141789,2.25096,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Mintarn,sea -> sea -> sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Ruathym,Neverwinter,True,429.392764,5.889151,1.013688,3,False,Ruathym -> Luskan -> Port Llast -> Neverwinter,sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run
+Ruathym,Orlumbor,True,944.340859,12.470359,1.983285,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Orlumbor,sea -> sea -> sea -> sea -> sea,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Nelanther Passage
+Ruathym,Red Larch,True,785.158264,12.681303,2.116156,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Red Larch,sea -> sea -> sea -> sea -> river+road,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Dessarin
+Ruathym,Ruathym,True,0,0,0,0,False,Ruathym,,
+Ruathym,Secomber,True,924.062652,20.903356,3.494763,5,False,Ruathym -> Luskan -> Port Llast -> Neverwinter -> Waterdeep -> Secomber,sea -> sea -> sea -> sea -> road,Sea of Swords coasting run -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> The Delimbiyr Route
+Secomber,Waterdeep,True,248.063218,12.159962,2.066221,1,False,Secomber -> Waterdeep,road,The Delimbiyr Route
+Secomber,Amphail,True,337.72106,15.556092,2.613949,2,False,Secomber -> Waterdeep -> Amphail,road -> road,The Delimbiyr Route -> The Long Road
+Secomber,Baldur's Gate,True,714.731173,17.561211,2.851273,2,False,Secomber -> Waterdeep -> Baldur's Gate,road -> sea,The Delimbiyr Route -> The Sword Coast Run
+Secomber,Caer Calidyrr,True,775.520894,19.871331,3.249101,3,False,Secomber -> Waterdeep -> Mintarn -> Caer Calidyrr,road -> sea -> sea,The Delimbiyr Route -> Sea of Swords coasting run -> Sea of Swords coasting run
+Secomber,Daggerford,True,161.176084,10.406514,2.058022,1,False,Secomber -> Daggerford,river+portage,The Delimbiyr
+Secomber,Goldenfields,True,198.928872,14.957058,2.778553,1,False,Secomber -> Goldenfields,trail,Red Larch and Goldenfields branch toward Secomber
+Secomber,Leilon,True,585.273165,18.034315,3.007299,3,False,Secomber -> Waterdeep -> Neverwinter -> Leilon,road -> sea -> road,The Delimbiyr Route -> The Sword Coast Run -> The High Road
+Secomber,Mintarn,True,617.313404,17.558356,2.888638,2,False,Secomber -> Waterdeep -> Mintarn,road -> sea,The Delimbiyr Route -> Sea of Swords coasting run
+Secomber,Neverwinter,True,494.669888,15.014206,2.481075,2,False,Secomber -> Waterdeep -> Neverwinter,road -> sea,The Delimbiyr Route -> The Sword Coast Run
+Secomber,Orlumbor,True,516.404642,15.886926,2.620963,2,False,Secomber -> Waterdeep -> Orlumbor,road -> sea,The Delimbiyr Route -> The Nelanther Passage
+Secomber,Red Larch,True,357.222047,16.09787,2.753835,2,False,Secomber -> Waterdeep -> Red Larch,road -> river+road,The Delimbiyr Route -> The Dessarin
+Secomber,Ruathym,True,924.062652,20.903356,3.494763,5,False,Secomber -> Waterdeep -> Neverwinter -> Port Llast -> Luskan -> Ruathym,road -> sea -> sea -> sea -> sea,The Delimbiyr Route -> The Sword Coast Run -> The Sword Coast Run -> The Sword Coast Run -> Sea of Swords coasting run
+Secomber,Secomber,True,0,0,0,0,False,Secomber,,

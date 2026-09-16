@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "Faerun Economy Engine",
+			"path": "."
+		},
+		{
+			"name": "Faerun Market Dynamics Engine",
+			"path": "../../../OneDrive - Microsoft/Documents/Copilot Projects/Faerun Market Dynamics Engine"
+		},
+		{
+			"name": "Faerun Economy Test",
+			"path": "../Faerun Economy Test"
+		}
+	],
+	"settings": {
+		"powershell.cwd": "Faerun Economy Engine"
+	}
+}

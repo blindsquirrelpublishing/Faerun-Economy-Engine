@@ -1,0 +1,1245 @@
+﻿leg_id,origin_id,origin,destination_id,destination,connection,mode,mode_label,mixed_mode,inferred,distance_miles,quality,effective_speed_miles_per_day,travel_days,risk_premium,freight_gp_per_100_lb,freight_gp_per_2000_lb
+LEG-000001,airspur,Airspur,alaghon,Alaghôn,Sea of Fallen Stars coasting run,sea,sea lane,False,False,292.424486,0.95,68.4,4.275212,0.162,0.643826,12.876527
+LEG-000002,airspur,Airspur,arrabar,Arrabar,The Vilhon Passage,sea,sea lane,False,False,478.272266,1.05,75.6,6.326353,0.1755,0.963787,19.275739
+LEG-000003,airspur,Airspur,cimbar,Cimbar,The Vilhon Passage,sea,sea lane,False,False,96.66235,1.05,75.6,1.278603,0.1755,0.194788,3.895769
+LEG-000004,airspur,Airspur,hlath,Hlath,caravan track,track,wilderness track,False,True,162.287553,0.7,12.6,12.879965,0.294,2.610001,52.200023
+LEG-000005,airspur,Airspur,luthcheq,Luthcheq,caravan track,track,wilderness track,False,True,225.718852,0.85,15.3,14.752866,0.336,3.086559,61.731185
+LEG-000006,airspur,Airspur,lyrabar,Lyrabar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,450.38811,0.95,68.4,6.584621,0.135,0.968571,19.37143
+LEG-000007,airspur,Airspur,reth,Reth,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,63.611634,0.85,20.4,3.118217,0.21,0.543318,10.866364
+LEG-000008,airspur,Airspur,velprintalar,Velprintalar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,300.31292,0.95,68.4,4.39054,0.135,0.645831,12.916617
+LEG-000009,akanax,Akanax,soorenar,Soorenar,Soorenar to Akanax trail,trail,trail,False,False,111.900517,0.7,13.3,8.413573,0.2925,1.611607,32.232145
+LEG-000010,alaghon,Alaghôn,airspur,Airspur,Sea of Fallen Stars coasting run,sea,sea lane,False,False,292.424486,0.95,68.4,4.275212,0.162,0.643826,12.876527
+LEG-000011,alaghon,Alaghôn,arrabar,Arrabar,The Vilhon Passage,sea,sea lane,False,False,327.863203,1.05,75.6,4.336815,0.1485,0.645516,12.910316
+LEG-000012,alaghon,Alaghôn,hlath,Hlath,caravan track,track,wilderness track,False,True,186.007124,0.7,12.6,14.76247,0.252,2.894377,57.887543
+LEG-000013,alaghon,Alaghôn,ironfang,Ironfang,local market trail,trail,trail,False,True,130.979846,0.65,12.35,10.605656,0.195,1.878251,37.56502
+LEG-000014,alaghon,Alaghôn,morningstar_hollows,Morningstar Hollows,Alaghon through Turmish to Hlondeth,road,road,False,False,41.179555,0.85,20.4,2.018606,0.15,0.334281,6.685622
+LEG-000015,alaghon,Alaghôn,procampur,Procampur,Sea of Fallen Stars coasting run,sea,sea lane,False,False,353.380036,0.95,68.4,5.166375,0.0945,0.732836,14.656716
+LEG-000016,alaghon,Alaghôn,selgaunt,Selgaunt,Sea of Fallen Stars coasting run,sea,sea lane,False,False,362.070725,0.95,68.4,5.293432,0.135,0.778643,15.572852
+LEG-000017,alaghon,Alaghôn,westgate,Westgate,The Vilhon Passage,sea,sea lane,False,False,454.087789,1.05,75.6,6.006452,0.243,0.967596,19.351924
+LEG-000018,almorel,Almorel,delhumide,Delhumide,local market trail,trail,trail,False,True,265.438675,0.65,12.35,21.49301,0.312,4.179066,83.58133
+LEG-000019,almraiven,Almraiven,calimport,Calimport,The Shining Sea Run,sea,sea lane,False,False,387.343943,1.0,72.0,5.379777,0.27,0.885468,17.709365
+LEG-000020,almraiven,Almraiven,memnon,Memnon,The Shining Sea Run,sea,sea lane,False,False,456.640712,1.0,72.0,6.342232,0.2565,1.032784,20.655686
+LEG-000021,almraiven,Almraiven,schamedar,Schamedar,Manshaka through Schamedar toward Almraiven,trail,trail,False,False,247.80292,0.7,13.3,18.631799,0.39,3.838113,76.762265
+LEG-000022,almraiven,Almraiven,suldolphor,Suldolphor,Chult-Tashalar Coastal Run,sea,sea lane,False,False,196.914626,1.05,75.6,2.604691,0.2565,0.424154,8.483082
+LEG-000023,almraiven,Almraiven,tashluta,Tashluta,Chult-Tashalar Coastal Run,sea,sea lane,False,False,428.736119,1.05,75.6,5.671113,0.216,0.893731,17.874621
+LEG-000024,almraiven,Almraiven,tulmon,Tulmon,Almraiven to western Lake of Steam trail,trail,trail,False,False,181.449817,0.7,13.3,13.642843,0.3705,2.770972,55.41944
+LEG-000025,almraiven,Almraiven,urbreth,Urbreth,Sea of Swords coasting run,sea,sea lane,False,False,188.159294,0.95,68.4,2.750867,0.243,0.443145,8.862897
+LEG-000026,amphail,Amphail,daggerford,Daggerford,caravan track,track,wilderness track,False,True,162.419334,0.7,12.6,12.890423,0.252,2.527338,50.546753
+LEG-000027,amphail,Amphail,goldenfields,Goldenfields,Long Road: Mirabar to Waterdeep,road,road,False,False,51.264303,0.85,20.4,2.512956,0.135,0.410718,8.214351
+LEG-000028,amphail,Amphail,phandalin,Phandalin,caravan track,track,wilderness track,False,True,102.858058,0.7,12.6,8.163338,0.315,1.681068,33.62136
+LEG-000029,amphail,Amphail,red_larch,Red Larch,The Long Road,road,road,False,False,47.614476,1.1,26.4,1.803579,0.195,0.31036,6.207196
+LEG-000030,amphail,Amphail,stone_bridge,Stone Bridge,Red Larch and Goldenfields branch toward Secomber,trail,trail,False,False,106.958474,0.7,13.3,8.041991,0.2535,1.49395,29.879002
+LEG-000031,amphail,Amphail,triboar,Triboar,caravan track,track,wilderness track,False,True,78.440105,0.85,15.3,5.126804,0.252,1.005178,20.103553
+LEG-000032,amphail,Amphail,waterdeep,Waterdeep,The Long Road,road,road,False,False,89.657842,1.1,26.4,3.39613,0.12,0.547728,10.954558
+LEG-000033,amphail,Amphail,yartar,Yartar,caravan track,track,wilderness track,False,True,137.372632,0.85,15.3,8.978603,0.273,1.789901,35.798015
+LEG-000034,amruthar,Amruthar,nethjet,Nethjet,Nethjet through Amruthar to Pyarados,road,road,False,False,115.034766,0.85,20.4,5.638959,0.27,1.031253,20.625057
+LEG-000035,amruthar,Amruthar,tyraturos,Tyraturos,Nethjet through Amruthar to Pyarados,road,road,False,False,93.269248,0.85,20.4,4.572022,0.255,0.826256,16.525116
+LEG-000036,anchoril,Anchoril,port_nyanzaru,Port Nyanzaru,local market ferry,ferry,ferry,False,True,233.690607,0.65,19.5,11.984134,0.192,1.799921,35.99842
+LEG-000037,ankhapur,Ankhapur,dalelost,Dalelost,Ankhapur to Yhep trail,trail,trail,False,False,177.082409,0.7,13.3,13.314467,0.312,2.588844,51.776873
+LEG-000038,ankhapur,Ankhapur,kagarr,Kagarr,Ankhapur to Kagarr trail,trail,trail,False,False,284.453312,0.7,13.3,21.387467,0.312,4.158545,83.170898
+LEG-000039,ankhapur,Ankhapur,saelmur,Saelmur,Saradush through Mintar to Ankhapur,trail,trail,False,False,139.154468,0.7,13.3,10.462742,0.39,2.155304,43.106078
+LEG-000040,arabel,Arabel,highmoon,Highmoon,Arabel via Highmoon road to Ordulin,road,road,False,False,212.794704,0.85,20.4,10.431113,0.15,1.727392,34.547846
+LEG-000041,arabel,Arabel,marsember,Marsember,Arabel to Suzail,road,road,False,False,109.856979,0.85,20.4,5.385146,0.15,0.89178,17.835604
+LEG-000042,arabel,Arabel,proskur,Proskur,Proskur through the western Cormyr road junction to Arabel,road,road,False,False,348.522751,0.85,20.4,17.084449,0.195,2.939892,58.797838
+LEG-000043,arabel,Arabel,suzail,Suzail,The Calantar's Way,road,road,False,False,115.454646,1.3,31.2,3.700469,0.09,0.580826,11.616514
+LEG-000044,arabel,Arabel,tilverton,Tilverton,The Moonsea Ride,road,road,False,False,102.255027,1.05,25.2,4.057739,0.165,0.680726,13.614526
+LEG-000045,arabel,Arabel,wheloon,Wheloon,caravan track,track,wilderness track,False,True,201.945438,0.85,15.3,13.199048,0.252,2.587848,51.756953
+LEG-000046,archenbridge,Archenbridge,ashabenford,Ashabenford,The Way of the Manticore,road,road,False,False,204.2,1.0,24.0,8.508333,0.195,1.464114,29.28228
+LEG-000047,archenbridge,Archenbridge,highmoon,Highmoon,Arabel via Highmoon road to Ordulin,road,road,False,False,92.145448,0.85,20.4,4.516934,0.18,0.767517,15.350348
+LEG-000048,archenbridge,Archenbridge,ordulin,Ordulin,Arabel via Highmoon road to Ordulin,road,road,False,False,176.957521,0.85,20.4,8.674388,0.15,1.436479,28.729574
+LEG-000049,archenbridge,Archenbridge,saerloon,Saerloon,caravan track,track,wilderness track,False,True,90.217349,0.7,12.6,7.160107,0.252,1.403833,28.07667
+LEG-000050,archenbridge,Archenbridge,selgaunt,Selgaunt,caravan track,track,wilderness track,False,True,114.590794,0.7,12.6,9.094507,0.231,1.75319,35.063801
+LEG-000051,archenbridge,Archenbridge,urmlaspyr,Urmlaspyr,caravan track,track,wilderness track,False,True,131.360915,0.7,12.6,10.425469,0.252,2.044051,40.881018
+LEG-000052,archenbridge,Archenbridge,wheloon,Wheloon,The Way of the Manticore,road,road,False,False,63.630496,1.0,24.0,2.651271,0.21,0.461957,9.239148
+LEG-000053,arrabar,Arrabar,airspur,Airspur,The Vilhon Passage,sea,sea lane,False,False,478.272266,1.05,75.6,6.326353,0.1755,0.963787,19.275739
+LEG-000054,arrabar,Arrabar,alaghon,Alaghôn,The Vilhon Passage,sea,sea lane,False,False,327.863203,1.05,75.6,4.336815,0.1485,0.645516,12.910316
+LEG-000055,arrabar,Arrabar,fort_arran,Fort Arran,The Vilhon Road,road,road,False,False,41.743959,0.85,20.4,2.046272,0.18,0.347703,6.954052
+LEG-000056,arrabar,Arrabar,hlath,Hlath,The Vilhon Road,road,road,False,False,395.942639,1.0,24.0,16.49761,0.195,2.838909,56.778174
+LEG-000057,arrabar,Arrabar,mimph,Mimph,The Vilhon Road,road,road,False,False,24.285181,0.85,20.4,1.19045,0.18,0.202281,4.045625
+LEG-000058,arrabar,Arrabar,ormpetarr,Ormpetarr,The Vilhon Road,road,road,False,False,87.73212,1.0,24.0,3.655505,0.18,0.621143,12.422868
+LEG-000059,arrabar,Arrabar,surkh,Surkh,local market trail,trail,trail,False,True,291.225565,0.65,12.35,23.581017,0.234,4.312468,86.249363
+LEG-000060,arrabar,Arrabar,urmlaspyr,Urmlaspyr,Sea of Fallen Stars coasting run,sea,sea lane,False,False,555.608648,0.95,68.4,8.122933,0.162,1.223275,24.465496
+LEG-000061,arrabar,Arrabar,westgate,Westgate,Sea of Fallen Stars coasting run,sea,sea lane,False,False,540.750959,0.95,68.4,7.905716,0.2565,1.287386,25.747715
+LEG-000062,asbravn,Asbravn,easting,Easting,Scornubel through Asbravn toward Iriaebor,trail,trail,False,False,102.34558,0.7,13.3,7.695156,0.234,1.407281,28.145619
+LEG-000063,asbravn,Asbravn,hluthvar,Hluthvar,Scornubel through Asbravn toward Iriaebor,trail,trail,False,False,93.156021,0.7,13.3,7.004212,0.312,1.361888,27.237756
+LEG-000064,asbravn,Asbravn,iriaebor,Iriaebor,Iriaebor to Proskur,road,road,False,False,58.539986,0.85,20.4,2.869607,0.18,0.487604,9.752073
+LEG-000065,ascore,Ascore,hlaungadath,Hlaungadath,Sundabar to Ascore,road,road,False,False,47.46051,0.85,20.4,2.326496,0.03,0.345066,6.901316
+LEG-000066,ascore,Ascore,sundabar,Sundabar,Sundabar to Ascore,road,road,False,False,195.022842,0.85,20.4,9.559943,0.06,1.45923,29.184595
+LEG-000067,ashabenford,Ashabenford,archenbridge,Archenbridge,The Way of the Manticore,road,road,False,False,204.2,1.0,24.0,8.508333,0.195,1.464114,29.28228
+LEG-000068,ashabenford,Ashabenford,essembra,Essembra,The Way of the Manticore,road,road,False,False,61.06446,1.0,24.0,2.544352,0.225,0.448824,8.976476
+LEG-000069,ashabenford,Ashabenford,harrowdale_town,Harrowdale Town,Moonsea Ride junction via Essembra to Scardale,road,road,False,False,212.113854,0.85,20.4,10.397738,0.195,1.789243,35.784855
+LEG-000070,ashabenford,Ashabenford,highmoon,Highmoon,caravan track,track,wilderness track,False,True,149.040162,0.85,15.3,9.741187,0.273,1.941923,38.838464
+LEG-000071,ashabenford,Ashabenford,myth_drannor,Myth Drannor,caravan track,track,wilderness track,False,True,72.180468,0.85,15.3,4.717678,0.231,0.909448,18.188968
+LEG-000072,ashabenford,Ashabenford,shadowdale,Shadowdale,The Dalelands Trail,trail,trail,False,False,105.900944,0.9,17.1,6.193038,0.273,1.16837,23.367396
+LEG-000073,ashabenford,Ashabenford,tilverton,Tilverton,Tilverton via Ashabenford junction to Hillsfar,road,road,False,False,250.799597,0.85,20.4,12.294098,0.21,2.142124,42.842472
+LEG-000074,assam,Assam,nathlekh,Nathlekh,Ormath through Assam to Nathlekh,trail,trail,False,False,99.563345,0.7,13.3,7.485966,0.39,1.542094,30.84188
+LEG-000075,assam,Assam,ormath,Ormath,Ormath through Assam to Nathlekh,trail,trail,False,False,108.56811,0.7,13.3,8.163016,0.39,1.681565,33.631299
+LEG-000076,assur,Assur,chavyondat,Chavyondat,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,277.2681,0.7,13.3,20.847226,0.156,3.57153,71.4306
+LEG-000077,assur,Assur,vaelan,Vaelan,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,36.925168,0.7,13.3,2.776328,0.156,0.475638,9.512767
+LEG-000078,athkatla,Athkatla,baldur_s_gate,Baldur's Gate,The Sword Coast Run,sea,sea lane,False,False,302.203193,1.2,86.4,3.497722,0.162,0.52674,10.534803
+LEG-000079,athkatla,Athkatla,beregost,Beregost,caravan track,track,wilderness track,False,True,160.997205,0.7,12.6,12.777556,0.294,2.589249,51.784981
+LEG-000080,athkatla,Athkatla,candlekeep,Candlekeep,Sea of Swords coasting run,sea,sea lane,False,False,168.496795,0.95,68.4,2.463403,0.0945,0.349427,6.988538
+LEG-000081,athkatla,Athkatla,crimmor,Crimmor,The Amnian Coast Road,road,road,False,False,75.60159,1.1,26.4,2.863697,0.165,0.480414,9.608275
+LEG-000082,athkatla,Athkatla,esmeltaran,Esmeltaran,caravan track,track,wilderness track,False,True,243.027262,0.85,15.3,15.884135,0.231,3.062058,61.241154
+LEG-000083,athkatla,Athkatla,murann,Murann,The Sword Coast Run,sea,sea lane,False,False,158.814766,1.2,86.4,1.838134,0.216,0.289678,5.793563
+LEG-000084,athkatla,Athkatla,nashkel,Nashkel,The Trade Way,road,road,False,False,118.526157,1.3,31.2,3.798915,0.225,0.670129,13.402573
+LEG-000085,athkatla,Athkatla,purskul,Purskul,Athkatla to Crimmor,road,road,False,False,88.813396,0.85,20.4,4.353598,0.18,0.739763,14.795267
+LEG-000086,athkatla,Athkatla,velen,Velen,Sea of Swords coasting run,sea,sea lane,False,False,256.062649,0.95,68.4,3.743606,0.2025,0.583419,11.668371
+LEG-000087,athkatla,Athkatla,zazesspur,Zazesspur,The Trade Way,road,road,False,False,366.46506,1.3,31.2,11.745675,0.21,2.046566,40.931328
+LEG-000088,baldur_s_gate,Baldur's Gate,athkatla,Athkatla,The Sword Coast Run,sea,sea lane,False,False,302.203193,1.2,86.4,3.497722,0.162,0.52674,10.534803
+LEG-000089,baldur_s_gate,Baldur's Gate,beregost,Beregost,The Trade Way,road,road,False,False,142.20407,1.3,31.2,4.557823,0.21,0.794155,15.883101
+LEG-000090,baldur_s_gate,Baldur's Gate,boareskyr_bridge,Boareskyr Bridge,Trade Way: Daggerford junction to Baldur's Gate,road,road,False,False,203.087698,0.85,20.4,9.955279,0.27,1.820621,36.41243
+LEG-000091,baldur_s_gate,Baldur's Gate,caer_corwell,Caer Corwell,The Moonshae Crossing,sea+ferry,sea lane and ferry,True,False,556.733419,0.95,35.407059,15.723797,0.2124,2.515202,50.304041
+LEG-000092,baldur_s_gate,Baldur's Gate,candlekeep,Candlekeep,Sea of Swords coasting run,sea,sea lane,False,False,142.182418,0.95,68.4,2.07869,0.0945,0.294856,5.897128
+LEG-000093,baldur_s_gate,Baldur's Gate,daggerford,Daggerford,The Trade Way,road,road,False,False,515.981982,1.3,31.2,16.537884,0.195,2.845839,56.916782
+LEG-000094,baldur_s_gate,Baldur's Gate,elturel,Elturel,The Chionthar,river+barge,river and barge,True,False,210.779174,1.2,34.785882,6.059331,0.1365,0.706674,14.133481
+LEG-000095,baldur_s_gate,Baldur's Gate,mintarn,Mintarn,The Nelanther Passage,sea,sea lane,False,False,310.809138,1.0,72.0,4.316794,0.216,0.680299,13.605981
+LEG-000096,baldur_s_gate,Baldur's Gate,orlumbor,Orlumbor,Sea of Swords coasting run,sea,sea lane,False,False,203.807802,0.95,68.4,2.979646,0.189,0.459147,9.182936
+LEG-000097,baldur_s_gate,Baldur's Gate,soubar,Soubar,The Dusk Road,road,road,False,False,212.952295,0.85,20.4,10.438838,0.285,1.931603,38.632052
+LEG-000098,baldur_s_gate,Baldur's Gate,waterdeep,Waterdeep,The Sword Coast Run,sea,sea lane,False,False,466.667955,1.2,86.4,5.401249,0.1215,0.785052,15.701043
+LEG-000099,bell_in_the_deep,Bell in the Deep,thentia,Thentia,local market trail,trail,trail,False,True,54.007499,0.65,12.35,4.373077,0.312,0.850294,17.005881
+LEG-000100,beluir,Beluir,chethel,Chethel,Delzimmer to Beluir road,road,road,False,False,57.427868,0.85,20.4,2.815092,0.12,0.454018,9.080359
+LEG-000101,berdusk,Berdusk,easting,Easting,Iriaebor to Eshpurta trail,trail,trail,False,False,115.069539,0.7,13.3,8.651845,0.1755,1.50723,30.144603
+LEG-000102,berdusk,Berdusk,elturel,Elturel,caravan track,track,wilderness track,False,True,165.013363,0.85,15.3,10.785187,0.147,1.937237,38.744749
+LEG-000103,berdusk,Berdusk,eshpurta,Eshpurta,Iriaebor to Eshpurta trail,trail,trail,False,False,280.658088,0.7,13.3,21.102112,0.156,3.615197,72.303939
+LEG-000104,berdusk,Berdusk,greenest,Greenest,Uldoon Trail from Nashkel toward Greenest and Berdusk,trail,trail,False,False,99.895237,0.7,13.3,7.51092,0.117,1.243353,24.867064
+LEG-000105,berdusk,Berdusk,hill_s_edge,Hill's Edge,The Chionthar Road,road,road,False,False,171.586596,1.15,27.6,6.216906,0.195,1.069805,21.396103
+LEG-000106,berdusk,Berdusk,iriaebor,Iriaebor,The Chionthar Road,road,road,False,False,70.998944,1.15,27.6,2.572425,0.135,0.420437,8.408744
+LEG-000107,berdusk,Berdusk,scornubel,Scornubel,The Chionthar,river+barge,river and barge,True,False,110.851838,1.2,34.785882,3.18669,0.1365,0.37165,7.433004
+LEG-000108,berdusk,Berdusk,triel,Triel,caravan track,track,wilderness track,False,True,150.332964,0.85,15.3,9.825684,0.273,1.958768,39.175355
+LEG-000109,beregost,Beregost,athkatla,Athkatla,caravan track,track,wilderness track,False,True,160.997205,0.7,12.6,12.777556,0.294,2.589249,51.784981
+LEG-000110,beregost,Beregost,baldur_s_gate,Baldur's Gate,The Trade Way,road,road,False,False,142.20407,1.3,31.2,4.557823,0.21,0.794155,15.883101
+LEG-000111,beregost,Beregost,candlekeep,Candlekeep,The Coast Way,road,road,False,False,41.776668,1.05,25.2,1.657804,0.135,0.270952,5.419031
+LEG-000112,beregost,Beregost,nashkel,Nashkel,The Trade Way,road,road,False,False,101.783918,1.3,31.2,3.262305,0.255,0.589564,11.791275
+LEG-000113,bezantur,Bezantur,cimbar,Cimbar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,512.89769,0.95,68.4,7.498504,0.2025,1.168597,23.371938
+LEG-000114,bezantur,Bezantur,eltabbar,Eltabbar,caravan track,track,wilderness track,False,True,231.097079,0.85,15.3,15.104384,0.357,3.209775,64.195506
+LEG-000115,bezantur,Bezantur,escalant,Escalant,local market trail,trail,trail,False,True,201.740849,0.65,12.35,16.335291,0.351,3.270623,65.412453
+LEG-000116,bezantur,Bezantur,messemprar,Messemprar,The Vilhon Passage,sea,sea lane,False,False,243.46815,1.05,75.6,3.220478,0.27,0.530065,10.601299
+LEG-000117,bezantur,Bezantur,telflamm,Telflamm,The Inner Sea Run,sea,sea lane,False,False,543.641095,1.2,86.4,6.292142,0.2295,1.00261,20.052202
+LEG-000118,bezantur,Bezantur,tyraturos,Tyraturos,Eltabbar through Tyraturos to Bezantur,road,road,False,False,127.753373,0.85,20.4,6.26242,0.255,1.131745,22.634892
+LEG-000119,bezantur,Bezantur,velprintalar,Velprintalar,The Inner Sea Run,sea,sea lane,False,False,450.346467,1.2,86.4,5.212343,0.162,0.784954,15.699078
+LEG-000120,bezantur,Bezantur,winterkeep,Winterkeep,The Winterkeep-Bezantur Circle,teleport,teleportation circle,False,False,954.34007,0.95,4750.0,0.200914,0.051,50.678471,1013.569429
+LEG-000121,bezentil,Bezentil,clymph_tower,Clymph Tower,Uthmere through the Great Dale to Kront,road,road,False,False,71.375004,0.85,20.4,3.498775,0.24,0.624741,12.494824
+LEG-000122,bezentil,Bezentil,mauberg_s_oak,Mauberg's Oak,Uthmere through the Great Dale to Kront,road,road,False,False,217.189031,0.85,20.4,10.646521,0.24,1.901043,38.020856
+LEG-000123,bildoobaris,Bildoobaris,jiyyd,Jiyyd,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,117.899279,0.7,13.3,8.864607,0.312,1.72362,34.472402
+LEG-000124,bildoobaris,Bildoobaris,n_jast,N'Jast,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,35.537304,0.7,13.3,2.671978,0.312,0.519535,10.390702
+LEG-000125,bildoobaris,Bildoobaris,nathoud,Nathoud,N'Jast to Nathoud,trail,trail,False,False,415.524131,0.7,13.3,31.242416,0.312,6.074725,121.494507
+LEG-000126,blingdenstone,Blingdenstone,gracklstugh,Gracklstugh,Underdark passage,tunnel,Underdark tunnel,False,True,22.662965,0.85,10.2,2.221859,0.528,0.464436,9.288723
+LEG-000127,blingdenstone,Blingdenstone,mantol_derith,Mantol-Derith,Underdark passage,tunnel,Underdark tunnel,False,True,31.228513,0.85,10.2,3.061619,0.627,0.681436,13.628711
+LEG-000128,blingdenstone,Blingdenstone,menzoberranzan,Menzoberranzan,Underdark passage,tunnel,Underdark tunnel,False,True,17.854971,0.85,10.2,1.750487,0.594,0.38171,7.634198
+LEG-000129,blingdenstone,Blingdenstone,silverymoon,Silverymoon,Blingdenstone Trail,tunnel+trail,Underdark tunnel and trail,True,True,113.009247,0.45,6.472258,17.46056,0.3186,3.751179,75.023579
+LEG-000130,bloodstone_village,Bloodstone Village,darmshall,Darmshall,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,59.194932,0.7,13.3,4.450747,0.429,0.942569,18.851387
+LEG-000131,bloodstone_village,Bloodstone Village,talagbar,Talagbar,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,108.278673,0.7,13.3,8.141254,0.429,1.724137,34.482736
+LEG-000132,bloodstone_village,Bloodstone Village,valls,Valls,Darmshall through Bloodstone Pass to Valls,trail,trail,False,False,102.380622,0.7,13.3,7.697791,0.429,1.630221,32.604425
+LEG-000133,boareskyr_bridge,Boareskyr Bridge,baldur_s_gate,Baldur's Gate,Trade Way: Daggerford junction to Baldur's Gate,road,road,False,False,203.087698,0.85,20.4,9.955279,0.27,1.820621,36.41243
+LEG-000134,boareskyr_bridge,Boareskyr Bridge,dragonspear_castle,Dragonspear Castle,Trade Way: Daggerford junction to Baldur's Gate,road,road,False,False,200.259664,0.85,20.4,9.81665,0.36,1.922493,38.449856
+LEG-000135,boareskyr_bridge,Boareskyr Bridge,elturel,Elturel,caravan track,track,wilderness track,False,True,113.488149,0.85,15.3,7.417526,0.336,1.551877,31.03754
+LEG-000136,boareskyr_bridge,Boareskyr Bridge,scornubel,Scornubel,caravan track,track,wilderness track,False,True,165.870371,0.85,15.3,10.841201,0.399,2.375127,47.502542
+LEG-000137,boareskyr_bridge,Boareskyr Bridge,soubar,Soubar,The Dusk Road,road,road,False,False,37.734296,0.85,20.4,1.84972,0.375,0.366245,7.324893
+LEG-000138,boareskyr_bridge,Boareskyr Bridge,triel,Triel,The Dusk Road,road,road,False,False,123.172164,0.85,20.4,6.037851,0.33,1.156369,23.127385
+LEG-000139,brost,Brost,imnescar,Imnescar,Murann to Brost,road,road,False,False,203.620092,0.85,20.4,9.981377,0.165,1.674476,33.489516
+LEG-000140,brost,Brost,riatavin,Riatavin,Brost to Riatavin,road,road,False,False,301.246237,0.85,20.4,14.766972,0.165,2.477307,49.546146
+LEG-000141,bryn_shander,Bryn Shander,easthaven,Easthaven,caravan track,track,wilderness track,False,True,32.415428,0.7,12.6,2.572653,0.378,0.555165,11.103303
+LEG-000142,bryn_shander,Bryn Shander,good_mead,Good Mead,caravan track,track,wilderness track,False,True,28.651352,0.7,12.6,2.273917,0.399,0.498177,9.963549
+LEG-000143,bryn_shander,Bryn Shander,lonelywood,Lonelywood,caravan track,track,wilderness track,False,True,29.873902,0.85,15.3,1.952543,0.399,0.42777,8.555393
+LEG-000144,bryn_shander,Bryn Shander,luskan,Luskan,The Ten Trail,trail+ferry,trail and ferry,True,False,589.730523,0.55,11.260408,52.372038,0.5214,11.549617,230.992342
+LEG-000145,bryn_shander,Bryn Shander,targos,Targos,The Ten Towns Track,trail,trail,False,False,20.05642,0.7,13.3,1.508002,0.351,0.301929,6.038587
+LEG-000146,bryn_shander,Bryn Shander,termalaine,Termalaine,caravan track,track,wilderness track,False,True,20.2608,0.7,12.6,1.608,0.378,0.346998,6.939961
+LEG-000147,caer_calidyrr,Caer Calidyrr,caer_corwell,Caer Corwell,Sea of Swords coasting run,sea,sea lane,False,False,247.449086,0.95,68.4,3.617677,0.1485,0.538475,10.769505
+LEG-000148,caer_calidyrr,Caer Calidyrr,candlekeep,Candlekeep,Sea of Swords coasting run,sea,sea lane,False,False,426.377356,0.95,68.4,6.233587,0.081,0.873311,17.466212
+LEG-000149,caer_calidyrr,Caer Calidyrr,iron_keep,Iron Keep,local market ferry,ferry,ferry,False,True,126.781229,0.65,19.5,6.501601,0.12,0.917506,18.35012
+LEG-000150,caer_calidyrr,Caer Calidyrr,mintarn,Mintarn,Sea of Swords coasting run,sea,sea lane,False,False,158.20749,0.95,68.4,2.312975,0.2025,0.360463,7.209266
+LEG-000151,caer_calidyrr,Caer Calidyrr,waterdeep,Waterdeep,The Moonshae Crossing,sea+ferry,sea lane and ferry,True,False,496.194085,0.95,35.407059,14.013988,0.1416,2.110791,42.215817
+LEG-000152,caer_corwell,Caer Corwell,baldur_s_gate,Baldur's Gate,The Moonshae Crossing,sea+ferry,sea lane and ferry,True,False,556.733419,0.95,35.407059,15.723797,0.2124,2.515202,50.304041
+LEG-000153,caer_corwell,Caer Corwell,caer_calidyrr,Caer Calidyrr,Sea of Swords coasting run,sea,sea lane,False,False,247.449086,0.95,68.4,3.617677,0.1485,0.538475,10.769505
+LEG-000154,caer_corwell,Caer Corwell,lantan,Lantan,Sea of Swords coasting run,sea,sea lane,False,False,415.064344,0.95,68.4,6.068192,0.135,0.892607,17.852136
+LEG-000155,caer_corwell,Caer Corwell,llewellyn,Llewellyn,local market ferry,ferry,ferry,False,True,120.546837,0.65,19.5,6.181889,0.144,0.891082,17.821644
+LEG-000156,caer_corwell,Caer Corwell,mintarn,Mintarn,Sea of Swords coasting run,sea,sea lane,False,False,374.028475,0.95,68.4,5.468253,0.216,0.861762,17.235232
+LEG-000157,caer_corwell,Caer Corwell,velen,Velen,Sea of Swords coasting run,sea,sea lane,False,False,344.124294,0.95,68.4,5.031057,0.2025,0.78406,15.681201
+LEG-000158,calaunt,Calaunt,ylraphon,Ylraphon,Calaunt to Tantras and Ravens Bluff trail branches,trail,trail,False,False,48.711806,0.7,13.3,3.662542,0.156,0.627464,12.549275
+LEG-000159,calimport,Calimport,almraiven,Almraiven,The Shining Sea Run,sea,sea lane,False,False,387.343943,1.0,72.0,5.379777,0.27,0.885468,17.709365
+LEG-000160,calimport,Calimport,lantan,Lantan,Calimshan-Lantan Coastal Run,sea,sea lane,False,False,523.997595,1.05,75.6,6.931185,0.2025,1.080184,21.603672
+LEG-000161,calimport,Calimport,memnon,Memnon,The Sword Coast Run,sea,sea lane,False,False,168.079416,1.2,86.4,1.945364,0.2835,0.323595,6.471898
+LEG-000162,calimport,Calimport,myratma,Myratma,Memnon to Calimport,road,road,False,False,208.325753,0.85,20.4,10.212047,0.285,1.889637,37.792743
+LEG-000163,calimport,Calimport,nimbral,Nimbral,Sea of Swords coasting run,sea,sea lane,False,False,428.376587,0.95,68.4,6.262816,0.189,0.965065,19.301296
+LEG-000164,calimport,Calimport,port_nyanzaru,Port Nyanzaru,Sea of Swords coasting run,sea,sea lane,False,False,469.703108,0.95,68.4,6.867005,0.2565,1.118239,22.36479
+LEG-000165,calimport,Calimport,tashluta,Tashluta,Sea of Swords coasting run,sea,sea lane,False,False,365.594926,0.95,68.4,5.344955,0.243,0.861034,17.220676
+LEG-000166,calimport,Calimport,thindar,Thindar,Sea of Swords coasting run,sea,sea lane,False,False,549.020455,0.95,68.4,8.026615,0.243,1.29303,25.860597
+LEG-000167,calimport,Calimport,urbreth,Urbreth,Sea of Swords coasting run,sea,sea lane,False,False,445.364401,0.95,68.4,6.511175,0.27,1.071687,21.433748
+LEG-000168,candlekeep,Candlekeep,athkatla,Athkatla,Sea of Swords coasting run,sea,sea lane,False,False,168.496795,0.95,68.4,2.463403,0.0945,0.349427,6.988538
+LEG-000169,candlekeep,Candlekeep,baldur_s_gate,Baldur's Gate,Sea of Swords coasting run,sea,sea lane,False,False,142.182418,0.95,68.4,2.07869,0.0945,0.294856,5.897128
+LEG-000170,candlekeep,Candlekeep,beregost,Beregost,The Coast Way,road,road,False,False,41.776668,1.05,25.2,1.657804,0.135,0.270952,5.419031
+LEG-000171,candlekeep,Candlekeep,caer_calidyrr,Caer Calidyrr,Sea of Swords coasting run,sea,sea lane,False,False,426.377356,0.95,68.4,6.233587,0.081,0.873311,17.466212
+LEG-000172,candlekeep,Candlekeep,durlag_s_tower,Durlag's Tower,Coast Way: Beregost to Nashkel,road,road,False,False,189.367859,0.85,20.4,9.282738,0.15,1.537221,30.744429
+LEG-000173,candlekeep,Candlekeep,mintarn,Mintarn,Sea of Swords coasting run,sea,sea lane,False,False,339.975176,0.95,68.4,4.970397,0.1485,0.739822,14.796435
+LEG-000174,candlekeep,Candlekeep,nashkel,Nashkel,caravan track,track,wilderness track,False,True,135.632002,0.7,12.6,10.764445,0.21,2.039712,40.794231
+LEG-000175,candlekeep,Candlekeep,orlumbor,Orlumbor,Sea of Swords coasting run,sea,sea lane,False,False,316.237284,0.95,68.4,4.623352,0.1215,0.671988,13.439752
+LEG-000176,castle_perilous,Castle Perilous,palischuk,Palischuk,Castle Perilous to Darmshall,trail,trail,False,False,70.787011,0.7,13.3,5.322332,0.429,1.127152,22.543034
+LEG-000177,castle_tethyr,Castle Tethyr,memnon,Memnon,Zazesspur through Castle Tethyr to Myratma,road,road,False,False,113.352032,0.85,20.4,5.556472,0.27,1.016168,20.323353
+LEG-000178,castle_tethyr,Castle Tethyr,mosstone,Mosstone,Trade Way: Mosstone to Zazesspur,road,road,False,False,158.889356,0.85,20.4,7.788694,0.24,1.390749,27.814984
+LEG-000179,castle_tethyr,Castle Tethyr,zazesspur,Zazesspur,Trade Way: Mosstone to Zazesspur,road,road,False,False,46.895842,0.85,20.4,2.298816,0.24,0.410477,8.209531
+LEG-000180,cathyr,Cathyr,delzimmer,Delzimmer,Delzimmer to Cathyr road,road,road,False,False,385.464669,0.85,20.4,18.895327,0.09,2.965811,59.31621
+LEG-000181,cathyr,Cathyr,maarlith,Maarlith,Cathyr to Maarlith trail,trail,trail,False,False,178.142144,0.7,13.3,13.394146,0.078,2.139843,42.796869
+LEG-000182,cedarspoke,Cedarspoke,saerloon,Saerloon,local market trail,trail,trail,False,True,188.202072,0.65,12.35,15.239034,0.234,2.786896,55.737926
+LEG-000183,channathgate,Channathgate,rethmar,Rethmar,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,115.148522,0.85,20.4,5.644535,0.24,1.007888,20.157765
+LEG-000184,channathgate,Channathgate,three_swords,Three Swords,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,231.373341,0.85,20.4,11.34183,0.24,2.025197,40.503945
+LEG-000185,chavyondat,Chavyondat,assur,Assur,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,277.2681,0.7,13.3,20.847226,0.156,3.57153,71.4306
+LEG-000186,chavyondat,Chavyondat,thruldar,Thruldar,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,185.694253,0.7,13.3,13.961974,0.156,2.391954,47.839084
+LEG-000187,chethel,Chethel,beluir,Beluir,Delzimmer to Beluir road,road,road,False,False,57.427868,0.85,20.4,2.815092,0.12,0.454018,9.080359
+LEG-000188,chethel,Chethel,delzimmer,Delzimmer,Delzimmer to Beluir road,road,road,False,False,326.973868,0.85,20.4,16.028131,0.12,2.585017,51.700339
+LEG-000189,chethel,Chethel,krenalir,Krenalir,Beluir through Chethel to Krenalir,road,road,False,False,155.191553,0.85,20.4,7.607429,0.12,1.226926,24.538523
+LEG-000190,chethel,Chethel,shoun,Shoun,Beluir to Shoun road,road,road,False,False,217.156834,0.85,20.4,10.644943,0.12,1.716816,34.336328
+LEG-000191,cimbar,Cimbar,airspur,Airspur,The Vilhon Passage,sea,sea lane,False,False,96.66235,1.05,75.6,1.278603,0.1755,0.194788,3.895769
+LEG-000192,cimbar,Cimbar,bezantur,Bezantur,Sea of Fallen Stars coasting run,sea,sea lane,False,False,512.89769,0.95,68.4,7.498504,0.2025,1.168597,23.371938
+LEG-000193,cimbar,Cimbar,luthcheq,Luthcheq,The Eastern Shaar Road,road,road,False,False,168.547475,1.0,24.0,7.022811,0.225,1.238824,24.776479
+LEG-000194,cimbar,Cimbar,messemprar,Messemprar,The Vilhon Passage,sea,sea lane,False,False,387.351339,1.05,75.6,5.123695,0.2295,0.816426,16.328519
+LEG-000195,cimbar,Cimbar,reth,Reth,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,160.530148,0.85,20.4,7.869125,0.195,1.354119,27.08238
+LEG-000196,cimbar,Cimbar,soorenar,Soorenar,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,50.837405,0.85,20.4,2.49203,0.18,0.423446,8.468914
+LEG-000197,cimbar,Cimbar,velprintalar,Velprintalar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,278.625519,0.95,68.4,4.073473,0.1215,0.592065,11.841291
+LEG-000198,citadel_adbar,Citadel Adbar,citadel_felbarr,Citadel Felbarr,The Silver Way,road,road,False,False,123.366932,0.95,22.8,5.41083,0.045,0.814222,16.284435
+LEG-000199,citadel_adbar,Citadel Adbar,deadsnows,Deadsnows,caravan track,track,wilderness track,False,True,150.844887,0.7,12.6,11.971816,0.231,2.307862,46.157243
+LEG-000200,citadel_adbar,Citadel Adbar,silverymoon,Silverymoon,caravan track,track,wilderness track,False,True,259.849379,0.7,12.6,20.622967,0.063,3.433019,68.660373
+LEG-000201,citadel_adbar,Citadel Adbar,sundabar,Sundabar,caravan track,track,wilderness track,False,True,141.509328,0.7,12.6,11.230899,0.084,1.906495,38.129891
+LEG-000202,citadel_felbarr,Citadel Felbarr,citadel_adbar,Citadel Adbar,The Silver Way,road,road,False,False,123.366932,0.95,22.8,5.41083,0.045,0.814222,16.284435
+LEG-000203,citadel_felbarr,Citadel Felbarr,deadsnows,Deadsnows,Everlund through Silverymoon to Sundabar,road,road,False,False,142.972619,0.85,20.4,7.008462,0.18,1.190878,23.817556
+LEG-000204,citadel_felbarr,Citadel Felbarr,silverymoon,Silverymoon,The Silver Way,road,road,False,False,173.408783,0.95,22.8,7.605648,0.06,1.160926,23.218523
+LEG-000205,citadel_felbarr,Citadel Felbarr,sundabar,Sundabar,Everlund through Silverymoon to Sundabar,road,road,False,False,105.992368,0.85,20.4,5.195704,0.075,0.804295,16.085901
+LEG-000206,citadel_of_the_raven,Citadel of the Raven,teshwave,Teshwave,Voonlar to Teshwave,road,road,False,False,52.936566,0.85,20.4,2.59493,0.36,0.508191,10.163821
+LEG-000207,citadel_of_the_raven,Citadel of the Raven,voonlar,Voonlar,Voonlar to Teshwave,road,road,False,False,111.702968,0.85,20.4,5.475636,0.285,1.013212,20.264233
+LEG-000208,citadel_of_the_raven,Citadel of the Raven,whitehorn,Whitehorn,Whitehorn to Ride trail,trail,trail,False,False,102.865588,0.7,13.3,7.734255,0.468,1.682646,33.652918
+LEG-000209,citadel_rashemen,Citadel Rashemen,delhumide,Delhumide,local market trail,trail,trail,False,True,232.782839,0.65,12.35,18.848813,0.312,3.664933,73.29866
+LEG-000210,city_of_the_dead,City of the Dead,mishtan,Mishtan,local market trail,trail,trail,False,True,35.746328,0.65,12.35,2.89444,0.156,0.495873,9.917461
+LEG-000211,clymph_tower,Clymph Tower,bezentil,Bezentil,Uthmere through the Great Dale to Kront,road,road,False,False,71.375004,0.85,20.4,3.498775,0.24,0.624741,12.494824
+LEG-000212,clymph_tower,Clymph Tower,the_mucklestones,The Mucklestones,Uthmere through the Great Dale to Kront,road,road,False,False,90.644701,0.85,20.4,4.443368,0.24,0.793408,15.868155
+LEG-000213,corm_orp,Corm Orp,darkhold,Darkhold,Hill's Edge to Corm Orp trail,trail,trail,False,False,25.963243,0.7,13.3,1.952124,0.39,0.402134,8.042671
+LEG-000214,corm_orp,Corm Orp,hill_s_edge,Hill's Edge,Scornubel through Asbravn toward Iriaebor,trail,trail,False,False,70.093104,0.7,13.3,5.270158,0.39,1.085642,21.712841
+LEG-000215,corm_orp,Corm Orp,hluthvar,Hluthvar,Hill's Edge to Corm Orp trail,trail,trail,False,False,39.973275,0.7,13.3,3.005509,0.39,0.619129,12.382579
+LEG-000216,crimmor,Crimmor,athkatla,Athkatla,The Amnian Coast Road,road,road,False,False,75.60159,1.1,26.4,2.863697,0.165,0.480414,9.608275
+LEG-000217,crimmor,Crimmor,esmeltaran,Esmeltaran,caravan track,track,wilderness track,False,True,171.14935,0.85,15.3,11.186232,0.21,2.119634,42.392687
+LEG-000218,crimmor,Crimmor,murann,Murann,caravan track,track,wilderness track,False,True,167.063341,0.85,15.3,10.919173,0.315,2.248574,44.971486
+LEG-000219,crimmor,Crimmor,nashkel,Nashkel,caravan track,track,wilderness track,False,True,100.169956,0.85,15.3,6.547056,0.294,1.326698,26.533961
+LEG-000220,crimmor,Crimmor,purskul,Purskul,The Amnian Coast Road,road,road,False,False,21.559453,1.1,26.4,0.816646,0.165,0.137001,2.74001
+LEG-000221,crimmor,Crimmor,the_twin_towers,The Twin Towers,Nashkel through Cloud Peaks to Crimmor,road,road,False,False,30.549959,0.85,20.4,1.497547,0.15,0.247994,4.959876
+LEG-000222,daerlun,Daerlun,reddansyr,Reddansyr,Proskur via Elversult and Teziir to Westgate,road,road,False,False,157.802881,0.85,20.4,7.735435,0.24,1.381239,27.624787
+LEG-000223,daerlun,Daerlun,urmlaspyr,Urmlaspyr,Proskur via Elversult and Teziir to Westgate,road,road,False,False,33.870489,0.85,20.4,1.660318,0.18,0.282121,5.642425
+LEG-000224,daerlun,Daerlun,westgate,Westgate,Daerlun to Selgaunt via Saerloon junction,road,road,False,False,64.518214,0.85,20.4,3.162658,0.285,0.585218,11.704363
+LEG-000225,daerlun,Daerlun,wheloon,Wheloon,Archenbridge to Daerlun,road,road,False,False,58.791156,0.85,20.4,2.881919,0.21,0.502146,10.042913
+LEG-000226,dagger_falls,Dagger Falls,mines_of_tethyamar,Mines of Tethyamar,Black Road across Anauroch to Dagger Falls,trail,trail,False,False,60.82146,0.7,13.3,4.573042,0.273,0.862744,17.254874
+LEG-000227,daggerford,Daggerford,amphail,Amphail,caravan track,track,wilderness track,False,True,162.419334,0.7,12.6,12.890423,0.252,2.527338,50.546753
+LEG-000228,daggerford,Daggerford,baldur_s_gate,Baldur's Gate,The Trade Way,road,road,False,False,515.981982,1.3,31.2,16.537884,0.195,2.845839,56.916782
+LEG-000229,daggerford,Daggerford,dragonspear_castle,Dragonspear Castle,Trade Way: Daggerford junction to Baldur's Gate,road,road,False,False,209.119768,0.85,20.4,10.250969,0.285,1.896839,37.936786
+LEG-000230,daggerford,Daggerford,goldenfields,Goldenfields,caravan track,track,wilderness track,False,True,135.98533,0.7,12.6,10.792487,0.231,2.080517,41.610345
+LEG-000231,daggerford,Daggerford,secomber,Secomber,The Delimbiyr,river+portage,river and portage,True,False,161.176084,1.1,15.488,10.406514,0.4428,2.058022,41.160439
+LEG-000232,daggerford,Daggerford,waterdeep,Waterdeep,The Trade Way,road,road,False,False,128.404415,1.3,31.2,4.115526,0.15,0.681531,13.630623
+LEG-000233,dalelost,Dalelost,ankhapur,Ankhapur,Ankhapur to Yhep trail,trail,trail,False,False,177.082409,0.7,13.3,13.314467,0.312,2.588844,51.776873
+LEG-000234,dalelost,Dalelost,kagarr,Kagarr,Kagarr to Yhep trail,trail,trail,False,False,216.451614,0.7,13.3,16.274557,0.234,2.976272,59.525431
+LEG-000235,dalelost,Dalelost,yhep,Yhep,Ankhapur to Yhep trail,trail,trail,False,False,54.511742,0.7,13.3,4.098627,0.273,0.773241,15.464825
+LEG-000236,darkhold,Darkhold,corm_orp,Corm Orp,Hill's Edge to Corm Orp trail,trail,trail,False,False,25.963243,0.7,13.3,1.952124,0.39,0.402134,8.042671
+LEG-000237,darkhold,Darkhold,hluthvar,Hluthvar,Sunset foothills via Farsea Marshes toward Tilverton,trail,trail,False,False,68.629973,0.7,13.3,5.160148,0.39,1.06298,21.259605
+LEG-000238,darkhold,Darkhold,well_of_dragons,Well of Dragons,Sunset foothills via Farsea Marshes toward Tilverton,trail,trail,False,False,148.688458,0.7,13.3,11.179583,0.2145,2.012201,40.244018
+LEG-000239,darmshall,Darmshall,bloodstone_village,Bloodstone Village,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,59.194932,0.7,13.3,4.450747,0.429,0.942569,18.851387
+LEG-000240,darmshall,Darmshall,talagbar,Talagbar,Darmshall through Bloodstone Pass to Valls,trail,trail,False,False,67.543727,0.7,13.3,5.078476,0.429,1.075508,21.510168
+LEG-000241,darromar,Darromar,myratma,Myratma,caravan track,track,wilderness track,False,True,235.370771,0.85,15.3,15.383711,0.252,3.01618,60.32359
+LEG-000242,darromar,Darromar,saradush,Saradush,The Tethyrian Roads,road,road,False,False,208.951925,1.05,25.2,8.291743,0.18,1.408933,28.17866
+LEG-000243,darromar,Darromar,zazesspur,Zazesspur,The Tethyrian Roads,road,road,False,False,271.312019,1.05,25.2,10.76635,0.18,1.829418,36.588364
+LEG-000244,deadsnows,Deadsnows,citadel_adbar,Citadel Adbar,caravan track,track,wilderness track,False,True,150.844887,0.7,12.6,11.971816,0.231,2.307862,46.157243
+LEG-000245,deadsnows,Deadsnows,citadel_felbarr,Citadel Felbarr,Everlund through Silverymoon to Sundabar,road,road,False,False,142.972619,0.85,20.4,7.008462,0.18,1.190878,23.817556
+LEG-000246,deadsnows,Deadsnows,everlund,Everlund,caravan track,track,wilderness track,False,True,149.929217,0.85,15.3,9.799295,0.273,1.953507,39.070143
+LEG-000247,deadsnows,Deadsnows,silverymoon,Silverymoon,Everlund through Silverymoon to Sundabar,road,road,False,False,150.724037,0.85,20.4,7.388433,0.18,1.255443,25.108851
+LEG-000248,deadsnows,Deadsnows,sundabar,Sundabar,caravan track,track,wilderness track,False,True,91.762138,0.7,12.6,7.282709,0.273,1.451821,29.036424
+LEG-000249,delhalls,Delhalls,glister,Glister,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,103.025452,0.7,13.3,7.746275,0.312,1.506173,30.123465
+LEG-000250,delhalls,Delhalls,talagbar,Talagbar,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,217.9178,0.7,13.3,16.384797,0.3705,3.327885,66.5577
+LEG-000251,delhumide,Delhumide,almorel,Almorel,local market trail,trail,trail,False,True,265.438675,0.65,12.35,21.49301,0.312,4.179066,83.58133
+LEG-000252,delhumide,Delhumide,citadel_rashemen,Citadel Rashemen,local market trail,trail,trail,False,True,232.782839,0.65,12.35,18.848813,0.312,3.664933,73.29866
+LEG-000253,delhumide,Delhumide,eltabbar,Eltabbar,local market trail,trail,trail,False,True,92.419749,0.65,12.35,7.48338,0.312,1.455057,29.101131
+LEG-000254,delselar,Delselar,halagard,Halagard,Halruaa-Chult Coastal Run,sea,sea lane,False,False,770.705164,1.05,75.6,10.194513,0.1215,1.481736,29.634715
+LEG-000255,delselar,Delselar,tashluta,Tashluta,Sea of Swords coasting run,sea,sea lane,False,False,248.19162,0.95,68.4,3.628532,0.189,0.559137,11.182731
+LEG-000256,delselar,Delselar,thindar,Thindar,Halruaa-Chult Coastal Run,sea,sea lane,False,False,138.180498,1.05,75.6,1.827784,0.189,0.281651,5.633027
+LEG-000257,delselar,Delselar,urbreth,Urbreth,Sea of Swords coasting run,sea,sea lane,False,False,536.142761,0.95,68.4,7.838344,0.216,1.235273,24.705458
+LEG-000258,delthuntle,Delthuntle,relkath_s_foot,Relkath's Foot,local market trail,trail,trail,False,True,111.895129,0.65,12.35,9.060334,0.117,1.499842,29.996846
+LEG-000259,delthuntle,Delthuntle,spandeliyon,Spandeliyon,local market trail,trail,trail,False,True,117.913952,0.65,12.35,9.547688,0.117,1.580519,31.610372
+LEG-000260,delzimmer,Delzimmer,cathyr,Cathyr,Delzimmer to Cathyr road,road,road,False,False,385.464669,0.85,20.4,18.895327,0.09,2.965811,59.31621
+LEG-000261,delzimmer,Delzimmer,chethel,Chethel,Delzimmer to Beluir road,road,road,False,False,326.973868,0.85,20.4,16.028131,0.12,2.585017,51.700339
+LEG-000262,delzimmer,Delzimmer,eartheart,Eartheart,Shaarmid through Kholtar and Eartheart to Delzimmer,road,road,False,False,178.156707,0.85,20.4,8.733172,0.18,1.483941,29.678811
+LEG-000263,delzimmer,Delzimmer,hardcastle,Hardcastle,Torsh via Hardcastle to Delzimmer approach,trail,trail,False,False,440.587642,0.7,13.3,33.12689,0.2535,6.153939,123.078787
+LEG-000264,derlusk,Derlusk,innarlith,Innarlith,local market trail,trail,trail,False,True,211.844188,0.65,12.35,17.153376,0.312,3.335275,66.705498
+LEG-000265,dilpur,Dilpur,hlammach,Hlammach,Sarshel to Hlammach and Lyrabar,road,road,False,False,82.553532,0.85,20.4,4.046742,0.165,0.678881,13.577628
+LEG-000266,dilpur,Dilpur,laviguer,Laviguer,Laviguer to Ilmwatch road junction,road,road,False,False,224.796151,0.85,20.4,11.019419,0.165,1.848618,36.972355
+LEG-000267,dilpur,Dilpur,sarshel,Sarshel,Ilmwatch south to Sarshel junction,road,road,False,False,33.828095,0.85,20.4,1.65824,0.24,0.296095,5.921906
+LEG-000268,dilpur,Dilpur,uthmere,Uthmere,Ilmwatch south to Sarshel junction,road,road,False,False,237.168227,0.85,20.4,11.625893,0.24,2.07592,41.518391
+LEG-000269,dragon_falls,Dragon Falls,ironfang_deep,Ironfang Deep,Mulmaster through the Vast toward Procampur,road,road,False,False,248.604088,0.85,20.4,12.186475,0.24,2.176017,43.520339
+LEG-000270,dragon_falls,Dragon Falls,ravens_bluff,Ravens Bluff,Mulmaster through the Vast toward Procampur,road,road,False,False,58.984962,0.85,20.4,2.89142,0.15,0.478819,9.576382
+LEG-000271,dragon_falls,Dragon Falls,tantras,Tantras,Calaunt to Ravens Bluff,trail,trail,False,False,89.757999,0.7,13.3,6.748722,0.1755,1.175689,23.513775
+LEG-000272,dragon_falls,Dragon Falls,ylraphon,Ylraphon,Calaunt to Tantras and Ravens Bluff trail branches,trail,trail,False,False,141.086018,0.7,13.3,10.607971,0.1755,1.848005,36.960103
+LEG-000273,dragonspear_castle,Dragonspear Castle,boareskyr_bridge,Boareskyr Bridge,Trade Way: Daggerford junction to Baldur's Gate,road,road,False,False,200.259664,0.85,20.4,9.81665,0.36,1.922493,38.449856
+LEG-000274,dragonspear_castle,Dragonspear Castle,daggerford,Daggerford,Trade Way: Daggerford junction to Baldur's Gate,road,road,False,False,209.119768,0.85,20.4,10.250969,0.285,1.896839,37.936786
+LEG-000275,durlag_s_tower,Durlag's Tower,candlekeep,Candlekeep,Coast Way: Beregost to Nashkel,road,road,False,False,189.367859,0.85,20.4,9.282738,0.15,1.537221,30.744429
+LEG-000276,durlag_s_tower,Durlag's Tower,greenest,Greenest,Uldoon Trail from Nashkel toward Greenest and Berdusk,trail,trail,False,False,189.383508,0.7,13.3,14.239362,0.234,2.604077,52.081547
+LEG-000277,durlag_s_tower,Durlag's Tower,nashkel,Nashkel,Coast Way: Beregost to Nashkel,road,road,False,False,78.136282,0.85,20.4,3.83021,0.27,0.700469,14.009376
+LEG-000278,eartheart,Eartheart,delzimmer,Delzimmer,Shaarmid through Kholtar and Eartheart to Delzimmer,road,road,False,False,178.156707,0.85,20.4,8.733172,0.18,1.483941,29.678811
+LEG-000279,eartheart,Eartheart,kholtar,Kholtar,Shaarmid through Kholtar and Eartheart to Delzimmer,road,road,False,False,91.383197,0.85,20.4,4.479568,0.24,0.799872,15.997435
+LEG-000280,eartheart,Eartheart,three_swords,Three Swords,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,183.659352,0.85,20.4,9.002909,0.24,1.60756,32.15119
+LEG-000281,easthaven,Easthaven,bryn_shander,Bryn Shander,caravan track,track,wilderness track,False,True,32.415428,0.7,12.6,2.572653,0.378,0.555165,11.103303
+LEG-000282,easthaven,Easthaven,good_mead,Good Mead,The Ten Towns Track,trail,trail,False,False,17.426991,0.7,13.3,1.3103,0.4095,0.273706,5.474116
+LEG-000283,easthaven,Easthaven,lonelywood,Lonelywood,caravan track,track,wilderness track,False,True,53.525041,0.85,15.3,3.498369,0.441,0.789444,15.78888
+LEG-000284,easthaven,Easthaven,targos,Targos,caravan track,track,wilderness track,False,True,52.416982,0.7,12.6,4.160078,0.42,0.925085,18.501697
+LEG-000285,easthaven,Easthaven,termalaine,Termalaine,caravan track,track,wilderness track,False,True,50.290556,0.7,12.6,3.991314,0.42,0.887556,17.751129
+LEG-000286,easting,Easting,asbravn,Asbravn,Scornubel through Asbravn toward Iriaebor,trail,trail,False,False,102.34558,0.7,13.3,7.695156,0.234,1.407281,28.145619
+LEG-000287,easting,Easting,berdusk,Berdusk,Iriaebor to Eshpurta trail,trail,trail,False,False,115.069539,0.7,13.3,8.651845,0.1755,1.50723,30.144603
+LEG-000288,easting,Easting,iriaebor,Iriaebor,Iriaebor to Proskur,road,road,False,False,43.805593,0.85,20.4,2.147333,0.18,0.364875,7.297496
+LEG-000289,easting,Easting,priapurl,Priapurl,Iriaebor to Proskur,road,road,False,False,79.36097,0.85,20.4,3.890244,0.225,0.686239,13.72478
+LEG-000290,elbulder,Elbulder,mussum,Mussum,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,230.724217,0.7,13.3,17.347685,0.273,3.27279,65.455801
+LEG-000291,elbulder,Elbulder,torsch,Torsch,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,317.135461,0.7,13.3,23.844772,0.312,4.636339,92.726784
+LEG-000292,elmwood,Elmwood,hillsfar,Hillsfar,The Moonsea Run,sea,sea lane,False,False,170.2235,1.05,75.6,2.251634,0.216,0.354843,7.096861
+LEG-000293,elmwood,Elmwood,ironfang_deep,Ironfang Deep,Mulmaster through the Vast toward Procampur,road,road,False,False,104.683813,0.85,20.4,5.131559,0.285,0.949544,18.990875
+LEG-000294,elmwood,Elmwood,melvaunt,Melvaunt,caravan track,track,wilderness track,False,True,140.173357,0.85,15.3,9.161657,0.357,1.946909,38.93818
+LEG-000295,elmwood,Elmwood,mulmaster,Mulmaster,The Moonsea Run,sea,sea lane,False,False,53.958688,1.05,75.6,0.713739,0.2565,0.116227,2.32454
+LEG-000296,elmwood,Elmwood,thentia,Thentia,Moonsea coasting run,sea,sea lane,False,False,103.640002,0.95,68.4,1.515205,0.216,0.238787,4.775731
+LEG-000297,elmwood,Elmwood,zhentil_keep,Zhentil Keep,The Moonsea Run,sea,sea lane,False,False,230.29937,1.05,75.6,3.046288,0.27,0.501395,10.027893
+LEG-000298,eltabbar,Eltabbar,bezantur,Bezantur,caravan track,track,wilderness track,False,True,231.097079,0.85,15.3,15.104384,0.357,3.209775,64.195506
+LEG-000299,eltabbar,Eltabbar,delhumide,Delhumide,local market trail,trail,trail,False,True,92.419749,0.65,12.35,7.48338,0.312,1.455057,29.101131
+LEG-000300,eltabbar,Eltabbar,phsant,Phsant,The Golden Way,road,road,False,False,420.489156,1.1,26.4,15.92762,0.24,2.844036,56.880715
+LEG-000301,eltabbar,Eltabbar,pyarados,Pyarados,Eltabbar to Pyarados trail,trail,trail,False,False,154.438412,0.7,13.3,11.611911,0.312,2.257801,45.156027
+LEG-000302,eltabbar,Eltabbar,tyraturos,Tyraturos,Eltabbar through Tyraturos to Bezantur,road,road,False,False,117.243907,0.85,20.4,5.74725,0.24,1.026229,20.524581
+LEG-000303,eltabbar,Eltabbar,winterkeep,Winterkeep,The Winterkeep Circle,teleport,teleportation circle,False,False,754.653172,1.0,5000.0,0.150931,0.048,37.962073,759.241463
+LEG-000304,elturel,Elturel,baldur_s_gate,Baldur's Gate,The Chionthar,river+barge,river and barge,True,False,210.779174,1.2,34.785882,6.059331,0.1365,0.706674,14.133481
+LEG-000305,elturel,Elturel,berdusk,Berdusk,caravan track,track,wilderness track,False,True,165.013363,0.85,15.3,10.785187,0.147,1.937237,38.744749
+LEG-000306,elturel,Elturel,boareskyr_bridge,Boareskyr Bridge,caravan track,track,wilderness track,False,True,113.488149,0.85,15.3,7.417526,0.336,1.551877,31.03754
+LEG-000307,elturel,Elturel,scornubel,Scornubel,The Chionthar,river+barge,river and barge,True,False,86.619744,1.2,34.785882,2.490083,0.15015,0.293896,5.877916
+LEG-000308,elturel,Elturel,soubar,Soubar,Boareskyr Bridge through Soubar and Triel to Scornubel,road,road,False,False,116.241611,0.85,20.4,5.698118,0.255,1.029764,20.595278
+LEG-000309,elturel,Elturel,triel,Triel,Boareskyr Bridge through Soubar and Triel to Scornubel,road,road,False,False,63.196424,0.85,20.4,3.097864,0.21,0.539772,10.795436
+LEG-000310,elventree,Elventree,harrowdale_town,Harrowdale Town,Harrowdale to Scardale trail,trail,trail,False,False,196.903241,0.7,13.3,14.804755,0.273,2.793044,55.860887
+LEG-000311,elventree,Elventree,hillsfar,Hillsfar,Yulash to Hillsfar,road,road,False,False,47.90668,0.85,20.4,2.348367,0.24,0.419324,8.386487
+LEG-000312,elventree,Elventree,myth_drannor,Myth Drannor,Tilverton via Ashabenford junction to Hillsfar,road,road,False,False,194.263731,0.85,20.4,9.522732,0.18,1.618103,32.362052
+LEG-000313,elventree,Elventree,zhentil_keep,Zhentil Keep,Yulash to Hillsfar,road,road,False,False,139.832798,0.85,20.4,6.854549,0.3,1.283172,25.663431
+LEG-000314,elversult,Elversult,ilipur,Ilipur,Proskur via Elversult and Teziir to Westgate,road,road,False,False,41.748054,0.85,20.4,2.046473,0.18,0.347737,6.954735
+LEG-000315,elversult,Elversult,lheshayl,Lheshayl,Dragon Coast trail to Shining Plains road,trail,trail,False,False,410.131227,0.7,13.3,30.836934,0.234,5.639422,112.788431
+LEG-000316,elversult,Elversult,marsember,Marsember,caravan track,track,wilderness track,False,True,144.871391,0.7,12.6,11.497729,0.252,2.254282,45.085633
+LEG-000317,elversult,Elversult,priapurl,Priapurl,Proskur via Elversult and Teziir to Westgate,road,road,False,False,109.279843,0.85,20.4,5.356855,0.225,0.944949,18.898985
+LEG-000318,elversult,Elversult,proskur,Proskur,The Chionthar Road,road,road,False,False,122.062029,1.15,27.6,4.422537,0.225,0.780136,15.602712
+LEG-000319,elversult,Elversult,starmantle,Starmantle,Elversult to Starmantle trail,trail,trail,False,False,366.373846,0.7,13.3,27.546906,0.234,5.037745,100.754901
+LEG-000320,elversult,Elversult,suzail,Suzail,caravan track,track,wilderness track,False,True,131.150639,0.7,12.6,10.408781,0.168,1.903858,38.077152
+LEG-000321,elversult,Elversult,teziir,Teziir,The Chionthar Road,road,road,False,False,127.485834,1.15,27.6,4.619052,0.24,0.824778,16.495558
+LEG-000322,emmech,Emmech,furthinghome,Furthinghome,local market trail,trail,trail,False,True,78.136867,0.65,12.35,6.326872,0.117,1.047347,20.946931
+LEG-000323,emmech,Emmech,glarondar,Glarondar,local market trail,trail,trail,False,True,99.076132,0.65,12.35,8.022359,0.117,1.328016,26.56033
+LEG-000324,escalant,Escalant,bezantur,Bezantur,local market trail,trail,trail,False,True,201.740849,0.65,12.35,16.335291,0.351,3.270623,65.412453
+LEG-000325,escalant,Escalant,the_watchwall,The Watchwall,local market trail,trail,trail,False,True,75.344807,0.65,12.35,6.100794,0.351,1.22149,24.4298
+LEG-000326,eshpurta,Eshpurta,berdusk,Berdusk,Iriaebor to Eshpurta trail,trail,trail,False,False,280.658088,0.7,13.3,21.102112,0.156,3.615197,72.303939
+LEG-000327,eshpurta,Eshpurta,keczulla,Keczulla,Crimmor through Keczulla to Eshpurta,road,road,False,False,85.292176,0.85,20.4,4.180989,0.15,0.692372,13.847436
+LEG-000328,esmeltaran,Esmeltaran,athkatla,Athkatla,caravan track,track,wilderness track,False,True,243.027262,0.85,15.3,15.884135,0.231,3.062058,61.241154
+LEG-000329,esmeltaran,Esmeltaran,crimmor,Crimmor,caravan track,track,wilderness track,False,True,171.14935,0.85,15.3,11.186232,0.21,2.119634,42.392687
+LEG-000330,esmeltaran,Esmeltaran,keczulla,Keczulla,Crimmor through Keczulla to Eshpurta,road,road,False,False,95.285326,0.85,20.4,4.670849,0.15,0.773493,15.469853
+LEG-000331,esmeltaran,Esmeltaran,murann,Murann,caravan track,track,wilderness track,False,True,249.40012,0.85,15.3,16.300661,0.315,3.356779,67.135578
+LEG-000332,esmeltaran,Esmeltaran,nashkel,Nashkel,caravan track,track,wilderness track,False,True,225.454297,0.85,15.3,14.735575,0.294,2.986023,59.720456
+LEG-000333,esmeltaran,Esmeltaran,purskul,Purskul,The Amnian Coast Road,road,road,False,False,233.630734,1.1,26.4,8.849649,0.165,1.484617,29.692342
+LEG-000334,esmeltaran,Esmeltaran,riatavin,Riatavin,The Amnian Coast Road,road,road,False,False,330.684653,1.1,26.4,12.525934,0.165,2.101351,42.027013
+LEG-000335,esmeltaran,Esmeltaran,the_twin_towers,The Twin Towers,Crimmor through Keczulla to Eshpurta,road,road,False,False,242.741323,0.85,20.4,11.899084,0.15,1.970488,39.409768
+LEG-000336,essembra,Essembra,ashabenford,Ashabenford,The Way of the Manticore,road,road,False,False,61.06446,1.0,24.0,2.544352,0.225,0.448824,8.976476
+LEG-000337,essembra,Essembra,harrowdale_town,Harrowdale Town,caravan track,track,wilderness track,False,True,98.164403,0.85,15.3,6.415974,0.294,1.300136,26.002711
+LEG-000338,essembra,Essembra,highmoon,Highmoon,The Way of the Manticore,road,road,False,False,170.896255,1.0,24.0,7.120677,0.21,1.240707,24.814136
+LEG-000339,essembra,Essembra,hillsfar,Hillsfar,caravan track,track,wilderness track,False,True,143.164695,0.7,12.6,11.362277,0.336,2.377188,47.543768
+LEG-000340,essembra,Essembra,myth_drannor,Myth Drannor,Tilverton via Ashabenford junction to Hillsfar,road,road,False,False,110.826616,0.85,20.4,5.432677,0.18,0.923121,18.46241
+LEG-000341,essembra,Essembra,shadowdale,Shadowdale,caravan track,track,wilderness track,False,True,163.142055,0.85,15.3,10.662879,0.315,2.195796,43.915922
+LEG-000342,evereska,Evereska,parnast,Parnast,caravan track,track,wilderness track,False,True,82.51212,0.7,12.6,6.548581,0.273,1.305471,26.109428
+LEG-000343,everlund,Everlund,deadsnows,Deadsnows,caravan track,track,wilderness track,False,True,149.929217,0.85,15.3,9.799295,0.273,1.953507,39.070143
+LEG-000344,everlund,Everlund,grandfather_tree,Grandfather Tree,Evermoor Way: Triboar to Everlund,road,road,False,False,106.18953,0.85,20.4,5.205369,0.09,0.817035,16.340695
+LEG-000345,everlund,Everlund,jalanthar,Jalanthar,caravan track,track,wilderness track,False,True,157.852241,0.85,15.3,10.31714,0.273,2.05674,41.134808
+LEG-000346,everlund,Everlund,mithral_hall,Mithral Hall,caravan track,track,wilderness track,False,True,156.909432,0.7,12.6,12.45313,0.084,2.113974,42.279471
+LEG-000347,everlund,Everlund,nesme,Nesmé,The River Rauvin,river,river,False,False,145.225136,1.05,42.0,3.457741,0.147,0.523516,10.470317
+LEG-000348,everlund,Everlund,silverymoon,Silverymoon,The River Rauvin,river,river,False,False,48.563464,1.05,42.0,1.156273,0.0525,0.160641,3.21282
+LEG-000349,everlund,Everlund,sundabar,Sundabar,The North Ride,road,road,False,False,204.327469,1.1,26.4,7.739677,0.09,1.21482,24.296394
+LEG-000350,fort_arran,Fort Arran,arrabar,Arrabar,The Vilhon Road,road,road,False,False,41.743959,0.85,20.4,2.046272,0.18,0.347703,6.954052
+LEG-000351,fort_arran,Fort Arran,mimph,Mimph,The Vilhon Road,road,road,False,False,60.602414,0.85,20.4,2.970707,0.18,0.504782,10.095649
+LEG-000352,fort_arran,Fort Arran,mussum,Mussum,The Vilhon Road,road,road,False,False,127.696827,0.85,20.4,6.259648,0.18,1.063639,21.272789
+LEG-000353,fort_arran,Fort Arran,ormpetarr,Ormpetarr,The Vilhon Road,road,road,False,False,48.80502,0.85,20.4,2.392403,0.18,0.406517,8.130342
+LEG-000354,fort_beluarian,Fort Beluarian,nimbral,Nimbral,local market trail,trail,trail,False,True,24.455879,0.65,12.35,1.980233,0.117,0.327807,6.556132
+LEG-000355,furthinghome,Furthinghome,emmech,Emmech,local market trail,trail,trail,False,True,78.136867,0.65,12.35,6.326872,0.117,1.047347,20.946931
+LEG-000356,furthinghome,Furthinghome,velprintalar,Velprintalar,local market trail,trail,trail,False,True,68.938596,0.65,12.35,5.582073,0.117,0.924053,18.481059
+LEG-000357,gheldaneth,Gheldaneth,neldorild,Neldorild,Skuld to Gheldaneth trail,trail,trail,False,False,68.478907,0.7,13.3,5.14879,0.156,0.882087,17.641732
+LEG-000358,gheldaneth,Gheldaneth,unthalass,Unthalass,Unthalass to Gheldaneth trail,trail,trail,False,False,221.643087,0.7,13.3,16.664894,0.156,2.855016,57.100325
+LEG-000359,gildenglade,Gildenglade,nonthal,Nonthal,Alaghon through Turmish to Hlondeth,road,road,False,False,46.697745,0.85,20.4,2.289105,0.15,0.379076,7.581516
+LEG-000360,gildenglade,Gildenglade,xorhun,Xorhun,Alaghon through Turmish to Hlondeth,road,road,False,False,148.387511,0.85,20.4,7.273898,0.165,1.220269,24.405381
+LEG-000361,glarondar,Glarondar,emmech,Emmech,local market trail,trail,trail,False,True,99.076132,0.65,12.35,8.022359,0.117,1.328016,26.56033
+LEG-000362,glarondar,Glarondar,laothkund,Laothkund,local market trail,trail,trail,False,True,112.837449,0.65,12.35,9.136636,0.117,1.512473,30.249463
+LEG-000363,glister,Glister,delhalls,Delhalls,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,103.025452,0.7,13.3,7.746275,0.312,1.506173,30.123465
+LEG-000364,glister,Glister,hulburg,Hulburg,Melvaunt to Glister trail,trail,trail,False,False,66.457156,0.7,13.3,4.996779,0.312,0.971566,19.431313
+LEG-000365,glister,Glister,ilinvur,Ilinvur,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,168.115247,0.7,13.3,12.640244,0.351,2.530807,50.616138
+LEG-000366,goldenfields,Goldenfields,amphail,Amphail,Long Road: Mirabar to Waterdeep,road,road,False,False,51.264303,0.85,20.4,2.512956,0.135,0.410718,8.214351
+LEG-000367,goldenfields,Goldenfields,daggerford,Daggerford,caravan track,track,wilderness track,False,True,135.98533,0.7,12.6,10.792487,0.231,2.080517,41.610345
+LEG-000368,goldenfields,Goldenfields,red_larch,Red Larch,Long Road: Mirabar to Waterdeep,road,road,False,False,52.719778,0.85,20.4,2.584303,0.18,0.439125,8.782495
+LEG-000369,goldenfields,Goldenfields,secomber,Secomber,Red Larch and Goldenfields branch toward Secomber,trail,trail,False,False,198.928872,0.7,13.3,14.957058,0.2535,2.778553,55.571065
+LEG-000370,goldenfields,Goldenfields,stone_bridge,Stone Bridge,Red Larch and Goldenfields branch toward Secomber,trail,trail,False,False,87.175444,0.7,13.3,6.554545,0.234,1.198687,23.973745
+LEG-000371,goldenfields,Goldenfields,triboar,Triboar,caravan track,track,wilderness track,False,True,88.940992,0.85,15.3,5.813137,0.231,1.120625,22.412502
+LEG-000372,goldenfields,Goldenfields,waterdeep,Waterdeep,caravan track,track,wilderness track,False,True,90.226825,0.7,12.6,7.160859,0.147,1.286235,25.724699
+LEG-000373,goldenfields,Goldenfields,yartar,Yartar,caravan track,track,wilderness track,False,True,131.396233,0.85,15.3,8.587989,0.252,1.683789,33.675772
+LEG-000374,good_mead,Good Mead,bryn_shander,Bryn Shander,caravan track,track,wilderness track,False,True,28.651352,0.7,12.6,2.273917,0.399,0.498177,9.963549
+LEG-000375,good_mead,Good Mead,easthaven,Easthaven,The Ten Towns Track,trail,trail,False,False,17.426991,0.7,13.3,1.3103,0.4095,0.273706,5.474116
+LEG-000376,good_mead,Good Mead,targos,Targos,caravan track,track,wilderness track,False,True,47.401688,0.7,12.6,3.762039,0.441,0.848944,16.978878
+LEG-000377,good_mead,Good Mead,termalaine,Termalaine,caravan track,track,wilderness track,False,True,48.893762,0.7,12.6,3.880457,0.441,0.875666,17.513327
+LEG-000378,gracklstugh,Gracklstugh,blingdenstone,Blingdenstone,Underdark passage,tunnel,Underdark tunnel,False,True,22.662965,0.85,10.2,2.221859,0.528,0.464436,9.288723
+LEG-000379,gracklstugh,Gracklstugh,mantol_derith,Mantol-Derith,Underdark passage,tunnel,Underdark tunnel,False,True,35.088602,0.85,10.2,3.440059,0.759,0.827786,16.555711
+LEG-000380,gracklstugh,Gracklstugh,menzoberranzan,Menzoberranzan,Underdark passage,tunnel,Underdark tunnel,False,True,8.0,0.85,10.2,0.784314,0.726,0.18519,3.703793
+LEG-000381,gracklstugh,Gracklstugh,mirabar,Mirabar,Mirabar Underway,tunnel+trail,Underdark tunnel and trail,True,True,219.117799,0.4,6.472258,33.854923,0.55755,9.665246,193.304916
+LEG-000382,grandfather_tree,Grandfather Tree,everlund,Everlund,Evermoor Way: Triboar to Everlund,road,road,False,False,106.18953,0.85,20.4,5.205369,0.09,0.817035,16.340695
+LEG-000383,grandfather_tree,Grandfather Tree,yartar,Yartar,Evermoor Way: Triboar to Everlund,road,road,False,False,238.69558,0.85,20.4,11.700764,0.165,1.96292,39.258402
+LEG-000384,greenest,Greenest,berdusk,Berdusk,Uldoon Trail from Nashkel toward Greenest and Berdusk,trail,trail,False,False,99.895237,0.7,13.3,7.51092,0.117,1.243353,24.867064
+LEG-000385,greenest,Greenest,durlag_s_tower,Durlag's Tower,Uldoon Trail from Nashkel toward Greenest and Berdusk,trail,trail,False,False,189.383508,0.7,13.3,14.239362,0.234,2.604077,52.081547
+LEG-000386,greenest,Greenest,scornubel,Scornubel,Elturel southeast to Berdusk approach trail,trail,trail,False,False,161.820282,0.7,13.3,12.166939,0.195,2.154753,43.095053
+LEG-000387,griffon_s_nest,Griffon's Nest,nesme,Nesmé,local market trail,trail,trail,False,True,83.431709,0.65,12.35,6.755604,0.429,1.430687,28.613739
+LEG-000388,halagard,Halagard,delselar,Delselar,Halruaa-Chult Coastal Run,sea,sea lane,False,False,770.705164,1.05,75.6,10.194513,0.1215,1.481736,29.634715
+LEG-000389,halagard,Halagard,halarahh,Halarahh,Halruaa-Chult Coastal Run,sea,sea lane,False,False,97.166764,1.05,75.6,1.285275,0.054,0.175566,3.511329
+LEG-000390,halagard,Halagard,urbreth,Urbreth,Sea of Swords coasting run,sea,sea lane,False,False,649.492856,0.95,68.4,9.49551,0.1485,1.413365,28.267296
+LEG-000391,halarahh,Halarahh,halagard,Halagard,Halruaa-Chult Coastal Run,sea,sea lane,False,False,97.166764,1.05,75.6,1.285275,0.054,0.175566,3.511329
+LEG-000392,halarahh,Halarahh,innarlith,Innarlith,The Halruaan Skyroad,air,skyship,False,False,798.796345,1.0,110.0,7.261785,0.1275,17.292343,345.846865
+LEG-000393,halarahh,Halarahh,lantan,Lantan,The Lantanna Skybridge,air,skyship,False,False,1570.978479,0.9,99.0,15.868469,0.0765,36.078044,721.560888
+LEG-000394,halarahh,Halarahh,mount_talath,Mount Talath,local market trail,trail,trail,False,True,155.476976,0.65,12.35,12.589229,0.078,2.01125,40.225003
+LEG-000395,halarahh,Halarahh,winterkeep,Winterkeep,The Halruaan Concordance,teleport,teleportation circle,False,False,2711.581181,0.85,4250.0,0.638019,0.03,157.718322,3154.366437
+LEG-000396,hardcastle,Hardcastle,delzimmer,Delzimmer,Torsh via Hardcastle to Delzimmer approach,trail,trail,False,False,440.587642,0.7,13.3,33.12689,0.2535,6.153939,123.078787
+LEG-000397,hardcastle,Hardcastle,torsch,Torsch,Torsh via Hardcastle to Delzimmer approach,trail,trail,False,False,255.95441,0.7,13.3,19.244692,0.3315,3.797522,75.950449
+LEG-000398,hardcastle,Hardcastle,unthalass,Unthalass,Hardcastle branch to Unthalass via Road of Dust,trail,trail,False,False,495.346142,0.7,13.3,37.244071,0.2535,6.918783,138.375652
+LEG-000399,harrowdale,Harrowdale,harrowdale_town,Harrowdale Town,Harrowdale to Scardale trail,trail,trail,False,False,107.959825,0.7,13.3,8.11728,0.234,1.484478,29.689569
+LEG-000400,harrowdale,Harrowdale,scardale,Scardale,Harrowdale to Scardale trail,trail,trail,False,False,90.384539,0.7,13.3,6.79583,0.234,1.242813,24.856265
+LEG-000401,harrowdale_town,Harrowdale Town,ashabenford,Ashabenford,Moonsea Ride junction via Essembra to Scardale,road,road,False,False,212.113854,0.85,20.4,10.397738,0.195,1.789243,35.784855
+LEG-000402,harrowdale_town,Harrowdale Town,elventree,Elventree,Harrowdale to Scardale trail,trail,trail,False,False,196.903241,0.7,13.3,14.804755,0.273,2.793044,55.860887
+LEG-000403,harrowdale_town,Harrowdale Town,essembra,Essembra,caravan track,track,wilderness track,False,True,98.164403,0.85,15.3,6.415974,0.294,1.300136,26.002711
+LEG-000404,harrowdale_town,Harrowdale Town,harrowdale,Harrowdale,Harrowdale to Scardale trail,trail,trail,False,False,107.959825,0.7,13.3,8.11728,0.234,1.484478,29.689569
+LEG-000405,harrowdale_town,Harrowdale Town,hillsfar,Hillsfar,caravan track,track,wilderness track,False,True,139.977212,0.7,12.6,11.109303,0.294,2.251194,45.02387
+LEG-000406,harrowdale_town,Harrowdale Town,mulmaster,Mulmaster,The River Lis,river+sea,river and sea lane,True,False,235.476453,1.0,45.257143,5.203078,0.291975,0.915427,18.308543
+LEG-000407,harrowdale_town,Harrowdale Town,myth_drannor,Myth Drannor,The Dalelands Trail,trail,trail,False,False,145.659226,0.9,17.1,8.518083,0.195,1.508544,30.170881
+LEG-000408,harrowdale_town,Harrowdale Town,ordulin,Ordulin,caravan track,track,wilderness track,False,True,141.201735,0.7,12.6,11.206487,0.21,2.123472,42.469448
+LEG-000409,harrowdale_town,Harrowdale Town,selgaunt,Selgaunt,Sea of Fallen Stars coasting run,sea,sea lane,False,False,233.339452,0.95,68.4,3.411396,0.1485,0.507771,10.155424
+LEG-000410,harrowdale_town,Harrowdale Town,tantras,Tantras,The Inner Sea Run,sea,sea lane,False,False,170.69461,1.2,86.4,1.975632,0.135,0.290608,5.812151
+LEG-000411,harrowdale_town,Harrowdale Town,yhaunn,Yhaunn,Sea of Fallen Stars coasting run,sea,sea lane,False,False,144.886197,0.95,68.4,2.118219,0.162,0.318994,6.379873
+LEG-000412,heliogabalus,Heliogabalus,ironspur,Ironspur,Ironspur to Heliogabalus,trail,trail,False,False,120.123956,0.7,13.3,9.031876,0.429,1.912751,38.255018
+LEG-000413,heliogabalus,Heliogabalus,peltarch,Peltarch,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,348.237539,0.7,13.3,26.183274,0.3705,5.318035,106.360699
+LEG-000414,heliogabalus,Heliogabalus,praka,Praka,Trail's End to Ilmwatch road,road,road,False,False,30.439276,0.85,20.4,1.492121,0.33,0.285771,5.715422
+LEG-000415,heliogabalus,Heliogabalus,trail_s_end,Trail's End,Valls to Praka trail,trail,trail,False,False,17.790166,0.7,13.3,1.337606,0.429,0.283275,5.665507
+LEG-000416,hellgate_keep,Hellgate Keep,sundabar,Sundabar,local market trail,trail,trail,False,True,99.796443,0.65,12.35,8.080684,0.117,1.337672,26.75343
+LEG-000417,highmoon,Highmoon,arabel,Arabel,Arabel via Highmoon road to Ordulin,road,road,False,False,212.794704,0.85,20.4,10.431113,0.15,1.727392,34.547846
+LEG-000418,highmoon,Highmoon,archenbridge,Archenbridge,Arabel via Highmoon road to Ordulin,road,road,False,False,92.145448,0.85,20.4,4.516934,0.18,0.767517,15.350348
+LEG-000419,highmoon,Highmoon,ashabenford,Ashabenford,caravan track,track,wilderness track,False,True,149.040162,0.85,15.3,9.741187,0.273,1.941923,38.838464
+LEG-000420,highmoon,Highmoon,essembra,Essembra,The Way of the Manticore,road,road,False,False,170.896255,1.0,24.0,7.120677,0.21,1.240707,24.814136
+LEG-000421,highmoon,Highmoon,saerloon,Saerloon,caravan track,track,wilderness track,False,True,161.616831,0.7,12.6,12.826733,0.252,2.51485,50.297005
+LEG-000422,highmoon,Highmoon,tilverton,Tilverton,caravan track,track,wilderness track,False,True,176.685625,0.7,12.6,14.022669,0.273,2.795444,55.908885
+LEG-000423,highmoon,Highmoon,wheloon,Wheloon,caravan track,track,wilderness track,False,True,108.420339,0.7,12.6,8.604789,0.294,1.743678,34.873557
+LEG-000424,hill_s_edge,Hill's Edge,berdusk,Berdusk,The Chionthar Road,road,road,False,False,171.586596,1.15,27.6,6.216906,0.195,1.069805,21.396103
+LEG-000425,hill_s_edge,Hill's Edge,corm_orp,Corm Orp,Scornubel through Asbravn toward Iriaebor,trail,trail,False,False,70.093104,0.7,13.3,5.270158,0.39,1.085642,21.712841
+LEG-000426,hill_s_edge,Hill's Edge,hluthvar,Hluthvar,Hill's Edge to Corm Orp trail,trail,trail,False,False,96.279233,0.7,13.3,7.23904,0.39,1.491228,29.824556
+LEG-000427,hill_s_edge,Hill's Edge,iriaebor,Iriaebor,caravan track,track,wilderness track,False,True,171.19337,0.85,15.3,11.189109,0.336,2.340959,46.819171
+LEG-000428,hill_s_edge,Hill's Edge,scornubel,Scornubel,The Chionthar Road,road,road,False,False,102.867536,1.15,27.6,3.727085,0.255,0.673559,13.471175
+LEG-000429,hill_s_edge,Hill's Edge,triel,Triel,caravan track,track,wilderness track,False,True,128.932385,0.85,15.3,8.426953,0.42,1.873918,37.478369
+LEG-000430,hillsfar,Hillsfar,elmwood,Elmwood,The Moonsea Run,sea,sea lane,False,False,170.2235,1.05,75.6,2.251634,0.216,0.354843,7.096861
+LEG-000431,hillsfar,Hillsfar,elventree,Elventree,Yulash to Hillsfar,road,road,False,False,47.90668,0.85,20.4,2.348367,0.24,0.419324,8.386487
+LEG-000432,hillsfar,Hillsfar,essembra,Essembra,caravan track,track,wilderness track,False,True,143.164695,0.7,12.6,11.362277,0.336,2.377188,47.543768
+LEG-000433,hillsfar,Hillsfar,harrowdale_town,Harrowdale Town,caravan track,track,wilderness track,False,True,139.977212,0.7,12.6,11.109303,0.294,2.251194,45.02387
+LEG-000434,hillsfar,Hillsfar,melvaunt,Melvaunt,Moonsea coasting run,sea,sea lane,False,False,104.735715,0.95,68.4,1.531224,0.2295,0.24399,4.879802
+LEG-000435,hillsfar,Hillsfar,myth_drannor,Myth Drannor,caravan track,track,wilderness track,False,True,100.126969,0.7,12.6,7.946585,0.252,1.558033,31.160657
+LEG-000436,hillsfar,Hillsfar,phlan,Phlan,Moonsea coasting run,sea,sea lane,False,False,95.820301,0.95,68.4,1.400882,0.243,0.225672,4.513439
+LEG-000437,hillsfar,Hillsfar,shadowdale,Shadowdale,The Moonsea Ride,road,road,False,False,215.737109,1.05,25.2,8.560996,0.225,1.51016,30.203195
+LEG-000438,hillsfar,Hillsfar,thentia,Thentia,Moonsea coasting run,sea,sea lane,False,False,114.268325,0.95,68.4,1.67059,0.216,0.263274,5.265484
+LEG-000439,hillsfar,Hillsfar,zhentil_keep,Zhentil Keep,The Moonsea Run,sea,sea lane,False,False,78.365809,1.05,75.6,1.036585,0.27,0.170614,3.412271
+LEG-000440,hlammach,Hlammach,dilpur,Dilpur,Sarshel to Hlammach and Lyrabar,road,road,False,False,82.553532,0.85,20.4,4.046742,0.165,0.678881,13.577628
+LEG-000441,hlammach,Hlammach,lyrabar,Lyrabar,Sarshel to Hlammach and Lyrabar,road,road,False,False,53.204515,0.85,20.4,2.608064,0.09,0.409362,8.187236
+LEG-000442,hlath,Hlath,airspur,Airspur,caravan track,track,wilderness track,False,True,162.287553,0.7,12.6,12.879965,0.294,2.610001,52.200023
+LEG-000443,hlath,Hlath,alaghon,Alaghôn,caravan track,track,wilderness track,False,True,186.007124,0.7,12.6,14.76247,0.252,2.894377,57.887543
+LEG-000444,hlath,Hlath,arrabar,Arrabar,The Vilhon Road,road,road,False,False,395.942639,1.0,24.0,16.49761,0.195,2.838909,56.778174
+LEG-000445,hlath,Hlath,reth,Reth,Airspur through Reth to Hlath trail,trail,trail,False,False,167.888536,0.7,13.3,12.623198,0.273,2.381475,47.629498
+LEG-000446,hlath,Hlath,samra,Samra,The Vilhon Road,road,road,False,False,185.03544,0.85,20.4,9.070365,0.195,1.560828,31.216567
+LEG-000447,hlath,Hlath,sapra,Sapra,local market trail,trail,trail,False,True,119.12548,0.65,12.35,9.645788,0.273,1.819761,36.395217
+LEG-000448,hlaungadath,Hlaungadath,ascore,Ascore,Sundabar to Ascore,road,road,False,False,47.46051,0.85,20.4,2.326496,0.03,0.345066,6.901316
+LEG-000449,hlondeth,Hlondeth,mimph,Mimph,Mimph to Nimpeth trail,trail,trail,False,False,79.891329,0.7,13.3,6.006867,0.234,1.098529,21.970572
+LEG-000450,hlondeth,Hlondeth,nimpeth,Nimpeth,Mimph to Nimpeth trail,trail,trail,False,False,94.740895,0.7,13.3,7.123376,0.234,1.302714,26.054287
+LEG-000451,hlondeth,Hlondeth,ormath,Ormath,The Shining Plains Road,road,road,False,False,289.478975,1.0,24.0,12.061624,0.24,2.153724,43.074471
+LEG-000452,hlondeth,Hlondeth,xorhun,Xorhun,Alaghon through Turmish to Hlondeth,road,road,False,False,137.785996,0.85,20.4,6.754215,0.18,1.147676,22.953526
+LEG-000453,hluthvar,Hluthvar,asbravn,Asbravn,Scornubel through Asbravn toward Iriaebor,trail,trail,False,False,93.156021,0.7,13.3,7.004212,0.312,1.361888,27.237756
+LEG-000454,hluthvar,Hluthvar,corm_orp,Corm Orp,Hill's Edge to Corm Orp trail,trail,trail,False,False,39.973275,0.7,13.3,3.005509,0.39,0.619129,12.382579
+LEG-000455,hluthvar,Hluthvar,darkhold,Darkhold,Sunset foothills via Farsea Marshes toward Tilverton,trail,trail,False,False,68.629973,0.7,13.3,5.160148,0.39,1.06298,21.259605
+LEG-000456,hluthvar,Hluthvar,hill_s_edge,Hill's Edge,Hill's Edge to Corm Orp trail,trail,trail,False,False,96.279233,0.7,13.3,7.23904,0.39,1.491228,29.824556
+LEG-000457,hulburg,Hulburg,glister,Glister,Melvaunt to Glister trail,trail,trail,False,False,66.457156,0.7,13.3,4.996779,0.312,0.971566,19.431313
+LEG-000458,hulburg,Hulburg,thentia,Thentia,Melvaunt to Glister trail,trail,trail,False,False,162.686245,0.7,13.3,12.232048,0.312,2.37838,47.567599
+LEG-000459,ilinvur,Ilinvur,glister,Glister,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,168.115247,0.7,13.3,12.640244,0.351,2.530807,50.616138
+LEG-000460,ilinvur,Ilinvur,teshwave,Teshwave,Citadel of the Raven to Ilinvur,trail,trail,False,False,297.757831,0.7,13.3,22.387807,0.429,4.74124,94.82481
+LEG-000461,ilipur,Ilipur,elversult,Elversult,Proskur via Elversult and Teziir to Westgate,road,road,False,False,41.748054,0.85,20.4,2.046473,0.18,0.347737,6.954735
+LEG-000462,ilipur,Ilipur,pros,Pros,Proskur via Elversult and Teziir to Westgate,road,road,False,False,58.28047,0.85,20.4,2.856886,0.18,0.485442,9.708841
+LEG-000463,iljak,Iljak,mussum,Mussum,The Vilhon Road,road,road,False,False,108.972451,0.85,20.4,5.341787,0.18,0.907676,18.153528
+LEG-000464,iljak,Iljak,samra,Samra,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,24.605894,0.7,13.3,1.850067,0.234,0.338338,6.766761
+LEG-000465,iljak,Iljak,shamph,Shamph,The Vilhon Road,road,road,False,False,26.293763,0.85,20.4,1.28891,0.18,0.219012,4.380232
+LEG-000466,ilmwatch,Ilmwatch,uthmere,Uthmere,Trail's End to Ilmwatch road,road,road,False,False,32.442256,0.85,20.4,1.590307,0.24,0.283965,5.679303
+LEG-000467,immilmar,Immilmar,mulptan,Mulptan,Nathoud via Mulptan to Immilmar,trail,trail,False,False,105.204755,0.7,13.3,7.910132,0.312,1.538033,30.760668
+LEG-000468,imnescar,Imnescar,brost,Brost,Murann to Brost,road,road,False,False,203.620092,0.85,20.4,9.981377,0.165,1.674476,33.489516
+LEG-000469,imnescar,Imnescar,murann,Murann,Crimmor through Purskul and Imnescar to Mosstone,road,road,False,False,121.884788,0.85,20.4,5.974744,0.24,1.06685,21.337008
+LEG-000470,imnescar,Imnescar,purskul,Purskul,Crimmor through Purskul and Imnescar to Mosstone,road,road,False,False,63.997396,0.85,20.4,3.137127,0.18,0.533061,10.661213
+LEG-000471,innarlith,Innarlith,derlusk,Derlusk,local market trail,trail,trail,False,True,211.844188,0.65,12.35,17.153376,0.312,3.335275,66.705498
+LEG-000472,innarlith,Innarlith,halarahh,Halarahh,The Halruaan Skyroad,air,skyship,False,False,798.796345,1.0,110.0,7.261785,0.1275,17.292343,345.846865
+LEG-000473,innarlith,Innarlith,kagarr,Kagarr,The Golden Road: Ormpetarr to Innarlith,road,road,False,False,191.290595,0.85,20.4,9.37699,0.21,1.633847,32.676935
+LEG-000474,innarlith,Innarlith,lhesper,Lhesper,The Golden Road: Innarlith to Shaarmid,road,road,False,False,294.261202,0.85,20.4,14.424569,0.24,2.575651,51.51302
+LEG-000475,innarlith,Innarlith,torsch,Torsch,Innarlith to Torsh trail,trail,trail,False,False,324.476902,0.7,13.3,24.39676,0.312,4.743667,94.873338
+LEG-000476,iriaebor,Iriaebor,asbravn,Asbravn,Iriaebor to Proskur,road,road,False,False,58.539986,0.85,20.4,2.869607,0.18,0.487604,9.752073
+LEG-000477,iriaebor,Iriaebor,berdusk,Berdusk,The Chionthar Road,road,road,False,False,70.998944,1.15,27.6,2.572425,0.135,0.420437,8.408744
+LEG-000478,iriaebor,Iriaebor,easting,Easting,Iriaebor to Proskur,road,road,False,False,43.805593,0.85,20.4,2.147333,0.18,0.364875,7.297496
+LEG-000479,iriaebor,Iriaebor,hill_s_edge,Hill's Edge,caravan track,track,wilderness track,False,True,171.19337,0.85,15.3,11.189109,0.336,2.340959,46.819171
+LEG-000480,iriaebor,Iriaebor,priapurl,Priapurl,Trader's Road from Easting through Priapurl to Elversult,road,road,False,False,123.166564,0.85,20.4,6.037577,0.225,1.065029,21.30057
+LEG-000481,iriaebor,Iriaebor,proskur,Proskur,The Chionthar Road,road,road,False,False,147.577364,1.15,27.6,5.347006,0.225,0.943212,18.864237
+LEG-000482,iriaebor,Iriaebor,scornubel,Scornubel,caravan track,track,wilderness track,False,True,153.040256,0.85,15.3,10.002631,0.273,1.994043,39.88085
+LEG-000483,iron_keep,Iron Keep,caer_calidyrr,Caer Calidyrr,local market ferry,ferry,ferry,False,True,126.781229,0.65,19.5,6.501601,0.12,0.917506,18.35012
+LEG-000484,ironfang,Ironfang,alaghon,Alaghôn,local market trail,trail,trail,False,True,130.979846,0.65,12.35,10.605656,0.195,1.878251,37.56502
+LEG-000485,ironfang_deep,Ironfang Deep,dragon_falls,Dragon Falls,Mulmaster through the Vast toward Procampur,road,road,False,False,248.604088,0.85,20.4,12.186475,0.24,2.176017,43.520339
+LEG-000486,ironfang_deep,Ironfang Deep,elmwood,Elmwood,Mulmaster through the Vast toward Procampur,road,road,False,False,104.683813,0.85,20.4,5.131559,0.285,0.949544,18.990875
+LEG-000487,ironspur,Ironspur,heliogabalus,Heliogabalus,Ironspur to Heliogabalus,trail,trail,False,False,120.123956,0.7,13.3,9.031876,0.429,1.912751,38.255018
+LEG-000488,irphong,Irphong,velen,Velen,local market ferry,ferry,ferry,False,True,100.410806,0.65,19.5,5.149272,0.216,0.788951,15.779018
+LEG-000489,ishau,Ishau,mezro,Mezro,local market trail,trail,trail,False,True,144.105864,0.65,12.35,11.668491,0.312,2.268803,45.376054
+LEG-000490,ithmong,Ithmong,lapalgard,Lapalgard,Ithmong through Lapalgard to Lushpool,trail,trail,False,False,99.57049,0.7,13.3,7.486503,0.234,1.369123,27.382454
+LEG-000491,ithmong,Ithmong,lushpool,Lushpool,Sheirtalar through Lushpool and Ithmong to Sammarash,road,road,False,False,69.487049,0.85,20.4,3.406228,0.3,0.637646,12.752917
+LEG-000492,ithmong,Ithmong,sammarash,Sammarash,Sheirtalar through Lushpool and Ithmong to Sammarash,road,road,False,False,139.293644,0.85,20.4,6.82812,0.255,1.233978,24.679556
+LEG-000493,jalanthar,Jalanthar,everlund,Everlund,caravan track,track,wilderness track,False,True,157.852241,0.85,15.3,10.31714,0.273,2.05674,41.134808
+LEG-000494,jalanthar,Jalanthar,mirabar,Mirabar,caravan track,track,wilderness track,False,True,177.929902,0.5499999999999999,9.9,17.972717,0.294,3.641999,72.839973
+LEG-000495,jalanthar,Jalanthar,mithral_hall,Mithral Hall,caravan track,track,wilderness track,False,True,48.572626,0.85,15.3,3.174681,0.231,0.611998,12.239959
+LEG-000496,jalanthar,Jalanthar,nesme,Nesmé,caravan track,track,wilderness track,False,True,28.856368,0.85,15.3,1.886037,0.441,0.425604,8.512086
+LEG-000497,jalanthar,Jalanthar,silverymoon,Silverymoon,caravan track,track,wilderness track,False,True,136.531974,0.85,15.3,8.923658,0.252,1.749601,34.992021
+LEG-000498,jiyyd,Jiyyd,bildoobaris,Bildoobaris,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,117.899279,0.7,13.3,8.864607,0.312,1.72362,34.472402
+LEG-000499,jiyyd,Jiyyd,peltarch,Peltarch,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,85.813491,0.7,13.3,6.452142,0.312,1.254544,25.090884
+LEG-000500,kagarr,Kagarr,ankhapur,Ankhapur,Ankhapur to Kagarr trail,trail,trail,False,False,284.453312,0.7,13.3,21.387467,0.312,4.158545,83.170898
+LEG-000501,kagarr,Kagarr,dalelost,Dalelost,Kagarr to Yhep trail,trail,trail,False,False,216.451614,0.7,13.3,16.274557,0.234,2.976272,59.525431
+LEG-000502,kagarr,Kagarr,innarlith,Innarlith,The Golden Road: Ormpetarr to Innarlith,road,road,False,False,191.290595,0.85,20.4,9.37699,0.21,1.633847,32.676935
+LEG-000503,kagarr,Kagarr,ormpetarr,Ormpetarr,The Golden Road: Ormpetarr to Innarlith,road,road,False,False,98.676667,0.85,20.4,4.837092,0.18,0.821919,16.438372
+LEG-000504,keczulla,Keczulla,eshpurta,Eshpurta,Crimmor through Keczulla to Eshpurta,road,road,False,False,85.292176,0.85,20.4,4.180989,0.15,0.692372,13.847436
+LEG-000505,keczulla,Keczulla,esmeltaran,Esmeltaran,Crimmor through Keczulla to Eshpurta,road,road,False,False,95.285326,0.85,20.4,4.670849,0.15,0.773493,15.469853
+LEG-000506,khalab,Khalab,port_ghaast,Port Ghaast,Port Ghaast Ferry,ferry,ferry,False,False,173.347339,0.75,22.5,7.704326,0.144,1.110532,22.210648
+LEG-000507,khalab,Khalab,zindalankh,Zindalankh,Skuld via Maerlar toward Khalab,road,road,False,False,87.391426,0.85,20.4,4.283893,0.12,0.690906,13.818127
+LEG-000508,kholtar,Kholtar,eartheart,Eartheart,Shaarmid through Kholtar and Eartheart to Delzimmer,road,road,False,False,91.383197,0.85,20.4,4.479568,0.24,0.799872,15.997435
+LEG-000509,kholtar,Kholtar,shaarmid,Shaarmid,Shaarmid through Kholtar and Eartheart to Delzimmer,road,road,False,False,494.190763,0.85,20.4,24.225037,0.24,4.325623,86.512453
+LEG-000510,kormul,Kormul,lhesper,Lhesper,Shaarmid southern road,road,road,False,False,162.786744,0.85,20.4,7.979742,0.24,1.424863,28.497256
+LEG-000511,kormul,Kormul,rethmar,Rethmar,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,230.353876,0.85,20.4,11.291857,0.24,2.016274,40.325478
+LEG-000512,kormul,Kormul,sheirtalar,Sheirtalar,Sheirtalar junction through Misty Vale to Kormul,road,road,False,False,307.365365,0.85,20.4,15.06693,0.27,2.75544,55.108802
+LEG-000513,krenalir,Krenalir,chethel,Chethel,Beluir through Chethel to Krenalir,road,road,False,False,155.191553,0.85,20.4,7.607429,0.12,1.226926,24.538523
+LEG-000514,kront,Kront,mulsantir,Mulsantir,Kront to Two Stars,road,road,False,False,182.420967,0.85,20.4,8.942204,0.24,1.59672,31.9344
+LEG-000515,kront,Kront,the_mucklestones,The Mucklestones,Kront to Tammar,road,road,False,False,142.275693,0.85,20.4,6.974299,0.24,1.245331,24.906615
+LEG-000516,kront,Kront,tower_of_threespires,Tower of Threespires,Uthmere through the Great Dale to Kront,road,road,False,False,127.437074,0.85,20.4,6.246915,0.24,1.115449,22.308984
+LEG-000517,lantan,Lantan,caer_corwell,Caer Corwell,Sea of Swords coasting run,sea,sea lane,False,False,415.064344,0.95,68.4,6.068192,0.135,0.892607,17.852136
+LEG-000518,lantan,Lantan,calimport,Calimport,Calimshan-Lantan Coastal Run,sea,sea lane,False,False,523.997595,1.05,75.6,6.931185,0.2025,1.080184,21.603672
+LEG-000519,lantan,Lantan,halarahh,Halarahh,The Lantanna Skybridge,air,skyship,False,False,1570.978479,0.9,99.0,15.868469,0.0765,36.078044,721.560888
+LEG-000520,lantan,Lantan,memnon,Memnon,The Shining Sea Run,sea,sea lane,False,False,402.284588,1.0,72.0,5.587286,0.189,0.860969,17.21939
+LEG-000521,lantan,Lantan,murann,Murann,Sea of Swords coasting run,sea,sea lane,False,False,371.796087,0.95,68.4,5.435615,0.189,0.837598,16.751958
+LEG-000522,lantan,Lantan,nemesser,Nemesser,local market ferry,ferry,ferry,False,True,91.915722,0.65,19.5,4.713627,0.096,0.650933,13.01866
+LEG-000523,lantan,Lantan,nimbral,Nimbral,Sea of Swords coasting run,sea,sea lane,False,False,261.585053,0.95,68.4,3.824343,0.0945,0.542472,10.849447
+LEG-000524,lantan,Lantan,port_nyanzaru,Port Nyanzaru,Sea of Swords coasting run,sea,sea lane,False,False,336.139331,0.95,68.4,4.914318,0.162,0.740073,14.801453
+LEG-000525,lantan,Lantan,tashluta,Tashluta,The Shining Sea Run,sea,sea lane,False,False,861.017776,1.0,72.0,11.95858,0.1485,1.779982,35.599641
+LEG-000526,lantan,Lantan,urbreth,Urbreth,Calimshan-Lantan Coastal Run,sea,sea lane,False,False,961.27986,1.05,75.6,12.715342,0.1755,1.937116,38.742325
+LEG-000527,lantan,Lantan,velen,Velen,Sea of Swords coasting run,sea,sea lane,False,False,222.035763,0.95,68.4,3.246137,0.1755,0.494532,9.890641
+LEG-000528,laothkund,Laothkund,glarondar,Glarondar,local market trail,trail,trail,False,True,112.837449,0.65,12.35,9.136636,0.117,1.512473,30.249463
+LEG-000529,lapalgard,Lapalgard,ithmong,Ithmong,Ithmong through Lapalgard to Lushpool,trail,trail,False,False,99.57049,0.7,13.3,7.486503,0.234,1.369123,27.382454
+LEG-000530,lapalgard,Lapalgard,lushpool,Lushpool,Ithmong through Lapalgard to Lushpool,trail,trail,False,False,77.49866,0.7,13.3,5.826967,0.234,1.065629,21.312574
+LEG-000531,laviguer,Laviguer,dilpur,Dilpur,Laviguer to Ilmwatch road junction,road,road,False,False,224.796151,0.85,20.4,11.019419,0.165,1.848618,36.972355
+LEG-000532,leilon,Leilon,longsaddle,Longsaddle,caravan track,track,wilderness track,False,True,147.286999,0.85,15.3,9.626601,0.294,1.950738,39.014766
+LEG-000533,leilon,Leilon,luskan,Luskan,caravan track,track,wilderness track,False,True,185.571226,0.85,15.3,12.128838,0.462,2.776888,55.537757
+LEG-000534,leilon,Leilon,neverwinter,Neverwinter,The High Road,road,road,False,False,90.603276,1.25,30.0,3.020109,0.21,0.526224,10.524477
+LEG-000535,leilon,Leilon,phandalin,Phandalin,caravan track,track,wilderness track,False,True,66.672108,0.85,15.3,4.357654,0.378,0.940359,18.807182
+LEG-000536,leilon,Leilon,port_llast,Port Llast,caravan track,track,wilderness track,False,True,117.851135,0.85,15.3,7.702689,0.357,1.636869,32.737381
+LEG-000537,leilon,Leilon,waterdeep,Waterdeep,The High Road,road,road,False,False,232.216476,1.25,30.0,7.740549,0.165,1.298555,25.971091
+LEG-000538,lheshayl,Lheshayl,elversult,Elversult,Dragon Coast trail to Shining Plains road,trail,trail,False,False,410.131227,0.7,13.3,30.836934,0.234,5.639422,112.788431
+LEG-000539,lheshayl,Lheshayl,ormath,Ormath,The Shining Plains Road,road,road,False,False,84.693565,1.0,24.0,3.528899,0.24,0.63012,12.602402
+LEG-000540,lheshayl,Lheshayl,riatavin,Riatavin,The Shining Plains Road,road,road,False,False,385.902799,1.0,24.0,16.079283,0.18,2.732192,54.643836
+LEG-000541,lhesper,Lhesper,innarlith,Innarlith,The Golden Road: Innarlith to Shaarmid,road,road,False,False,294.261202,0.85,20.4,14.424569,0.24,2.575651,51.51302
+LEG-000542,lhesper,Lhesper,kormul,Kormul,Shaarmid southern road,road,road,False,False,162.786744,0.85,20.4,7.979742,0.24,1.424863,28.497256
+LEG-000543,lhesper,Lhesper,shaarmid,Shaarmid,Shaarmid southern road,road,road,False,False,58.986439,0.85,20.4,2.891492,0.24,0.516305,10.326097
+LEG-000544,llewellyn,Llewellyn,caer_corwell,Caer Corwell,local market ferry,ferry,ferry,False,True,120.546837,0.65,19.5,6.181889,0.144,0.891082,17.821644
+LEG-000545,llorkh,Llorkh,loudwater,Loudwater,The Delimbiyr Route,road,road,False,False,98.4801,0.85,20.4,4.827456,0.27,0.882845,17.656903
+LEG-000546,llorkh,Llorkh,parnast,Parnast,The Delimbiyr Route,road,road,False,False,147.312491,0.85,20.4,7.221201,0.36,1.4142,28.283998
+LEG-000547,llorkh,Llorkh,shade,Shade,Black Road across Anauroch to Dagger Falls,trail,trail,False,False,529.859165,0.7,13.3,39.839035,0.3705,8.091631,161.832614
+LEG-000548,llorkh,Llorkh,sshamath,Sshamath,Sshamath Deep Way,tunnel+trail,Underdark tunnel and trail,True,True,379.198761,0.35,6.472258,58.588325,0.87615,20.147804,402.956079
+LEG-000549,llorkh,Llorkh,triel,Triel,The Dusk Road,road,road,False,False,386.776887,0.85,20.4,18.959651,0.33,3.631152,72.623048
+LEG-000550,lonelywood,Lonelywood,bryn_shander,Bryn Shander,caravan track,track,wilderness track,False,True,29.873902,0.85,15.3,1.952543,0.399,0.42777,8.555393
+LEG-000551,lonelywood,Lonelywood,easthaven,Easthaven,caravan track,track,wilderness track,False,True,53.525041,0.85,15.3,3.498369,0.441,0.789444,15.78888
+LEG-000552,lonelywood,Lonelywood,targos,Targos,caravan track,track,wilderness track,False,True,25.057733,0.85,15.3,1.63776,0.441,0.369578,7.39156
+LEG-000553,lonelywood,Lonelywood,termalaine,Termalaine,caravan track,track,wilderness track,False,True,14.650939,0.85,15.3,0.957578,0.441,0.216088,4.321751
+LEG-000554,longsaddle,Longsaddle,leilon,Leilon,caravan track,track,wilderness track,False,True,147.286999,0.85,15.3,9.626601,0.294,1.950738,39.014766
+LEG-000555,longsaddle,Longsaddle,luskan,Luskan,caravan track,track,wilderness track,False,True,202.614165,0.85,15.3,13.242756,0.42,2.944818,58.896362
+LEG-000556,longsaddle,Longsaddle,mirabar,Mirabar,The Long Road,road,road,False,False,161.078123,1.1,26.4,6.101444,0.15,1.010399,20.207983
+LEG-000557,longsaddle,Longsaddle,phandalin,Phandalin,caravan track,track,wilderness track,False,True,118.022074,0.85,15.3,7.713861,0.336,1.613875,32.27751
+LEG-000558,longsaddle,Longsaddle,port_llast,Port Llast,caravan track,track,wilderness track,False,True,160.256201,0.85,15.3,10.474262,0.315,2.156954,43.139084
+LEG-000559,longsaddle,Longsaddle,triboar,Triboar,The Long Road,road,road,False,False,137.300785,1.1,26.4,5.200787,0.195,0.894951,17.89903
+LEG-000560,longsaddle,Longsaddle,yartar,Yartar,Long Road: Mirabar to Waterdeep,road,road,False,False,183.024217,0.85,20.4,8.971775,0.21,1.563242,31.264843
+LEG-000561,loudwater,Loudwater,llorkh,Llorkh,The Delimbiyr Route,road,road,False,False,98.4801,0.85,20.4,4.827456,0.27,0.882845,17.656903
+LEG-000562,loudwater,Loudwater,secomber,Secomber,The Delimbiyr Route,road,road,False,False,122.457013,0.85,20.4,6.002795,0.225,1.058893,21.17786
+LEG-000563,lundeth,Lundeth,tashluta,Tashluta,local market trail,trail,trail,False,True,212.617262,0.65,12.35,17.215973,0.273,3.247941,64.958826
+LEG-000564,lushpool,Lushpool,ithmong,Ithmong,Sheirtalar through Lushpool and Ithmong to Sammarash,road,road,False,False,69.487049,0.85,20.4,3.406228,0.3,0.637646,12.752917
+LEG-000565,lushpool,Lushpool,lapalgard,Lapalgard,Ithmong through Lapalgard to Lushpool,trail,trail,False,False,77.49866,0.7,13.3,5.826967,0.234,1.065629,21.312574
+LEG-000566,lushpool,Lushpool,sheirtalar,Sheirtalar,Sheirtalar through Lushpool and Ithmong to Sammarash,road,road,False,False,228.370781,0.85,20.4,11.194646,0.3,2.095638,41.912755
+LEG-000567,luskan,Luskan,bryn_shander,Bryn Shander,The Ten Trail,trail+ferry,trail and ferry,True,False,589.730523,0.55,11.260408,52.372038,0.5214,11.549617,230.992342
+LEG-000568,luskan,Luskan,leilon,Leilon,caravan track,track,wilderness track,False,True,185.571226,0.85,15.3,12.128838,0.462,2.776888,55.537757
+LEG-000569,luskan,Luskan,longsaddle,Longsaddle,caravan track,track,wilderness track,False,True,202.614165,0.85,15.3,13.242756,0.42,2.944818,58.896362
+LEG-000570,luskan,Luskan,mirabar,Mirabar,Luskan to Mirabar,road,road,False,False,221.592158,0.85,20.4,10.862361,0.27,1.986509,39.73017
+LEG-000571,luskan,Luskan,neverwinter,Neverwinter,caravan track,track,wilderness track,False,True,126.281313,0.85,15.3,8.253681,0.42,1.835387,36.707749
+LEG-000572,luskan,Luskan,port_llast,Port Llast,The Sword Coast Run,sea,sea lane,False,False,67.735441,1.2,86.4,0.783975,0.3105,0.133151,2.663019
+LEG-000573,luskan,Luskan,ruathym,Ruathym,Sea of Swords coasting run,sea,sea lane,False,False,301.833414,0.95,68.4,4.412769,0.351,0.77263,15.4526
+LEG-000574,luthcheq,Luthcheq,airspur,Airspur,caravan track,track,wilderness track,False,True,225.718852,0.85,15.3,14.752866,0.336,3.086559,61.731185
+LEG-000575,luthcheq,Luthcheq,cimbar,Cimbar,The Eastern Shaar Road,road,road,False,False,168.547475,1.0,24.0,7.022811,0.225,1.238824,24.776479
+LEG-000576,luthcheq,Luthcheq,messemprar,Messemprar,The Eastern Shaar Road,road,road,False,False,295.240055,1.0,24.0,12.301669,0.3,2.302872,46.057449
+LEG-000577,luthcheq,Luthcheq,mordulkin,Mordulkin,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,134.419854,0.85,20.4,6.589209,0.27,1.205034,24.100689
+LEG-000578,luthcheq,Luthcheq,soorenar,Soorenar,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,117.71007,0.85,20.4,5.770101,0.225,1.017846,20.356918
+LEG-000579,lyrabar,Lyrabar,airspur,Airspur,Sea of Fallen Stars coasting run,sea,sea lane,False,False,450.38811,0.95,68.4,6.584621,0.135,0.968571,19.37143
+LEG-000580,lyrabar,Lyrabar,hlammach,Hlammach,Sarshel to Hlammach and Lyrabar,road,road,False,False,53.204515,0.85,20.4,2.608064,0.09,0.409362,8.187236
+LEG-000581,lyrabar,Lyrabar,procampur,Procampur,caravan track,track,wilderness track,False,True,149.177813,0.7,12.6,11.839509,0.105,2.048744,40.974883
+LEG-000582,lyrabar,Lyrabar,ravens_bluff,Ravens Bluff,The Inner Sea Run,sea,sea lane,False,False,171.812136,1.2,86.4,1.988566,0.108,0.285552,5.711035
+LEG-000583,lyrabar,Lyrabar,tantras,Tantras,The Vast Road,road,road,False,False,214.307559,1.05,25.2,8.504268,0.105,1.353199,27.063983
+LEG-000584,lyrabar,Lyrabar,telflamm,Telflamm,The Inner Sea Run,sea,sea lane,False,False,232.13621,1.2,86.4,2.686762,0.1485,0.399913,7.998253
+LEG-000585,lyrabar,Lyrabar,tsurlagol,Tsurlagol,Sea of Fallen Stars coasting run,sea,sea lane,False,False,104.022353,0.95,68.4,1.520795,0.1485,0.226364,4.527272
+LEG-000586,lyrabar,Lyrabar,velprintalar,Velprintalar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,294.768859,0.95,68.4,4.309486,0.081,0.603749,12.074974
+LEG-000587,maarlith,Maarlith,cathyr,Cathyr,Cathyr to Maarlith trail,trail,trail,False,False,178.142144,0.7,13.3,13.394146,0.078,2.139843,42.796869
+LEG-000588,maerlar,Maerlar,phannaskul,Phannaskul,Skuld via Maerlar toward Khalab,road,road,False,False,365.125321,0.85,20.4,17.8983,0.12,2.886638,57.732757
+LEG-000589,maerlar,Maerlar,rauthil,Rauthil,Rauthil to Maerlar,trail,trail,False,False,97.298206,0.7,13.3,7.315655,0.156,1.253312,25.066242
+LEG-000590,maerlar,Maerlar,skuld,Skuld,Skuld via Maerlar toward Khalab,road,road,False,False,154.650642,0.85,20.4,7.580914,0.12,1.22265,24.452996
+LEG-000591,manshaka,Manshaka,schamedar,Schamedar,Manshaka through Schamedar toward Almraiven,trail,trail,False,False,45.88557,0.7,13.3,3.450043,0.429,0.730642,14.61285
+LEG-000592,mantol_derith,Mantol-Derith,blingdenstone,Blingdenstone,Underdark passage,tunnel,Underdark tunnel,False,True,31.228513,0.85,10.2,3.061619,0.627,0.681436,13.628711
+LEG-000593,mantol_derith,Mantol-Derith,gracklstugh,Gracklstugh,Underdark passage,tunnel,Underdark tunnel,False,True,35.088602,0.85,10.2,3.440059,0.759,0.827786,16.555711
+LEG-000594,mantol_derith,Mantol-Derith,menzoberranzan,Menzoberranzan,Underdark passage,tunnel,Underdark tunnel,False,True,35.618254,0.85,10.2,3.491986,0.825,0.871809,17.436183
+LEG-000595,mantol_derith,Mantol-Derith,sshamath,Sshamath,The Deepdark Road,tunnel,Underdark tunnel,False,True,818.154173,0.5,6.0,136.359029,0.759,32.812237,656.244734
+LEG-000596,marsember,Marsember,arabel,Arabel,Arabel to Suzail,road,road,False,False,109.856979,0.85,20.4,5.385146,0.15,0.89178,17.835604
+LEG-000597,marsember,Marsember,elversult,Elversult,caravan track,track,wilderness track,False,True,144.871391,0.7,12.6,11.497729,0.252,2.254282,45.085633
+LEG-000598,marsember,Marsember,proskur,Proskur,caravan track,track,wilderness track,False,True,179.705008,0.7,12.6,14.262302,0.315,2.937022,58.740433
+LEG-000599,marsember,Marsember,suzail,Suzail,The Inner Sea Run,sea,sea lane,False,False,35.109116,1.2,86.4,0.406356,0.108,0.058351,1.167027
+LEG-000600,marsember,Marsember,teziir,Teziir,The Dragonmere,sea,sea lane,False,False,114.951686,1.15,82.8,1.388305,0.216,0.218788,4.375761
+LEG-000601,marsember,Marsember,tilverton,Tilverton,caravan track,track,wilderness track,False,True,197.098605,0.85,15.3,12.882262,0.273,2.568102,51.362041
+LEG-000602,marsember,Marsember,urmlaspyr,Urmlaspyr,The Inner Sea Run,sea,sea lane,False,False,197.56318,1.2,86.4,2.286611,0.162,0.344353,6.887052
+LEG-000603,marsember,Marsember,westgate,Westgate,Sea of Fallen Stars coasting run,sea,sea lane,False,False,174.66883,0.95,68.4,2.553638,0.2565,0.415841,8.31681
+LEG-000604,marsember,Marsember,wheloon,Wheloon,The Starwater,river+barge,river and barge,True,False,208.920751,1.1,31.887059,6.551898,0.1911,0.80083,16.016602
+LEG-000605,mauberg_s_oak,Mauberg's Oak,bezentil,Bezentil,Uthmere through the Great Dale to Kront,road,road,False,False,217.189031,0.85,20.4,10.646521,0.24,1.901043,38.020856
+LEG-000606,mauberg_s_oak,Mauberg's Oak,uthmere,Uthmere,Uthmere through the Great Dale to Kront,road,road,False,False,135.241083,0.85,20.4,6.629465,0.24,1.183757,23.675145
+LEG-000607,melvaunt,Melvaunt,elmwood,Elmwood,caravan track,track,wilderness track,False,True,140.173357,0.85,15.3,9.161657,0.357,1.946909,38.93818
+LEG-000608,melvaunt,Melvaunt,hillsfar,Hillsfar,Moonsea coasting run,sea,sea lane,False,False,104.735715,0.95,68.4,1.531224,0.2295,0.24399,4.879802
+LEG-000609,melvaunt,Melvaunt,mulmaster,Mulmaster,caravan track,track,wilderness track,False,True,164.84796,0.85,15.3,10.774376,0.42,2.39592,47.918393
+LEG-000610,melvaunt,Melvaunt,phlan,Phlan,The Moonsea Run,sea,sea lane,False,False,48.92157,1.05,75.6,0.647111,0.2565,0.105377,2.107541
+LEG-000611,melvaunt,Melvaunt,thentia,Thentia,The Moonsea Run,sea,sea lane,False,False,37.081801,1.05,75.6,0.4905,0.2295,0.078158,1.563157
+LEG-000612,melvaunt,Melvaunt,zhentil_keep,Zhentil Keep,Moonsea coasting run,sea,sea lane,False,False,115.710025,0.95,68.4,1.691667,0.2835,0.281395,5.627892
+LEG-000613,memnon,Memnon,almraiven,Almraiven,The Shining Sea Run,sea,sea lane,False,False,456.640712,1.0,72.0,6.342232,0.2565,1.032784,20.655686
+LEG-000614,memnon,Memnon,calimport,Calimport,The Sword Coast Run,sea,sea lane,False,False,168.079416,1.2,86.4,1.945364,0.2835,0.323595,6.471898
+LEG-000615,memnon,Memnon,castle_tethyr,Castle Tethyr,Zazesspur through Castle Tethyr to Myratma,road,road,False,False,113.352032,0.85,20.4,5.556472,0.27,1.016168,20.323353
+LEG-000616,memnon,Memnon,lantan,Lantan,The Shining Sea Run,sea,sea lane,False,False,402.284588,1.0,72.0,5.587286,0.189,0.860969,17.21939
+LEG-000617,memnon,Memnon,myratma,Myratma,The Trade Way,road,road,False,False,39.498987,1.3,31.2,1.265993,0.27,0.231525,4.630497
+LEG-000618,memnon,Memnon,nimbral,Nimbral,Sea of Swords coasting run,sea,sea lane,False,False,393.175546,0.95,68.4,5.74818,0.1755,0.875705,17.514108
+LEG-000619,memnon,Memnon,port_nyanzaru,Port Nyanzaru,Sea of Swords coasting run,sea,sea lane,False,False,458.680128,0.95,68.4,6.70585,0.243,1.080264,21.605283
+LEG-000620,memnon,Memnon,zazesspur,Zazesspur,The Sword Coast Run,sea,sea lane,False,False,146.608902,1.2,86.4,1.696862,0.243,0.273352,5.467046
+LEG-000621,menzoberranzan,Menzoberranzan,blingdenstone,Blingdenstone,Underdark passage,tunnel,Underdark tunnel,False,True,17.854971,0.85,10.2,1.750487,0.594,0.38171,7.634198
+LEG-000622,menzoberranzan,Menzoberranzan,gracklstugh,Gracklstugh,Underdark passage,tunnel,Underdark tunnel,False,True,8.0,0.85,10.2,0.784314,0.726,0.18519,3.703793
+LEG-000623,menzoberranzan,Menzoberranzan,mantol_derith,Mantol-Derith,Underdark passage,tunnel,Underdark tunnel,False,True,35.618254,0.85,10.2,3.491986,0.825,0.871809,17.436183
+LEG-000624,menzoberranzan,Menzoberranzan,nesme,Nesmé,Menzoberranzan Surface Way,tunnel+trail,Underdark tunnel and trail,True,True,35.618254,0.35,6.472258,5.503219,0.915975,1.932661,38.653222
+LEG-000625,messemprar,Messemprar,bezantur,Bezantur,The Vilhon Passage,sea,sea lane,False,False,243.46815,1.05,75.6,3.220478,0.27,0.530065,10.601299
+LEG-000626,messemprar,Messemprar,cimbar,Cimbar,The Vilhon Passage,sea,sea lane,False,False,387.351339,1.05,75.6,5.123695,0.2295,0.816426,16.328519
+LEG-000627,messemprar,Messemprar,luthcheq,Luthcheq,The Eastern Shaar Road,road,road,False,False,295.240055,1.0,24.0,12.301669,0.3,2.302872,46.057449
+LEG-000628,messemprar,Messemprar,mordulkin,Mordulkin,Mordulkin through Threskel toward Messemprar,trail,trail,False,False,304.587826,0.7,13.3,22.90134,0.39,4.71763,94.352606
+LEG-000629,messemprar,Messemprar,shussel,Shussel,Messemprar to Shussel,trail,trail,False,False,101.335728,0.7,13.3,7.619228,0.429,1.613583,32.271666
+LEG-000630,messemprar,Messemprar,skuld,Skuld,The Alamber Run,sea,sea lane,False,False,192.339518,1.1,79.2,2.428529,0.2025,0.378472,7.569434
+LEG-000631,messemprar,Messemprar,velprintalar,Velprintalar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,470.079015,0.95,68.4,6.8725,0.189,1.059014,21.180276
+LEG-000632,mezro,Mezro,ishau,Ishau,local market trail,trail,trail,False,True,144.105864,0.65,12.35,11.668491,0.312,2.268803,45.376054
+LEG-000633,mezro,Mezro,port_castigliar,Port Castigliar,local market trail,trail,trail,False,True,17.22353,0.65,12.35,1.394618,0.312,0.271167,5.423345
+LEG-000634,mimph,Mimph,arrabar,Arrabar,The Vilhon Road,road,road,False,False,24.285181,0.85,20.4,1.19045,0.18,0.202281,4.045625
+LEG-000635,mimph,Mimph,fort_arran,Fort Arran,The Vilhon Road,road,road,False,False,60.602414,0.85,20.4,2.970707,0.18,0.504782,10.095649
+LEG-000636,mimph,Mimph,hlondeth,Hlondeth,Mimph to Nimpeth trail,trail,trail,False,False,79.891329,0.7,13.3,6.006867,0.234,1.098529,21.970572
+LEG-000637,mines_of_tethyamar,Mines of Tethyamar,dagger_falls,Dagger Falls,Black Road across Anauroch to Dagger Falls,trail,trail,False,False,60.82146,0.7,13.3,4.573042,0.273,0.862744,17.254874
+LEG-000638,mines_of_tethyamar,Mines of Tethyamar,shade,Shade,Black Road across Anauroch to Dagger Falls,trail,trail,False,False,234.875153,0.7,13.3,17.659786,0.273,3.33167,66.63341
+LEG-000639,mines_of_tethyamar,Mines of Tethyamar,voonlar,Voonlar,Dagger Falls to Teshwave trail,trail,trail,False,False,168.222834,0.7,13.3,12.648333,0.273,2.386217,47.724337
+LEG-000640,mintar,Mintar,saelmur,Saelmur,Saradush through Mintar to Ankhapur,trail,trail,False,False,118.834447,0.7,13.3,8.934921,0.351,1.788934,35.778675
+LEG-000641,mintar,Mintar,saradush,Saradush,Saradush through Mintar to Ankhapur,trail,trail,False,False,164.310216,0.7,13.3,12.354152,0.312,2.402121,48.042429
+LEG-000642,mintar,Mintar,yeshpek,Yeshpek,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,179.74383,0.7,13.3,13.514574,0.351,2.705864,54.117272
+LEG-000643,mintarn,Mintarn,baldur_s_gate,Baldur's Gate,The Nelanther Passage,sea,sea lane,False,False,310.809138,1.0,72.0,4.316794,0.216,0.680299,13.605981
+LEG-000644,mintarn,Mintarn,caer_calidyrr,Caer Calidyrr,Sea of Swords coasting run,sea,sea lane,False,False,158.20749,0.95,68.4,2.312975,0.2025,0.360463,7.209266
+LEG-000645,mintarn,Mintarn,caer_corwell,Caer Corwell,Sea of Swords coasting run,sea,sea lane,False,False,374.028475,0.95,68.4,5.468253,0.216,0.861762,17.235232
+LEG-000646,mintarn,Mintarn,candlekeep,Candlekeep,Sea of Swords coasting run,sea,sea lane,False,False,339.975176,0.95,68.4,4.970397,0.1485,0.739822,14.796435
+LEG-000647,mintarn,Mintarn,orlumbor,Orlumbor,The Nelanther Passage,sea,sea lane,False,False,210.101737,1.0,72.0,2.91808,0.243,0.470082,9.401633
+LEG-000648,mintarn,Mintarn,waterdeep,Waterdeep,Sea of Swords coasting run,sea,sea lane,False,False,369.250186,0.95,68.4,5.398395,0.1755,0.822417,16.448347
+LEG-000649,mirabar,Mirabar,gracklstugh,Gracklstugh,Mirabar Underway,tunnel+trail,Underdark tunnel and trail,True,True,219.117799,0.4,6.472258,33.854923,0.55755,9.665246,193.304916
+LEG-000650,mirabar,Mirabar,jalanthar,Jalanthar,caravan track,track,wilderness track,False,True,177.929902,0.5499999999999999,9.9,17.972717,0.294,3.641999,72.839973
+LEG-000651,mirabar,Mirabar,longsaddle,Longsaddle,The Long Road,road,road,False,False,161.078123,1.1,26.4,6.101444,0.15,1.010399,20.207983
+LEG-000652,mirabar,Mirabar,luskan,Luskan,Luskan to Mirabar,road,road,False,False,221.592158,0.85,20.4,10.862361,0.27,1.986509,39.73017
+LEG-000653,mirabar,Mirabar,nesme,Nesmé,caravan track,track,wilderness track,False,True,187.597228,0.5499999999999999,9.9,18.949215,0.315,3.902193,78.043858
+LEG-000654,mishtan,Mishtan,city_of_the_dead,City of the Dead,local market trail,trail,trail,False,True,35.746328,0.65,12.35,2.89444,0.156,0.495873,9.917461
+LEG-000655,mishtan,Mishtan,skuld,Skuld,local market trail,trail,trail,False,True,263.390395,0.65,12.35,21.327157,0.156,3.653752,73.075031
+LEG-000656,mithral_hall,Mithral Hall,everlund,Everlund,caravan track,track,wilderness track,False,True,156.909432,0.7,12.6,12.45313,0.084,2.113974,42.279471
+LEG-000657,mithral_hall,Mithral Hall,jalanthar,Jalanthar,caravan track,track,wilderness track,False,True,48.572626,0.85,15.3,3.174681,0.231,0.611998,12.239959
+LEG-000658,mithral_hall,Mithral Hall,nesme,Nesmé,The Mithral Road,road,road,False,False,72.911247,0.95,22.8,3.197862,0.18,0.543381,10.867613
+LEG-000659,mithral_hall,Mithral Hall,silverymoon,Silverymoon,caravan track,track,wilderness track,False,True,122.331517,0.85,15.3,7.995524,0.063,1.330981,26.619626
+LEG-000660,monastery_of_the_yellow_rose,Monastery of the Yellow Rose,mulmaster,Mulmaster,local market trail,trail,trail,False,True,123.961325,0.65,12.35,10.037354,0.429,2.125689,42.513776
+LEG-000661,mordulkin,Mordulkin,luthcheq,Luthcheq,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,134.419854,0.85,20.4,6.589209,0.27,1.205034,24.100689
+LEG-000662,mordulkin,Mordulkin,messemprar,Messemprar,Mordulkin through Threskel toward Messemprar,trail,trail,False,False,304.587826,0.7,13.3,22.90134,0.39,4.71763,94.352606
+LEG-000663,morningstar_hollows,Morningstar Hollows,alaghon,Alaghôn,Alaghon through Turmish to Hlondeth,road,road,False,False,41.179555,0.85,20.4,2.018606,0.15,0.334281,6.685622
+LEG-000664,morningstar_hollows,Morningstar Hollows,nonthal,Nonthal,Alaghon through Turmish to Hlondeth,road,road,False,False,63.693321,0.85,20.4,3.122222,0.15,0.51704,10.340798
+LEG-000665,mosstone,Mosstone,castle_tethyr,Castle Tethyr,Trade Way: Mosstone to Zazesspur,road,road,False,False,158.889356,0.85,20.4,7.788694,0.24,1.390749,27.814984
+LEG-000666,mosstone,Mosstone,murann,Murann,Crimmor through Purskul and Imnescar to Mosstone,road,road,False,False,168.147606,0.85,20.4,8.24253,0.27,1.507394,30.147877
+LEG-000667,mount_talath,Mount Talath,halarahh,Halarahh,local market trail,trail,trail,False,True,155.476976,0.65,12.35,12.589229,0.078,2.01125,40.225003
+LEG-000668,mulmaster,Mulmaster,elmwood,Elmwood,The Moonsea Run,sea,sea lane,False,False,53.958688,1.05,75.6,0.713739,0.2565,0.116227,2.32454
+LEG-000669,mulmaster,Mulmaster,harrowdale_town,Harrowdale Town,The River Lis,river+sea,river and sea lane,True,False,235.476453,1.0,45.257143,5.203078,0.291975,0.915427,18.308543
+LEG-000670,mulmaster,Mulmaster,melvaunt,Melvaunt,caravan track,track,wilderness track,False,True,164.84796,0.85,15.3,10.774376,0.42,2.39592,47.918393
+LEG-000671,mulmaster,Mulmaster,monastery_of_the_yellow_rose,Monastery of the Yellow Rose,local market trail,trail,trail,False,True,123.961325,0.65,12.35,10.037354,0.429,2.125689,42.513776
+LEG-000672,mulmaster,Mulmaster,phlan,Phlan,caravan track,track,wilderness track,False,True,213.291655,0.85,15.3,13.940631,0.441,3.145851,62.917023
+LEG-000673,mulmaster,Mulmaster,thentia,Thentia,The Moonsea Run,sea,sea lane,False,False,128.447382,1.05,75.6,1.699039,0.2565,0.276676,5.533513
+LEG-000674,mulptan,Mulptan,immilmar,Immilmar,Nathoud via Mulptan to Immilmar,trail,trail,False,False,105.204755,0.7,13.3,7.910132,0.312,1.538033,30.760668
+LEG-000675,mulptan,Mulptan,nathoud,Nathoud,Nathoud via Mulptan to Immilmar,trail,trail,False,False,179.395511,0.7,13.3,13.488384,0.312,2.62266,52.453197
+LEG-000676,mulptan,Mulptan,surthay,Surthay,Mulptan to Mulsantir,road,road,False,False,286.950758,0.85,20.4,14.066214,0.24,2.511663,50.233262
+LEG-000677,mulsantir,Mulsantir,kront,Kront,Kront to Two Stars,road,road,False,False,182.420967,0.85,20.4,8.942204,0.24,1.59672,31.9344
+LEG-000678,mulsantir,Mulsantir,surthay,Surthay,Mulptan to Mulsantir,road,road,False,False,89.120209,0.85,20.4,4.368638,0.24,0.780064,15.601279
+LEG-000679,mulsantir,Mulsantir,two_stars,Two Stars,Mulptan to Mulsantir,road,road,False,False,60.351388,0.85,20.4,2.958401,0.24,0.528252,10.565043
+LEG-000680,murann,Murann,athkatla,Athkatla,The Sword Coast Run,sea,sea lane,False,False,158.814766,1.2,86.4,1.838134,0.216,0.289678,5.793563
+LEG-000681,murann,Murann,crimmor,Crimmor,caravan track,track,wilderness track,False,True,167.063341,0.85,15.3,10.919173,0.315,2.248574,44.971486
+LEG-000682,murann,Murann,esmeltaran,Esmeltaran,caravan track,track,wilderness track,False,True,249.40012,0.85,15.3,16.300661,0.315,3.356779,67.135578
+LEG-000683,murann,Murann,imnescar,Imnescar,Crimmor through Purskul and Imnescar to Mosstone,road,road,False,False,121.884788,0.85,20.4,5.974744,0.24,1.06685,21.337008
+LEG-000684,murann,Murann,lantan,Lantan,Sea of Swords coasting run,sea,sea lane,False,False,371.796087,0.95,68.4,5.435615,0.189,0.837598,16.751958
+LEG-000685,murann,Murann,mosstone,Mosstone,Crimmor through Purskul and Imnescar to Mosstone,road,road,False,False,168.147606,0.85,20.4,8.24253,0.27,1.507394,30.147877
+LEG-000686,murann,Murann,purskul,Purskul,caravan track,track,wilderness track,False,True,146.951318,0.85,15.3,9.604661,0.336,2.009464,40.189284
+LEG-000687,murann,Murann,velen,Velen,Sea of Swords coasting run,sea,sea lane,False,False,215.430383,0.95,68.4,3.149567,0.2565,0.512883,10.257661
+LEG-000688,murann,Murann,zazesspur,Zazesspur,The Sword Coast Run,sea,sea lane,False,False,209.390664,1.2,86.4,2.423503,0.243,0.390409,7.808178
+LEG-000689,murghyr,Murghyr,rauthil,Rauthil,Sultim through Rauthil to Murghyr,trail,trail,False,False,93.723226,0.7,13.3,7.046859,0.156,1.207262,24.145245
+LEG-000690,mussum,Mussum,elbulder,Elbulder,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,230.724217,0.7,13.3,17.347685,0.273,3.27279,65.455801
+LEG-000691,mussum,Mussum,fort_arran,Fort Arran,The Vilhon Road,road,road,False,False,127.696827,0.85,20.4,6.259648,0.18,1.063639,21.272789
+LEG-000692,mussum,Mussum,iljak,Iljak,The Vilhon Road,road,road,False,False,108.972451,0.85,20.4,5.341787,0.18,0.907676,18.153528
+LEG-000693,mussum,Mussum,shamph,Shamph,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,82.879595,0.7,13.3,6.231549,0.234,1.139618,22.792362
+LEG-000694,myratma,Myratma,calimport,Calimport,Memnon to Calimport,road,road,False,False,208.325753,0.85,20.4,10.212047,0.285,1.889637,37.792743
+LEG-000695,myratma,Myratma,darromar,Darromar,caravan track,track,wilderness track,False,True,235.370771,0.85,15.3,15.383711,0.252,3.01618,60.32359
+LEG-000696,myratma,Myratma,memnon,Memnon,The Trade Way,road,road,False,False,39.498987,1.3,31.2,1.265993,0.27,0.231525,4.630497
+LEG-000697,myratma,Myratma,zazesspur,Zazesspur,The Trade Way,road,road,False,False,120.88168,1.3,31.2,3.874413,0.24,0.691815,13.836303
+LEG-000698,myth_drannor,Myth Drannor,ashabenford,Ashabenford,caravan track,track,wilderness track,False,True,72.180468,0.85,15.3,4.717678,0.231,0.909448,18.188968
+LEG-000699,myth_drannor,Myth Drannor,elventree,Elventree,Tilverton via Ashabenford junction to Hillsfar,road,road,False,False,194.263731,0.85,20.4,9.522732,0.18,1.618103,32.362052
+LEG-000700,myth_drannor,Myth Drannor,essembra,Essembra,Tilverton via Ashabenford junction to Hillsfar,road,road,False,False,110.826616,0.85,20.4,5.432677,0.18,0.923121,18.46241
+LEG-000701,myth_drannor,Myth Drannor,harrowdale_town,Harrowdale Town,The Dalelands Trail,trail,trail,False,False,145.659226,0.9,17.1,8.518083,0.195,1.508544,30.170881
+LEG-000702,myth_drannor,Myth Drannor,hillsfar,Hillsfar,caravan track,track,wilderness track,False,True,100.126969,0.7,12.6,7.946585,0.252,1.558033,31.160657
+LEG-000703,myth_drannor,Myth Drannor,shadowdale,Shadowdale,caravan track,track,wilderness track,False,True,123.612338,0.85,15.3,8.079238,0.231,1.557472,31.149437
+LEG-000704,myth_drannor,Myth Drannor,zhentil_keep,Zhentil Keep,caravan track,track,wilderness track,False,True,120.455178,0.7,12.6,9.559935,0.336,2.000107,40.002132
+LEG-000705,n_jast,N'Jast,bildoobaris,Bildoobaris,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,35.537304,0.7,13.3,2.671978,0.312,0.519535,10.390702
+LEG-000706,nashkel,Nashkel,athkatla,Athkatla,The Trade Way,road,road,False,False,118.526157,1.3,31.2,3.798915,0.225,0.670129,13.402573
+LEG-000707,nashkel,Nashkel,beregost,Beregost,The Trade Way,road,road,False,False,101.783918,1.3,31.2,3.262305,0.255,0.589564,11.791275
+LEG-000708,nashkel,Nashkel,candlekeep,Candlekeep,caravan track,track,wilderness track,False,True,135.632002,0.7,12.6,10.764445,0.21,2.039712,40.794231
+LEG-000709,nashkel,Nashkel,crimmor,Crimmor,caravan track,track,wilderness track,False,True,100.169956,0.85,15.3,6.547056,0.294,1.326698,26.533961
+LEG-000710,nashkel,Nashkel,durlag_s_tower,Durlag's Tower,Coast Way: Beregost to Nashkel,road,road,False,False,78.136282,0.85,20.4,3.83021,0.27,0.700469,14.009376
+LEG-000711,nashkel,Nashkel,esmeltaran,Esmeltaran,caravan track,track,wilderness track,False,True,225.454297,0.85,15.3,14.735575,0.294,2.986023,59.720456
+LEG-000712,nashkel,Nashkel,purskul,Purskul,caravan track,track,wilderness track,False,True,121.665155,0.85,15.3,7.951971,0.315,1.637541,32.750828
+LEG-000713,nashkel,Nashkel,the_twin_towers,The Twin Towers,Nashkel through Cloud Peaks to Crimmor,road,road,False,False,71.083257,0.85,20.4,3.484473,0.21,0.607135,12.142693
+LEG-000714,nathlekh,Nathlekh,assam,Assam,Ormath through Assam to Nathlekh,trail,trail,False,False,99.563345,0.7,13.3,7.485966,0.39,1.542094,30.84188
+LEG-000715,nathoud,Nathoud,bildoobaris,Bildoobaris,N'Jast to Nathoud,trail,trail,False,False,415.524131,0.7,13.3,31.242416,0.312,6.074725,121.494507
+LEG-000716,nathoud,Nathoud,mulptan,Mulptan,Nathoud via Mulptan to Immilmar,trail,trail,False,False,179.395511,0.7,13.3,13.488384,0.312,2.62266,52.453197
+LEG-000717,neldorild,Neldorild,gheldaneth,Gheldaneth,Skuld to Gheldaneth trail,trail,trail,False,False,68.478907,0.7,13.3,5.14879,0.156,0.882087,17.641732
+LEG-000718,neldorild,Neldorild,skuld,Skuld,Skuld to Gheldaneth trail,trail,trail,False,False,107.759147,0.7,13.3,8.102191,0.156,1.388061,27.761219
+LEG-000719,nemesser,Nemesser,lantan,Lantan,local market ferry,ferry,ferry,False,True,91.915722,0.65,19.5,4.713627,0.096,0.650933,13.01866
+LEG-000720,nemesser,Nemesser,sundrah,Sundrah,local market ferry,ferry,ferry,False,True,249.78833,0.65,19.5,12.809658,0.096,1.768963,35.379251
+LEG-000721,nesme,Nesmé,everlund,Everlund,The River Rauvin,river,river,False,False,145.225136,1.05,42.0,3.457741,0.147,0.523516,10.470317
+LEG-000722,nesme,Nesmé,griffon_s_nest,Griffon's Nest,local market trail,trail,trail,False,True,83.431709,0.65,12.35,6.755604,0.429,1.430687,28.613739
+LEG-000723,nesme,Nesmé,jalanthar,Jalanthar,caravan track,track,wilderness track,False,True,28.856368,0.85,15.3,1.886037,0.441,0.425604,8.512086
+LEG-000724,nesme,Nesmé,menzoberranzan,Menzoberranzan,Menzoberranzan Surface Way,tunnel+trail,Underdark tunnel and trail,True,True,35.618254,0.35,6.472258,5.503219,0.915975,1.932661,38.653222
+LEG-000725,nesme,Nesmé,mirabar,Mirabar,caravan track,track,wilderness track,False,True,187.597228,0.5499999999999999,9.9,18.949215,0.315,3.902193,78.043858
+LEG-000726,nesme,Nesmé,mithral_hall,Mithral Hall,The Mithral Road,road,road,False,False,72.911247,0.95,22.8,3.197862,0.18,0.543381,10.867613
+LEG-000727,nesme,Nesmé,silverymoon,Silverymoon,The Mithral Road,road,road,False,False,132.708138,0.95,22.8,5.820532,0.195,1.001597,20.031944
+LEG-000728,nesme,Nesmé,yartar,Yartar,The Evermoor Way,road,road,False,False,171.040258,0.95,22.8,7.501766,0.285,1.388127,27.762535
+LEG-000729,nethentir,Nethentir,nethjet,Nethjet,Nethjet through Amruthar to Pyarados,road,road,False,False,34.754136,0.85,20.4,1.703634,0.255,0.307881,6.157615
+LEG-000730,nethentir,Nethentir,phent,Phent,Phent to Nethentir trail,trail,trail,False,False,310.177939,0.7,13.3,23.32165,0.312,4.534624,90.692484
+LEG-000731,nethentir,Nethentir,two_stars,Two Stars,Two Stars to Nethentir trail,trail,trail,False,False,249.111956,0.7,13.3,18.730222,0.312,3.641874,72.837489
+LEG-000732,nethjet,Nethjet,amruthar,Amruthar,Nethjet through Amruthar to Pyarados,road,road,False,False,115.034766,0.85,20.4,5.638959,0.27,1.031253,20.625057
+LEG-000733,nethjet,Nethjet,nethentir,Nethentir,Nethjet through Amruthar to Pyarados,road,road,False,False,34.754136,0.85,20.4,1.703634,0.255,0.307881,6.157615
+LEG-000734,neverwinter,Neverwinter,leilon,Leilon,The High Road,road,road,False,False,90.603276,1.25,30.0,3.020109,0.21,0.526224,10.524477
+LEG-000735,neverwinter,Neverwinter,luskan,Luskan,caravan track,track,wilderness track,False,True,126.281313,0.85,15.3,8.253681,0.42,1.835387,36.707749
+LEG-000736,neverwinter,Neverwinter,phandalin,Phandalin,caravan track,track,wilderness track,False,True,120.524271,0.85,15.3,7.877403,0.336,1.648091,32.961829
+LEG-000737,neverwinter,Neverwinter,port_llast,Port Llast,The Sword Coast Run,sea,sea lane,False,False,59.823908,1.2,86.4,0.692406,0.2025,0.107907,2.158147
+LEG-000738,neverwinter,Neverwinter,ruathym,Ruathym,Sea of Swords coasting run,sea,sea lane,False,False,404.599011,0.95,68.4,5.91519,0.243,0.952895,19.057891
+LEG-000739,neverwinter,Neverwinter,waterdeep,Waterdeep,The Sword Coast Run,sea,sea lane,False,False,246.606671,1.2,86.4,2.854244,0.1215,0.414854,8.297081
+LEG-000740,nighthawk_tower,Nighthawk Tower,phsant,Phsant,local market trail,trail,trail,False,True,294.736306,0.65,12.35,23.865288,0.312,4.640328,92.806568
+LEG-000741,nimbral,Nimbral,calimport,Calimport,Sea of Swords coasting run,sea,sea lane,False,False,428.376587,0.95,68.4,6.262816,0.189,0.965065,19.301296
+LEG-000742,nimbral,Nimbral,fort_beluarian,Fort Beluarian,local market trail,trail,trail,False,True,24.455879,0.65,12.35,1.980233,0.117,0.327807,6.556132
+LEG-000743,nimbral,Nimbral,lantan,Lantan,Sea of Swords coasting run,sea,sea lane,False,False,261.585053,0.95,68.4,3.824343,0.0945,0.542472,10.849447
+LEG-000744,nimbral,Nimbral,memnon,Memnon,Sea of Swords coasting run,sea,sea lane,False,False,393.175546,0.95,68.4,5.74818,0.1755,0.875705,17.514108
+LEG-000745,nimbral,Nimbral,port_nyanzaru,Port Nyanzaru,Sea of Swords coasting run,sea,sea lane,False,False,83.543821,0.95,68.4,1.221401,0.1485,0.1818,3.636003
+LEG-000746,nimbral,Nimbral,sambar,Sambar,local market ferry,ferry,ferry,False,True,313.059627,0.65,19.5,16.05434,0.072,2.168492,43.369836
+LEG-000747,nimbral,Nimbral,velen,Velen,The Nimbral Run,sea+air,sea lane and skyship,True,False,471.51808,0.9,68.93011,6.840524,0.21555,7.890417,157.808347
+LEG-000748,nimbral,Nimbral,winterkeep,Winterkeep,The Nimbral Accord,teleport,teleportation circle,False,False,3483.846257,0.75,3750.0,0.929026,0.033,230.324044,4606.480874
+LEG-000749,nimpeth,Nimpeth,hlondeth,Hlondeth,Mimph to Nimpeth trail,trail,trail,False,False,94.740895,0.7,13.3,7.123376,0.234,1.302714,26.054287
+LEG-000750,nonthal,Nonthal,gildenglade,Gildenglade,Alaghon through Turmish to Hlondeth,road,road,False,False,46.697745,0.85,20.4,2.289105,0.15,0.379076,7.581516
+LEG-000751,nonthal,Nonthal,morningstar_hollows,Morningstar Hollows,Alaghon through Turmish to Hlondeth,road,road,False,False,63.693321,0.85,20.4,3.122222,0.15,0.51704,10.340798
+LEG-000752,nyth,Nyth,telflamm,Telflamm,Telflamm through Phent and Phsant to Tammar,road,road,False,False,51.614339,0.85,20.4,2.530115,0.24,0.451777,9.035545
+LEG-000753,ordulin,Ordulin,archenbridge,Archenbridge,Arabel via Highmoon road to Ordulin,road,road,False,False,176.957521,0.85,20.4,8.674388,0.15,1.436479,28.729574
+LEG-000754,ordulin,Ordulin,harrowdale_town,Harrowdale Town,caravan track,track,wilderness track,False,True,141.201735,0.7,12.6,11.206487,0.21,2.123472,42.469448
+LEG-000755,ordulin,Ordulin,saerloon,Saerloon,caravan track,track,wilderness track,False,True,156.016185,0.85,15.3,10.197136,0.21,1.932215,38.644291
+LEG-000756,ordulin,Ordulin,scardale,Scardale,Ordulin to Yhaunn,road,road,False,False,115.073699,0.85,20.4,5.640868,0.15,0.934128,18.682554
+LEG-000757,ordulin,Ordulin,selgaunt,Selgaunt,The Sembian Roads,road,road,False,False,100.26514,1.2,28.8,3.481428,0.135,0.569005,11.380093
+LEG-000758,ordulin,Ordulin,yhaunn,Yhaunn,The Sembian Roads,road,road,False,False,56.262599,1.2,28.8,1.953562,0.15,0.32351,6.470199
+LEG-000759,orlumbor,Orlumbor,baldur_s_gate,Baldur's Gate,Sea of Swords coasting run,sea,sea lane,False,False,203.807802,0.95,68.4,2.979646,0.189,0.459147,9.182936
+LEG-000760,orlumbor,Orlumbor,candlekeep,Candlekeep,Sea of Swords coasting run,sea,sea lane,False,False,316.237284,0.95,68.4,4.623352,0.1215,0.671988,13.439752
+LEG-000761,orlumbor,Orlumbor,mintarn,Mintarn,The Nelanther Passage,sea,sea lane,False,False,210.101737,1.0,72.0,2.91808,0.243,0.470082,9.401633
+LEG-000762,orlumbor,Orlumbor,warlock_s_crypt,Warlock's Crypt,local market trail,trail,trail,False,True,95.135535,0.65,12.35,7.703282,0.312,1.497814,29.956277
+LEG-000763,orlumbor,Orlumbor,waterdeep,Waterdeep,The Nelanther Passage,sea,sea lane,False,False,268.341424,1.0,72.0,3.726964,0.1485,0.554742,11.094845
+LEG-000764,ormath,Ormath,assam,Assam,Ormath through Assam to Nathlekh,trail,trail,False,False,108.56811,0.7,13.3,8.163016,0.39,1.681565,33.631299
+LEG-000765,ormath,Ormath,hlondeth,Hlondeth,The Shining Plains Road,road,road,False,False,289.478975,1.0,24.0,12.061624,0.24,2.153724,43.074471
+LEG-000766,ormath,Ormath,lheshayl,Lheshayl,The Shining Plains Road,road,road,False,False,84.693565,1.0,24.0,3.528899,0.24,0.63012,12.602402
+LEG-000767,ormpe,Ormpe,vaelan,Vaelan,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,72.920183,0.7,13.3,5.482721,0.156,0.939295,18.785906
+LEG-000768,ormpetarr,Ormpetarr,arrabar,Arrabar,The Vilhon Road,road,road,False,False,87.73212,1.0,24.0,3.655505,0.18,0.621143,12.422868
+LEG-000769,ormpetarr,Ormpetarr,fort_arran,Fort Arran,The Vilhon Road,road,road,False,False,48.80502,0.85,20.4,2.392403,0.18,0.406517,8.130342
+LEG-000770,ormpetarr,Ormpetarr,kagarr,Kagarr,The Golden Road: Ormpetarr to Innarlith,road,road,False,False,98.676667,0.85,20.4,4.837092,0.18,0.821919,16.438372
+LEG-000771,ormpur,Ormpur,sheirtalar,Sheirtalar,Ormpur to Sheirtalar trail,trail,trail,False,False,77.798911,0.7,13.3,5.849542,0.39,1.204994,24.09988
+LEG-000772,palischuk,Palischuk,castle_perilous,Castle Perilous,Castle Perilous to Darmshall,trail,trail,False,False,70.787011,0.7,13.3,5.322332,0.429,1.127152,22.543034
+LEG-000773,palischuk,Palischuk,talagbar,Talagbar,Castle Perilous to Darmshall,trail,trail,False,False,104.880203,0.7,13.3,7.88573,0.429,1.670022,33.400449
+LEG-000774,parnast,Parnast,evereska,Evereska,caravan track,track,wilderness track,False,True,82.51212,0.7,12.6,6.548581,0.273,1.305471,26.109428
+LEG-000775,parnast,Parnast,llorkh,Llorkh,The Delimbiyr Route,road,road,False,False,147.312491,0.85,20.4,7.221201,0.36,1.4142,28.283998
+LEG-000776,peltarch,Peltarch,heliogabalus,Heliogabalus,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,348.237539,0.7,13.3,26.183274,0.3705,5.318035,106.360699
+LEG-000777,peltarch,Peltarch,jiyyd,Jiyyd,Narfell Long Road from Impiltur junction to N'Jast,trail,trail,False,False,85.813491,0.7,13.3,6.452142,0.312,1.254544,25.090884
+LEG-000778,phandalin,Phandalin,amphail,Amphail,caravan track,track,wilderness track,False,True,102.858058,0.7,12.6,8.163338,0.315,1.681068,33.62136
+LEG-000779,phandalin,Phandalin,leilon,Leilon,caravan track,track,wilderness track,False,True,66.672108,0.85,15.3,4.357654,0.378,0.940359,18.807182
+LEG-000780,phandalin,Phandalin,longsaddle,Longsaddle,caravan track,track,wilderness track,False,True,118.022074,0.85,15.3,7.713861,0.336,1.613875,32.27751
+LEG-000781,phandalin,Phandalin,neverwinter,Neverwinter,caravan track,track,wilderness track,False,True,120.524271,0.85,15.3,7.877403,0.336,1.648091,32.961829
+LEG-000782,phandalin,Phandalin,red_larch,Red Larch,caravan track,track,wilderness track,False,True,105.68349,0.7,12.6,8.387579,0.378,1.809996,36.199917
+LEG-000783,phandalin,Phandalin,triboar,Triboar,caravan track,track,wilderness track,False,True,86.533288,0.7,12.6,6.867721,0.357,1.459433,29.188667
+LEG-000784,phannaskul,Phannaskul,maerlar,Maerlar,Skuld via Maerlar toward Khalab,road,road,False,False,365.125321,0.85,20.4,17.8983,0.12,2.886638,57.732757
+LEG-000785,phannaskul,Phannaskul,zindalankh,Zindalankh,Skuld via Maerlar toward Khalab,road,road,False,False,286.15022,0.85,20.4,14.026972,0.12,2.26227,45.245399
+LEG-000786,phent,Phent,nethentir,Nethentir,Phent to Nethentir trail,trail,trail,False,False,310.177939,0.7,13.3,23.32165,0.312,4.534624,90.692484
+LEG-000787,phent,Phent,phsant,Phsant,Telflamm through Phent and Phsant to Tammar,road,road,False,False,106.280926,0.85,20.4,5.209849,0.24,0.930271,18.605414
+LEG-000788,phent,Phent,telflamm,Telflamm,Telflamm through Phent and Phsant to Tammar,road,road,False,False,79.627247,0.85,20.4,3.903296,0.24,0.696973,13.939452
+LEG-000789,phlan,Phlan,hillsfar,Hillsfar,Moonsea coasting run,sea,sea lane,False,False,95.820301,0.95,68.4,1.400882,0.243,0.225672,4.513439
+LEG-000790,phlan,Phlan,melvaunt,Melvaunt,The Moonsea Run,sea,sea lane,False,False,48.92157,1.05,75.6,0.647111,0.2565,0.105377,2.107541
+LEG-000791,phlan,Phlan,mulmaster,Mulmaster,caravan track,track,wilderness track,False,True,213.291655,0.85,15.3,13.940631,0.441,3.145851,62.917023
+LEG-000792,phlan,Phlan,thentia,Thentia,caravan track,track,wilderness track,False,True,84.868486,0.85,15.3,5.54696,0.378,1.197005,23.940102
+LEG-000793,phlan,Phlan,zhentil_keep,Zhentil Keep,Moonsea coasting run,sea,sea lane,False,False,74.109446,0.95,68.4,1.083471,0.297,0.182122,3.64244
+LEG-000794,phsant,Phsant,eltabbar,Eltabbar,The Golden Way,road,road,False,False,420.489156,1.1,26.4,15.92762,0.24,2.844036,56.880715
+LEG-000795,phsant,Phsant,nighthawk_tower,Nighthawk Tower,local market trail,trail,trail,False,True,294.736306,0.65,12.35,23.865288,0.312,4.640328,92.806568
+LEG-000796,phsant,Phsant,phent,Phent,Telflamm through Phent and Phsant to Tammar,road,road,False,False,106.280926,0.85,20.4,5.209849,0.24,0.930271,18.605414
+LEG-000797,phsant,Phsant,tammar,Tammar,Telflamm through Phent and Phsant to Tammar,road,road,False,False,129.764965,0.85,20.4,6.361028,0.24,1.135825,22.716502
+LEG-000798,phsant,Phsant,telflamm,Telflamm,The Golden Way,road,road,False,False,185.908172,1.1,26.4,7.041976,0.24,1.257415,25.148305
+LEG-000799,port_castigliar,Port Castigliar,mezro,Mezro,local market trail,trail,trail,False,True,17.22353,0.65,12.35,1.394618,0.312,0.271167,5.423345
+LEG-000800,port_castigliar,Port Castigliar,port_nyanzaru,Port Nyanzaru,local market trail,trail,trail,False,True,88.748183,0.65,12.35,7.186088,0.312,1.397251,27.945028
+LEG-000801,port_ghaast,Port Ghaast,khalab,Khalab,Port Ghaast Ferry,ferry,ferry,False,False,173.347339,0.75,22.5,7.704326,0.144,1.110532,22.210648
+LEG-000802,port_llast,Port Llast,leilon,Leilon,caravan track,track,wilderness track,False,True,117.851135,0.85,15.3,7.702689,0.357,1.636869,32.737381
+LEG-000803,port_llast,Port Llast,longsaddle,Longsaddle,caravan track,track,wilderness track,False,True,160.256201,0.85,15.3,10.474262,0.315,2.156954,43.139084
+LEG-000804,port_llast,Port Llast,luskan,Luskan,The Sword Coast Run,sea,sea lane,False,False,67.735441,1.2,86.4,0.783975,0.3105,0.133151,2.663019
+LEG-000805,port_llast,Port Llast,neverwinter,Neverwinter,The Sword Coast Run,sea,sea lane,False,False,59.823908,1.2,86.4,0.692406,0.2025,0.107907,2.158147
+LEG-000806,port_llast,Port Llast,ruathym,Ruathym,Sea of Swords coasting run,sea,sea lane,False,False,359.777292,0.95,68.4,5.259902,0.2835,0.874941,17.49881
+LEG-000807,port_nyanzaru,Port Nyanzaru,anchoril,Anchoril,local market ferry,ferry,ferry,False,True,233.690607,0.65,19.5,11.984134,0.192,1.799921,35.99842
+LEG-000808,port_nyanzaru,Port Nyanzaru,calimport,Calimport,Sea of Swords coasting run,sea,sea lane,False,False,469.703108,0.95,68.4,6.867005,0.2565,1.118239,22.36479
+LEG-000809,port_nyanzaru,Port Nyanzaru,lantan,Lantan,Sea of Swords coasting run,sea,sea lane,False,False,336.139331,0.95,68.4,4.914318,0.162,0.740073,14.801453
+LEG-000810,port_nyanzaru,Port Nyanzaru,memnon,Memnon,Sea of Swords coasting run,sea,sea lane,False,False,458.680128,0.95,68.4,6.70585,0.243,1.080264,21.605283
+LEG-000811,port_nyanzaru,Port Nyanzaru,nimbral,Nimbral,Sea of Swords coasting run,sea,sea lane,False,False,83.543821,0.95,68.4,1.221401,0.1485,0.1818,3.636003
+LEG-000812,port_nyanzaru,Port Nyanzaru,port_castigliar,Port Castigliar,local market trail,trail,trail,False,True,88.748183,0.65,12.35,7.186088,0.312,1.397251,27.945028
+LEG-000813,port_nyanzaru,Port Nyanzaru,samargol,Samargol,Halruaa-Chult Coastal Run,sea,sea lane,False,False,543.824282,1.05,75.6,7.193443,0.2025,1.121055,22.421098
+LEG-000814,port_nyanzaru,Port Nyanzaru,tashluta,Tashluta,Chult-Tashalar Coastal Run,sea,sea lane,False,False,692.246502,1.05,75.6,9.1567,0.2025,1.427017,28.540334
+LEG-000815,praka,Praka,heliogabalus,Heliogabalus,Trail's End to Ilmwatch road,road,road,False,False,30.439276,0.85,20.4,1.492121,0.33,0.285771,5.715422
+LEG-000816,praka,Praka,trail_s_end,Trail's End,Trail's End to Ilmwatch road,road,road,False,False,12.649111,0.85,20.4,0.620054,0.33,0.118753,2.375057
+LEG-000817,priapurl,Priapurl,easting,Easting,Iriaebor to Proskur,road,road,False,False,79.36097,0.85,20.4,3.890244,0.225,0.686239,13.72478
+LEG-000818,priapurl,Priapurl,elversult,Elversult,Proskur via Elversult and Teziir to Westgate,road,road,False,False,109.279843,0.85,20.4,5.356855,0.225,0.944949,18.898985
+LEG-000819,priapurl,Priapurl,iriaebor,Iriaebor,Trader's Road from Easting through Priapurl to Elversult,road,road,False,False,123.166564,0.85,20.4,6.037577,0.225,1.065029,21.30057
+LEG-000820,priapurl,Priapurl,proskur,Proskur,Iriaebor to Proskur,road,road,False,False,64.503411,0.85,20.4,3.161932,0.27,0.578254,11.565082
+LEG-000821,procampur,Procampur,alaghon,Alaghôn,Sea of Fallen Stars coasting run,sea,sea lane,False,False,353.380036,0.95,68.4,5.166375,0.0945,0.732836,14.656716
+LEG-000822,procampur,Procampur,lyrabar,Lyrabar,caravan track,track,wilderness track,False,True,149.177813,0.7,12.6,11.839509,0.105,2.048744,40.974883
+LEG-000823,procampur,Procampur,ravens_bluff,Ravens Bluff,Sea of Fallen Stars coasting run,sea,sea lane,False,False,81.276134,0.95,68.4,1.188248,0.0945,0.16855,3.370992
+LEG-000824,procampur,Procampur,tantras,Tantras,caravan track,track,wilderness track,False,True,114.350208,0.85,15.3,7.47387,0.126,1.317879,26.357588
+LEG-000825,procampur,Procampur,tsurlagol,Tsurlagol,The Inner Sea Run,sea,sea lane,False,False,45.701751,1.2,86.4,0.528955,0.135,0.077807,1.556145
+LEG-000826,procampur,Procampur,yhaunn,Yhaunn,The Inner Sea Run,sea,sea lane,False,False,166.456511,1.2,86.4,1.92658,0.108,0.276651,5.533014
+LEG-000827,pros,Pros,ilipur,Ilipur,Proskur via Elversult and Teziir to Westgate,road,road,False,False,58.28047,0.85,20.4,2.856886,0.18,0.485442,9.708841
+LEG-000828,pros,Pros,teziir,Teziir,Proskur via Elversult and Teziir to Westgate,road,road,False,False,92.70262,0.85,20.4,4.544246,0.24,0.811421,16.228412
+LEG-000829,proskur,Proskur,arabel,Arabel,Proskur through the western Cormyr road junction to Arabel,road,road,False,False,348.522751,0.85,20.4,17.084449,0.195,2.939892,58.797838
+LEG-000830,proskur,Proskur,elversult,Elversult,The Chionthar Road,road,road,False,False,122.062029,1.15,27.6,4.422537,0.225,0.780136,15.602712
+LEG-000831,proskur,Proskur,iriaebor,Iriaebor,The Chionthar Road,road,road,False,False,147.577364,1.15,27.6,5.347006,0.225,0.943212,18.864237
+LEG-000832,proskur,Proskur,marsember,Marsember,caravan track,track,wilderness track,False,True,179.705008,0.7,12.6,14.262302,0.315,2.937022,58.740433
+LEG-000833,proskur,Proskur,priapurl,Priapurl,Iriaebor to Proskur,road,road,False,False,64.503411,0.85,20.4,3.161932,0.27,0.578254,11.565082
+LEG-000834,proskur,Proskur,suzail,Suzail,caravan track,track,wilderness track,False,True,147.007075,0.7,12.6,11.667228,0.231,2.249145,44.982905
+LEG-000835,purskul,Purskul,athkatla,Athkatla,Athkatla to Crimmor,road,road,False,False,88.813396,0.85,20.4,4.353598,0.18,0.739763,14.795267
+LEG-000836,purskul,Purskul,crimmor,Crimmor,The Amnian Coast Road,road,road,False,False,21.559453,1.1,26.4,0.816646,0.165,0.137001,2.74001
+LEG-000837,purskul,Purskul,esmeltaran,Esmeltaran,The Amnian Coast Road,road,road,False,False,233.630734,1.1,26.4,8.849649,0.165,1.484617,29.692342
+LEG-000838,purskul,Purskul,imnescar,Imnescar,Crimmor through Purskul and Imnescar to Mosstone,road,road,False,False,63.997396,0.85,20.4,3.137127,0.18,0.533061,10.661213
+LEG-000839,purskul,Purskul,murann,Murann,caravan track,track,wilderness track,False,True,146.951318,0.85,15.3,9.604661,0.336,2.009464,40.189284
+LEG-000840,purskul,Purskul,nashkel,Nashkel,caravan track,track,wilderness track,False,True,121.665155,0.85,15.3,7.951971,0.315,1.637541,32.750828
+LEG-000841,purskul,Purskul,the_twin_towers,The Twin Towers,Crimmor through Keczulla to Eshpurta,road,road,False,False,52.145202,0.85,20.4,2.556137,0.165,0.428818,8.576352
+LEG-000842,pyarados,Pyarados,eltabbar,Eltabbar,Eltabbar to Pyarados trail,trail,trail,False,False,154.438412,0.7,13.3,11.611911,0.312,2.257801,45.156027
+LEG-000843,pyarados,Pyarados,sultim,Sultim,Pyarados to Sultim trail,trail,trail,False,False,229.521124,0.7,13.3,17.257227,0.3315,3.405339,68.106787
+LEG-000844,pyarados,Pyarados,tyraturos,Tyraturos,Nethjet through Amruthar to Pyarados,road,road,False,False,103.249388,0.85,20.4,5.061245,0.24,0.903736,18.074716
+LEG-000845,rauthil,Rauthil,maerlar,Maerlar,Rauthil to Maerlar,trail,trail,False,False,97.298206,0.7,13.3,7.315655,0.156,1.253312,25.066242
+LEG-000846,rauthil,Rauthil,murghyr,Murghyr,Sultim through Rauthil to Murghyr,trail,trail,False,False,93.723226,0.7,13.3,7.046859,0.156,1.207262,24.145245
+LEG-000847,rauthil,Rauthil,sultim,Sultim,Sultim through Rauthil to Murghyr,trail,trail,False,False,89.389806,0.7,13.3,6.721038,0.2535,1.248558,24.97117
+LEG-000848,ravens_bluff,Ravens Bluff,dragon_falls,Dragon Falls,Mulmaster through the Vast toward Procampur,road,road,False,False,58.984962,0.85,20.4,2.89142,0.15,0.478819,9.576382
+LEG-000849,ravens_bluff,Ravens Bluff,lyrabar,Lyrabar,The Inner Sea Run,sea,sea lane,False,False,171.812136,1.2,86.4,1.988566,0.108,0.285552,5.711035
+LEG-000850,ravens_bluff,Ravens Bluff,procampur,Procampur,Sea of Fallen Stars coasting run,sea,sea lane,False,False,81.276134,0.95,68.4,1.188248,0.0945,0.16855,3.370992
+LEG-000851,ravens_bluff,Ravens Bluff,tantras,Tantras,The Inner Sea Run,sea,sea lane,False,False,43.161325,1.2,86.4,0.499552,0.1215,0.072608,1.452163
+LEG-000852,ravens_bluff,Ravens Bluff,tsurlagol,Tsurlagol,The Inner Sea Run,sea,sea lane,False,False,89.102637,1.2,86.4,1.031281,0.1755,0.15711,3.142205
+LEG-000853,ravens_bluff,Ravens Bluff,yhaunn,Yhaunn,Sea of Fallen Stars coasting run,sea,sea lane,False,False,160.709054,0.95,68.4,2.349548,0.1485,0.34972,6.994396
+LEG-000854,red_larch,Red Larch,amphail,Amphail,The Long Road,road,road,False,False,47.614476,1.1,26.4,1.803579,0.195,0.31036,6.207196
+LEG-000855,red_larch,Red Larch,goldenfields,Goldenfields,Long Road: Mirabar to Waterdeep,road,road,False,False,52.719778,0.85,20.4,2.584303,0.18,0.439125,8.782495
+LEG-000856,red_larch,Red Larch,phandalin,Phandalin,caravan track,track,wilderness track,False,True,105.68349,0.7,12.6,8.387579,0.378,1.809996,36.199917
+LEG-000857,red_larch,Red Larch,stone_bridge,Stone Bridge,Long Road: Mirabar to Waterdeep,road,road,False,False,76.867118,0.85,20.4,3.767996,0.24,0.672813,13.456267
+LEG-000858,red_larch,Red Larch,triboar,Triboar,The Long Road,road,road,False,False,51.216111,1.1,26.4,1.940004,0.225,0.342217,6.844335
+LEG-000859,red_larch,Red Larch,waterdeep,Waterdeep,The Dessarin,river+road,river and road,True,False,109.158829,1.05,27.72,3.937909,0.205425,0.687614,13.75228
+LEG-000860,red_larch,Red Larch,yartar,Yartar,The Dessarin,river+road,river and road,True,False,103.803372,1.05,27.72,3.74471,0.2988,0.70453,14.090597
+LEG-000861,reddansyr,Reddansyr,daerlun,Daerlun,Proskur via Elversult and Teziir to Westgate,road,road,False,False,157.802881,0.85,20.4,7.735435,0.24,1.381239,27.624787
+LEG-000862,reddansyr,Reddansyr,teziir,Teziir,Proskur via Elversult and Teziir to Westgate,road,road,False,False,41.872898,0.85,20.4,2.052593,0.3,0.384245,7.684908
+LEG-000863,relkath_s_foot,Relkath's Foot,delthuntle,Delthuntle,local market trail,trail,trail,False,True,111.895129,0.65,12.35,9.060334,0.117,1.499842,29.996846
+LEG-000864,relkath_s_foot,Relkath's Foot,velprintalar,Velprintalar,local market trail,trail,trail,False,True,65.212652,0.65,12.35,5.280377,0.117,0.87411,17.482208
+LEG-000865,reth,Reth,airspur,Airspur,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,63.611634,0.85,20.4,3.118217,0.21,0.543318,10.866364
+LEG-000866,reth,Reth,cimbar,Cimbar,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,160.530148,0.85,20.4,7.869125,0.195,1.354119,27.08238
+LEG-000867,reth,Reth,hlath,Hlath,Airspur through Reth to Hlath trail,trail,trail,False,False,167.888536,0.7,13.3,12.623198,0.273,2.381475,47.629498
+LEG-000868,rethmar,Rethmar,channathgate,Channathgate,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,115.148522,0.85,20.4,5.644535,0.24,1.007888,20.157765
+LEG-000869,rethmar,Rethmar,kormul,Kormul,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,230.353876,0.85,20.4,11.291857,0.24,2.016274,40.325478
+LEG-000870,riatavin,Riatavin,brost,Brost,Brost to Riatavin,road,road,False,False,301.246237,0.85,20.4,14.766972,0.165,2.477307,49.546146
+LEG-000871,riatavin,Riatavin,esmeltaran,Esmeltaran,The Amnian Coast Road,road,road,False,False,330.684653,1.1,26.4,12.525934,0.165,2.101351,42.027013
+LEG-000872,riatavin,Riatavin,lheshayl,Lheshayl,The Shining Plains Road,road,road,False,False,385.902799,1.0,24.0,16.079283,0.18,2.732192,54.643836
+LEG-000873,riatavin,Riatavin,saradush,Saradush,Riatavin to Saradush trail,trail,trail,False,False,178.321024,0.7,13.3,13.407596,0.273,2.529458,50.589165
+LEG-000874,ruathym,Ruathym,luskan,Luskan,Sea of Swords coasting run,sea,sea lane,False,False,301.833414,0.95,68.4,4.412769,0.351,0.77263,15.4526
+LEG-000875,ruathym,Ruathym,neverwinter,Neverwinter,Sea of Swords coasting run,sea,sea lane,False,False,404.599011,0.95,68.4,5.91519,0.243,0.952895,19.057891
+LEG-000876,ruathym,Ruathym,port_llast,Port Llast,Sea of Swords coasting run,sea,sea lane,False,False,359.777292,0.95,68.4,5.259902,0.2835,0.874941,17.49881
+LEG-000877,ruathym,Ruathym,waterdeep,Waterdeep,Sea of Swords coasting run,sea,sea lane,False,False,640.981256,0.95,68.4,9.371071,0.2025,1.460425,29.208504
+LEG-000878,saelmur,Saelmur,ankhapur,Ankhapur,Saradush through Mintar to Ankhapur,trail,trail,False,False,139.154468,0.7,13.3,10.462742,0.39,2.155304,43.106078
+LEG-000879,saelmur,Saelmur,mintar,Mintar,Saradush through Mintar to Ankhapur,trail,trail,False,False,118.834447,0.7,13.3,8.934921,0.351,1.788934,35.778675
+LEG-000880,saerloon,Saerloon,archenbridge,Archenbridge,caravan track,track,wilderness track,False,True,90.217349,0.7,12.6,7.160107,0.252,1.403833,28.07667
+LEG-000881,saerloon,Saerloon,cedarspoke,Cedarspoke,local market trail,trail,trail,False,True,188.202072,0.65,12.35,15.239034,0.234,2.786896,55.737926
+LEG-000882,saerloon,Saerloon,highmoon,Highmoon,caravan track,track,wilderness track,False,True,161.616831,0.7,12.6,12.826733,0.252,2.51485,50.297005
+LEG-000883,saerloon,Saerloon,ordulin,Ordulin,caravan track,track,wilderness track,False,True,156.016185,0.85,15.3,10.197136,0.21,1.932215,38.644291
+LEG-000884,saerloon,Saerloon,selgaunt,Selgaunt,The Inner Sea Run,sea,sea lane,False,False,60.601155,1.2,86.4,0.701402,0.1485,0.104401,2.088013
+LEG-000885,saerloon,Saerloon,urmlaspyr,Urmlaspyr,The Inner Sea Run,sea,sea lane,False,False,129.812942,1.2,86.4,1.502465,0.162,0.226264,4.525279
+LEG-000886,saerloon,Saerloon,wheloon,Wheloon,Daerlun to Selgaunt via Saerloon junction,road,road,False,False,152.280834,0.85,20.4,7.464747,0.21,1.300657,26.013149
+LEG-000887,saerloon,Saerloon,yhaunn,Yhaunn,Ordulin to Selgaunt,road,road,False,False,217.128894,0.85,20.4,10.643573,0.18,1.808556,36.171119
+LEG-000888,samargol,Samargol,port_nyanzaru,Port Nyanzaru,Halruaa-Chult Coastal Run,sea,sea lane,False,False,543.824282,1.05,75.6,7.193443,0.2025,1.121055,22.421098
+LEG-000889,samargol,Samargol,tashluta,Tashluta,Sea of Swords coasting run,sea,sea lane,False,False,527.784511,0.95,68.4,7.716148,0.189,1.189015,23.780303
+LEG-000890,samargol,Samargol,thindar,Thindar,Halruaa-Chult Coastal Run,sea,sea lane,False,False,256.910879,1.05,75.6,3.398292,0.189,0.523658,10.473156
+LEG-000891,sambar,Sambar,nimbral,Nimbral,local market ferry,ferry,ferry,False,True,313.059627,0.65,19.5,16.05434,0.072,2.168492,43.369836
+LEG-000892,sammarash,Sammarash,ithmong,Ithmong,Sheirtalar through Lushpool and Ithmong to Sammarash,road,road,False,False,139.293644,0.85,20.4,6.82812,0.255,1.233978,24.679556
+LEG-000893,samra,Samra,hlath,Hlath,The Vilhon Road,road,road,False,False,185.03544,0.85,20.4,9.070365,0.195,1.560828,31.216567
+LEG-000894,samra,Samra,iljak,Iljak,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,24.605894,0.7,13.3,1.850067,0.234,0.338338,6.766761
+LEG-000895,samra,Samra,shamph,Shamph,The Vilhon Road,road,road,False,False,27.165736,0.85,20.4,1.331654,0.18,0.226275,4.525492
+LEG-000896,sapra,Sapra,hlath,Hlath,local market trail,trail,trail,False,True,119.12548,0.65,12.35,9.645788,0.273,1.819761,36.395217
+LEG-000897,saradush,Saradush,darromar,Darromar,The Tethyrian Roads,road,road,False,False,208.951925,1.05,25.2,8.291743,0.18,1.408933,28.17866
+LEG-000898,saradush,Saradush,mintar,Mintar,Saradush through Mintar to Ankhapur,trail,trail,False,False,164.310216,0.7,13.3,12.354152,0.312,2.402121,48.042429
+LEG-000899,saradush,Saradush,riatavin,Riatavin,Riatavin to Saradush trail,trail,trail,False,False,178.321024,0.7,13.3,13.407596,0.273,2.529458,50.589165
+LEG-000900,sarshel,Sarshel,dilpur,Dilpur,Ilmwatch south to Sarshel junction,road,road,False,False,33.828095,0.85,20.4,1.65824,0.24,0.296095,5.921906
+LEG-000901,scardale,Scardale,harrowdale,Harrowdale,Harrowdale to Scardale trail,trail,trail,False,False,90.384539,0.7,13.3,6.79583,0.234,1.242813,24.856265
+LEG-000902,scardale,Scardale,ordulin,Ordulin,Ordulin to Yhaunn,road,road,False,False,115.073699,0.85,20.4,5.640868,0.15,0.934128,18.682554
+LEG-000903,scardale,Scardale,yhaunn,Yhaunn,Moonsea Ride junction via Essembra to Scardale,road,road,False,False,58.5235,0.85,20.4,2.868799,0.18,0.487466,9.749327
+LEG-000904,schamedar,Schamedar,almraiven,Almraiven,Manshaka through Schamedar toward Almraiven,trail,trail,False,False,247.80292,0.7,13.3,18.631799,0.39,3.838113,76.762265
+LEG-000905,schamedar,Schamedar,manshaka,Manshaka,Manshaka through Schamedar toward Almraiven,trail,trail,False,False,45.88557,0.7,13.3,3.450043,0.429,0.730642,14.61285
+LEG-000906,scornubel,Scornubel,berdusk,Berdusk,The Chionthar,river+barge,river and barge,True,False,110.851838,1.2,34.785882,3.18669,0.1365,0.37165,7.433004
+LEG-000907,scornubel,Scornubel,boareskyr_bridge,Boareskyr Bridge,caravan track,track,wilderness track,False,True,165.870371,0.85,15.3,10.841201,0.399,2.375127,47.502542
+LEG-000908,scornubel,Scornubel,elturel,Elturel,The Chionthar,river+barge,river and barge,True,False,86.619744,1.2,34.785882,2.490083,0.15015,0.293896,5.877916
+LEG-000909,scornubel,Scornubel,greenest,Greenest,Elturel southeast to Berdusk approach trail,trail,trail,False,False,161.820282,0.7,13.3,12.166939,0.195,2.154753,43.095053
+LEG-000910,scornubel,Scornubel,hill_s_edge,Hill's Edge,The Chionthar Road,road,road,False,False,102.867536,1.15,27.6,3.727085,0.255,0.673559,13.471175
+LEG-000911,scornubel,Scornubel,iriaebor,Iriaebor,caravan track,track,wilderness track,False,True,153.040256,0.85,15.3,10.002631,0.273,1.994043,39.88085
+LEG-000912,scornubel,Scornubel,soubar,Soubar,caravan track,track,wilderness track,False,True,129.483435,0.85,15.3,8.46297,0.42,1.881927,37.63855
+LEG-000913,scornubel,Scornubel,triel,Triel,Boareskyr Bridge through Soubar and Triel to Scornubel,road,road,False,False,48.717783,0.85,20.4,2.388127,0.255,0.431582,8.631645
+LEG-000914,secomber,Secomber,daggerford,Daggerford,The Delimbiyr,river+portage,river and portage,True,False,161.176084,1.1,15.488,10.406514,0.4428,2.058022,41.160439
+LEG-000915,secomber,Secomber,goldenfields,Goldenfields,Red Larch and Goldenfields branch toward Secomber,trail,trail,False,False,198.928872,0.7,13.3,14.957058,0.2535,2.778553,55.571065
+LEG-000916,secomber,Secomber,loudwater,Loudwater,The Delimbiyr Route,road,road,False,False,122.457013,0.85,20.4,6.002795,0.225,1.058893,21.17786
+LEG-000917,secomber,Secomber,sshamath,Sshamath,Sshamath Smugglers' Road,tunnel+trail,Underdark tunnel and trail,True,True,513.695484,0.35,6.472258,79.36882,0.756675,25.555855,511.117102
+LEG-000918,secomber,Secomber,waterdeep,Waterdeep,The Delimbiyr Route,road,road,False,False,248.063218,0.85,20.4,12.159962,0.18,2.066221,41.324414
+LEG-000919,selgaunt,Selgaunt,alaghon,Alaghôn,Sea of Fallen Stars coasting run,sea,sea lane,False,False,362.070725,0.95,68.4,5.293432,0.135,0.778643,15.572852
+LEG-000920,selgaunt,Selgaunt,archenbridge,Archenbridge,caravan track,track,wilderness track,False,True,114.590794,0.7,12.6,9.094507,0.231,1.75319,35.063801
+LEG-000921,selgaunt,Selgaunt,harrowdale_town,Harrowdale Town,Sea of Fallen Stars coasting run,sea,sea lane,False,False,233.339452,0.95,68.4,3.411396,0.1485,0.507771,10.155424
+LEG-000922,selgaunt,Selgaunt,ordulin,Ordulin,The Sembian Roads,road,road,False,False,100.26514,1.2,28.8,3.481428,0.135,0.569005,11.380093
+LEG-000923,selgaunt,Selgaunt,saerloon,Saerloon,The Inner Sea Run,sea,sea lane,False,False,60.601155,1.2,86.4,0.701402,0.1485,0.104401,2.088013
+LEG-000924,selgaunt,Selgaunt,wheloon,Wheloon,Archenbridge to Ordulin,road,road,False,False,205.736411,0.85,20.4,10.085118,0.195,1.735447,34.708943
+LEG-000925,selgaunt,Selgaunt,yhaunn,Yhaunn,The Inner Sea Run,sea,sea lane,False,False,138.152705,1.2,86.4,1.59899,0.1485,0.238003,4.760051
+LEG-000926,shaarmid,Shaarmid,kholtar,Kholtar,Shaarmid through Kholtar and Eartheart to Delzimmer,road,road,False,False,494.190763,0.85,20.4,24.225037,0.24,4.325623,86.512453
+LEG-000927,shaarmid,Shaarmid,lhesper,Lhesper,Shaarmid southern road,road,road,False,False,58.986439,0.85,20.4,2.891492,0.24,0.516305,10.326097
+LEG-000928,shade,Shade,llorkh,Llorkh,Black Road across Anauroch to Dagger Falls,trail,trail,False,False,529.859165,0.7,13.3,39.839035,0.3705,8.091631,161.832614
+LEG-000929,shade,Shade,mines_of_tethyamar,Mines of Tethyamar,Black Road across Anauroch to Dagger Falls,trail,trail,False,False,234.875153,0.7,13.3,17.659786,0.273,3.33167,66.63341
+LEG-000930,shadowdale,Shadowdale,ashabenford,Ashabenford,The Dalelands Trail,trail,trail,False,False,105.900944,0.9,17.1,6.193038,0.273,1.16837,23.367396
+LEG-000931,shadowdale,Shadowdale,essembra,Essembra,caravan track,track,wilderness track,False,True,163.142055,0.85,15.3,10.662879,0.315,2.195796,43.915922
+LEG-000932,shadowdale,Shadowdale,hillsfar,Hillsfar,The Moonsea Ride,road,road,False,False,215.737109,1.05,25.2,8.560996,0.225,1.51016,30.203195
+LEG-000933,shadowdale,Shadowdale,myth_drannor,Myth Drannor,caravan track,track,wilderness track,False,True,123.612338,0.85,15.3,8.079238,0.231,1.557472,31.149437
+LEG-000934,shadowdale,Shadowdale,teshwave,Teshwave,Tilverton through Shadowdale toward Voonlar,road,road,False,False,139.593607,0.85,20.4,6.842824,0.285,1.266196,25.323923
+LEG-000935,shadowdale,Shadowdale,tilverton,Tilverton,The Moonsea Ride,road,road,False,False,209.574852,1.05,25.2,8.316462,0.21,1.44906,28.981208
+LEG-000936,shamph,Shamph,iljak,Iljak,The Vilhon Road,road,road,False,False,26.293763,0.85,20.4,1.28891,0.18,0.219012,4.380232
+LEG-000937,shamph,Shamph,mussum,Mussum,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,82.879595,0.7,13.3,6.231549,0.234,1.139618,22.792362
+LEG-000938,shamph,Shamph,samra,Samra,The Vilhon Road,road,road,False,False,27.165736,0.85,20.4,1.331654,0.18,0.226275,4.525492
+LEG-000939,sheirtalar,Sheirtalar,kormul,Kormul,Sheirtalar junction through Misty Vale to Kormul,road,road,False,False,307.365365,0.85,20.4,15.06693,0.27,2.75544,55.108802
+LEG-000940,sheirtalar,Sheirtalar,lushpool,Lushpool,Sheirtalar through Lushpool and Ithmong to Sammarash,road,road,False,False,228.370781,0.85,20.4,11.194646,0.3,2.095638,41.912755
+LEG-000941,sheirtalar,Sheirtalar,ormpur,Ormpur,Ormpur to Sheirtalar trail,trail,trail,False,False,77.798911,0.7,13.3,5.849542,0.39,1.204994,24.09988
+LEG-000942,shoun,Shoun,chethel,Chethel,Beluir to Shoun road,road,road,False,False,217.156834,0.85,20.4,10.644943,0.12,1.716816,34.336328
+LEG-000943,shoun,Shoun,thruldar,Thruldar,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,302.593362,0.7,13.3,22.751381,0.156,3.897748,77.954966
+LEG-000944,shussel,Shussel,messemprar,Messemprar,Messemprar to Shussel,trail,trail,False,False,101.335728,0.7,13.3,7.619228,0.429,1.613583,32.271666
+LEG-000945,silverymoon,Silverymoon,blingdenstone,Blingdenstone,Blingdenstone Trail,tunnel+trail,Underdark tunnel and trail,True,True,113.009247,0.45,6.472258,17.46056,0.3186,3.751179,75.023579
+LEG-000946,silverymoon,Silverymoon,citadel_adbar,Citadel Adbar,caravan track,track,wilderness track,False,True,259.849379,0.7,12.6,20.622967,0.063,3.433019,68.660373
+LEG-000947,silverymoon,Silverymoon,citadel_felbarr,Citadel Felbarr,The Silver Way,road,road,False,False,173.408783,0.95,22.8,7.605648,0.06,1.160926,23.218523
+LEG-000948,silverymoon,Silverymoon,deadsnows,Deadsnows,Everlund through Silverymoon to Sundabar,road,road,False,False,150.724037,0.85,20.4,7.388433,0.18,1.255443,25.108851
+LEG-000949,silverymoon,Silverymoon,everlund,Everlund,The River Rauvin,river,river,False,False,48.563464,1.05,42.0,1.156273,0.0525,0.160641,3.21282
+LEG-000950,silverymoon,Silverymoon,jalanthar,Jalanthar,caravan track,track,wilderness track,False,True,136.531974,0.85,15.3,8.923658,0.252,1.749601,34.992021
+LEG-000951,silverymoon,Silverymoon,mithral_hall,Mithral Hall,caravan track,track,wilderness track,False,True,122.331517,0.85,15.3,7.995524,0.063,1.330981,26.619626
+LEG-000952,silverymoon,Silverymoon,nesme,Nesmé,The Mithral Road,road,road,False,False,132.708138,0.95,22.8,5.820532,0.195,1.001597,20.031944
+LEG-000953,silverymoon,Silverymoon,sundabar,Sundabar,caravan track,track,wilderness track,False,True,146.111772,0.7,12.6,11.596172,0.105,2.006636,40.132729
+LEG-000954,skuld,Skuld,maerlar,Maerlar,Skuld via Maerlar toward Khalab,road,road,False,False,154.650642,0.85,20.4,7.580914,0.12,1.22265,24.452996
+LEG-000955,skuld,Skuld,messemprar,Messemprar,The Alamber Run,sea,sea lane,False,False,192.339518,1.1,79.2,2.428529,0.2025,0.378472,7.569434
+LEG-000956,skuld,Skuld,mishtan,Mishtan,local market trail,trail,trail,False,True,263.390395,0.65,12.35,21.327157,0.156,3.653752,73.075031
+LEG-000957,skuld,Skuld,neldorild,Neldorild,Skuld to Gheldaneth trail,trail,trail,False,False,107.759147,0.7,13.3,8.102191,0.156,1.388061,27.761219
+LEG-000958,soorenar,Soorenar,akanax,Akanax,Soorenar to Akanax trail,trail,trail,False,False,111.900517,0.7,13.3,8.413573,0.2925,1.611607,32.232145
+LEG-000959,soorenar,Soorenar,cimbar,Cimbar,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,50.837405,0.85,20.4,2.49203,0.18,0.423446,8.468914
+LEG-000960,soorenar,Soorenar,luthcheq,Luthcheq,Airspur through Cimbar and Soorenar to Mordulkin,road,road,False,False,117.71007,0.85,20.4,5.770101,0.225,1.017846,20.356918
+LEG-000961,soubar,Soubar,baldur_s_gate,Baldur's Gate,The Dusk Road,road,road,False,False,212.952295,0.85,20.4,10.438838,0.285,1.931603,38.632052
+LEG-000962,soubar,Soubar,boareskyr_bridge,Boareskyr Bridge,The Dusk Road,road,road,False,False,37.734296,0.85,20.4,1.84972,0.375,0.366245,7.324893
+LEG-000963,soubar,Soubar,elturel,Elturel,Boareskyr Bridge through Soubar and Triel to Scornubel,road,road,False,False,116.241611,0.85,20.4,5.698118,0.255,1.029764,20.595278
+LEG-000964,soubar,Soubar,scornubel,Scornubel,caravan track,track,wilderness track,False,True,129.483435,0.85,15.3,8.46297,0.42,1.881927,37.63855
+LEG-000965,soubar,Soubar,triel,Triel,caravan track,track,wilderness track,False,True,84.900236,0.85,15.3,5.549035,0.483,1.288696,25.773914
+LEG-000966,spandeliyon,Spandeliyon,delthuntle,Delthuntle,local market trail,trail,trail,False,True,117.913952,0.65,12.35,9.547688,0.117,1.580519,31.610372
+LEG-000967,sshamath,Sshamath,llorkh,Llorkh,Sshamath Deep Way,tunnel+trail,Underdark tunnel and trail,True,True,379.198761,0.35,6.472258,58.588325,0.87615,20.147804,402.956079
+LEG-000968,sshamath,Sshamath,mantol_derith,Mantol-Derith,The Deepdark Road,tunnel,Underdark tunnel,False,True,818.154173,0.5,6.0,136.359029,0.759,32.812237,656.244734
+LEG-000969,sshamath,Sshamath,secomber,Secomber,Sshamath Smugglers' Road,tunnel+trail,Underdark tunnel and trail,True,True,513.695484,0.35,6.472258,79.36882,0.756675,25.555855,511.117102
+LEG-000970,sshamath,Sshamath,winterkeep,Winterkeep,The Sshamath Gate,teleport,teleportation circle,False,False,2533.837457,0.65,3250.0,0.779642,0.054,197.218315,3944.366297
+LEG-000971,starmantle,Starmantle,elversult,Elversult,Elversult to Starmantle trail,trail,trail,False,False,366.373846,0.7,13.3,27.546906,0.234,5.037745,100.754901
+LEG-000972,stone_bridge,Stone Bridge,amphail,Amphail,Red Larch and Goldenfields branch toward Secomber,trail,trail,False,False,106.958474,0.7,13.3,8.041991,0.2535,1.49395,29.879002
+LEG-000973,stone_bridge,Stone Bridge,goldenfields,Goldenfields,Red Larch and Goldenfields branch toward Secomber,trail,trail,False,False,87.175444,0.7,13.3,6.554545,0.234,1.198687,23.973745
+LEG-000974,stone_bridge,Stone Bridge,red_larch,Red Larch,Long Road: Mirabar to Waterdeep,road,road,False,False,76.867118,0.85,20.4,3.767996,0.24,0.672813,13.456267
+LEG-000975,stone_bridge,Stone Bridge,triboar,Triboar,Long Road: Mirabar to Waterdeep,road,road,False,False,80.724329,0.85,20.4,3.957075,0.225,0.698028,13.96056
+LEG-000976,stone_bridge,Stone Bridge,yartar,Yartar,Evermoor Way: Triboar to Everlund,road,road,False,False,84.600744,0.85,20.4,4.147095,0.24,0.740505,14.810107
+LEG-000977,suldolphor,Suldolphor,almraiven,Almraiven,Chult-Tashalar Coastal Run,sea,sea lane,False,False,196.914626,1.05,75.6,2.604691,0.2565,0.424154,8.483082
+LEG-000978,suldolphor,Suldolphor,theymarsh,Theymarsh,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,21.61481,0.7,13.3,1.625174,0.39,0.334783,6.69565
+LEG-000979,suldolphor,Suldolphor,tulmon,Tulmon,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,64.765082,0.7,13.3,4.869555,0.39,1.003119,20.062372
+LEG-000980,suldolphor,Suldolphor,urbreth,Urbreth,Calimshan-Lantan Coastal Run,sea,sea lane,False,False,239.117649,1.05,75.6,3.162932,0.2565,0.515059,10.301188
+LEG-000981,sultim,Sultim,pyarados,Pyarados,Pyarados to Sultim trail,trail,trail,False,False,229.521124,0.7,13.3,17.257227,0.3315,3.405339,68.106787
+LEG-000982,sultim,Sultim,rauthil,Rauthil,Sultim through Rauthil to Murghyr,trail,trail,False,False,89.389806,0.7,13.3,6.721038,0.2535,1.248558,24.97117
+LEG-000983,sundabar,Sundabar,ascore,Ascore,Sundabar to Ascore,road,road,False,False,195.022842,0.85,20.4,9.559943,0.06,1.45923,29.184595
+LEG-000984,sundabar,Sundabar,citadel_adbar,Citadel Adbar,caravan track,track,wilderness track,False,True,141.509328,0.7,12.6,11.230899,0.084,1.906495,38.129891
+LEG-000985,sundabar,Sundabar,citadel_felbarr,Citadel Felbarr,Everlund through Silverymoon to Sundabar,road,road,False,False,105.992368,0.85,20.4,5.195704,0.075,0.804295,16.085901
+LEG-000986,sundabar,Sundabar,deadsnows,Deadsnows,caravan track,track,wilderness track,False,True,91.762138,0.7,12.6,7.282709,0.273,1.451821,29.036424
+LEG-000987,sundabar,Sundabar,everlund,Everlund,The North Ride,road,road,False,False,204.327469,1.1,26.4,7.739677,0.09,1.21482,24.296394
+LEG-000988,sundabar,Sundabar,hellgate_keep,Hellgate Keep,local market trail,trail,trail,False,True,99.796443,0.65,12.35,8.080684,0.117,1.337672,26.75343
+LEG-000989,sundabar,Sundabar,silverymoon,Silverymoon,caravan track,track,wilderness track,False,True,146.111772,0.7,12.6,11.596172,0.105,2.006636,40.132729
+LEG-000990,sundrah,Sundrah,nemesser,Nemesser,local market ferry,ferry,ferry,False,True,249.78833,0.65,19.5,12.809658,0.096,1.768963,35.379251
+LEG-000991,surkh,Surkh,arrabar,Arrabar,local market trail,trail,trail,False,True,291.225565,0.65,12.35,23.581017,0.234,4.312468,86.249363
+LEG-000992,surthay,Surthay,mulptan,Mulptan,Mulptan to Mulsantir,road,road,False,False,286.950758,0.85,20.4,14.066214,0.24,2.511663,50.233262
+LEG-000993,surthay,Surthay,mulsantir,Mulsantir,Mulptan to Mulsantir,road,road,False,False,89.120209,0.85,20.4,4.368638,0.24,0.780064,15.601279
+LEG-000994,suzail,Suzail,arabel,Arabel,The Calantar's Way,road,road,False,False,115.454646,1.3,31.2,3.700469,0.09,0.580826,11.616514
+LEG-000995,suzail,Suzail,elversult,Elversult,caravan track,track,wilderness track,False,True,131.150639,0.7,12.6,10.408781,0.168,1.903858,38.077152
+LEG-000996,suzail,Suzail,marsember,Marsember,The Inner Sea Run,sea,sea lane,False,False,35.109116,1.2,86.4,0.406356,0.108,0.058351,1.167027
+LEG-000997,suzail,Suzail,proskur,Proskur,caravan track,track,wilderness track,False,True,147.007075,0.7,12.6,11.667228,0.231,2.249145,44.982905
+LEG-000998,suzail,Suzail,teziir,Teziir,caravan track,track,wilderness track,False,True,134.918123,0.7,12.6,10.707788,0.252,2.099403,41.988062
+LEG-000999,suzail,Suzail,westgate,Westgate,The Dawnpost,road,road,False,False,276.446896,1.15,27.6,10.016192,0.225,1.766856,35.337125
+LEG-001000,suzail,Suzail,wheloon,Wheloon,The Calantar's Way,road,road,False,False,292.310891,1.3,31.2,9.368939,0.15,1.551496,31.029925
+LEG-001001,talagbar,Talagbar,bloodstone_village,Bloodstone Village,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,108.278673,0.7,13.3,8.141254,0.429,1.724137,34.482736
+LEG-001002,talagbar,Talagbar,darmshall,Darmshall,Darmshall through Bloodstone Pass to Valls,trail,trail,False,False,67.543727,0.7,13.3,5.078476,0.429,1.075508,21.510168
+LEG-001003,talagbar,Talagbar,delhalls,Delhalls,Ilinvur through Vaasa to Darmshall,trail,trail,False,False,217.9178,0.7,13.3,16.384797,0.3705,3.327885,66.5577
+LEG-001004,talagbar,Talagbar,palischuk,Palischuk,Castle Perilous to Darmshall,trail,trail,False,False,104.880203,0.7,13.3,7.88573,0.429,1.670022,33.400449
+LEG-001005,tammar,Tammar,phsant,Phsant,Telflamm through Phent and Phsant to Tammar,road,road,False,False,129.764965,0.85,20.4,6.361028,0.24,1.135825,22.716502
+LEG-001006,tammar,Tammar,the_mucklestones,The Mucklestones,Kront to Tammar,road,road,False,False,164.24797,0.85,20.4,8.051371,0.24,1.437653,28.753056
+LEG-001007,tammar,Tammar,two_stars,Two Stars,Two Stars to Tammar,road,road,False,False,111.641587,0.85,20.4,5.472627,0.24,0.977192,19.543845
+LEG-001008,tantras,Tantras,dragon_falls,Dragon Falls,Calaunt to Ravens Bluff,trail,trail,False,False,89.757999,0.7,13.3,6.748722,0.1755,1.175689,23.513775
+LEG-001009,tantras,Tantras,harrowdale_town,Harrowdale Town,The Inner Sea Run,sea,sea lane,False,False,170.69461,1.2,86.4,1.975632,0.135,0.290608,5.812151
+LEG-001010,tantras,Tantras,lyrabar,Lyrabar,The Vast Road,road,road,False,False,214.307559,1.05,25.2,8.504268,0.105,1.353199,27.063983
+LEG-001011,tantras,Tantras,procampur,Procampur,caravan track,track,wilderness track,False,True,114.350208,0.85,15.3,7.47387,0.126,1.317879,26.357588
+LEG-001012,tantras,Tantras,ravens_bluff,Ravens Bluff,The Inner Sea Run,sea,sea lane,False,False,43.161325,1.2,86.4,0.499552,0.1215,0.072608,1.452163
+LEG-001013,tantras,Tantras,tsurlagol,Tsurlagol,caravan track,track,wilderness track,False,True,130.789678,0.85,15.3,8.548345,0.252,1.676016,33.520318
+LEG-001014,tantras,Tantras,yhaunn,Yhaunn,Sea of Fallen Stars coasting run,sea,sea lane,False,False,138.015724,0.95,68.4,2.017774,0.135,0.296806,5.936129
+LEG-001015,targos,Targos,bryn_shander,Bryn Shander,The Ten Towns Track,trail,trail,False,False,20.05642,0.7,13.3,1.508002,0.351,0.301929,6.038587
+LEG-001016,targos,Targos,easthaven,Easthaven,caravan track,track,wilderness track,False,True,52.416982,0.7,12.6,4.160078,0.42,0.925085,18.501697
+LEG-001017,targos,Targos,good_mead,Good Mead,caravan track,track,wilderness track,False,True,47.401688,0.7,12.6,3.762039,0.441,0.848944,16.978878
+LEG-001018,targos,Targos,lonelywood,Lonelywood,caravan track,track,wilderness track,False,True,25.057733,0.85,15.3,1.63776,0.441,0.369578,7.39156
+LEG-001019,targos,Targos,termalaine,Termalaine,The Ten Towns Track,trail,trail,False,False,10.510947,0.7,13.3,0.790297,0.39,0.1628,3.255991
+LEG-001020,tashluta,Tashluta,almraiven,Almraiven,Chult-Tashalar Coastal Run,sea,sea lane,False,False,428.736119,1.05,75.6,5.671113,0.216,0.893731,17.874621
+LEG-001021,tashluta,Tashluta,calimport,Calimport,Sea of Swords coasting run,sea,sea lane,False,False,365.594926,0.95,68.4,5.344955,0.243,0.861034,17.220676
+LEG-001022,tashluta,Tashluta,delselar,Delselar,Sea of Swords coasting run,sea,sea lane,False,False,248.19162,0.95,68.4,3.628532,0.189,0.559137,11.182731
+LEG-001023,tashluta,Tashluta,lantan,Lantan,The Shining Sea Run,sea,sea lane,False,False,861.017776,1.0,72.0,11.95858,0.1485,1.779982,35.599641
+LEG-001024,tashluta,Tashluta,lundeth,Lundeth,local market trail,trail,trail,False,True,212.617262,0.65,12.35,17.215973,0.273,3.247941,64.958826
+LEG-001025,tashluta,Tashluta,port_nyanzaru,Port Nyanzaru,Chult-Tashalar Coastal Run,sea,sea lane,False,False,692.246502,1.05,75.6,9.1567,0.2025,1.427017,28.540334
+LEG-001026,tashluta,Tashluta,samargol,Samargol,Sea of Swords coasting run,sea,sea lane,False,False,527.784511,0.95,68.4,7.716148,0.189,1.189015,23.780303
+LEG-001027,tashluta,Tashluta,urbreth,Urbreth,Sea of Swords coasting run,sea,sea lane,False,False,315.589132,0.95,68.4,4.613876,0.216,0.727117,14.542347
+LEG-001028,telflamm,Telflamm,bezantur,Bezantur,The Inner Sea Run,sea,sea lane,False,False,543.641095,1.2,86.4,6.292142,0.2295,1.00261,20.052202
+LEG-001029,telflamm,Telflamm,lyrabar,Lyrabar,The Inner Sea Run,sea,sea lane,False,False,232.13621,1.2,86.4,2.686762,0.1485,0.399913,7.998253
+LEG-001030,telflamm,Telflamm,nyth,Nyth,Telflamm through Phent and Phsant to Tammar,road,road,False,False,51.614339,0.85,20.4,2.530115,0.24,0.451777,9.035545
+LEG-001031,telflamm,Telflamm,phent,Phent,Telflamm through Phent and Phsant to Tammar,road,road,False,False,79.627247,0.85,20.4,3.903296,0.24,0.696973,13.939452
+LEG-001032,telflamm,Telflamm,phsant,Phsant,The Golden Way,road,road,False,False,185.908172,1.1,26.4,7.041976,0.24,1.257415,25.148305
+LEG-001033,telflamm,Telflamm,velprintalar,Velprintalar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,207.971585,0.95,68.4,3.04052,0.1485,0.452568,9.051361
+LEG-001034,termalaine,Termalaine,bryn_shander,Bryn Shander,caravan track,track,wilderness track,False,True,20.2608,0.7,12.6,1.608,0.378,0.346998,6.939961
+LEG-001035,termalaine,Termalaine,easthaven,Easthaven,caravan track,track,wilderness track,False,True,50.290556,0.7,12.6,3.991314,0.42,0.887556,17.751129
+LEG-001036,termalaine,Termalaine,good_mead,Good Mead,caravan track,track,wilderness track,False,True,48.893762,0.7,12.6,3.880457,0.441,0.875666,17.513327
+LEG-001037,termalaine,Termalaine,lonelywood,Lonelywood,caravan track,track,wilderness track,False,True,14.650939,0.85,15.3,0.957578,0.441,0.216088,4.321751
+LEG-001038,termalaine,Termalaine,targos,Targos,The Ten Towns Track,trail,trail,False,False,10.510947,0.7,13.3,0.790297,0.39,0.1628,3.255991
+LEG-001039,teshwave,Teshwave,citadel_of_the_raven,Citadel of the Raven,Voonlar to Teshwave,road,road,False,False,52.936566,0.85,20.4,2.59493,0.36,0.508191,10.163821
+LEG-001040,teshwave,Teshwave,ilinvur,Ilinvur,Citadel of the Raven to Ilinvur,trail,trail,False,False,297.757831,0.7,13.3,22.387807,0.429,4.74124,94.82481
+LEG-001041,teshwave,Teshwave,shadowdale,Shadowdale,Tilverton through Shadowdale toward Voonlar,road,road,False,False,139.593607,0.85,20.4,6.842824,0.285,1.266196,25.323923
+LEG-001042,teshwave,Teshwave,voonlar,Voonlar,Tilverton through Shadowdale toward Voonlar,road,road,False,False,58.766402,0.85,20.4,2.880706,0.285,0.533046,10.660917
+LEG-001043,teshwave,Teshwave,yulash,Yulash,Voonlar to Yulash cross-road,road,road,False,False,81.76393,0.85,20.4,4.008036,0.36,0.784934,15.698675
+LEG-001044,teshwave,Teshwave,zhentil_keep,Zhentil Keep,Zhentil Keep to Citadel of the Raven,trail,trail,False,False,110.18879,0.7,13.3,8.284871,0.468,1.802437,36.048735
+LEG-001045,teziir,Teziir,elversult,Elversult,The Chionthar Road,road,road,False,False,127.485834,1.15,27.6,4.619052,0.24,0.824778,16.495558
+LEG-001046,teziir,Teziir,marsember,Marsember,The Dragonmere,sea,sea lane,False,False,114.951686,1.15,82.8,1.388305,0.216,0.218788,4.375761
+LEG-001047,teziir,Teziir,pros,Pros,Proskur via Elversult and Teziir to Westgate,road,road,False,False,92.70262,0.85,20.4,4.544246,0.24,0.811421,16.228412
+LEG-001048,teziir,Teziir,reddansyr,Reddansyr,Proskur via Elversult and Teziir to Westgate,road,road,False,False,41.872898,0.85,20.4,2.052593,0.3,0.384245,7.684908
+LEG-001049,teziir,Teziir,suzail,Suzail,caravan track,track,wilderness track,False,True,134.918123,0.7,12.6,10.707788,0.252,2.099403,41.988062
+LEG-001050,teziir,Teziir,westgate,Westgate,The Dragonmere,sea,sea lane,False,False,112.929757,1.15,82.8,1.363886,0.3105,0.231643,4.63287
+LEG-001051,the_mucklestones,The Mucklestones,clymph_tower,Clymph Tower,Uthmere through the Great Dale to Kront,road,road,False,False,90.644701,0.85,20.4,4.443368,0.24,0.793408,15.868155
+LEG-001052,the_mucklestones,The Mucklestones,kront,Kront,Kront to Tammar,road,road,False,False,142.275693,0.85,20.4,6.974299,0.24,1.245331,24.906615
+LEG-001053,the_mucklestones,The Mucklestones,tammar,Tammar,Kront to Tammar,road,road,False,False,164.24797,0.85,20.4,8.051371,0.24,1.437653,28.753056
+LEG-001054,the_mucklestones,The Mucklestones,tower_of_threespires,Tower of Threespires,Uthmere through the Great Dale to Kront,road,road,False,False,95.093599,0.85,20.4,4.661451,0.24,0.832349,16.646974
+LEG-001055,the_twin_towers,The Twin Towers,crimmor,Crimmor,Nashkel through Cloud Peaks to Crimmor,road,road,False,False,30.549959,0.85,20.4,1.497547,0.15,0.247994,4.959876
+LEG-001056,the_twin_towers,The Twin Towers,esmeltaran,Esmeltaran,Crimmor through Keczulla to Eshpurta,road,road,False,False,242.741323,0.85,20.4,11.899084,0.15,1.970488,39.409768
+LEG-001057,the_twin_towers,The Twin Towers,nashkel,Nashkel,Nashkel through Cloud Peaks to Crimmor,road,road,False,False,71.083257,0.85,20.4,3.484473,0.21,0.607135,12.142693
+LEG-001058,the_twin_towers,The Twin Towers,purskul,Purskul,Crimmor through Keczulla to Eshpurta,road,road,False,False,52.145202,0.85,20.4,2.556137,0.165,0.428818,8.576352
+LEG-001059,the_watchwall,The Watchwall,escalant,Escalant,local market trail,trail,trail,False,True,75.344807,0.65,12.35,6.100794,0.351,1.22149,24.4298
+LEG-001060,thentia,Thentia,bell_in_the_deep,Bell in the Deep,local market trail,trail,trail,False,True,54.007499,0.65,12.35,4.373077,0.312,0.850294,17.005881
+LEG-001061,thentia,Thentia,elmwood,Elmwood,Moonsea coasting run,sea,sea lane,False,False,103.640002,0.95,68.4,1.515205,0.216,0.238787,4.775731
+LEG-001062,thentia,Thentia,hillsfar,Hillsfar,Moonsea coasting run,sea,sea lane,False,False,114.268325,0.95,68.4,1.67059,0.216,0.263274,5.265484
+LEG-001063,thentia,Thentia,hulburg,Hulburg,Melvaunt to Glister trail,trail,trail,False,False,162.686245,0.7,13.3,12.232048,0.312,2.37838,47.567599
+LEG-001064,thentia,Thentia,melvaunt,Melvaunt,The Moonsea Run,sea,sea lane,False,False,37.081801,1.05,75.6,0.4905,0.2295,0.078158,1.563157
+LEG-001065,thentia,Thentia,mulmaster,Mulmaster,The Moonsea Run,sea,sea lane,False,False,128.447382,1.05,75.6,1.699039,0.2565,0.276676,5.533513
+LEG-001066,thentia,Thentia,phlan,Phlan,caravan track,track,wilderness track,False,True,84.868486,0.85,15.3,5.54696,0.378,1.197005,23.940102
+LEG-001067,theymarsh,Theymarsh,suldolphor,Suldolphor,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,21.61481,0.7,13.3,1.625174,0.39,0.334783,6.69565
+LEG-001068,theymarsh,Theymarsh,yallasch,Yallasch,Theymarsh to Yallash trail,trail,trail,False,False,85.46753,0.7,13.3,6.42613,0.39,1.32377,26.475399
+LEG-001069,thindar,Thindar,calimport,Calimport,Sea of Swords coasting run,sea,sea lane,False,False,549.020455,0.95,68.4,8.026615,0.243,1.29303,25.860597
+LEG-001070,thindar,Thindar,delselar,Delselar,Halruaa-Chult Coastal Run,sea,sea lane,False,False,138.180498,1.05,75.6,1.827784,0.189,0.281651,5.633027
+LEG-001071,thindar,Thindar,samargol,Samargol,Halruaa-Chult Coastal Run,sea,sea lane,False,False,256.910879,1.05,75.6,3.398292,0.189,0.523658,10.473156
+LEG-001072,three_swords,Three Swords,channathgate,Channathgate,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,231.373341,0.85,20.4,11.34183,0.24,2.025197,40.503945
+LEG-001073,three_swords,Three Swords,eartheart,Eartheart,Kormul through Rethmar and Channathgate to Eartheart,road,road,False,False,183.659352,0.85,20.4,9.002909,0.24,1.60756,32.15119
+LEG-001074,thruldar,Thruldar,chavyondat,Chavyondat,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,185.694253,0.7,13.3,13.961974,0.156,2.391954,47.839084
+LEG-001075,thruldar,Thruldar,shoun,Shoun,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,302.593362,0.7,13.3,22.751381,0.156,3.897748,77.954966
+LEG-001076,tilverton,Tilverton,arabel,Arabel,The Moonsea Ride,road,road,False,False,102.255027,1.05,25.2,4.057739,0.165,0.680726,13.614526
+LEG-001077,tilverton,Tilverton,ashabenford,Ashabenford,Tilverton via Ashabenford junction to Hillsfar,road,road,False,False,250.799597,0.85,20.4,12.294098,0.21,2.142124,42.842472
+LEG-001078,tilverton,Tilverton,highmoon,Highmoon,caravan track,track,wilderness track,False,True,176.685625,0.7,12.6,14.022669,0.273,2.795444,55.908885
+LEG-001079,tilverton,Tilverton,marsember,Marsember,caravan track,track,wilderness track,False,True,197.098605,0.85,15.3,12.882262,0.273,2.568102,51.362041
+LEG-001080,tilverton,Tilverton,shadowdale,Shadowdale,The Moonsea Ride,road,road,False,False,209.574852,1.05,25.2,8.316462,0.21,1.44906,28.981208
+LEG-001081,tilverton,Tilverton,well_of_dragons,Well of Dragons,Sunset foothills via Farsea Marshes toward Tilverton,trail,trail,False,False,347.024576,0.7,13.3,26.092073,0.156,4.470073,89.401463
+LEG-001082,torsch,Torsch,elbulder,Elbulder,Iljak junction through Elbulder to Torsh trail,trail,trail,False,False,317.135461,0.7,13.3,23.844772,0.312,4.636339,92.726784
+LEG-001083,torsch,Torsch,hardcastle,Hardcastle,Torsh via Hardcastle to Delzimmer approach,trail,trail,False,False,255.95441,0.7,13.3,19.244692,0.3315,3.797522,75.950449
+LEG-001084,torsch,Torsch,innarlith,Innarlith,Innarlith to Torsh trail,trail,trail,False,False,324.476902,0.7,13.3,24.39676,0.312,4.743667,94.873338
+LEG-001085,tower_of_threespires,Tower of Threespires,kront,Kront,Uthmere through the Great Dale to Kront,road,road,False,False,127.437074,0.85,20.4,6.246915,0.24,1.115449,22.308984
+LEG-001086,tower_of_threespires,Tower of Threespires,the_mucklestones,The Mucklestones,Uthmere through the Great Dale to Kront,road,road,False,False,95.093599,0.85,20.4,4.661451,0.24,0.832349,16.646974
+LEG-001087,trail_s_end,Trail's End,heliogabalus,Heliogabalus,Valls to Praka trail,trail,trail,False,False,17.790166,0.7,13.3,1.337606,0.429,0.283275,5.665507
+LEG-001088,trail_s_end,Trail's End,praka,Praka,Trail's End to Ilmwatch road,road,road,False,False,12.649111,0.85,20.4,0.620054,0.33,0.118753,2.375057
+LEG-001089,trail_s_end,Trail's End,uthmere,Uthmere,Trail's End to Ilmwatch road,road,road,False,False,261.512762,0.85,20.4,12.819253,0.285,2.372075,47.441492
+LEG-001090,trail_s_end,Trail's End,valls,Valls,Valls to Praka trail,trail,trail,False,False,206.314388,0.7,13.3,15.51236,0.429,3.285173,65.70347
+LEG-001091,triboar,Triboar,amphail,Amphail,caravan track,track,wilderness track,False,True,78.440105,0.85,15.3,5.126804,0.252,1.005178,20.103553
+LEG-001092,triboar,Triboar,goldenfields,Goldenfields,caravan track,track,wilderness track,False,True,88.940992,0.85,15.3,5.813137,0.231,1.120625,22.412502
+LEG-001093,triboar,Triboar,longsaddle,Longsaddle,The Long Road,road,road,False,False,137.300785,1.1,26.4,5.200787,0.195,0.894951,17.89903
+LEG-001094,triboar,Triboar,phandalin,Phandalin,caravan track,track,wilderness track,False,True,86.533288,0.7,12.6,6.867721,0.357,1.459433,29.188667
+LEG-001095,triboar,Triboar,red_larch,Red Larch,The Long Road,road,road,False,False,51.216111,1.1,26.4,1.940004,0.225,0.342217,6.844335
+LEG-001096,triboar,Triboar,stone_bridge,Stone Bridge,Long Road: Mirabar to Waterdeep,road,road,False,False,80.724329,0.85,20.4,3.957075,0.225,0.698028,13.96056
+LEG-001097,triboar,Triboar,yartar,Yartar,The Evermoor Way,road,road,False,False,66.172582,0.95,22.8,2.902306,0.225,0.511967,10.239336
+LEG-001098,triel,Triel,berdusk,Berdusk,caravan track,track,wilderness track,False,True,150.332964,0.85,15.3,9.825684,0.273,1.958768,39.175355
+LEG-001099,triel,Triel,boareskyr_bridge,Boareskyr Bridge,The Dusk Road,road,road,False,False,123.172164,0.85,20.4,6.037851,0.33,1.156369,23.127385
+LEG-001100,triel,Triel,elturel,Elturel,Boareskyr Bridge through Soubar and Triel to Scornubel,road,road,False,False,63.196424,0.85,20.4,3.097864,0.21,0.539772,10.795436
+LEG-001101,triel,Triel,hill_s_edge,Hill's Edge,caravan track,track,wilderness track,False,True,128.932385,0.85,15.3,8.426953,0.42,1.873918,37.478369
+LEG-001102,triel,Triel,llorkh,Llorkh,The Dusk Road,road,road,False,False,386.776887,0.85,20.4,18.959651,0.33,3.631152,72.623048
+LEG-001103,triel,Triel,scornubel,Scornubel,Boareskyr Bridge through Soubar and Triel to Scornubel,road,road,False,False,48.717783,0.85,20.4,2.388127,0.255,0.431582,8.631645
+LEG-001104,triel,Triel,soubar,Soubar,caravan track,track,wilderness track,False,True,84.900236,0.85,15.3,5.549035,0.483,1.288696,25.773914
+LEG-001105,tsurlagol,Tsurlagol,lyrabar,Lyrabar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,104.022353,0.95,68.4,1.520795,0.1485,0.226364,4.527272
+LEG-001106,tsurlagol,Tsurlagol,procampur,Procampur,The Inner Sea Run,sea,sea lane,False,False,45.701751,1.2,86.4,0.528955,0.135,0.077807,1.556145
+LEG-001107,tsurlagol,Tsurlagol,ravens_bluff,Ravens Bluff,The Inner Sea Run,sea,sea lane,False,False,89.102637,1.2,86.4,1.031281,0.1755,0.15711,3.142205
+LEG-001108,tsurlagol,Tsurlagol,tantras,Tantras,caravan track,track,wilderness track,False,True,130.789678,0.85,15.3,8.548345,0.252,1.676016,33.520318
+LEG-001109,tulmon,Tulmon,almraiven,Almraiven,Almraiven to western Lake of Steam trail,trail,trail,False,False,181.449817,0.7,13.3,13.642843,0.3705,2.770972,55.41944
+LEG-001110,tulmon,Tulmon,suldolphor,Suldolphor,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,64.765082,0.7,13.3,4.869555,0.39,1.003119,20.062372
+LEG-001111,tulmon,Tulmon,yeshpek,Yeshpek,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,48.03353,0.7,13.3,3.611544,0.39,0.743971,14.879415
+LEG-001112,two_stars,Two Stars,mulsantir,Mulsantir,Mulptan to Mulsantir,road,road,False,False,60.351388,0.85,20.4,2.958401,0.24,0.528252,10.565043
+LEG-001113,two_stars,Two Stars,nethentir,Nethentir,Two Stars to Nethentir trail,trail,trail,False,False,249.111956,0.7,13.3,18.730222,0.312,3.641874,72.837489
+LEG-001114,two_stars,Two Stars,tammar,Tammar,Two Stars to Tammar,road,road,False,False,111.641587,0.85,20.4,5.472627,0.24,0.977192,19.543845
+LEG-001115,tyraturos,Tyraturos,amruthar,Amruthar,Nethjet through Amruthar to Pyarados,road,road,False,False,93.269248,0.85,20.4,4.572022,0.255,0.826256,16.525116
+LEG-001116,tyraturos,Tyraturos,bezantur,Bezantur,Eltabbar through Tyraturos to Bezantur,road,road,False,False,127.753373,0.85,20.4,6.26242,0.255,1.131745,22.634892
+LEG-001117,tyraturos,Tyraturos,eltabbar,Eltabbar,Eltabbar through Tyraturos to Bezantur,road,road,False,False,117.243907,0.85,20.4,5.74725,0.24,1.026229,20.524581
+LEG-001118,tyraturos,Tyraturos,pyarados,Pyarados,Nethjet through Amruthar to Pyarados,road,road,False,False,103.249388,0.85,20.4,5.061245,0.24,0.903736,18.074716
+LEG-001119,unthalass,Unthalass,gheldaneth,Gheldaneth,Unthalass to Gheldaneth trail,trail,trail,False,False,221.643087,0.7,13.3,16.664894,0.156,2.855016,57.100325
+LEG-001120,unthalass,Unthalass,hardcastle,Hardcastle,Hardcastle branch to Unthalass via Road of Dust,trail,trail,False,False,495.346142,0.7,13.3,37.244071,0.2535,6.918783,138.375652
+LEG-001121,urbreth,Urbreth,almraiven,Almraiven,Sea of Swords coasting run,sea,sea lane,False,False,188.159294,0.95,68.4,2.750867,0.243,0.443145,8.862897
+LEG-001122,urbreth,Urbreth,calimport,Calimport,Sea of Swords coasting run,sea,sea lane,False,False,445.364401,0.95,68.4,6.511175,0.27,1.071687,21.433748
+LEG-001123,urbreth,Urbreth,delselar,Delselar,Sea of Swords coasting run,sea,sea lane,False,False,536.142761,0.95,68.4,7.838344,0.216,1.235273,24.705458
+LEG-001124,urbreth,Urbreth,halagard,Halagard,Sea of Swords coasting run,sea,sea lane,False,False,649.492856,0.95,68.4,9.49551,0.1485,1.413365,28.267296
+LEG-001125,urbreth,Urbreth,lantan,Lantan,Calimshan-Lantan Coastal Run,sea,sea lane,False,False,961.27986,1.05,75.6,12.715342,0.1755,1.937116,38.742325
+LEG-001126,urbreth,Urbreth,suldolphor,Suldolphor,Calimshan-Lantan Coastal Run,sea,sea lane,False,False,239.117649,1.05,75.6,3.162932,0.2565,0.515059,10.301188
+LEG-001127,urbreth,Urbreth,tashluta,Tashluta,Sea of Swords coasting run,sea,sea lane,False,False,315.589132,0.95,68.4,4.613876,0.216,0.727117,14.542347
+LEG-001128,urmlaspyr,Urmlaspyr,archenbridge,Archenbridge,caravan track,track,wilderness track,False,True,131.360915,0.7,12.6,10.425469,0.252,2.044051,40.881018
+LEG-001129,urmlaspyr,Urmlaspyr,arrabar,Arrabar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,555.608648,0.95,68.4,8.122933,0.162,1.223275,24.465496
+LEG-001130,urmlaspyr,Urmlaspyr,daerlun,Daerlun,Proskur via Elversult and Teziir to Westgate,road,road,False,False,33.870489,0.85,20.4,1.660318,0.18,0.282121,5.642425
+LEG-001131,urmlaspyr,Urmlaspyr,marsember,Marsember,The Inner Sea Run,sea,sea lane,False,False,197.56318,1.2,86.4,2.286611,0.162,0.344353,6.887052
+LEG-001132,urmlaspyr,Urmlaspyr,saerloon,Saerloon,The Inner Sea Run,sea,sea lane,False,False,129.812942,1.2,86.4,1.502465,0.162,0.226264,4.525279
+LEG-001133,urmlaspyr,Urmlaspyr,westgate,Westgate,The Dragonmere Ferry,ferry,ferry,False,False,52.022015,1.0,30.0,1.734067,0.228,0.268309,5.366175
+LEG-001134,urmlaspyr,Urmlaspyr,wheloon,Wheloon,Daerlun to Selgaunt via Saerloon junction,road,road,False,False,90.301748,0.85,20.4,4.426556,0.21,0.771283,15.425663
+LEG-001135,uthmere,Uthmere,dilpur,Dilpur,Ilmwatch south to Sarshel junction,road,road,False,False,237.168227,0.85,20.4,11.625893,0.24,2.07592,41.518391
+LEG-001136,uthmere,Uthmere,ilmwatch,Ilmwatch,Trail's End to Ilmwatch road,road,road,False,False,32.442256,0.85,20.4,1.590307,0.24,0.283965,5.679303
+LEG-001137,uthmere,Uthmere,mauberg_s_oak,Mauberg's Oak,Uthmere through the Great Dale to Kront,road,road,False,False,135.241083,0.85,20.4,6.629465,0.24,1.183757,23.675145
+LEG-001138,uthmere,Uthmere,trail_s_end,Trail's End,Trail's End to Ilmwatch road,road,road,False,False,261.512762,0.85,20.4,12.819253,0.285,2.372075,47.441492
+LEG-001139,vaelan,Vaelan,assur,Assur,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,36.925168,0.7,13.3,2.776328,0.156,0.475638,9.512767
+LEG-001140,vaelan,Vaelan,ormpe,Ormpe,Ormpе through Vaelan and Assur toward Shoun,trail,trail,False,False,72.920183,0.7,13.3,5.482721,0.156,0.939295,18.785906
+LEG-001141,valls,Valls,bloodstone_village,Bloodstone Village,Darmshall through Bloodstone Pass to Valls,trail,trail,False,False,102.380622,0.7,13.3,7.697791,0.429,1.630221,32.604425
+LEG-001142,valls,Valls,trail_s_end,Trail's End,Valls to Praka trail,trail,trail,False,False,206.314388,0.7,13.3,15.51236,0.429,3.285173,65.70347
+LEG-001143,velen,Velen,athkatla,Athkatla,Sea of Swords coasting run,sea,sea lane,False,False,256.062649,0.95,68.4,3.743606,0.2025,0.583419,11.668371
+LEG-001144,velen,Velen,caer_corwell,Caer Corwell,Sea of Swords coasting run,sea,sea lane,False,False,344.124294,0.95,68.4,5.031057,0.2025,0.78406,15.681201
+LEG-001145,velen,Velen,irphong,Irphong,local market ferry,ferry,ferry,False,True,100.410806,0.65,19.5,5.149272,0.216,0.788951,15.779018
+LEG-001146,velen,Velen,lantan,Lantan,Sea of Swords coasting run,sea,sea lane,False,False,222.035763,0.95,68.4,3.246137,0.1755,0.494532,9.890641
+LEG-001147,velen,Velen,murann,Murann,Sea of Swords coasting run,sea,sea lane,False,False,215.430383,0.95,68.4,3.149567,0.2565,0.512883,10.257661
+LEG-001148,velen,Velen,nimbral,Nimbral,The Nimbral Run,sea+air,sea lane and skyship,True,False,471.51808,0.9,68.93011,6.840524,0.21555,7.890417,157.808347
+LEG-001149,velen,Velen,zazesspur,Zazesspur,Sea of Swords coasting run,sea,sea lane,False,False,340.047644,0.95,68.4,4.971457,0.2295,0.792168,15.843357
+LEG-001150,velprintalar,Velprintalar,airspur,Airspur,Sea of Fallen Stars coasting run,sea,sea lane,False,False,300.31292,0.95,68.4,4.39054,0.135,0.645831,12.916617
+LEG-001151,velprintalar,Velprintalar,bezantur,Bezantur,The Inner Sea Run,sea,sea lane,False,False,450.346467,1.2,86.4,5.212343,0.162,0.784954,15.699078
+LEG-001152,velprintalar,Velprintalar,cimbar,Cimbar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,278.625519,0.95,68.4,4.073473,0.1215,0.592065,11.841291
+LEG-001153,velprintalar,Velprintalar,furthinghome,Furthinghome,local market trail,trail,trail,False,True,68.938596,0.65,12.35,5.582073,0.117,0.924053,18.481059
+LEG-001154,velprintalar,Velprintalar,lyrabar,Lyrabar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,294.768859,0.95,68.4,4.309486,0.081,0.603749,12.074974
+LEG-001155,velprintalar,Velprintalar,messemprar,Messemprar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,470.079015,0.95,68.4,6.8725,0.189,1.059014,21.180276
+LEG-001156,velprintalar,Velprintalar,relkath_s_foot,Relkath's Foot,local market trail,trail,trail,False,True,65.212652,0.65,12.35,5.280377,0.117,0.87411,17.482208
+LEG-001157,velprintalar,Velprintalar,telflamm,Telflamm,Sea of Fallen Stars coasting run,sea,sea lane,False,False,207.971585,0.95,68.4,3.04052,0.1485,0.452568,9.051361
+LEG-001158,voonlar,Voonlar,citadel_of_the_raven,Citadel of the Raven,Voonlar to Teshwave,road,road,False,False,111.702968,0.85,20.4,5.475636,0.285,1.013212,20.264233
+LEG-001159,voonlar,Voonlar,mines_of_tethyamar,Mines of Tethyamar,Dagger Falls to Teshwave trail,trail,trail,False,False,168.222834,0.7,13.3,12.648333,0.273,2.386217,47.724337
+LEG-001160,voonlar,Voonlar,teshwave,Teshwave,Tilverton through Shadowdale toward Voonlar,road,road,False,False,58.766402,0.85,20.4,2.880706,0.285,0.533046,10.660917
+LEG-001161,voonlar,Voonlar,yulash,Yulash,Teshwave to Zhentil Keep,road,road,False,False,116.819582,0.85,20.4,5.72645,0.285,1.059622,21.192447
+LEG-001162,warlock_s_crypt,Warlock's Crypt,orlumbor,Orlumbor,local market trail,trail,trail,False,True,95.135535,0.65,12.35,7.703282,0.312,1.497814,29.956277
+LEG-001163,waterdeep,Waterdeep,amphail,Amphail,The Long Road,road,road,False,False,89.657842,1.1,26.4,3.39613,0.12,0.547728,10.954558
+LEG-001164,waterdeep,Waterdeep,baldur_s_gate,Baldur's Gate,The Sword Coast Run,sea,sea lane,False,False,466.667955,1.2,86.4,5.401249,0.1215,0.785052,15.701043
+LEG-001165,waterdeep,Waterdeep,caer_calidyrr,Caer Calidyrr,The Moonshae Crossing,sea+ferry,sea lane and ferry,True,False,496.194085,0.95,35.407059,14.013988,0.1416,2.110791,42.215817
+LEG-001166,waterdeep,Waterdeep,daggerford,Daggerford,The Trade Way,road,road,False,False,128.404415,1.3,31.2,4.115526,0.15,0.681531,13.630623
+LEG-001167,waterdeep,Waterdeep,goldenfields,Goldenfields,caravan track,track,wilderness track,False,True,90.226825,0.7,12.6,7.160859,0.147,1.286235,25.724699
+LEG-001168,waterdeep,Waterdeep,leilon,Leilon,The High Road,road,road,False,False,232.216476,1.25,30.0,7.740549,0.165,1.298555,25.971091
+LEG-001169,waterdeep,Waterdeep,mintarn,Mintarn,Sea of Swords coasting run,sea,sea lane,False,False,369.250186,0.95,68.4,5.398395,0.1755,0.822417,16.448347
+LEG-001170,waterdeep,Waterdeep,neverwinter,Neverwinter,The Sword Coast Run,sea,sea lane,False,False,246.606671,1.2,86.4,2.854244,0.1215,0.414854,8.297081
+LEG-001171,waterdeep,Waterdeep,orlumbor,Orlumbor,The Nelanther Passage,sea,sea lane,False,False,268.341424,1.0,72.0,3.726964,0.1485,0.554742,11.094845
+LEG-001172,waterdeep,Waterdeep,red_larch,Red Larch,The Dessarin,river+road,river and road,True,False,109.158829,1.05,27.72,3.937909,0.205425,0.687614,13.75228
+LEG-001173,waterdeep,Waterdeep,ruathym,Ruathym,Sea of Swords coasting run,sea,sea lane,False,False,640.981256,0.95,68.4,9.371071,0.2025,1.460425,29.208504
+LEG-001174,waterdeep,Waterdeep,secomber,Secomber,The Delimbiyr Route,road,road,False,False,248.063218,0.85,20.4,12.159962,0.18,2.066221,41.324414
+LEG-001175,well_of_dragons,Well of Dragons,darkhold,Darkhold,Sunset foothills via Farsea Marshes toward Tilverton,trail,trail,False,False,148.688458,0.7,13.3,11.179583,0.2145,2.012201,40.244018
+LEG-001176,well_of_dragons,Well of Dragons,tilverton,Tilverton,Sunset foothills via Farsea Marshes toward Tilverton,trail,trail,False,False,347.024576,0.7,13.3,26.092073,0.156,4.470073,89.401463
+LEG-001177,westgate,Westgate,alaghon,Alaghôn,The Vilhon Passage,sea,sea lane,False,False,454.087789,1.05,75.6,6.006452,0.243,0.967596,19.351924
+LEG-001178,westgate,Westgate,arrabar,Arrabar,Sea of Fallen Stars coasting run,sea,sea lane,False,False,540.750959,0.95,68.4,7.905716,0.2565,1.287386,25.747715
+LEG-001179,westgate,Westgate,daerlun,Daerlun,Daerlun to Selgaunt via Saerloon junction,road,road,False,False,64.518214,0.85,20.4,3.162658,0.285,0.585218,11.704363
+LEG-001180,westgate,Westgate,marsember,Marsember,Sea of Fallen Stars coasting run,sea,sea lane,False,False,174.66883,0.95,68.4,2.553638,0.2565,0.415841,8.31681
+LEG-001181,westgate,Westgate,suzail,Suzail,The Dawnpost,road,road,False,False,276.446896,1.15,27.6,10.016192,0.225,1.766856,35.337125
+LEG-001182,westgate,Westgate,teziir,Teziir,The Dragonmere,sea,sea lane,False,False,112.929757,1.15,82.8,1.363886,0.3105,0.231643,4.63287
+LEG-001183,westgate,Westgate,urmlaspyr,Urmlaspyr,The Dragonmere Ferry,ferry,ferry,False,False,52.022015,1.0,30.0,1.734067,0.228,0.268309,5.366175
+LEG-001184,westgate,Westgate,wheloon,Wheloon,Daerlun to Cormyr road junction,road,road,False,False,128.856858,0.85,20.4,6.316513,0.315,1.196095,23.921897
+LEG-001185,wheloon,Wheloon,arabel,Arabel,caravan track,track,wilderness track,False,True,201.945438,0.85,15.3,13.199048,0.252,2.587848,51.756953
+LEG-001186,wheloon,Wheloon,archenbridge,Archenbridge,The Way of the Manticore,road,road,False,False,63.630496,1.0,24.0,2.651271,0.21,0.461957,9.239148
+LEG-001187,wheloon,Wheloon,daerlun,Daerlun,Archenbridge to Daerlun,road,road,False,False,58.791156,0.85,20.4,2.881919,0.21,0.502146,10.042913
+LEG-001188,wheloon,Wheloon,highmoon,Highmoon,caravan track,track,wilderness track,False,True,108.420339,0.7,12.6,8.604789,0.294,1.743678,34.873557
+LEG-001189,wheloon,Wheloon,marsember,Marsember,The Starwater,river+barge,river and barge,True,False,208.920751,1.1,31.887059,6.551898,0.1911,0.80083,16.016602
+LEG-001190,wheloon,Wheloon,saerloon,Saerloon,Daerlun to Selgaunt via Saerloon junction,road,road,False,False,152.280834,0.85,20.4,7.464747,0.21,1.300657,26.013149
+LEG-001191,wheloon,Wheloon,selgaunt,Selgaunt,Archenbridge to Ordulin,road,road,False,False,205.736411,0.85,20.4,10.085118,0.195,1.735447,34.708943
+LEG-001192,wheloon,Wheloon,suzail,Suzail,The Calantar's Way,road,road,False,False,292.310891,1.3,31.2,9.368939,0.15,1.551496,31.029925
+LEG-001193,wheloon,Wheloon,urmlaspyr,Urmlaspyr,Daerlun to Selgaunt via Saerloon junction,road,road,False,False,90.301748,0.85,20.4,4.426556,0.21,0.771283,15.425663
+LEG-001194,wheloon,Wheloon,westgate,Westgate,Daerlun to Cormyr road junction,road,road,False,False,128.856858,0.85,20.4,6.316513,0.315,1.196095,23.921897
+LEG-001195,whitehorn,Whitehorn,citadel_of_the_raven,Citadel of the Raven,Whitehorn to Ride trail,trail,trail,False,False,102.865588,0.7,13.3,7.734255,0.468,1.682646,33.652918
+LEG-001196,winterkeep,Winterkeep,bezantur,Bezantur,The Winterkeep-Bezantur Circle,teleport,teleportation circle,False,False,954.34007,0.95,4750.0,0.200914,0.051,50.678471,1013.569429
+LEG-001197,winterkeep,Winterkeep,eltabbar,Eltabbar,The Winterkeep Circle,teleport,teleportation circle,False,False,754.653172,1.0,5000.0,0.150931,0.048,37.962073,759.241463
+LEG-001198,winterkeep,Winterkeep,halarahh,Halarahh,The Halruaan Concordance,teleport,teleportation circle,False,False,2711.581181,0.85,4250.0,0.638019,0.03,157.718322,3154.366437
+LEG-001199,winterkeep,Winterkeep,nimbral,Nimbral,The Nimbral Accord,teleport,teleportation circle,False,False,3483.846257,0.75,3750.0,0.929026,0.033,230.324044,4606.480874
+LEG-001200,winterkeep,Winterkeep,sshamath,Sshamath,The Sshamath Gate,teleport,teleportation circle,False,False,2533.837457,0.65,3250.0,0.779642,0.054,197.218315,3944.366297
+LEG-001201,xorhun,Xorhun,gildenglade,Gildenglade,Alaghon through Turmish to Hlondeth,road,road,False,False,148.387511,0.85,20.4,7.273898,0.165,1.220269,24.405381
+LEG-001202,xorhun,Xorhun,hlondeth,Hlondeth,Alaghon through Turmish to Hlondeth,road,road,False,False,137.785996,0.85,20.4,6.754215,0.18,1.147676,22.953526
+LEG-001203,yallasch,Yallasch,theymarsh,Theymarsh,Theymarsh to Yallash trail,trail,trail,False,False,85.46753,0.7,13.3,6.42613,0.39,1.32377,26.475399
+LEG-001204,yartar,Yartar,amphail,Amphail,caravan track,track,wilderness track,False,True,137.372632,0.85,15.3,8.978603,0.273,1.789901,35.798015
+LEG-001205,yartar,Yartar,goldenfields,Goldenfields,caravan track,track,wilderness track,False,True,131.396233,0.85,15.3,8.587989,0.252,1.683789,33.675772
+LEG-001206,yartar,Yartar,grandfather_tree,Grandfather Tree,Evermoor Way: Triboar to Everlund,road,road,False,False,238.69558,0.85,20.4,11.700764,0.165,1.96292,39.258402
+LEG-001207,yartar,Yartar,longsaddle,Longsaddle,Long Road: Mirabar to Waterdeep,road,road,False,False,183.024217,0.85,20.4,8.971775,0.21,1.563242,31.264843
+LEG-001208,yartar,Yartar,nesme,Nesmé,The Evermoor Way,road,road,False,False,171.040258,0.95,22.8,7.501766,0.285,1.388127,27.762535
+LEG-001209,yartar,Yartar,red_larch,Red Larch,The Dessarin,river+road,river and road,True,False,103.803372,1.05,27.72,3.74471,0.2988,0.70453,14.090597
+LEG-001210,yartar,Yartar,stone_bridge,Stone Bridge,Evermoor Way: Triboar to Everlund,road,road,False,False,84.600744,0.85,20.4,4.147095,0.24,0.740505,14.810107
+LEG-001211,yartar,Yartar,triboar,Triboar,The Evermoor Way,road,road,False,False,66.172582,0.95,22.8,2.902306,0.225,0.511967,10.239336
+LEG-001212,yeshpek,Yeshpek,mintar,Mintar,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,179.74383,0.7,13.3,13.514574,0.351,2.705864,54.117272
+LEG-001213,yeshpek,Yeshpek,tulmon,Tulmon,Mintar junction via Yeshpek to Tulmon and Suldolphor,trail,trail,False,False,48.03353,0.7,13.3,3.611544,0.39,0.743971,14.879415
+LEG-001214,yhaunn,Yhaunn,harrowdale_town,Harrowdale Town,Sea of Fallen Stars coasting run,sea,sea lane,False,False,144.886197,0.95,68.4,2.118219,0.162,0.318994,6.379873
+LEG-001215,yhaunn,Yhaunn,ordulin,Ordulin,The Sembian Roads,road,road,False,False,56.262599,1.2,28.8,1.953562,0.15,0.32351,6.470199
+LEG-001216,yhaunn,Yhaunn,procampur,Procampur,The Inner Sea Run,sea,sea lane,False,False,166.456511,1.2,86.4,1.92658,0.108,0.276651,5.533014
+LEG-001217,yhaunn,Yhaunn,ravens_bluff,Ravens Bluff,Sea of Fallen Stars coasting run,sea,sea lane,False,False,160.709054,0.95,68.4,2.349548,0.1485,0.34972,6.994396
+LEG-001218,yhaunn,Yhaunn,saerloon,Saerloon,Ordulin to Selgaunt,road,road,False,False,217.128894,0.85,20.4,10.643573,0.18,1.808556,36.171119
+LEG-001219,yhaunn,Yhaunn,scardale,Scardale,Moonsea Ride junction via Essembra to Scardale,road,road,False,False,58.5235,0.85,20.4,2.868799,0.18,0.487466,9.749327
+LEG-001220,yhaunn,Yhaunn,selgaunt,Selgaunt,The Inner Sea Run,sea,sea lane,False,False,138.152705,1.2,86.4,1.59899,0.1485,0.238003,4.760051
+LEG-001221,yhaunn,Yhaunn,tantras,Tantras,Sea of Fallen Stars coasting run,sea,sea lane,False,False,138.015724,0.95,68.4,2.017774,0.135,0.296806,5.936129
+LEG-001222,yhep,Yhep,dalelost,Dalelost,Ankhapur to Yhep trail,trail,trail,False,False,54.511742,0.7,13.3,4.098627,0.273,0.773241,15.464825
+LEG-001223,ylraphon,Ylraphon,calaunt,Calaunt,Calaunt to Tantras and Ravens Bluff trail branches,trail,trail,False,False,48.711806,0.7,13.3,3.662542,0.156,0.627464,12.549275
+LEG-001224,ylraphon,Ylraphon,dragon_falls,Dragon Falls,Calaunt to Tantras and Ravens Bluff trail branches,trail,trail,False,False,141.086018,0.7,13.3,10.607971,0.1755,1.848005,36.960103
+LEG-001225,yulash,Yulash,teshwave,Teshwave,Voonlar to Yulash cross-road,road,road,False,False,81.76393,0.85,20.4,4.008036,0.36,0.784934,15.698675
+LEG-001226,yulash,Yulash,voonlar,Voonlar,Teshwave to Zhentil Keep,road,road,False,False,116.819582,0.85,20.4,5.72645,0.285,1.059622,21.192447
+LEG-001227,yulash,Yulash,zhentil_keep,Zhentil Keep,Teshwave to Zhentil Keep,road,road,False,False,21.633539,0.85,20.4,1.060468,0.36,0.207682,4.153639
+LEG-001228,zazesspur,Zazesspur,athkatla,Athkatla,The Trade Way,road,road,False,False,366.46506,1.3,31.2,11.745675,0.21,2.046566,40.931328
+LEG-001229,zazesspur,Zazesspur,castle_tethyr,Castle Tethyr,Trade Way: Mosstone to Zazesspur,road,road,False,False,46.895842,0.85,20.4,2.298816,0.24,0.410477,8.209531
+LEG-001230,zazesspur,Zazesspur,darromar,Darromar,The Tethyrian Roads,road,road,False,False,271.312019,1.05,25.2,10.76635,0.18,1.829418,36.588364
+LEG-001231,zazesspur,Zazesspur,memnon,Memnon,The Sword Coast Run,sea,sea lane,False,False,146.608902,1.2,86.4,1.696862,0.243,0.273352,5.467046
+LEG-001232,zazesspur,Zazesspur,murann,Murann,The Sword Coast Run,sea,sea lane,False,False,209.390664,1.2,86.4,2.423503,0.243,0.390409,7.808178
+LEG-001233,zazesspur,Zazesspur,myratma,Myratma,The Trade Way,road,road,False,False,120.88168,1.3,31.2,3.874413,0.24,0.691815,13.836303
+LEG-001234,zazesspur,Zazesspur,velen,Velen,Sea of Swords coasting run,sea,sea lane,False,False,340.047644,0.95,68.4,4.971457,0.2295,0.792168,15.843357
+LEG-001235,zhentil_keep,Zhentil Keep,elmwood,Elmwood,The Moonsea Run,sea,sea lane,False,False,230.29937,1.05,75.6,3.046288,0.27,0.501395,10.027893
+LEG-001236,zhentil_keep,Zhentil Keep,elventree,Elventree,Yulash to Hillsfar,road,road,False,False,139.832798,0.85,20.4,6.854549,0.3,1.283172,25.663431
+LEG-001237,zhentil_keep,Zhentil Keep,hillsfar,Hillsfar,The Moonsea Run,sea,sea lane,False,False,78.365809,1.05,75.6,1.036585,0.27,0.170614,3.412271
+LEG-001238,zhentil_keep,Zhentil Keep,melvaunt,Melvaunt,Moonsea coasting run,sea,sea lane,False,False,115.710025,0.95,68.4,1.691667,0.2835,0.281395,5.627892
+LEG-001239,zhentil_keep,Zhentil Keep,myth_drannor,Myth Drannor,caravan track,track,wilderness track,False,True,120.455178,0.7,12.6,9.559935,0.336,2.000107,40.002132
+LEG-001240,zhentil_keep,Zhentil Keep,phlan,Phlan,Moonsea coasting run,sea,sea lane,False,False,74.109446,0.95,68.4,1.083471,0.297,0.182122,3.64244
+LEG-001241,zhentil_keep,Zhentil Keep,teshwave,Teshwave,Zhentil Keep to Citadel of the Raven,trail,trail,False,False,110.18879,0.7,13.3,8.284871,0.468,1.802437,36.048735
+LEG-001242,zhentil_keep,Zhentil Keep,yulash,Yulash,Teshwave to Zhentil Keep,road,road,False,False,21.633539,0.85,20.4,1.060468,0.36,0.207682,4.153639
+LEG-001243,zindalankh,Zindalankh,khalab,Khalab,Skuld via Maerlar toward Khalab,road,road,False,False,87.391426,0.85,20.4,4.283893,0.12,0.690906,13.818127
+LEG-001244,zindalankh,Zindalankh,phannaskul,Phannaskul,Skuld via Maerlar toward Khalab,road,road,False,False,286.15022,0.85,20.4,14.026972,0.12,2.26227,45.245399

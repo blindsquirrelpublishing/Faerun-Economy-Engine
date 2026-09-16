@@ -1,0 +1,41 @@
+{
+  "_comment": [
+    "Drop-in MCP client configuration for the Faerun Economy Engine.",
+    "",
+    "The server speaks stdio, so a client launches it as a child process; you do",
+    "not start it yourself.  The absolute 'cwd' below is what lets 'python -m",
+    "faerun.mcp_server' find the package, so keep it pointing at this folder.",
+    "",
+    "Copy the 'servers' block into whichever file your client reads:",
+    "",
+    "  VS Code            .vscode/mcp.json in this folder, or the user-level",
+    "                     mcp.json reached by 'MCP: Open User Configuration'.",
+    "                     Uses the key 'servers' (as written here).",
+    "",
+    "  Copilot CLI        ~/.copilot/mcp-config.json, or run '/mcp add' and",
+    "                     answer the prompts.  Uses the key 'mcpServers'.",
+    "",
+    "  Claude Desktop     %APPDATA%\\Claude\\claude_desktop_config.json.",
+    "                     Uses the key 'mcpServers'.",
+    "",
+    "If you ran 'pip install -e .[mcp]' you can replace the command/args pair",
+    "with just \"command\": \"faerun-mcp\" and drop the 'cwd'."
+  ],
+
+  "servers": {
+    "faerun-economy": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "faerun.mcp_server"],
+      "cwd": "C:/Users/murrayfife/OneDrive/Workspaces/Faerun Economy Engine"
+    }
+  },
+
+  "mcpServers": {
+    "faerun-economy": {
+      "command": "python",
+      "args": ["-m", "faerun.mcp_server"],
+      "cwd": "C:/Users/murrayfife/OneDrive/Workspaces/Faerun Economy Engine"
+    }
+  }
+}

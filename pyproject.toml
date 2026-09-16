@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "faerun-economy-engine"
+version = "0.2.0"
+description = "An economic model of Faerun: commodity and product prices in every town and city, plus an MCP server to query them."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["forgotten-realms", "faerun", "economy", "simulation", "mcp", "ttrpg"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Games/Entertainment :: Role-Playing",
+]
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.2,<2"]
+dev = ["pytest>=7", "mcp>=1.2,<2", "ijson>=3.2"]
+
+[project.scripts]
+faerun = "faerun.cli:main"
+faerun-mcp = "faerun.mcp_server:main"
+faerun-web = "faerun.web:main"
+
+[tool.setuptools.packages.find]
+include = ["faerun*"]
+
+[tool.setuptools.package-data]
+faerun = [
+    "data/waterdeep_buildings.json",
+    "data/waterdeep_hires_survey.json",
+    "data/waterdeep_housing_evidence.json",
+    "data/waterdeep_streets.json",
+    "data/daggerford_analysis.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

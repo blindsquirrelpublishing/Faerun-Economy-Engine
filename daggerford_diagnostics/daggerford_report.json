@@ -1,0 +1,2162 @@
+{
+  "schema_version": 1,
+  "settlement_id": "daggerford",
+  "title": "Daggerford: town-proper evidence and public-map survey",
+  "accessed": "2026-09-16",
+  "world_reference_year_dr": 1492,
+  "scope": {
+    "included": [
+      "Walled town",
+      "Ducal Castle",
+      "Immediate riverfront and quays"
+    ],
+    "excluded": [
+      "Duchy-wide population",
+      "Outlying farms, estates and hamlets",
+      "Caravan grounds",
+      "Area-inset buildings",
+      "Tannery across the river"
+    ],
+    "rule": "A roof group's representative point determines its survey boundary. The area inset is not a second inventory of the town.",
+    "polygons_px": {
+      "walled_town": [
+        [
+          72,
+          125
+        ],
+        [
+          642,
+          125
+        ],
+        [
+          687,
+          439
+        ],
+        [
+          670,
+          755
+        ],
+        [
+          650,
+          793
+        ],
+        [
+          362,
+          975
+        ],
+        [
+          173,
+          1034
+        ],
+        [
+          96,
+          1034
+        ],
+        [
+          70,
+          753
+        ]
+      ],
+      "riverfront": [
+        [
+          660,
+          152
+        ],
+        [
+          705,
+          152
+        ],
+        [
+          719,
+          279
+        ],
+        [
+          748,
+          369
+        ],
+        [
+          757,
+          460
+        ],
+        [
+          781,
+          600
+        ],
+        [
+          785,
+          660
+        ],
+        [
+          736,
+          660
+        ],
+        [
+          702,
+          605
+        ],
+        [
+          688,
+          538
+        ],
+        [
+          680,
+          442
+        ],
+        [
+          672,
+          317
+        ]
+      ]
+    },
+    "polygon_meaning": "Approximate survey inclusion boundaries, not surveyed legal boundaries or precise wall footprints."
+  },
+  "sources": [
+    {
+      "id": "schley",
+      "title": "Mike Schley — Fictional City Maps: Daggerford",
+      "url": "https://mikeschley.com/fictional-city-maps",
+      "kind": "primary_cartographer_portfolio",
+      "inspected": true,
+      "locator": "Daggerford image and its adjoining caption; unpaginated web portfolio",
+      "period": "Map created for Scourge of the Sword Coast; the inspected caption does not specify a DR year",
+      "summary": "The artist identifies this as a top-down map of the walled town for Scourge of the Sword Coast and credits Wizards of the Coast.",
+      "rights": "Copyright Wizards of the Coast. Publicly displayed author preview used for local visual analysis; no redistribution license inferred."
+    },
+    {
+      "id": "aidedd",
+      "title": "AideDD Faerûn atlas — Daggerford annotation",
+      "url": "https://www.aidedd.org/atlas/en/faerun",
+      "data_url": "https://www.aidedd.org/atlas/dataF.js?v=4",
+      "kind": "secondary_gazetteer",
+      "inspected": true,
+      "locator": "The public dataF.js entry with name Daggerford; unpaginated",
+      "period": "No explicit DR date in the inspected annotation",
+      "summary": "Distinguishes the walled town from its predominantly outlying settlement population in hamlets, farms and estates. Describes river-to-caravan transshipment, the moat and Ducal Castle. Gives no numeric population.",
+      "supports": [
+        "Town and hinterland must not be conflated",
+        "Riverfront belongs in an economic map survey"
+      ],
+      "does_not_support": [
+        "A numeric town census",
+        "A numeric duchy census",
+        "An exact 1492 DR population"
+      ]
+    },
+    {
+      "id": "brave-discovery",
+      "title": "Search discovery: secondary discussion attributing 1,200 to SCAG",
+      "url": "https://search.brave.com/search?q=Daggerford+population",
+      "kind": "search_snippet_only",
+      "inspected": true,
+      "locator": "Rendered search-result excerpt, not the cited book or underlying discussion",
+      "period": "The discussion frames its comparison as 1492 DR; that attribution is not primary verification",
+      "summary": "A result attributes a Daggerford population of 1,200 to Sword Coast Adventurer's Guide. Neither the underlying discussion nor the book passage was available for verification.",
+      "admissible_as_population_evidence": false
+    }
+  ],
+  "population": {
+    "revision_status": "No independent, dated town census verified; retain the active model input without claiming validation",
+    "recommended_resident_population": null,
+    "confidence_interval": null,
+    "historical_evidence": [
+      {
+        "value": 900,
+        "unit": "model residents",
+        "scope": "Daggerford settlement row",
+        "year_dr": null,
+        "source": "faerun.data.settlements.SETTLEMENTS",
+        "status": "Gazetteer snapshot on the analysis date, not historical source verification or a live override",
+        "admissible_as_historical_census": false
+      },
+      {
+        "value": 1200,
+        "unit": "people",
+        "scope": "Town attribution in an unverified secondary search excerpt",
+        "year_dr": null,
+        "source_id": "brave-discovery",
+        "status": "Research lead only; source-specific boundary and book page unverified",
+        "admissible_as_historical_census": false
+      }
+    ],
+    "hinterland_population": null,
+    "seasonal_peak_population": null,
+    "external_visitors_per_day": null,
+    "regional_population_added_to_demand": 0,
+    "limitations": [
+      "The world date 1492 DR does not date an undated source or reconstruct population growth.",
+      "No verified year-specific 1357, 1372, or 1492 town count was acquired.",
+      "Rural residents are not automatically town residents or daily visitors; no commuting or market-day rate was measured.",
+      "Militia, garrison, servants, guild members and institutional residents can overlap the published population; do not add them to a town total without checking its scope.",
+      "The map's 40 numbered keys are places and repeated infrastructure categories, not 40 buildings, households or residents."
+    ]
+  },
+  "map": {
+    "source_id": "schley",
+    "image_url": "https://pro2-bar-s3-cdn-cf.myportfolio.com/b6995f0dd8973d41d32271aa7bc4c60a/8182466b370fbd4e668532cf.jpg?h=0cb1c3968754a0c3d895dfe0384002f9",
+    "image_link_locator": "Public js-lightbox data-src on the cartographer portfolio, not a guessed higher-resolution URL",
+    "sha256": "2376ccdf0086444b9cd1d9c5be0a45810c3ed36cdb6cd3c69e1ee22361fc1f7f",
+    "width_px": 864,
+    "height_px": 1210,
+    "local_image": "daggerford_diagnostics\\daggerford_schley_public_lightbox.jpg",
+    "coordinate_system": "Original image pixels; origin top-left, x right, y down. North points LEFT, east UP.",
+    "sector_orientation": "Audit sector names upper_west/lower_west/upper_east mean image-left/image-right tiling, NOT geographic west/east.",
+    "dr_year": null,
+    "scale": {
+      "status": "internally_inconsistent_printed_scale",
+      "units_printed": "Feet",
+      "anchors": [
+        [
+          588,
+          0
+        ],
+        [
+          599,
+          10
+        ],
+        [
+          616,
+          25
+        ],
+        [
+          645,
+          50
+        ],
+        [
+          702,
+          100
+        ],
+        [
+          816,
+          150
+        ]
+      ],
+      "y_px": 933,
+      "interpretations": [
+        {
+          "id": "inner_ticks",
+          "start_px": 588,
+          "end_px": 702,
+          "span_feet": 100,
+          "description": "Use the 0–100 inner ticks; intermediate ticks approximately agree. The terminal label would then be about 200, not its printed 150.",
+          "feet_per_pixel": 0.8771929824561403
+        },
+        {
+          "id": "terminal_label",
+          "start_px": 588,
+          "end_px": 816,
+          "span_feet": 150,
+          "description": "Honor the printed terminal 150 label; the inner tick labels then disagree.",
+          "feet_per_pixel": 0.6578947368421053
+        }
+      ],
+      "adopted_feet_per_pixel": null,
+      "note": "Neither interpretation is adopted as ground truth. Pixel observations remain usable; physical distances and areas are conditional, not measurements in feet."
+    },
+    "survey_method": "Manual visual pass over the entire town and immediate quays using enlarged crops; no OCR or target-population calibration. Representative roof-group points identify contiguous/associated roof masses, not legal parcels or exact ground-floor footprints.",
+    "coverage_status": "Whole-scope visual pass with explicit unresolved small/attached roof groups and quayside symbols; not an exact building census",
+    "building_count": null,
+    "household_count": null,
+    "footprint_area_sqft": null,
+    "source_hash_verification": {
+      "status": "verified",
+      "expected_sha256": "2376ccdf0086444b9cd1d9c5be0a45810c3ed36cdb6cd3c69e1ee22361fc1f7f",
+      "actual_sha256": "2376ccdf0086444b9cd1d9c5be0a45810c3ed36cdb6cd3c69e1ee22361fc1f7f",
+      "note": "The dataset pins the public image hash; source bytes are optional and not bundled as licensed package data."
+    }
+  },
+  "landmarks": {
+    "1": "Town Guard Barracks",
+    "2": "Caravan Gate",
+    "3": "Cromach's Smithy",
+    "4": "Chauntea's Temple",
+    "5": "Cisterns",
+    "6": "Jail & Constable's Office",
+    "7": "Ducal Castle",
+    "8": "Delfen's Tower",
+    "9": "The Clean Chin",
+    "10": "Sir Isteval's Residence",
+    "11": "Farmers' Gate",
+    "12": "Jerdan's Smithy",
+    "13": "Cloth & Cordage (key 13; proprietor spelling unresolved)",
+    "14": "Guildmasters' Hall",
+    "15": "Happy Cow Tavern",
+    "16": "Residence (key 16; name unresolved)",
+    "17": "Lady Luck Tavern",
+    "18": "Temple of Amaunator (Lathander)",
+    "19": "Residence (key 19; name unresolved)",
+    "20": "Sword Coast Traders' Bank",
+    "21": "River Gate",
+    "22": "Silver Flood Inn",
+    "23": "Watermens' Circle",
+    "24": "River Shining Tavern",
+    "25": "Stables",
+    "26": "Shrine of Tempus",
+    "27": "Wall Towers",
+    "28": "Shrine of Tymora",
+    "29": "New Market Hall (construction site)",
+    "30": "Sullerton Shipbuilders",
+    "31": "Ferrymens' Circle",
+    "32": "Darrondar Gweth's Residence",
+    "33": "Ironaster Residence",
+    "34": "Derval's Smithy",
+    "35": "Kelson Darktreader's House",
+    "36": "House (key 36; name unresolved)",
+    "37": "Darfin Floshin's Townhouse",
+    "38": "Miller's Dry Goods",
+    "39": "Trade of the Tools",
+    "40": "Farmers' Society"
+  },
+  "landmark_transcription_notes": [
+    "Legend checked visually at enlarged resolution. Small-name spellings are provisional where the public preview cannot resolve individual letters; do not use these as authoritative entity aliases.",
+    "Keys 13, 16, 19, 23, 29, 31 and 36 require a higher-resolution source before authoritative lore normalization.",
+    "The index is retained independently of roof-group identities. Repeated keys 5 and 27 cannot be summed as single buildings."
+  ],
+  "roof_group_columns": [
+    "id",
+    "x",
+    "y",
+    "landmark_key"
+  ],
+  "roof_groups": {
+    "commons_and_castle": [
+      [
+        "K01",
+        294,
+        373,
+        7
+      ],
+      [
+        "K02",
+        98,
+        565,
+        8
+      ],
+      [
+        "K03",
+        343,
+        570,
+        18
+      ],
+      [
+        "K04",
+        505,
+        445,
+        25
+      ],
+      [
+        "K05",
+        605,
+        382,
+        30
+      ]
+    ],
+    "upper_west": [
+      [
+        "W01",
+        143,
+        604,
+        null
+      ],
+      [
+        "W02",
+        143,
+        619,
+        null
+      ],
+      [
+        "W03",
+        173,
+        617,
+        null
+      ],
+      [
+        "W04",
+        144,
+        643,
+        35
+      ],
+      [
+        "W05",
+        143,
+        666,
+        null
+      ],
+      [
+        "W06",
+        171,
+        639,
+        null
+      ],
+      [
+        "W07",
+        171,
+        651,
+        null
+      ],
+      [
+        "W08",
+        171,
+        665,
+        null
+      ],
+      [
+        "W09",
+        196,
+        638,
+        4
+      ],
+      [
+        "W10",
+        267,
+        640,
+        null
+      ],
+      [
+        "W11",
+        267,
+        665,
+        null
+      ],
+      [
+        "W12",
+        130,
+        697,
+        null
+      ],
+      [
+        "W13",
+        162,
+        691,
+        null
+      ],
+      [
+        "W14",
+        178,
+        691,
+        null
+      ],
+      [
+        "W15",
+        145,
+        726,
+        40
+      ],
+      [
+        "W16",
+        175,
+        726,
+        null
+      ],
+      [
+        "W17",
+        250,
+        732,
+        24
+      ]
+    ],
+    "lower_west": [
+      [
+        "S01",
+        141,
+        796,
+        15
+      ],
+      [
+        "S02",
+        163,
+        781,
+        null
+      ],
+      [
+        "S03",
+        163,
+        802,
+        null
+      ],
+      [
+        "S04",
+        186,
+        781,
+        null
+      ],
+      [
+        "S05",
+        188,
+        802,
+        null
+      ],
+      [
+        "S06",
+        212,
+        803,
+        null
+      ],
+      [
+        "S07",
+        228,
+        803,
+        null
+      ],
+      [
+        "S08",
+        140,
+        835,
+        null
+      ],
+      [
+        "S09",
+        171,
+        831,
+        null
+      ],
+      [
+        "S10",
+        171,
+        842,
+        null
+      ],
+      [
+        "S11",
+        196,
+        833,
+        null
+      ],
+      [
+        "S12",
+        224,
+        834,
+        null
+      ],
+      [
+        "S13",
+        140,
+        861,
+        33
+      ],
+      [
+        "S14",
+        170,
+        863,
+        36
+      ],
+      [
+        "S15",
+        172,
+        878,
+        null
+      ],
+      [
+        "S16",
+        198,
+        897,
+        14
+      ],
+      [
+        "S17",
+        139,
+        914,
+        10
+      ],
+      [
+        "S18",
+        162,
+        922,
+        null
+      ],
+      [
+        "S19",
+        139,
+        934,
+        null
+      ],
+      [
+        "S20",
+        173,
+        907,
+        null
+      ],
+      [
+        "S21",
+        174,
+        932,
+        null
+      ],
+      [
+        "S22",
+        149,
+        963,
+        12
+      ],
+      [
+        "S23",
+        182,
+        975,
+        null
+      ],
+      [
+        "S24",
+        203,
+        956,
+        null
+      ],
+      [
+        "S25",
+        206,
+        982,
+        null
+      ],
+      [
+        "S26",
+        222,
+        948,
+        null
+      ],
+      [
+        "S27",
+        221,
+        975,
+        null
+      ],
+      [
+        "S28",
+        258,
+        959,
+        3
+      ],
+      [
+        "S29",
+        269,
+        794,
+        13
+      ]
+    ],
+    "central": [
+      [
+        "C01",
+        336,
+        651,
+        29
+      ],
+      [
+        "C02",
+        377,
+        644,
+        37
+      ],
+      [
+        "C03",
+        415,
+        633,
+        null
+      ],
+      [
+        "C04",
+        452,
+        647,
+        19
+      ],
+      [
+        "C05",
+        487,
+        632,
+        null
+      ],
+      [
+        "C06",
+        472,
+        580,
+        20
+      ],
+      [
+        "C07",
+        379,
+        696,
+        39
+      ],
+      [
+        "C08",
+        336,
+        700,
+        null
+      ],
+      [
+        "C09",
+        325,
+        721,
+        null
+      ],
+      [
+        "C10",
+        352,
+        723,
+        null
+      ],
+      [
+        "C11",
+        423,
+        696,
+        null
+      ],
+      [
+        "C12",
+        411,
+        767,
+        null
+      ],
+      [
+        "C13",
+        435,
+        776,
+        null
+      ],
+      [
+        "C14",
+        325,
+        764,
+        null
+      ],
+      [
+        "C15",
+        346,
+        764,
+        null
+      ],
+      [
+        "C16",
+        364,
+        764,
+        null
+      ],
+      [
+        "C17",
+        376,
+        760,
+        null
+      ],
+      [
+        "C18",
+        343,
+        795,
+        16
+      ],
+      [
+        "C19",
+        372,
+        785,
+        null
+      ],
+      [
+        "C20",
+        373,
+        807,
+        null
+      ],
+      [
+        "C21",
+        396,
+        805,
+        null
+      ],
+      [
+        "C22",
+        331,
+        829,
+        38
+      ],
+      [
+        "C23",
+        376,
+        832,
+        null
+      ],
+      [
+        "C24",
+        379,
+        862,
+        null
+      ],
+      [
+        "C25",
+        402,
+        845,
+        null
+      ],
+      [
+        "C26",
+        350,
+        865,
+        17
+      ],
+      [
+        "C27",
+        428,
+        869,
+        null
+      ],
+      [
+        "C28",
+        418,
+        805,
+        null
+      ],
+      [
+        "C29",
+        444,
+        805,
+        null
+      ],
+      [
+        "C30",
+        423,
+        832,
+        null
+      ],
+      [
+        "C31",
+        449,
+        832,
+        null
+      ],
+      [
+        "C32",
+        455,
+        857,
+        null
+      ],
+      [
+        "C33",
+        473,
+        851,
+        null
+      ],
+      [
+        "C34",
+        457,
+        775,
+        null
+      ],
+      [
+        "C35",
+        486,
+        783,
+        null
+      ],
+      [
+        "C36",
+        482,
+        817,
+        28
+      ],
+      [
+        "C37",
+        452,
+        706,
+        null
+      ],
+      [
+        "C38",
+        474,
+        710,
+        null
+      ],
+      [
+        "C39",
+        490,
+        705,
+        null
+      ],
+      [
+        "C40",
+        491,
+        725,
+        null
+      ],
+      [
+        "C41",
+        443,
+        730,
+        null
+      ],
+      [
+        "C42",
+        440,
+        745,
+        null
+      ],
+      [
+        "C43",
+        464,
+        755,
+        null
+      ],
+      [
+        "C44",
+        492,
+        743,
+        null
+      ],
+      [
+        "C45",
+        491,
+        763,
+        null
+      ],
+      [
+        "C46",
+        483,
+        543,
+        null
+      ]
+    ],
+    "upper_east": [
+      [
+        "E01",
+        520,
+        556,
+        6
+      ],
+      [
+        "E02",
+        549,
+        535,
+        22
+      ],
+      [
+        "E03",
+        540,
+        502,
+        null
+      ],
+      [
+        "E04",
+        520,
+        513,
+        null
+      ],
+      [
+        "E05",
+        549,
+        479,
+        null
+      ],
+      [
+        "E06",
+        562,
+        473,
+        null
+      ],
+      [
+        "E07",
+        616,
+        461,
+        null
+      ],
+      [
+        "E08",
+        594,
+        465,
+        null
+      ],
+      [
+        "E09",
+        594,
+        484,
+        null
+      ],
+      [
+        "E10",
+        610,
+        484,
+        null
+      ],
+      [
+        "E11",
+        630,
+        488,
+        null
+      ],
+      [
+        "E12",
+        594,
+        506,
+        null
+      ],
+      [
+        "E13",
+        594,
+        523,
+        null
+      ],
+      [
+        "E14",
+        630,
+        519,
+        23
+      ],
+      [
+        "E15",
+        588,
+        543,
+        null
+      ],
+      [
+        "E16",
+        607,
+        548,
+        null
+      ],
+      [
+        "E17",
+        594,
+        564,
+        null
+      ],
+      [
+        "E18",
+        616,
+        546,
+        null
+      ],
+      [
+        "E19",
+        636,
+        548,
+        null
+      ],
+      [
+        "E20",
+        635,
+        565,
+        null
+      ],
+      [
+        "E21",
+        614,
+        581,
+        null
+      ],
+      [
+        "E22",
+        636,
+        579,
+        null
+      ],
+      [
+        "E23",
+        635,
+        590,
+        null
+      ],
+      [
+        "E24",
+        595,
+        586,
+        null
+      ],
+      [
+        "E25",
+        627,
+        601,
+        null
+      ],
+      [
+        "E26",
+        625,
+        615,
+        26
+      ],
+      [
+        "E27",
+        574,
+        621,
+        34
+      ],
+      [
+        "E28",
+        571,
+        598,
+        null
+      ],
+      [
+        "E29",
+        541,
+        602,
+        null
+      ],
+      [
+        "E30",
+        539,
+        628,
+        null
+      ],
+      [
+        "E31",
+        518,
+        620,
+        null
+      ],
+      [
+        "E32",
+        523,
+        653,
+        32
+      ],
+      [
+        "E33",
+        557,
+        657,
+        31
+      ],
+      [
+        "E34",
+        586,
+        656,
+        9
+      ],
+      [
+        "E35",
+        620,
+        700,
+        1
+      ],
+      [
+        "E36",
+        554,
+        564,
+        null
+      ]
+    ],
+    "riverfront": [
+      [
+        "P01",
+        690,
+        249,
+        null
+      ],
+      [
+        "P02",
+        714,
+        519,
+        null
+      ],
+      [
+        "P03",
+        724,
+        541,
+        null
+      ],
+      [
+        "P04",
+        738,
+        563,
+        null
+      ],
+      [
+        "P05",
+        748,
+        580,
+        null
+      ],
+      [
+        "P06",
+        769,
+        631,
+        null
+      ],
+      [
+        "P07",
+        758,
+        639,
+        null
+      ]
+    ]
+  },
+  "roof_group_caveats": [
+    {
+      "ids": [
+        "K04",
+        "S16",
+        "C04",
+        "C06",
+        "E07",
+        "E31",
+        "E35"
+      ],
+      "reason": "Multi-wing or touching roof complex recorded once; could contain several buildings or uses. C06 includes the bank's west red annex; C46 is its separate north triangular roof."
+    },
+    {
+      "ids": [
+        "W06",
+        "W07",
+        "W08",
+        "S02",
+        "S03",
+        "S09",
+        "S10",
+        "S15",
+        "S20",
+        "S21",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "C03",
+        "C05",
+        "C08",
+        "C09",
+        "C19",
+        "C20",
+        "C23",
+        "C24",
+        "C33",
+        "C37",
+        "C38",
+        "C39",
+        "C40",
+        "C41",
+        "C42",
+        "C43",
+        "C44",
+        "C45",
+        "E03",
+        "E04",
+        "E09",
+        "E10",
+        "E15",
+        "E16",
+        "E17",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E23",
+        "E25",
+        "E28",
+        "E30",
+        "E36"
+      ],
+      "reason": "Small or attached mass: independently visible roof divisions are not proof of independent buildings; grouping remains provisional."
+    },
+    {
+      "ids": [
+        "P01",
+        "P02",
+        "P04",
+        "P05"
+      ],
+      "reason": "Small quayside roof-like symbol; cargo, shed or other structure cannot be securely distinguished at this resolution."
+    }
+  ],
+  "infrastructure": [
+    {
+      "id": "G02",
+      "kind": "gate_complex",
+      "key": 2,
+      "point": [
+        362,
+        934
+      ]
+    },
+    {
+      "id": "G11",
+      "kind": "gate_complex",
+      "key": 11,
+      "point": [
+        104,
+        765
+      ]
+    },
+    {
+      "id": "G21",
+      "kind": "gate_complex",
+      "key": 21,
+      "point": [
+        659,
+        443
+      ]
+    },
+    {
+      "id": "T27a",
+      "kind": "wall_tower",
+      "key": 27,
+      "point": [
+        100,
+        151
+      ]
+    },
+    {
+      "id": "T27b",
+      "kind": "wall_tower",
+      "key": 27,
+      "point": [
+        627,
+        151
+      ]
+    },
+    {
+      "id": "T27c",
+      "kind": "wall_tower",
+      "key": 27,
+      "point": [
+        640,
+        774
+      ]
+    },
+    {
+      "id": "T27d",
+      "kind": "wall_tower",
+      "key": 27,
+      "point": [
+        111,
+        1010
+      ]
+    },
+    {
+      "id": "CIS01",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        180,
+        229
+      ]
+    },
+    {
+      "id": "CIS02",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        317,
+        246
+      ]
+    },
+    {
+      "id": "CIS03",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        510,
+        259
+      ]
+    },
+    {
+      "id": "CIS04",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        588,
+        296
+      ]
+    },
+    {
+      "id": "CIS05",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        508,
+        357
+      ]
+    },
+    {
+      "id": "CIS06",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        161,
+        375
+      ]
+    },
+    {
+      "id": "CIS07",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        332,
+        447
+      ]
+    },
+    {
+      "id": "CIS08",
+      "kind": "cistern",
+      "key": 5,
+      "point": [
+        222,
+        582
+      ]
+    }
+  ],
+  "unresolved_symbols": [
+    {
+      "id": "Q01",
+      "point": [
+        693,
+        173
+      ],
+      "reason": "Quayside storage or small structure"
+    },
+    {
+      "id": "Q02",
+      "point": [
+        692,
+        190
+      ],
+      "reason": "Quayside storage or small structure"
+    },
+    {
+      "id": "Q03",
+      "point": [
+        693,
+        226
+      ],
+      "reason": "Quayside storage or small structure"
+    },
+    {
+      "id": "Q04",
+      "point": [
+        693,
+        269
+      ],
+      "reason": "Quayside storage or small structure"
+    },
+    {
+      "id": "Q05",
+      "point": [
+        704,
+        398
+      ],
+      "reason": "Elongated object may be a hauled-out boat rather than a roof"
+    },
+    {
+      "id": "Q06",
+      "point": [
+        711,
+        483
+      ],
+      "reason": "Wall-adjacent object or small shed"
+    },
+    {
+      "id": "Q07",
+      "point": [
+        716,
+        581
+      ],
+      "reason": "Crates or very small structure"
+    }
+  ],
+  "exclusion_notes": [
+    "Market tents, stalls, carts, wells, piers, moored boats, the wall walk, castle curtain walls and attached turret caps are not separate residential roof groups.",
+    "Castle corner towers are not individually counted as additional housing.",
+    "Infrastructure records are not added to the roof-group total.",
+    "No attempt is made to infer storeys, cellars, floor area, households or occupants from roof shading."
+  ],
+  "streets": [
+    {
+      "id": "hill_road",
+      "name": "Hill Road",
+      "label_point": [
+        453,
+        557
+      ],
+      "points": [
+        [
+          112,
+          582
+        ],
+        [
+          187,
+          598
+        ],
+        [
+          255,
+          609
+        ],
+        [
+          317,
+          608
+        ],
+        [
+          386,
+          585
+        ],
+        [
+          450,
+          552
+        ],
+        [
+          503,
+          511
+        ],
+        [
+          550,
+          476
+        ],
+        [
+          579,
+          437
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 526.527,
+      "conditional_length_feet": {
+        "inner_ticks": 461.87,
+        "terminal_label": 346.4
+      }
+    },
+    {
+      "id": "wall_street",
+      "name": "Wall Street",
+      "label_point": [
+        113,
+        697
+      ],
+      "points": [
+        [
+          112,
+          582
+        ],
+        [
+          114,
+          644
+        ],
+        [
+          115,
+          711
+        ],
+        [
+          119,
+          750
+        ],
+        [
+          117,
+          803
+        ],
+        [
+          117,
+          880
+        ],
+        [
+          117,
+          939
+        ],
+        [
+          121,
+          995
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 413.425,
+      "conditional_length_feet": {
+        "inner_ticks": 362.65,
+        "terminal_label": 271.99
+      }
+    },
+    {
+      "id": "farmers_road",
+      "name": "Farmers' Road",
+      "label_point": [
+        238,
+        690
+      ],
+      "points": [
+        [
+          115,
+          675
+        ],
+        [
+          184,
+          675
+        ],
+        [
+          237,
+          690
+        ],
+        [
+          310,
+          689
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 197.089,
+      "conditional_length_feet": {
+        "inner_ticks": 172.88,
+        "terminal_label": 129.66
+      }
+    },
+    {
+      "id": "fields_lane",
+      "name": "Field's Lane",
+      "label_point": [
+        149,
+        763
+      ],
+      "points": [
+        [
+          104,
+          758
+        ],
+        [
+          151,
+          758
+        ],
+        [
+          188,
+          757
+        ],
+        [
+          189,
+          702
+        ],
+        [
+          191,
+          689
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 152.176,
+      "conditional_length_feet": {
+        "inner_ticks": 133.49,
+        "terminal_label": 100.12
+      }
+    },
+    {
+      "id": "dukes_way",
+      "name": "Duke's Way",
+      "label_point": [
+        311,
+        667
+      ],
+      "points": [
+        [
+          310,
+          607
+        ],
+        [
+          311,
+          652
+        ],
+        [
+          309,
+          689
+        ],
+        [
+          312,
+          718
+        ],
+        [
+          313,
+          762
+        ],
+        [
+          308,
+          807
+        ],
+        [
+          307,
+          831
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 224.529,
+      "conditional_length_feet": {
+        "inner_ticks": 196.96,
+        "terminal_label": 147.72
+      }
+    },
+    {
+      "id": "high_road",
+      "name": "High Road",
+      "label_point": [
+        410,
+        728
+      ],
+      "points": [
+        [
+          312,
+          746
+        ],
+        [
+          369,
+          746
+        ],
+        [
+          390,
+          728
+        ],
+        [
+          432,
+          725
+        ],
+        [
+          449,
+          720
+        ],
+        [
+          477,
+          688
+        ],
+        [
+          507,
+          680
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 218.055,
+      "conditional_length_feet": {
+        "inner_ticks": 191.28,
+        "terminal_label": 143.46
+      }
+    },
+    {
+      "id": "horse_way",
+      "name": "Horse Way",
+      "label_point": [
+        505,
+        606
+      ],
+      "points": [
+        [
+          493,
+          521
+        ],
+        [
+          502,
+          552
+        ],
+        [
+          503,
+          599
+        ],
+        [
+          502,
+          652
+        ],
+        [
+          506,
+          680
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 160.584,
+      "conditional_length_feet": {
+        "inner_ticks": 140.86,
+        "terminal_label": 105.65
+      }
+    },
+    {
+      "id": "kauth_alley",
+      "name": "Kauth Alley",
+      "label_point": [
+        551,
+        586
+      ],
+      "points": [
+        [
+          503,
+          590
+        ],
+        [
+          540,
+          590
+        ],
+        [
+          576,
+          593
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 73.125,
+      "conditional_length_feet": {
+        "inner_ticks": 64.14,
+        "terminal_label": 48.11
+      }
+    },
+    {
+      "id": "water_street",
+      "name": "Water Street",
+      "label_point": [
+        577,
+        503
+      ],
+      "points": [
+        [
+          578,
+          448
+        ],
+        [
+          576,
+          488
+        ],
+        [
+          574,
+          525
+        ],
+        [
+          576,
+          565
+        ],
+        [
+          576,
+          593
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 145.154,
+      "conditional_length_feet": {
+        "inner_ticks": 127.33,
+        "terminal_label": 95.5
+      }
+    },
+    {
+      "id": "river_road",
+      "name": "River Road",
+      "label_point": [
+        654,
+        581
+      ],
+      "points": [
+        [
+          668,
+          450
+        ],
+        [
+          656,
+          484
+        ],
+        [
+          652,
+          539
+        ],
+        [
+          651,
+          598
+        ],
+        [
+          650,
+          656
+        ],
+        [
+          650,
+          716
+        ],
+        [
+          645,
+          755
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 307.537,
+      "conditional_length_feet": {
+        "inner_ticks": 269.77,
+        "terminal_label": 202.33
+      }
+    },
+    {
+      "id": "tanner_way",
+      "name": "Tanner Way",
+      "label_point": [
+        177,
+        1006
+      ],
+      "points": [
+        [
+          121,
+          997
+        ],
+        [
+          170,
+          1007
+        ],
+        [
+          208,
+          997
+        ],
+        [
+          255,
+          978
+        ],
+        [
+          301,
+          958
+        ],
+        [
+          348,
+          943
+        ],
+        [
+          387,
+          924
+        ]
+      ],
+      "status": "visually_traced_approximate",
+      "length_px": 282.876,
+      "conditional_length_feet": {
+        "inner_ticks": 248.14,
+        "terminal_label": 186.1
+      }
+    }
+  ],
+  "street_notes": [
+    "Eleven street names were visually read, with route centerlines sketched on this particular map; the lines are not a complete routable network.",
+    "Not every street has a visible authoritative endpoint. Unnamed connecting lanes, private courtyards and market circulation are not invented as named streets.",
+    "The Shanties, Marketplace, Drill Field, Commons, Port and Caravan Grounds are area labels, not additional street names.",
+    "Duke's Way and Kauth Alley were checked in separate enlarged crops. Punctuation is transcribed as visible; no independent toponym authority was checked."
+  ],
+  "sensitivity": {
+    "status": "Illustrative occupancy sensitivity only, not an inferred town population or uncertainty interval",
+    "formula": "eligible_roof_groups * residential_share * households_per_residential_group * occupied_unit_share * household_size; institutional residents and excluded/uncertain groups are NOT silently supplied",
+    "institutional_residents": null,
+    "household_size_vocabulary": "4/5/6 is shared vocabulary with census.HOUSING_SCENARIOS, not evidence for Daggerford. No Waterdeep ward/class probabilities are transferred.",
+    "assumption_source": "Analyst-authored round-number sensitivity inputs, independent of 900 or 1,200",
+    "excluded_landmark_keys": [
+      1,
+      4,
+      6,
+      7,
+      8,
+      18,
+      25,
+      26,
+      28,
+      29,
+      30
+    ],
+    "exclude_riverfront": true,
+    "scenarios": [
+      {
+        "name": "illustrative_low",
+        "household_size": 4,
+        "residential_share": 0.5,
+        "households_per_residential_group": 1,
+        "occupied_unit_share": 0.85,
+        "residents_per_100_eligible_groups": 170.0,
+        "conditional_noninstitutional_component": 207.4,
+        "town_total": null
+      },
+      {
+        "name": "illustrative_middle",
+        "household_size": 5,
+        "residential_share": 0.65,
+        "households_per_residential_group": 1.5,
+        "occupied_unit_share": 0.95,
+        "residents_per_100_eligible_groups": 463.125,
+        "conditional_noninstitutional_component": 565.012,
+        "town_total": null
+      },
+      {
+        "name": "illustrative_high",
+        "household_size": 6,
+        "residential_share": 0.8,
+        "households_per_residential_group": 2,
+        "occupied_unit_share": 1,
+        "residents_per_100_eligible_groups": 960.0,
+        "conditional_noninstitutional_component": 1171.2,
+        "town_total": null
+      }
+    ],
+    "limitations": [
+      "Eligibility means only that a roof group is not explicitly excluded; it is not a residential classification.",
+      "Small/touching-roof identity uncertainty affects the denominator; scenarios cannot validate the inventory.",
+      "Business households and mixed-use buildings may be among eligible groups, but their occupancy is unknown.",
+      "Institutional/castle/garrison residents are unknown rather than zero. The displayed results are conditional non-institutional components, not town totals.",
+      "Realistic Daggerford occupancy priors, a residential-use audit and an independently consistent scale are still required for a defensible housing census."
+    ],
+    "eligible_roof_groups": 122,
+    "eligible_group_ids": [
+      "W01",
+      "W02",
+      "W03",
+      "W04",
+      "W05",
+      "W06",
+      "W07",
+      "W08",
+      "W10",
+      "W11",
+      "W12",
+      "W13",
+      "W14",
+      "W15",
+      "W16",
+      "W17",
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25",
+      "S26",
+      "S27",
+      "S28",
+      "S29",
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "C15",
+      "C16",
+      "C17",
+      "C18",
+      "C19",
+      "C20",
+      "C21",
+      "C22",
+      "C23",
+      "C24",
+      "C25",
+      "C26",
+      "C27",
+      "C28",
+      "C29",
+      "C30",
+      "C31",
+      "C32",
+      "C33",
+      "C34",
+      "C35",
+      "C37",
+      "C38",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E06",
+      "E07",
+      "E08",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E14",
+      "E15",
+      "E16",
+      "E17",
+      "E18",
+      "E19",
+      "E20",
+      "E21",
+      "E22",
+      "E23",
+      "E24",
+      "E25",
+      "E27",
+      "E28",
+      "E29",
+      "E30",
+      "E31",
+      "E32",
+      "E33",
+      "E34",
+      "E36"
+    ]
+  },
+  "blockers": [
+    {
+      "area": "Population history",
+      "detail": "Forgotten Realms Wiki town and duchy pages returned HTTP 403. Oakthorne's Daggerford page returned HTTP 500. Accessible AideDD text has no numeric count."
+    },
+    {
+      "area": "Primary-book population",
+      "detail": "D&D Beyond's Sword Coast Adventurer's Guide chapter URL redirected to its marketplace; the passage and page number were not verified. Do not promote the 1,200 search lead to a dated primary census."
+    },
+    {
+      "area": "Map era",
+      "detail": "Artist caption identifies the adventure but not a DR year; do not label this a 1492 census map."
+    },
+    {
+      "area": "Physical geometry",
+      "detail": "Printed scale's 0–100 inner ticks and terminal 150 label disagree. No unique feet-per-pixel conversion adopted."
+    },
+    {
+      "area": "Buildings and occupancy",
+      "detail": "Public author image is 864×1210; small quayside objects and attached roof subdivisions remain ambiguous. Roof groups cannot establish buildings, households or residents."
+    }
+  ],
+  "analysis_sha256": "14c777a70bf5139b625629f8b1dcfc9ab373f43f90f9b1fbbdc9f8ad71988229",
+  "active_baseline": {
+    "settlement_id": "daggerford",
+    "resident_population": 900,
+    "status": "Unchanged simulation input; not validated by this map",
+    "world_reference_year_dr": 1492,
+    "population_source_year_dr": null,
+    "mutated": false,
+    "note": "Map roof counts and illustrative occupancy assumptions were not fitted to this input."
+  },
+  "inventory_summary": {
+    "unit": "Manually indexed roof groups, not buildings",
+    "reviewed_roof_groups": 140,
+    "by_sector": {
+      "commons_and_castle": 5,
+      "upper_west": 17,
+      "lower_west": 29,
+      "central": 46,
+      "upper_east": 36,
+      "riverfront": 7
+    },
+    "groups_with_explicit_caveats": 59,
+    "additional_unresolved_symbols": 7,
+    "infrastructure_features": {
+      "gate_complex": 3,
+      "wall_tower": 4,
+      "cistern": 8
+    },
+    "landmark_keys": 40,
+    "exact_buildings": null,
+    "households": null,
+    "is_complete_building_census": false
+  },
+  "geometry": {
+    "named_streets": 11,
+    "named_route_polyline_sum_px": 2701.076,
+    "boundary_polygon_areas_px2": {
+      "walled_town": 488102.5,
+      "riverfront": 33392.5
+    },
+    "area_note": "Areas of approximate inclusion polygons, not roof footprints or precise habitable town area.",
+    "adopted_town_area_sqft": null,
+    "network_complete": false,
+    "route_note": "A sum of approximate named polylines, not a complete or deduplicated street-network length."
+  },
+  "integration": {
+    "call": "faerun.daggerford.daggerford_analysis_report(active_daggerford_settlement)",
+    "side_effects": "None: no downloads, file writes, population mutation or World construction",
+    "package_data_required": "data/daggerford_analysis.json",
+    "currency": "Report metadata and source-specific periods do not advance with the simulation clock",
+    "population_change_authorized": false
+  }
+}
