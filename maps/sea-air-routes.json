@@ -1,0 +1,6058 @@
+{
+  "metadata": {
+    "source_sha256": "38e6b7fd9e925e57bf88ce415afa42b158c81a82d0348a9492eb9f9d6cb970f8",
+    "island_air_source_sha256": "4371845ce219bec23a246eceffdba888ad2c17dd149ce9a198a91e8dd9d01ed1",
+    "proposed_air_note": "User-requested island circuits are separate proposed campaign links, not catalog services. Magenta schematic air legs may cross land and water; no landing facilities, schedules or travel times inferred.",
+    "generator_sha256": "acec72f0cbab46d90a2a9b613d5e9935cfc8e568e2ed5957f59dd9c32e7b2cfb",
+    "renderer_sha256": "baa2564e3d0aa1cc06191670707a23b72063efd83af41f012c3d492817d21953",
+    "catalog_sha256": "79d27fb963cf0896bbb98a043717d79f34fee567684ec3396b36749a3f81905a",
+    "geometry": "Sea-containing routes follow inferred paths through classified water; air-only routes remain schematic. Not surveyed shipping lanes.",
+    "water_routing_sha256": "9f303f4a0948ee6d46cd8c746e8847f3d29208423d17e5263914502d219d1977",
+    "terrain_classes_sha256": "bf2e8077242d13a049c1ef00155f53904e33ba0777f6c8127f14ed716197f8c0",
+    "water_mask_sha256": "1b260b39b7a411dbc7e676c1bf040ea4f1bf1e5137611a285ac1db80a9ddb0d0",
+    "routing": {
+      "grid_step_pixels": 8,
+      "shore_clearance_pixels": 6,
+      "max_port_snap_pixels": 80,
+      "smoothing": "Water-clear line-of-sight simplification followed by locally checked quadratic corners, up to 16 pixels.",
+      "port_policy": "Start/end at nearby connected water; do not draw land connectors or move catalog markers.",
+      "blocked_policy": "Omit legs without a connected water path; never fall back to straight lines.",
+      "mask_limitations": "Draft palette-classified source mask. Unknown pixels are blocked; narrow channels may be omitted. Mask correctness is not surveyed coastline accuracy."
+    },
+    "missing_policy": "Retain unresolved legs in data but do not draw them or bypass missing stops.",
+    "colors": {
+      "road": "#a83015",
+      "sea": "#006ec4",
+      "river": "#008575",
+      "barge": "#008575",
+      "ferry": "#008575",
+      "trail": "#936700",
+      "track": "#936700",
+      "tunnel": "#754ba0",
+      "air": "#bd247b",
+      "portage": "#936700"
+    },
+    "line_width_px": 6,
+    "outline_width_px": 10,
+    "mixed_modes": "Include routes containing sea or air; color by first mode, without inferring transfer locations."
+  },
+  "summary": {
+    "routes": 13,
+    "sea_stroke_land_pixels": 0,
+    "legs": 53,
+    "mapped_legs": 44,
+    "water_routed_legs": 33,
+    "blocked_water_legs": 10,
+    "drawn_legs": 34
+  },
+  "routes": [
+    {
+      "route_id": "named-route-027",
+      "name": "The Halruaan Skyroad",
+      "mode": "air",
+      "modes": [
+        "air"
+      ],
+      "mode_label": "skyship",
+      "multimodal": false,
+      "quality": 1,
+      "stops": [
+        {
+          "source_name": "Halarahh",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-halarahh",
+          "catalog_name": "Halarahh",
+          "fps": "FPS1:WD:X+012.01:Y-015.19",
+          "pixel": [
+            2501,
+            2968
+          ]
+        },
+        {
+          "source_name": "Innarlith",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-innarlith",
+          "catalog_name": "Innarlith",
+          "fps": "FPS1:WD:X+013.39:Y-008.68",
+          "pixel": [
+            2709,
+            1988
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Halarahh",
+          "to": "Innarlith",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              2501,
+              2968
+            ],
+            [
+              2709,
+              1988
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-028",
+      "name": "The Lantanna Skybridge",
+      "mode": "air",
+      "modes": [
+        "air"
+      ],
+      "mode_label": "skyship",
+      "multimodal": false,
+      "quality": 0.9,
+      "stops": [
+        {
+          "source_name": "Lantan",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        },
+        {
+          "source_name": "Halarahh",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-halarahh",
+          "catalog_name": "Halarahh",
+          "fps": "FPS1:WD:X+012.01:Y-015.19",
+          "pixel": [
+            2501,
+            2968
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Lantan",
+          "to": "Halarahh",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null
+        }
+      ],
+      "fully_mapped": false
+    },
+    {
+      "route_id": "named-route-034",
+      "name": "The River Lis",
+      "mode": "river+sea",
+      "modes": [
+        "river",
+        "sea"
+      ],
+      "mode_label": "river and sea lane",
+      "multimodal": true,
+      "quality": 1,
+      "stops": [
+        {
+          "source_name": "Mulmaster",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-mulmaster",
+          "catalog_name": "Mulmaster",
+          "fps": "FPS1:WD:X+012.98:Y+001.57",
+          "pixel": [
+            2648,
+            446
+          ]
+        },
+        {
+          "source_name": "Harrowdale Town",
+          "status": "matched",
+          "match_method": "explicit_alias",
+          "location_id": "fps-harrowdale",
+          "catalog_name": "Harrowdale",
+          "fps": "FPS1:WD:X+012.37:Y+000.17",
+          "pixel": [
+            2555,
+            657
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Mulmaster",
+          "to": "Harrowdale Town",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2648,
+              446
+            ],
+            [
+              2555,
+              657
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-049",
+      "name": "The Sword Coast Run",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1.2,
+      "stops": [
+        {
+          "source_name": "Luskan",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-luskan",
+          "catalog_name": "Luskan",
+          "fps": "FPS1:WD:X-001.89:Y+002.46",
+          "pixel": [
+            410,
+            312
+          ]
+        },
+        {
+          "source_name": "Neverwinter",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-neverwinter",
+          "catalog_name": "Neverwinter",
+          "fps": "FPS1:WD:X-001.34:Y+001.56",
+          "pixel": [
+            493,
+            447
+          ]
+        },
+        {
+          "source_name": "Waterdeep",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-waterdeep",
+          "catalog_name": "Waterdeep",
+          "fps": "FPS1:WD:X+000.00:Y+000.00",
+          "pixel": [
+            694,
+            682
+          ]
+        },
+        {
+          "source_name": "Baldur's Gate",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-baldurs-gate",
+          "catalog_name": "Baldur's Gate",
+          "fps": "FPS1:WD:X+002.27:Y-003.16",
+          "pixel": [
+            1036,
+            1157
+          ]
+        },
+        {
+          "source_name": "Athkatla",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-athkatla",
+          "catalog_name": "Athkatla",
+          "fps": "FPS1:WD:X+002.78:Y-005.62",
+          "pixel": [
+            1113,
+            1528
+          ]
+        },
+        {
+          "source_name": "Zazesspur",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-zazesspur",
+          "catalog_name": "Zazesspur",
+          "fps": "FPS1:WD:X+003.67:Y-008.54",
+          "pixel": [
+            1246,
+            1968
+          ]
+        },
+        {
+          "source_name": "Memnon",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-memnon",
+          "catalog_name": "Memnon",
+          "fps": "FPS1:WD:X+003.79:Y-009.76",
+          "pixel": [
+            1264,
+            2151
+          ]
+        },
+        {
+          "source_name": "Calimport",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-calimport",
+          "catalog_name": "Calimport",
+          "fps": "FPS1:WD:X+004.32:Y-011.06",
+          "pixel": [
+            1344,
+            2346
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Luskan",
+          "to": "Neverwinter",
+          "status": "water_routed",
+          "pixels": [
+            [
+              410,
+              312
+            ],
+            [
+              493,
+              447
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              396,
+              348
+            ],
+            [
+              359,
+              437
+            ],
+            [
+              358,
+              438
+            ],
+            [
+              358,
+              440
+            ],
+            [
+              357,
+              442
+            ],
+            [
+              357,
+              444
+            ],
+            [
+              356,
+              446
+            ],
+            [
+              356,
+              448
+            ],
+            [
+              356,
+              450
+            ],
+            [
+              356,
+              452
+            ],
+            [
+              356,
+              468
+            ],
+            [
+              356,
+              470
+            ],
+            [
+              356,
+              472
+            ],
+            [
+              357,
+              473
+            ],
+            [
+              358,
+              474
+            ],
+            [
+              359,
+              475
+            ],
+            [
+              360,
+              476
+            ],
+            [
+              362,
+              476
+            ],
+            [
+              364,
+              476
+            ],
+            [
+              460,
+              476
+            ]
+          ],
+          "port_snap_pixels": [
+            38.62641583165593,
+            43.93176527297759
+          ]
+        },
+        {
+          "leg_index": 2,
+          "from": "Neverwinter",
+          "to": "Waterdeep",
+          "status": "water_routed",
+          "pixels": [
+            [
+              493,
+              447
+            ],
+            [
+              694,
+              682
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              460,
+              476
+            ],
+            [
+              448,
+              506
+            ],
+            [
+              447,
+              509
+            ],
+            [
+              446,
+              511
+            ],
+            [
+              445,
+              514
+            ],
+            [
+              445,
+              516
+            ],
+            [
+              444,
+              519
+            ],
+            [
+              443,
+              521
+            ],
+            [
+              443,
+              524
+            ],
+            [
+              442,
+              527
+            ],
+            [
+              431,
+              588
+            ],
+            [
+              430,
+              592
+            ],
+            [
+              430,
+              596
+            ],
+            [
+              431,
+              599
+            ],
+            [
+              432,
+              602
+            ],
+            [
+              434,
+              605
+            ],
+            [
+              436,
+              607
+            ],
+            [
+              439,
+              610
+            ],
+            [
+              442,
+              612
+            ],
+            [
+              518,
+              652
+            ],
+            [
+              521,
+              654
+            ],
+            [
+              525,
+              656
+            ],
+            [
+              528,
+              658
+            ],
+            [
+              532,
+              660
+            ],
+            [
+              535,
+              662
+            ],
+            [
+              539,
+              664
+            ],
+            [
+              542,
+              666
+            ],
+            [
+              546,
+              668
+            ],
+            [
+              589,
+              696
+            ],
+            [
+              591,
+              697
+            ],
+            [
+              593,
+              698
+            ],
+            [
+              594,
+              698
+            ],
+            [
+              596,
+              699
+            ],
+            [
+              598,
+              699
+            ],
+            [
+              600,
+              700
+            ],
+            [
+              602,
+              700
+            ],
+            [
+              604,
+              700
+            ],
+            [
+              628,
+              700
+            ]
+          ],
+          "port_snap_pixels": [
+            43.93176527297759,
+            68.41052550594829
+          ]
+        },
+        {
+          "leg_index": 3,
+          "from": "Waterdeep",
+          "to": "Baldur's Gate",
+          "status": "water_routed",
+          "pixels": [
+            [
+              694,
+              682
+            ],
+            [
+              1036,
+              1157
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              628,
+              700
+            ],
+            [
+              616,
+              730
+            ],
+            [
+              615,
+              732
+            ],
+            [
+              615,
+              735
+            ],
+            [
+              614,
+              737
+            ],
+            [
+              615,
+              740
+            ],
+            [
+              615,
+              742
+            ],
+            [
+              616,
+              744
+            ],
+            [
+              617,
+              747
+            ],
+            [
+              618,
+              749
+            ],
+            [
+              723,
+              895
+            ],
+            [
+              725,
+              898
+            ],
+            [
+              727,
+              902
+            ],
+            [
+              730,
+              905
+            ],
+            [
+              732,
+              908
+            ],
+            [
+              734,
+              911
+            ],
+            [
+              736,
+              915
+            ],
+            [
+              738,
+              918
+            ],
+            [
+              740,
+              922
+            ],
+            [
+              789,
+              1001
+            ],
+            [
+              791,
+              1004
+            ],
+            [
+              793,
+              1006
+            ],
+            [
+              795,
+              1009
+            ],
+            [
+              797,
+              1011
+            ],
+            [
+              799,
+              1014
+            ],
+            [
+              801,
+              1016
+            ],
+            [
+              804,
+              1018
+            ],
+            [
+              806,
+              1020
+            ],
+            [
+              826,
+              1036
+            ],
+            [
+              828,
+              1038
+            ],
+            [
+              831,
+              1040
+            ],
+            [
+              833,
+              1042
+            ],
+            [
+              836,
+              1044
+            ],
+            [
+              838,
+              1047
+            ],
+            [
+              840,
+              1049
+            ],
+            [
+              843,
+              1051
+            ],
+            [
+              845,
+              1053
+            ],
+            [
+              972,
+              1188
+            ]
+          ],
+          "port_snap_pixels": [
+            68.41052550594829,
+            71.11258679024411
+          ]
+        },
+        {
+          "leg_index": 4,
+          "from": "Baldur's Gate",
+          "to": "Athkatla",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1036,
+              1157
+            ],
+            [
+              1113,
+              1528
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              972,
+              1188
+            ],
+            [
+              960,
+              1194
+            ],
+            [
+              959,
+              1195
+            ],
+            [
+              958,
+              1195
+            ],
+            [
+              957,
+              1196
+            ],
+            [
+              957,
+              1197
+            ],
+            [
+              956,
+              1197
+            ],
+            [
+              956,
+              1198
+            ],
+            [
+              955,
+              1199
+            ],
+            [
+              955,
+              1200
+            ],
+            [
+              928,
+              1295
+            ],
+            [
+              927,
+              1298
+            ],
+            [
+              926,
+              1301
+            ],
+            [
+              926,
+              1305
+            ],
+            [
+              925,
+              1308
+            ],
+            [
+              925,
+              1312
+            ],
+            [
+              924,
+              1315
+            ],
+            [
+              924,
+              1319
+            ],
+            [
+              924,
+              1322
+            ],
+            [
+              924,
+              1350
+            ],
+            [
+              924,
+              1353
+            ],
+            [
+              924,
+              1357
+            ],
+            [
+              925,
+              1360
+            ],
+            [
+              926,
+              1364
+            ],
+            [
+              927,
+              1367
+            ],
+            [
+              928,
+              1370
+            ],
+            [
+              929,
+              1373
+            ],
+            [
+              930,
+              1376
+            ],
+            [
+              1013,
+              1534
+            ],
+            [
+              1015,
+              1537
+            ],
+            [
+              1017,
+              1540
+            ],
+            [
+              1019,
+              1542
+            ],
+            [
+              1022,
+              1544
+            ],
+            [
+              1025,
+              1546
+            ],
+            [
+              1029,
+              1547
+            ],
+            [
+              1032,
+              1548
+            ],
+            [
+              1036,
+              1548
+            ],
+            [
+              1092,
+              1548
+            ]
+          ],
+          "port_snap_pixels": [
+            71.11258679024411,
+            29.0
+          ]
+        },
+        {
+          "leg_index": 5,
+          "from": "Athkatla",
+          "to": "Zazesspur",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1113,
+              1528
+            ],
+            [
+              1246,
+              1968
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1092,
+              1548
+            ],
+            [
+              849,
+              1707
+            ],
+            [
+              846,
+              1710
+            ],
+            [
+              843,
+              1712
+            ],
+            [
+              840,
+              1715
+            ],
+            [
+              838,
+              1718
+            ],
+            [
+              836,
+              1721
+            ],
+            [
+              833,
+              1724
+            ],
+            [
+              832,
+              1727
+            ],
+            [
+              830,
+              1731
+            ],
+            [
+              808,
+              1787
+            ],
+            [
+              807,
+              1789
+            ],
+            [
+              806,
+              1791
+            ],
+            [
+              805,
+              1794
+            ],
+            [
+              805,
+              1796
+            ],
+            [
+              805,
+              1799
+            ],
+            [
+              804,
+              1801
+            ],
+            [
+              804,
+              1804
+            ],
+            [
+              804,
+              1806
+            ],
+            [
+              804,
+              1826
+            ],
+            [
+              804,
+              1828
+            ],
+            [
+              804,
+              1831
+            ],
+            [
+              805,
+              1833
+            ],
+            [
+              805,
+              1836
+            ],
+            [
+              806,
+              1838
+            ],
+            [
+              806,
+              1840
+            ],
+            [
+              807,
+              1843
+            ],
+            [
+              808,
+              1845
+            ],
+            [
+              837,
+              1909
+            ],
+            [
+              839,
+              1913
+            ],
+            [
+              841,
+              1916
+            ],
+            [
+              844,
+              1919
+            ],
+            [
+              846,
+              1922
+            ],
+            [
+              849,
+              1924
+            ],
+            [
+              852,
+              1926
+            ],
+            [
+              856,
+              1927
+            ],
+            [
+              859,
+              1929
+            ],
+            [
+              909,
+              1943
+            ],
+            [
+              913,
+              1945
+            ],
+            [
+              916,
+              1946
+            ],
+            [
+              920,
+              1947
+            ],
+            [
+              924,
+              1948
+            ],
+            [
+              928,
+              1949
+            ],
+            [
+              932,
+              1951
+            ],
+            [
+              935,
+              1952
+            ],
+            [
+              939,
+              1953
+            ],
+            [
+              1071,
+              1999
+            ],
+            [
+              1074,
+              2000
+            ],
+            [
+              1077,
+              2001
+            ],
+            [
+              1081,
+              2002
+            ],
+            [
+              1084,
+              2003
+            ],
+            [
+              1088,
+              2003
+            ],
+            [
+              1091,
+              2004
+            ],
+            [
+              1095,
+              2004
+            ],
+            [
+              1098,
+              2004
+            ],
+            [
+              1126,
+              2004
+            ],
+            [
+              1129,
+              2004
+            ],
+            [
+              1133,
+              2004
+            ],
+            [
+              1136,
+              2004
+            ],
+            [
+              1140,
+              2003
+            ],
+            [
+              1143,
+              2003
+            ],
+            [
+              1147,
+              2002
+            ],
+            [
+              1150,
+              2002
+            ],
+            [
+              1154,
+              2001
+            ],
+            [
+              1212,
+              1988
+            ]
+          ],
+          "port_snap_pixels": [
+            29.0,
+            39.44616584663204
+          ]
+        },
+        {
+          "leg_index": 6,
+          "from": "Zazesspur",
+          "to": "Memnon",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1246,
+              1968
+            ],
+            [
+              1264,
+              2151
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1212,
+              1988
+            ],
+            [
+              1194,
+              1988
+            ],
+            [
+              1193,
+              1988
+            ],
+            [
+              1191,
+              1988
+            ],
+            [
+              1190,
+              1989
+            ],
+            [
+              1190,
+              1990
+            ],
+            [
+              1189,
+              1990
+            ],
+            [
+              1188,
+              1991
+            ],
+            [
+              1188,
+              1993
+            ],
+            [
+              1188,
+              1994
+            ],
+            [
+              1188,
+              2164
+            ]
+          ],
+          "port_snap_pixels": [
+            39.44616584663204,
+            77.10382610480494
+          ]
+        },
+        {
+          "leg_index": 7,
+          "from": "Memnon",
+          "to": "Calimport",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1264,
+              2151
+            ],
+            [
+              1344,
+              2346
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1188,
+              2164
+            ],
+            [
+              1120,
+              2225
+            ],
+            [
+              1117,
+              2228
+            ],
+            [
+              1115,
+              2231
+            ],
+            [
+              1112,
+              2234
+            ],
+            [
+              1111,
+              2237
+            ],
+            [
+              1109,
+              2241
+            ],
+            [
+              1108,
+              2244
+            ],
+            [
+              1107,
+              2248
+            ],
+            [
+              1107,
+              2252
+            ],
+            [
+              1101,
+              2316
+            ],
+            [
+              1101,
+              2320
+            ],
+            [
+              1102,
+              2324
+            ],
+            [
+              1102,
+              2327
+            ],
+            [
+              1104,
+              2330
+            ],
+            [
+              1106,
+              2333
+            ],
+            [
+              1108,
+              2335
+            ],
+            [
+              1111,
+              2338
+            ],
+            [
+              1114,
+              2340
+            ],
+            [
+              1158,
+              2364
+            ],
+            [
+              1162,
+              2366
+            ],
+            [
+              1165,
+              2368
+            ],
+            [
+              1169,
+              2369
+            ],
+            [
+              1172,
+              2370
+            ],
+            [
+              1176,
+              2371
+            ],
+            [
+              1180,
+              2371
+            ],
+            [
+              1184,
+              2371
+            ],
+            [
+              1188,
+              2371
+            ],
+            [
+              1340,
+              2364
+            ]
+          ],
+          "port_snap_pixels": [
+            77.10382610480494,
+            18.439088914585774
+          ]
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-050",
+      "name": "The Shining Sea Run",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1,
+      "stops": [
+        {
+          "source_name": "Calimport",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-calimport",
+          "catalog_name": "Calimport",
+          "fps": "FPS1:WD:X+004.32:Y-011.06",
+          "pixel": [
+            1344,
+            2346
+          ]
+        },
+        {
+          "source_name": "Almraiven",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-almraiven",
+          "catalog_name": "Almraiven",
+          "fps": "FPS1:WD:X+007.51:Y-010.56",
+          "pixel": [
+            1824,
+            2271
+          ]
+        },
+        {
+          "source_name": "Suldolphor",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-suldolphor",
+          "catalog_name": "Suldolphor",
+          "fps": "FPS1:WD:X+009.15:Y-010.54",
+          "pixel": [
+            2071,
+            2268
+          ]
+        },
+        {
+          "source_name": "Lantan",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        },
+        {
+          "source_name": "Tashluta",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-tashluta",
+          "catalog_name": "Tashluta",
+          "fps": "FPS1:WD:X+005.82:Y-013.71",
+          "pixel": [
+            1570,
+            2745
+          ]
+        },
+        {
+          "source_name": "Port Nyanzaru",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-port-nyanzaru",
+          "catalog_name": "Port Nyanzaru",
+          "fps": "FPS1:WD:X+000.45:Y-011.61",
+          "pixel": [
+            761,
+            2430
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Calimport",
+          "to": "Almraiven",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1344,
+              2346
+            ],
+            [
+              1824,
+              2271
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1340,
+              2364
+            ],
+            [
+              1340,
+              2376
+            ],
+            [
+              1340,
+              2377
+            ],
+            [
+              1340,
+              2378
+            ],
+            [
+              1341,
+              2378
+            ],
+            [
+              1341,
+              2379
+            ],
+            [
+              1342,
+              2379
+            ],
+            [
+              1342,
+              2380
+            ],
+            [
+              1343,
+              2380
+            ],
+            [
+              1344,
+              2380
+            ],
+            [
+              1828,
+              2395
+            ],
+            [
+              1832,
+              2395
+            ],
+            [
+              1835,
+              2395
+            ],
+            [
+              1838,
+              2394
+            ],
+            [
+              1840,
+              2392
+            ],
+            [
+              1842,
+              2390
+            ],
+            [
+              1843,
+              2387
+            ],
+            [
+              1844,
+              2384
+            ],
+            [
+              1844,
+              2380
+            ],
+            [
+              1844,
+              2324
+            ]
+          ],
+          "port_snap_pixels": [
+            18.439088914585774,
+            56.64803615307419
+          ]
+        },
+        {
+          "leg_index": 2,
+          "from": "Almraiven",
+          "to": "Suldolphor",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1824,
+              2271
+            ],
+            [
+              2071,
+              2268
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1844,
+              2324
+            ],
+            [
+              1862,
+              2342
+            ],
+            [
+              1864,
+              2343
+            ],
+            [
+              1865,
+              2345
+            ],
+            [
+              1867,
+              2346
+            ],
+            [
+              1869,
+              2347
+            ],
+            [
+              1870,
+              2347
+            ],
+            [
+              1872,
+              2348
+            ],
+            [
+              1874,
+              2349
+            ],
+            [
+              1876,
+              2349
+            ],
+            [
+              1938,
+              2355
+            ],
+            [
+              1941,
+              2355
+            ],
+            [
+              1943,
+              2355
+            ],
+            [
+              1945,
+              2355
+            ],
+            [
+              1948,
+              2354
+            ],
+            [
+              1950,
+              2354
+            ],
+            [
+              1952,
+              2353
+            ],
+            [
+              1954,
+              2351
+            ],
+            [
+              1956,
+              2350
+            ],
+            [
+              1972,
+              2338
+            ],
+            [
+              1974,
+              2337
+            ],
+            [
+              1976,
+              2335
+            ],
+            [
+              1978,
+              2334
+            ],
+            [
+              1980,
+              2333
+            ],
+            [
+              1982,
+              2331
+            ],
+            [
+              1985,
+              2330
+            ],
+            [
+              1987,
+              2329
+            ],
+            [
+              1989,
+              2328
+            ],
+            [
+              2076,
+              2292
+            ]
+          ],
+          "port_snap_pixels": [
+            56.64803615307419,
+            24.515301344262525
+          ]
+        },
+        {
+          "leg_index": 3,
+          "from": "Suldolphor",
+          "to": "Lantan",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 4,
+          "from": "Lantan",
+          "to": "Tashluta",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 5,
+          "from": "Tashluta",
+          "to": "Port Nyanzaru",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1570,
+              2745
+            ],
+            [
+              761,
+              2430
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1548,
+              2748
+            ],
+            [
+              1506,
+              2748
+            ],
+            [
+              1503,
+              2748
+            ],
+            [
+              1499,
+              2747
+            ],
+            [
+              1496,
+              2747
+            ],
+            [
+              1493,
+              2746
+            ],
+            [
+              1490,
+              2745
+            ],
+            [
+              1487,
+              2743
+            ],
+            [
+              1484,
+              2741
+            ],
+            [
+              1481,
+              2739
+            ],
+            [
+              1265,
+              2574
+            ],
+            [
+              1262,
+              2571
+            ],
+            [
+              1258,
+              2569
+            ],
+            [
+              1255,
+              2567
+            ],
+            [
+              1252,
+              2564
+            ],
+            [
+              1249,
+              2562
+            ],
+            [
+              1245,
+              2559
+            ],
+            [
+              1242,
+              2557
+            ],
+            [
+              1239,
+              2555
+            ],
+            [
+              929,
+              2341
+            ],
+            [
+              926,
+              2339
+            ],
+            [
+              922,
+              2337
+            ],
+            [
+              919,
+              2335
+            ],
+            [
+              916,
+              2333
+            ],
+            [
+              912,
+              2331
+            ],
+            [
+              909,
+              2329
+            ],
+            [
+              905,
+              2327
+            ],
+            [
+              901,
+              2326
+            ],
+            [
+              789,
+              2280
+            ],
+            [
+              787,
+              2279
+            ],
+            [
+              785,
+              2278
+            ],
+            [
+              782,
+              2277
+            ],
+            [
+              780,
+              2277
+            ],
+            [
+              777,
+              2277
+            ],
+            [
+              775,
+              2276
+            ],
+            [
+              772,
+              2276
+            ],
+            [
+              770,
+              2276
+            ],
+            [
+              750,
+              2276
+            ],
+            [
+              748,
+              2276
+            ],
+            [
+              746,
+              2277
+            ],
+            [
+              744,
+              2277
+            ],
+            [
+              742,
+              2278
+            ],
+            [
+              741,
+              2280
+            ],
+            [
+              741,
+              2282
+            ],
+            [
+              740,
+              2284
+            ],
+            [
+              740,
+              2286
+            ],
+            [
+              740,
+              2404
+            ]
+          ],
+          "port_snap_pixels": [
+            22.20360331117452,
+            33.421549934136806
+          ]
+        }
+      ],
+      "fully_mapped": false
+    },
+    {
+      "route_id": "named-route-051",
+      "name": "The Nelanther Passage",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1,
+      "stops": [
+        {
+          "source_name": "Baldur's Gate",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-baldurs-gate",
+          "catalog_name": "Baldur's Gate",
+          "fps": "FPS1:WD:X+002.27:Y-003.16",
+          "pixel": [
+            1036,
+            1157
+          ]
+        },
+        {
+          "source_name": "Mintarn",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        },
+        {
+          "source_name": "Orlumbor",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        },
+        {
+          "source_name": "Waterdeep",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-waterdeep",
+          "catalog_name": "Waterdeep",
+          "fps": "FPS1:WD:X+000.00:Y+000.00",
+          "pixel": [
+            694,
+            682
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Baldur's Gate",
+          "to": "Mintarn",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 2,
+          "from": "Mintarn",
+          "to": "Orlumbor",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 3,
+          "from": "Orlumbor",
+          "to": "Waterdeep",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        }
+      ],
+      "fully_mapped": false
+    },
+    {
+      "route_id": "named-route-052",
+      "name": "The Moonshae Crossing",
+      "mode": "sea+ferry",
+      "modes": [
+        "sea",
+        "ferry"
+      ],
+      "mode_label": "sea lane and ferry",
+      "multimodal": true,
+      "quality": 0.95,
+      "stops": [
+        {
+          "source_name": "Waterdeep",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-waterdeep",
+          "catalog_name": "Waterdeep",
+          "fps": "FPS1:WD:X+000.00:Y+000.00",
+          "pixel": [
+            694,
+            682
+          ]
+        },
+        {
+          "source_name": "Caer Callidyrr",
+          "status": "matched",
+          "match_method": "explicit_alias",
+          "location_id": "fps-caer-calidyrr",
+          "catalog_name": "Caer Calidyrr",
+          "fps": "FPS1:WD:X-001.32:Y-003.92",
+          "pixel": [
+            496,
+            1272
+          ]
+        },
+        {
+          "source_name": "Corwell",
+          "status": "matched",
+          "match_method": "explicit_alias",
+          "location_id": "fps-caer-corwell",
+          "catalog_name": "Caer Corwell",
+          "fps": "FPS1:WD:X-001.41:Y-005.98",
+          "pixel": [
+            482,
+            1582
+          ]
+        },
+        {
+          "source_name": "Baldur's Gate",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-baldurs-gate",
+          "catalog_name": "Baldur's Gate",
+          "fps": "FPS1:WD:X+002.27:Y-003.16",
+          "pixel": [
+            1036,
+            1157
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Waterdeep",
+          "to": "Caer Callidyrr",
+          "status": "water_routed",
+          "pixels": [
+            [
+              694,
+              682
+            ],
+            [
+              496,
+              1272
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              628,
+              700
+            ],
+            [
+              586,
+              700
+            ],
+            [
+              583,
+              700
+            ],
+            [
+              580,
+              701
+            ],
+            [
+              577,
+              702
+            ],
+            [
+              576,
+              704
+            ],
+            [
+              574,
+              705
+            ],
+            [
+              573,
+              708
+            ],
+            [
+              572,
+              711
+            ],
+            [
+              572,
+              714
+            ],
+            [
+              572,
+              1028
+            ],
+            [
+              572,
+              1032
+            ],
+            [
+              572,
+              1036
+            ],
+            [
+              572,
+              1040
+            ],
+            [
+              572,
+              1044
+            ],
+            [
+              571,
+              1048
+            ],
+            [
+              571,
+              1052
+            ],
+            [
+              571,
+              1056
+            ],
+            [
+              570,
+              1060
+            ],
+            [
+              549,
+              1238
+            ],
+            [
+              548,
+              1239
+            ],
+            [
+              548,
+              1241
+            ],
+            [
+              547,
+              1242
+            ],
+            [
+              547,
+              1243
+            ],
+            [
+              546,
+              1244
+            ],
+            [
+              545,
+              1245
+            ],
+            [
+              543,
+              1245
+            ],
+            [
+              542,
+              1246
+            ],
+            [
+              524,
+              1252
+            ]
+          ],
+          "port_snap_pixels": [
+            68.41052550594829,
+            34.40930106817051
+          ]
+        },
+        {
+          "leg_index": 2,
+          "from": "Caer Callidyrr",
+          "to": "Corwell",
+          "status": "water_routed",
+          "pixels": [
+            [
+              496,
+              1272
+            ],
+            [
+              482,
+              1582
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              524,
+              1252
+            ],
+            [
+              612,
+              1259
+            ],
+            [
+              616,
+              1259
+            ],
+            [
+              620,
+              1260
+            ],
+            [
+              623,
+              1261
+            ],
+            [
+              626,
+              1263
+            ],
+            [
+              630,
+              1265
+            ],
+            [
+              632,
+              1267
+            ],
+            [
+              635,
+              1270
+            ],
+            [
+              638,
+              1273
+            ],
+            [
+              666,
+              1311
+            ],
+            [
+              669,
+              1314
+            ],
+            [
+              671,
+              1318
+            ],
+            [
+              673,
+              1321
+            ],
+            [
+              674,
+              1325
+            ],
+            [
+              676,
+              1328
+            ],
+            [
+              677,
+              1332
+            ],
+            [
+              678,
+              1336
+            ],
+            [
+              679,
+              1340
+            ],
+            [
+              721,
+              1564
+            ],
+            [
+              721,
+              1568
+            ],
+            [
+              721,
+              1571
+            ],
+            [
+              721,
+              1574
+            ],
+            [
+              719,
+              1577
+            ],
+            [
+              717,
+              1579
+            ],
+            [
+              715,
+              1581
+            ],
+            [
+              712,
+              1583
+            ],
+            [
+              708,
+              1584
+            ],
+            [
+              516,
+              1628
+            ]
+          ],
+          "port_snap_pixels": [
+            34.40930106817051,
+            57.201398584300364
+          ]
+        },
+        {
+          "leg_index": 3,
+          "from": "Corwell",
+          "to": "Baldur's Gate",
+          "status": "water_routed",
+          "pixels": [
+            [
+              482,
+              1582
+            ],
+            [
+              1036,
+              1157
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              516,
+              1628
+            ],
+            [
+              708,
+              1584
+            ],
+            [
+              712,
+              1583
+            ],
+            [
+              715,
+              1581
+            ],
+            [
+              718,
+              1579
+            ],
+            [
+              720,
+              1577
+            ],
+            [
+              722,
+              1574
+            ],
+            [
+              723,
+              1571
+            ],
+            [
+              724,
+              1568
+            ],
+            [
+              724,
+              1564
+            ],
+            [
+              724,
+              1204
+            ],
+            [
+              724,
+              1200
+            ],
+            [
+              725,
+              1197
+            ],
+            [
+              726,
+              1194
+            ],
+            [
+              728,
+              1192
+            ],
+            [
+              730,
+              1190
+            ],
+            [
+              733,
+              1189
+            ],
+            [
+              736,
+              1188
+            ],
+            [
+              740,
+              1188
+            ],
+            [
+              972,
+              1188
+            ]
+          ],
+          "port_snap_pixels": [
+            57.201398584300364,
+            71.11258679024411
+          ]
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-053",
+      "name": "The Northern Reach",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 0.85,
+      "stops": [
+        {
+          "source_name": "Luskan",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-luskan",
+          "catalog_name": "Luskan",
+          "fps": "FPS1:WD:X-001.89:Y+002.46",
+          "pixel": [
+            410,
+            312
+          ]
+        },
+        {
+          "source_name": "Ruathym",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Luskan",
+          "to": "Ruathym",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        }
+      ],
+      "fully_mapped": false
+    },
+    {
+      "route_id": "named-route-054",
+      "name": "The Nimbral Run",
+      "mode": "sea+air",
+      "modes": [
+        "sea",
+        "air"
+      ],
+      "mode_label": "sea lane and skyship",
+      "multimodal": true,
+      "quality": 0.9,
+      "stops": [
+        {
+          "source_name": "Lantan",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        },
+        {
+          "source_name": "Nimbral",
+          "status": "unmapped",
+          "match_method": null,
+          "location_id": null,
+          "catalog_name": null,
+          "fps": null,
+          "pixel": null
+        },
+        {
+          "source_name": "Velen",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-velen",
+          "catalog_name": "Velen",
+          "fps": "FPS1:WD:X+001.24:Y-007.09",
+          "pixel": [
+            880,
+            1749
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Lantan",
+          "to": "Nimbral",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 2,
+          "from": "Nimbral",
+          "to": "Velen",
+          "status": "unmapped_endpoint",
+          "pixels": null,
+          "geometry_kind": null,
+          "water_pixels": null
+        }
+      ],
+      "fully_mapped": false
+    },
+    {
+      "route_id": "named-route-055",
+      "name": "The Inner Sea Run",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1.2,
+      "stops": [
+        {
+          "source_name": "Marsember",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-marsember",
+          "catalog_name": "Marsember",
+          "fps": "FPS1:WD:X+008.31:Y-002.43",
+          "pixel": [
+            1945,
+            1047
+          ]
+        },
+        {
+          "source_name": "Suzail",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-suzail",
+          "catalog_name": "Suzail",
+          "fps": "FPS1:WD:X+008.02:Y-002.43",
+          "pixel": [
+            1901,
+            1048
+          ]
+        },
+        {
+          "source_name": "Urmlaspyr",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-urmlaspyr",
+          "catalog_name": "Urmlaspyr",
+          "fps": "FPS1:WD:X+009.95:Y-002.62",
+          "pixel": [
+            2191,
+            1077
+          ]
+        },
+        {
+          "source_name": "Saerloon",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-saerloon",
+          "catalog_name": "Saerloon",
+          "fps": "FPS1:WD:X+010.90:Y-002.12",
+          "pixel": [
+            2335,
+            1001
+          ]
+        },
+        {
+          "source_name": "Selgaunt",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-selgaunt",
+          "catalog_name": "Selgaunt",
+          "fps": "FPS1:WD:X+011.29:Y-001.79",
+          "pixel": [
+            2393,
+            952
+          ]
+        },
+        {
+          "source_name": "Yhaunn",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-yhaunn",
+          "catalog_name": "Yhaunn",
+          "fps": "FPS1:WD:X+012.13:Y-001.00",
+          "pixel": [
+            2519,
+            833
+          ]
+        },
+        {
+          "source_name": "Procampur",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-procampur",
+          "catalog_name": "Procampur",
+          "fps": "FPS1:WD:X+013.51:Y-001.12",
+          "pixel": [
+            2727,
+            850
+          ]
+        },
+        {
+          "source_name": "Tsurlagol",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-tsurlagol",
+          "catalog_name": "Tsurlagol",
+          "fps": "FPS1:WD:X+013.87:Y-000.99",
+          "pixel": [
+            2781,
+            831
+          ]
+        },
+        {
+          "source_name": "Ravens Bluff",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-ravens-bluff",
+          "catalog_name": "Ravens Bluff",
+          "fps": "FPS1:WD:X+013.35:Y-000.46",
+          "pixel": [
+            2703,
+            751
+          ]
+        },
+        {
+          "source_name": "Tantras",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-tantras",
+          "catalog_name": "Tantras",
+          "fps": "FPS1:WD:X+013.03:Y-000.29",
+          "pixel": [
+            2655,
+            726
+          ]
+        },
+        {
+          "source_name": "Harrowdale Town",
+          "status": "matched",
+          "match_method": "explicit_alias",
+          "location_id": "fps-harrowdale",
+          "catalog_name": "Harrowdale",
+          "fps": "FPS1:WD:X+012.37:Y+000.17",
+          "pixel": [
+            2555,
+            657
+          ]
+        },
+        {
+          "source_name": "Lyrabar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-lyrabar",
+          "catalog_name": "Lyrabar",
+          "fps": "FPS1:WD:X+014.72:Y-000.86",
+          "pixel": [
+            2910,
+            811
+          ]
+        },
+        {
+          "source_name": "Telflamm",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-telflamm",
+          "catalog_name": "Telflamm",
+          "fps": "FPS1:WD:X+016.62:Y-000.50",
+          "pixel": [
+            3196,
+            757
+          ]
+        },
+        {
+          "source_name": "Bezantur",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-bezantur",
+          "catalog_name": "Bezantur",
+          "fps": "FPS1:WD:X+020.45:Y-002.92",
+          "pixel": [
+            3772,
+            1122
+          ]
+        },
+        {
+          "source_name": "Velprintalar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-velprintalar",
+          "catalog_name": "Velprintalar",
+          "fps": "FPS1:WD:X+016.76:Y-002.23",
+          "pixel": [
+            3217,
+            1017
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Marsember",
+          "to": "Suzail",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1945,
+              1047
+            ],
+            [
+              1901,
+              1048
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1948,
+              1084
+            ],
+            [
+              1900,
+              1084
+            ]
+          ],
+          "port_snap_pixels": [
+            37.12142238654117,
+            36.013886210738214
+          ]
+        },
+        {
+          "leg_index": 2,
+          "from": "Suzail",
+          "to": "Urmlaspyr",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              1901,
+              1048
+            ],
+            [
+              2191,
+              1077
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 3,
+          "from": "Urmlaspyr",
+          "to": "Saerloon",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2191,
+              1077
+            ],
+            [
+              2335,
+              1001
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2228,
+              1108
+            ],
+            [
+              2264,
+              1096
+            ],
+            [
+              2267,
+              1095
+            ],
+            [
+              2270,
+              1094
+            ],
+            [
+              2272,
+              1092
+            ],
+            [
+              2275,
+              1090
+            ],
+            [
+              2277,
+              1089
+            ],
+            [
+              2279,
+              1086
+            ],
+            [
+              2281,
+              1084
+            ],
+            [
+              2283,
+              1082
+            ],
+            [
+              2316,
+              1036
+            ]
+          ],
+          "port_snap_pixels": [
+            48.27007354458868,
+            39.824615503479755
+          ]
+        },
+        {
+          "leg_index": 4,
+          "from": "Saerloon",
+          "to": "Selgaunt",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2335,
+              1001
+            ],
+            [
+              2393,
+              952
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2316,
+              1036
+            ],
+            [
+              2309,
+              1082
+            ],
+            [
+              2309,
+              1084
+            ],
+            [
+              2309,
+              1086
+            ],
+            [
+              2310,
+              1088
+            ],
+            [
+              2311,
+              1089
+            ],
+            [
+              2312,
+              1090
+            ],
+            [
+              2314,
+              1090
+            ],
+            [
+              2316,
+              1090
+            ],
+            [
+              2318,
+              1090
+            ],
+            [
+              2338,
+              1086
+            ],
+            [
+              2340,
+              1085
+            ],
+            [
+              2343,
+              1085
+            ],
+            [
+              2345,
+              1084
+            ],
+            [
+              2348,
+              1084
+            ],
+            [
+              2350,
+              1083
+            ],
+            [
+              2353,
+              1082
+            ],
+            [
+              2355,
+              1082
+            ],
+            [
+              2358,
+              1081
+            ],
+            [
+              2384,
+              1072
+            ],
+            [
+              2387,
+              1071
+            ],
+            [
+              2390,
+              1070
+            ],
+            [
+              2393,
+              1068
+            ],
+            [
+              2395,
+              1067
+            ],
+            [
+              2398,
+              1065
+            ],
+            [
+              2401,
+              1064
+            ],
+            [
+              2403,
+              1062
+            ],
+            [
+              2406,
+              1060
+            ],
+            [
+              2426,
+              1044
+            ],
+            [
+              2428,
+              1042
+            ],
+            [
+              2430,
+              1040
+            ],
+            [
+              2432,
+              1037
+            ],
+            [
+              2433,
+              1035
+            ],
+            [
+              2434,
+              1032
+            ],
+            [
+              2434,
+              1029
+            ],
+            [
+              2435,
+              1026
+            ],
+            [
+              2434,
+              1023
+            ],
+            [
+              2428,
+              972
+            ]
+          ],
+          "port_snap_pixels": [
+            39.824615503479755,
+            40.311288741492746
+          ]
+        },
+        {
+          "leg_index": 5,
+          "from": "Selgaunt",
+          "to": "Yhaunn",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2393,
+              952
+            ],
+            [
+              2519,
+              833
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2428,
+              972
+            ],
+            [
+              2564,
+              965
+            ],
+            [
+              2568,
+              964
+            ],
+            [
+              2571,
+              963
+            ],
+            [
+              2574,
+              962
+            ],
+            [
+              2576,
+              960
+            ],
+            [
+              2578,
+              958
+            ],
+            [
+              2580,
+              955
+            ],
+            [
+              2581,
+              952
+            ],
+            [
+              2581,
+              948
+            ],
+            [
+              2587,
+              874
+            ],
+            [
+              2587,
+              871
+            ],
+            [
+              2587,
+              868
+            ],
+            [
+              2586,
+              865
+            ],
+            [
+              2584,
+              863
+            ],
+            [
+              2582,
+              862
+            ],
+            [
+              2580,
+              861
+            ],
+            [
+              2577,
+              860
+            ],
+            [
+              2574,
+              860
+            ],
+            [
+              2532,
+              860
+            ]
+          ],
+          "port_snap_pixels": [
+            40.311288741492746,
+            29.966648127543394
+          ]
+        },
+        {
+          "leg_index": 6,
+          "from": "Yhaunn",
+          "to": "Procampur",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2519,
+              833
+            ],
+            [
+              2727,
+              850
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2532,
+              860
+            ],
+            [
+              2620,
+              874
+            ],
+            [
+              2624,
+              874
+            ],
+            [
+              2628,
+              875
+            ],
+            [
+              2632,
+              875
+            ],
+            [
+              2636,
+              875
+            ],
+            [
+              2640,
+              876
+            ],
+            [
+              2644,
+              876
+            ],
+            [
+              2648,
+              876
+            ],
+            [
+              2652,
+              876
+            ],
+            [
+              2724,
+              876
+            ]
+          ],
+          "port_snap_pixels": [
+            29.966648127543394,
+            26.1725046566048
+          ]
+        },
+        {
+          "leg_index": 7,
+          "from": "Procampur",
+          "to": "Tsurlagol",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2727,
+              850
+            ],
+            [
+              2781,
+              831
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2724,
+              876
+            ],
+            [
+              2724,
+              882
+            ],
+            [
+              2724,
+              883
+            ],
+            [
+              2724,
+              884
+            ],
+            [
+              2725,
+              884
+            ],
+            [
+              2726,
+              884
+            ],
+            [
+              2800,
+              884
+            ],
+            [
+              2801,
+              884
+            ],
+            [
+              2802,
+              884
+            ],
+            [
+              2802,
+              883
+            ],
+            [
+              2803,
+              883
+            ],
+            [
+              2803,
+              882
+            ],
+            [
+              2804,
+              882
+            ],
+            [
+              2804,
+              881
+            ],
+            [
+              2804,
+              880
+            ],
+            [
+              2804,
+              868
+            ]
+          ],
+          "port_snap_pixels": [
+            26.1725046566048,
+            43.56604182158393
+          ]
+        },
+        {
+          "leg_index": 8,
+          "from": "Tsurlagol",
+          "to": "Ravens Bluff",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2781,
+              831
+            ],
+            [
+              2703,
+              751
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2804,
+              868
+            ],
+            [
+              2804,
+              880
+            ],
+            [
+              2804,
+              881
+            ],
+            [
+              2804,
+              882
+            ],
+            [
+              2803,
+              882
+            ],
+            [
+              2803,
+              883
+            ],
+            [
+              2802,
+              883
+            ],
+            [
+              2802,
+              884
+            ],
+            [
+              2801,
+              884
+            ],
+            [
+              2800,
+              884
+            ],
+            [
+              2740,
+              884
+            ],
+            [
+              2736,
+              884
+            ],
+            [
+              2732,
+              884
+            ],
+            [
+              2728,
+              884
+            ],
+            [
+              2724,
+              884
+            ],
+            [
+              2720,
+              883
+            ],
+            [
+              2716,
+              883
+            ],
+            [
+              2712,
+              883
+            ],
+            [
+              2708,
+              883
+            ],
+            [
+              2644,
+              877
+            ],
+            [
+              2642,
+              876
+            ],
+            [
+              2640,
+              876
+            ],
+            [
+              2639,
+              875
+            ],
+            [
+              2638,
+              874
+            ],
+            [
+              2637,
+              873
+            ],
+            [
+              2636,
+              872
+            ],
+            [
+              2636,
+              870
+            ],
+            [
+              2636,
+              868
+            ],
+            [
+              2636,
+              848
+            ],
+            [
+              2636,
+              847
+            ],
+            [
+              2636,
+              846
+            ],
+            [
+              2637,
+              846
+            ],
+            [
+              2637,
+              845
+            ],
+            [
+              2638,
+              845
+            ],
+            [
+              2638,
+              844
+            ],
+            [
+              2639,
+              844
+            ],
+            [
+              2640,
+              844
+            ],
+            [
+              2648,
+              844
+            ],
+            [
+              2649,
+              844
+            ],
+            [
+              2650,
+              844
+            ],
+            [
+              2650,
+              843
+            ],
+            [
+              2651,
+              843
+            ],
+            [
+              2651,
+              842
+            ],
+            [
+              2652,
+              842
+            ],
+            [
+              2652,
+              841
+            ],
+            [
+              2652,
+              840
+            ],
+            [
+              2644,
+              756
+            ]
+          ],
+          "port_snap_pixels": [
+            43.56604182158393,
+            59.21148537234985
+          ]
+        },
+        {
+          "leg_index": 9,
+          "from": "Ravens Bluff",
+          "to": "Tantras",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2703,
+              751
+            ],
+            [
+              2655,
+              726
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 10,
+          "from": "Tantras",
+          "to": "Harrowdale Town",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2655,
+              726
+            ],
+            [
+              2555,
+              657
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2628,
+              716
+            ],
+            [
+              2620,
+              668
+            ]
+          ],
+          "port_snap_pixels": [
+            28.792360097775937,
+            65.92419889539804
+          ]
+        },
+        {
+          "leg_index": 11,
+          "from": "Harrowdale Town",
+          "to": "Lyrabar",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2555,
+              657
+            ],
+            [
+              2910,
+              811
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 12,
+          "from": "Lyrabar",
+          "to": "Telflamm",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2910,
+              811
+            ],
+            [
+              3196,
+              757
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2900,
+              836
+            ],
+            [
+              2900,
+              842
+            ],
+            [
+              2900,
+              843
+            ],
+            [
+              2900,
+              844
+            ],
+            [
+              2901,
+              844
+            ],
+            [
+              2902,
+              844
+            ],
+            [
+              2964,
+              844
+            ],
+            [
+              2968,
+              844
+            ],
+            [
+              2972,
+              844
+            ],
+            [
+              2976,
+              843
+            ],
+            [
+              2980,
+              843
+            ],
+            [
+              2984,
+              842
+            ],
+            [
+              2988,
+              842
+            ],
+            [
+              2992,
+              841
+            ],
+            [
+              2995,
+              840
+            ],
+            [
+              3053,
+              824
+            ],
+            [
+              3056,
+              823
+            ],
+            [
+              3060,
+              822
+            ],
+            [
+              3064,
+              821
+            ],
+            [
+              3068,
+              819
+            ],
+            [
+              3071,
+              818
+            ],
+            [
+              3075,
+              816
+            ],
+            [
+              3079,
+              815
+            ],
+            [
+              3082,
+              813
+            ],
+            [
+              3137,
+              786
+            ],
+            [
+              3139,
+              784
+            ],
+            [
+              3142,
+              783
+            ],
+            [
+              3145,
+              781
+            ],
+            [
+              3147,
+              779
+            ],
+            [
+              3150,
+              777
+            ],
+            [
+              3152,
+              775
+            ],
+            [
+              3154,
+              772
+            ],
+            [
+              3156,
+              770
+            ],
+            [
+              3180,
+              740
+            ]
+          ],
+          "port_snap_pixels": [
+            26.92582403567252,
+            23.345235059857504
+          ]
+        },
+        {
+          "leg_index": 13,
+          "from": "Telflamm",
+          "to": "Bezantur",
+          "status": "water_routed",
+          "pixels": [
+            [
+              3196,
+              757
+            ],
+            [
+              3772,
+              1122
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              3180,
+              740
+            ],
+            [
+              3162,
+              752
+            ],
+            [
+              3161,
+              753
+            ],
+            [
+              3159,
+              754
+            ],
+            [
+              3158,
+              755
+            ],
+            [
+              3157,
+              757
+            ],
+            [
+              3156,
+              758
+            ],
+            [
+              3155,
+              759
+            ],
+            [
+              3154,
+              761
+            ],
+            [
+              3153,
+              762
+            ],
+            [
+              3107,
+              854
+            ],
+            [
+              3105,
+              857
+            ],
+            [
+              3104,
+              861
+            ],
+            [
+              3103,
+              865
+            ],
+            [
+              3102,
+              868
+            ],
+            [
+              3101,
+              872
+            ],
+            [
+              3100,
+              876
+            ],
+            [
+              3100,
+              880
+            ],
+            [
+              3100,
+              884
+            ],
+            [
+              3100,
+              1012
+            ],
+            [
+              3100,
+              1016
+            ],
+            [
+              3099,
+              1019
+            ],
+            [
+              3098,
+              1022
+            ],
+            [
+              3096,
+              1024
+            ],
+            [
+              3094,
+              1026
+            ],
+            [
+              3091,
+              1027
+            ],
+            [
+              3088,
+              1028
+            ],
+            [
+              3084,
+              1028
+            ],
+            [
+              2894,
+              1028
+            ],
+            [
+              2892,
+              1028
+            ],
+            [
+              2890,
+              1029
+            ],
+            [
+              2888,
+              1029
+            ],
+            [
+              2886,
+              1030
+            ],
+            [
+              2885,
+              1032
+            ],
+            [
+              2885,
+              1034
+            ],
+            [
+              2884,
+              1036
+            ],
+            [
+              2884,
+              1038
+            ],
+            [
+              2884,
+              1058
+            ],
+            [
+              2884,
+              1060
+            ],
+            [
+              2884,
+              1063
+            ],
+            [
+              2885,
+              1065
+            ],
+            [
+              2885,
+              1068
+            ],
+            [
+              2886,
+              1070
+            ],
+            [
+              2886,
+              1072
+            ],
+            [
+              2887,
+              1075
+            ],
+            [
+              2888,
+              1077
+            ],
+            [
+              2921,
+              1148
+            ],
+            [
+              2922,
+              1150
+            ],
+            [
+              2923,
+              1152
+            ],
+            [
+              2924,
+              1153
+            ],
+            [
+              2925,
+              1155
+            ],
+            [
+              2927,
+              1156
+            ],
+            [
+              2928,
+              1157
+            ],
+            [
+              2930,
+              1157
+            ],
+            [
+              2932,
+              1158
+            ],
+            [
+              2952,
+              1163
+            ],
+            [
+              2953,
+              1163
+            ],
+            [
+              2954,
+              1164
+            ],
+            [
+              2955,
+              1165
+            ],
+            [
+              2956,
+              1166
+            ],
+            [
+              2956,
+              1167
+            ],
+            [
+              2956,
+              1168
+            ],
+            [
+              2956,
+              1176
+            ],
+            [
+              2956,
+              1177
+            ],
+            [
+              2956,
+              1178
+            ],
+            [
+              2957,
+              1179
+            ],
+            [
+              2957,
+              1180
+            ],
+            [
+              2958,
+              1181
+            ],
+            [
+              2959,
+              1181
+            ],
+            [
+              2960,
+              1181
+            ],
+            [
+              2986,
+              1192
+            ],
+            [
+              2989,
+              1193
+            ],
+            [
+              2991,
+              1194
+            ],
+            [
+              2994,
+              1195
+            ],
+            [
+              2996,
+              1196
+            ],
+            [
+              2999,
+              1196
+            ],
+            [
+              3001,
+              1197
+            ],
+            [
+              3004,
+              1198
+            ],
+            [
+              3007,
+              1198
+            ],
+            [
+              3052,
+              1209
+            ],
+            [
+              3056,
+              1209
+            ],
+            [
+              3060,
+              1210
+            ],
+            [
+              3064,
+              1211
+            ],
+            [
+              3068,
+              1211
+            ],
+            [
+              3072,
+              1211
+            ],
+            [
+              3076,
+              1212
+            ],
+            [
+              3080,
+              1212
+            ],
+            [
+              3084,
+              1212
+            ],
+            [
+              3708,
+              1204
+            ],
+            [
+              3712,
+              1204
+            ],
+            [
+              3716,
+              1204
+            ],
+            [
+              3720,
+              1203
+            ],
+            [
+              3723,
+              1202
+            ],
+            [
+              3727,
+              1201
+            ],
+            [
+              3730,
+              1199
+            ],
+            [
+              3734,
+              1197
+            ],
+            [
+              3737,
+              1195
+            ],
+            [
+              3796,
+              1156
+            ]
+          ],
+          "port_snap_pixels": [
+            23.345235059857504,
+            41.617304093369626
+          ]
+        },
+        {
+          "leg_index": 14,
+          "from": "Bezantur",
+          "to": "Velprintalar",
+          "status": "water_routed",
+          "pixels": [
+            [
+              3772,
+              1122
+            ],
+            [
+              3217,
+              1017
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              3796,
+              1156
+            ],
+            [
+              3772,
+              1180
+            ],
+            [
+              3770,
+              1182
+            ],
+            [
+              3768,
+              1184
+            ],
+            [
+              3766,
+              1186
+            ],
+            [
+              3763,
+              1187
+            ],
+            [
+              3761,
+              1188
+            ],
+            [
+              3759,
+              1190
+            ],
+            [
+              3756,
+              1191
+            ],
+            [
+              3754,
+              1192
+            ],
+            [
+              3734,
+              1200
+            ],
+            [
+              3731,
+              1201
+            ],
+            [
+              3729,
+              1202
+            ],
+            [
+              3726,
+              1202
+            ],
+            [
+              3724,
+              1203
+            ],
+            [
+              3721,
+              1203
+            ],
+            [
+              3719,
+              1204
+            ],
+            [
+              3716,
+              1204
+            ],
+            [
+              3713,
+              1204
+            ],
+            [
+              3047,
+              1212
+            ],
+            [
+              3044,
+              1212
+            ],
+            [
+              3041,
+              1212
+            ],
+            [
+              3039,
+              1211
+            ],
+            [
+              3036,
+              1211
+            ],
+            [
+              3034,
+              1210
+            ],
+            [
+              3031,
+              1210
+            ],
+            [
+              3029,
+              1209
+            ],
+            [
+              3026,
+              1208
+            ],
+            [
+              3006,
+              1200
+            ],
+            [
+              3004,
+              1199
+            ],
+            [
+              3001,
+              1198
+            ],
+            [
+              2999,
+              1197
+            ],
+            [
+              2996,
+              1196
+            ],
+            [
+              2994,
+              1195
+            ],
+            [
+              2991,
+              1193
+            ],
+            [
+              2989,
+              1192
+            ],
+            [
+              2987,
+              1191
+            ],
+            [
+              2938,
+              1164
+            ],
+            [
+              2935,
+              1162
+            ],
+            [
+              2931,
+              1159
+            ],
+            [
+              2929,
+              1157
+            ],
+            [
+              2926,
+              1154
+            ],
+            [
+              2923,
+              1151
+            ],
+            [
+              2921,
+              1148
+            ],
+            [
+              2919,
+              1145
+            ],
+            [
+              2917,
+              1141
+            ],
+            [
+              2891,
+              1083
+            ],
+            [
+              2889,
+              1079
+            ],
+            [
+              2888,
+              1075
+            ],
+            [
+              2887,
+              1071
+            ],
+            [
+              2886,
+              1068
+            ],
+            [
+              2885,
+              1064
+            ],
+            [
+              2884,
+              1060
+            ],
+            [
+              2884,
+              1056
+            ],
+            [
+              2884,
+              1052
+            ],
+            [
+              2884,
+              1012
+            ],
+            [
+              2884,
+              1008
+            ],
+            [
+              2885,
+              1005
+            ],
+            [
+              2886,
+              1002
+            ],
+            [
+              2888,
+              1000
+            ],
+            [
+              2890,
+              998
+            ],
+            [
+              2893,
+              997
+            ],
+            [
+              2896,
+              996
+            ],
+            [
+              2900,
+              996
+            ],
+            [
+              3194,
+              988
+            ],
+            [
+              3195,
+              988
+            ],
+            [
+              3196,
+              989
+            ],
+            [
+              3196,
+              990
+            ],
+            [
+              3196,
+              996
+            ]
+          ],
+          "port_snap_pixels": [
+            41.617304093369626,
+            29.698484809834994
+          ]
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-056",
+      "name": "The Dragonmere",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1.15,
+      "stops": [
+        {
+          "source_name": "Westgate",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-westgate",
+          "catalog_name": "Westgate",
+          "fps": "FPS1:WD:X+009.67:Y-002.96",
+          "pixel": [
+            2149,
+            1127
+          ]
+        },
+        {
+          "source_name": "Teziir",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-teziir",
+          "catalog_name": "Teziir",
+          "fps": "FPS1:WD:X+008.78:Y-003.26",
+          "pixel": [
+            2015,
+            1173
+          ]
+        },
+        {
+          "source_name": "Suzail",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-suzail",
+          "catalog_name": "Suzail",
+          "fps": "FPS1:WD:X+008.02:Y-002.43",
+          "pixel": [
+            1901,
+            1048
+          ]
+        },
+        {
+          "source_name": "Marsember",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-marsember",
+          "catalog_name": "Marsember",
+          "fps": "FPS1:WD:X+008.31:Y-002.43",
+          "pixel": [
+            1945,
+            1047
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Westgate",
+          "to": "Teziir",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2149,
+              1127
+            ],
+            [
+              2015,
+              1173
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 2,
+          "from": "Teziir",
+          "to": "Suzail",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2015,
+              1173
+            ],
+            [
+              1901,
+              1048
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1996,
+              1100
+            ],
+            [
+              1900,
+              1084
+            ]
+          ],
+          "port_snap_pixels": [
+            75.43208866258443,
+            36.013886210738214
+          ]
+        },
+        {
+          "leg_index": 3,
+          "from": "Suzail",
+          "to": "Marsember",
+          "status": "water_routed",
+          "pixels": [
+            [
+              1901,
+              1048
+            ],
+            [
+              1945,
+              1047
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              1900,
+              1084
+            ],
+            [
+              1948,
+              1084
+            ]
+          ],
+          "port_snap_pixels": [
+            36.013886210738214,
+            37.12142238654117
+          ]
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-057",
+      "name": "The Vilhon Passage",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1.05,
+      "stops": [
+        {
+          "source_name": "Westgate",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-westgate",
+          "catalog_name": "Westgate",
+          "fps": "FPS1:WD:X+009.67:Y-002.96",
+          "pixel": [
+            2149,
+            1127
+          ]
+        },
+        {
+          "source_name": "Alagh\u00f4n",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-alaghon",
+          "catalog_name": "Alaghon",
+          "fps": "FPS1:WD:X+013.29:Y-004.05",
+          "pixel": [
+            2694,
+            1292
+          ]
+        },
+        {
+          "source_name": "Arrabar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-arrabar",
+          "catalog_name": "Arrabar",
+          "fps": "FPS1:WD:X+012.31:Y-006.60",
+          "pixel": [
+            2547,
+            1676
+          ]
+        },
+        {
+          "source_name": "Airspur",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-airspur",
+          "catalog_name": "Airspur",
+          "fps": "FPS1:WD:X+015.69:Y-004.49",
+          "pixel": [
+            3055,
+            1357
+          ]
+        },
+        {
+          "source_name": "Cimbar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-cimbar",
+          "catalog_name": "Cimbar",
+          "fps": "FPS1:WD:X+016.49:Y-004.53",
+          "pixel": [
+            3176,
+            1364
+          ]
+        },
+        {
+          "source_name": "Messemprar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-messemprar",
+          "catalog_name": "Messemprar",
+          "fps": "FPS1:WD:X+019.71:Y-004.81",
+          "pixel": [
+            3660,
+            1406
+          ]
+        },
+        {
+          "source_name": "Bezantur",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-bezantur",
+          "catalog_name": "Bezantur",
+          "fps": "FPS1:WD:X+020.45:Y-002.92",
+          "pixel": [
+            3772,
+            1122
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Westgate",
+          "to": "Alagh\u00f4n",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2149,
+              1127
+            ],
+            [
+              2694,
+              1292
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2188,
+              1132
+            ],
+            [
+              2612,
+              1109
+            ],
+            [
+              2616,
+              1109
+            ],
+            [
+              2620,
+              1109
+            ],
+            [
+              2623,
+              1110
+            ],
+            [
+              2627,
+              1111
+            ],
+            [
+              2630,
+              1113
+            ],
+            [
+              2633,
+              1114
+            ],
+            [
+              2636,
+              1117
+            ],
+            [
+              2639,
+              1119
+            ],
+            [
+              2734,
+              1214
+            ],
+            [
+              2736,
+              1216
+            ],
+            [
+              2737,
+              1217
+            ],
+            [
+              2738,
+              1219
+            ],
+            [
+              2739,
+              1221
+            ],
+            [
+              2739,
+              1222
+            ],
+            [
+              2740,
+              1224
+            ],
+            [
+              2740,
+              1226
+            ],
+            [
+              2740,
+              1228
+            ],
+            [
+              2740,
+              1244
+            ],
+            [
+              2740,
+              1246
+            ],
+            [
+              2740,
+              1248
+            ],
+            [
+              2739,
+              1250
+            ],
+            [
+              2739,
+              1251
+            ],
+            [
+              2738,
+              1253
+            ],
+            [
+              2737,
+              1255
+            ],
+            [
+              2736,
+              1256
+            ],
+            [
+              2734,
+              1258
+            ],
+            [
+              2716,
+              1276
+            ]
+          ],
+          "port_snap_pixels": [
+            39.319206502675,
+            27.202941017470888
+          ]
+        },
+        {
+          "leg_index": 2,
+          "from": "Alagh\u00f4n",
+          "to": "Arrabar",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2694,
+              1292
+            ],
+            [
+              2547,
+              1676
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 3,
+          "from": "Arrabar",
+          "to": "Airspur",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2547,
+              1676
+            ],
+            [
+              3055,
+              1357
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 4,
+          "from": "Airspur",
+          "to": "Cimbar",
+          "status": "water_routed",
+          "pixels": [
+            [
+              3055,
+              1357
+            ],
+            [
+              3176,
+              1364
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              3060,
+              1324
+            ],
+            [
+              3170,
+              1324
+            ],
+            [
+              3171,
+              1324
+            ],
+            [
+              3172,
+              1324
+            ],
+            [
+              3172,
+              1325
+            ],
+            [
+              3172,
+              1326
+            ],
+            [
+              3172,
+              1332
+            ]
+          ],
+          "port_snap_pixels": [
+            33.37663853655727,
+            32.2490309931942
+          ]
+        },
+        {
+          "leg_index": 5,
+          "from": "Cimbar",
+          "to": "Messemprar",
+          "status": "water_routed",
+          "pixels": [
+            [
+              3176,
+              1364
+            ],
+            [
+              3660,
+              1406
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              3172,
+              1332
+            ],
+            [
+              3302,
+              1267
+            ],
+            [
+              3305,
+              1265
+            ],
+            [
+              3309,
+              1264
+            ],
+            [
+              3313,
+              1262
+            ],
+            [
+              3316,
+              1261
+            ],
+            [
+              3320,
+              1260
+            ],
+            [
+              3324,
+              1258
+            ],
+            [
+              3328,
+              1257
+            ],
+            [
+              3332,
+              1256
+            ],
+            [
+              3436,
+              1232
+            ],
+            [
+              3440,
+              1231
+            ],
+            [
+              3444,
+              1230
+            ],
+            [
+              3448,
+              1230
+            ],
+            [
+              3452,
+              1229
+            ],
+            [
+              3456,
+              1229
+            ],
+            [
+              3460,
+              1229
+            ],
+            [
+              3464,
+              1229
+            ],
+            [
+              3468,
+              1229
+            ],
+            [
+              3678,
+              1243
+            ],
+            [
+              3681,
+              1243
+            ],
+            [
+              3684,
+              1244
+            ],
+            [
+              3688,
+              1245
+            ],
+            [
+              3690,
+              1247
+            ],
+            [
+              3693,
+              1249
+            ],
+            [
+              3696,
+              1251
+            ],
+            [
+              3698,
+              1253
+            ],
+            [
+              3700,
+              1256
+            ],
+            [
+              3716,
+              1280
+            ],
+            [
+              3718,
+              1283
+            ],
+            [
+              3720,
+              1286
+            ],
+            [
+              3722,
+              1289
+            ],
+            [
+              3724,
+              1292
+            ],
+            [
+              3726,
+              1295
+            ],
+            [
+              3728,
+              1298
+            ],
+            [
+              3730,
+              1301
+            ],
+            [
+              3732,
+              1304
+            ],
+            [
+              3780,
+              1382
+            ],
+            [
+              3782,
+              1386
+            ],
+            [
+              3783,
+              1389
+            ],
+            [
+              3784,
+              1393
+            ],
+            [
+              3785,
+              1396
+            ],
+            [
+              3785,
+              1400
+            ],
+            [
+              3785,
+              1404
+            ],
+            [
+              3785,
+              1408
+            ],
+            [
+              3784,
+              1411
+            ],
+            [
+              3751,
+              1530
+            ],
+            [
+              3750,
+              1532
+            ],
+            [
+              3749,
+              1534
+            ],
+            [
+              3748,
+              1536
+            ],
+            [
+              3746,
+              1537
+            ],
+            [
+              3744,
+              1538
+            ],
+            [
+              3743,
+              1538
+            ],
+            [
+              3740,
+              1538
+            ],
+            [
+              3738,
+              1538
+            ],
+            [
+              3718,
+              1534
+            ],
+            [
+              3716,
+              1533
+            ],
+            [
+              3714,
+              1532
+            ],
+            [
+              3712,
+              1531
+            ],
+            [
+              3710,
+              1530
+            ],
+            [
+              3709,
+              1528
+            ],
+            [
+              3708,
+              1526
+            ],
+            [
+              3707,
+              1524
+            ],
+            [
+              3707,
+              1522
+            ],
+            [
+              3692,
+              1412
+            ]
+          ],
+          "port_snap_pixels": [
+            32.2490309931942,
+            32.55764119219941
+          ]
+        },
+        {
+          "leg_index": 6,
+          "from": "Messemprar",
+          "to": "Bezantur",
+          "status": "water_routed",
+          "pixels": [
+            [
+              3660,
+              1406
+            ],
+            [
+              3772,
+              1122
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              3692,
+              1412
+            ],
+            [
+              3715,
+              1532
+            ],
+            [
+              3715,
+              1534
+            ],
+            [
+              3716,
+              1536
+            ],
+            [
+              3717,
+              1537
+            ],
+            [
+              3718,
+              1538
+            ],
+            [
+              3719,
+              1539
+            ],
+            [
+              3720,
+              1540
+            ],
+            [
+              3722,
+              1540
+            ],
+            [
+              3724,
+              1540
+            ],
+            [
+              3740,
+              1540
+            ],
+            [
+              3742,
+              1540
+            ],
+            [
+              3744,
+              1540
+            ],
+            [
+              3745,
+              1539
+            ],
+            [
+              3747,
+              1538
+            ],
+            [
+              3748,
+              1537
+            ],
+            [
+              3749,
+              1536
+            ],
+            [
+              3750,
+              1534
+            ],
+            [
+              3751,
+              1532
+            ],
+            [
+              3783,
+              1443
+            ],
+            [
+              3784,
+              1439
+            ],
+            [
+              3785,
+              1435
+            ],
+            [
+              3786,
+              1432
+            ],
+            [
+              3787,
+              1428
+            ],
+            [
+              3787,
+              1424
+            ],
+            [
+              3788,
+              1420
+            ],
+            [
+              3788,
+              1416
+            ],
+            [
+              3788,
+              1412
+            ],
+            [
+              3796,
+              1156
+            ]
+          ],
+          "port_snap_pixels": [
+            32.55764119219941,
+            41.617304093369626
+          ]
+        }
+      ],
+      "fully_mapped": true
+    },
+    {
+      "route_id": "named-route-058",
+      "name": "The Moonsea Run",
+      "mode": "sea",
+      "modes": [
+        "sea"
+      ],
+      "mode_label": "sea lane",
+      "multimodal": false,
+      "quality": 1.05,
+      "stops": [
+        {
+          "source_name": "Phlan",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-phlan",
+          "catalog_name": "Phlan",
+          "fps": "FPS1:WD:X+011.26:Y+001.99",
+          "pixel": [
+            2388,
+            383
+          ]
+        },
+        {
+          "source_name": "Melvaunt",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-melvaunt",
+          "catalog_name": "Melvaunt",
+          "fps": "FPS1:WD:X+011.66:Y+001.94",
+          "pixel": [
+            2449,
+            390
+          ]
+        },
+        {
+          "source_name": "Thentia",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-thentia",
+          "catalog_name": "Thentia",
+          "fps": "FPS1:WD:X+011.94:Y+001.81",
+          "pixel": [
+            2491,
+            410
+          ]
+        },
+        {
+          "source_name": "Mulmaster",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-mulmaster",
+          "catalog_name": "Mulmaster",
+          "fps": "FPS1:WD:X+012.98:Y+001.57",
+          "pixel": [
+            2648,
+            446
+          ]
+        },
+        {
+          "source_name": "Hillsfar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-hillsfar",
+          "catalog_name": "Hillsfar",
+          "fps": "FPS1:WD:X+011.22:Y+001.19",
+          "pixel": [
+            2382,
+            503
+          ]
+        },
+        {
+          "source_name": "Zhentil Keep",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-zhentil-keep",
+          "catalog_name": "Zhentil Keep",
+          "fps": "FPS1:WD:X+010.74:Y+001.64",
+          "pixel": [
+            2311,
+            435
+          ]
+        },
+        {
+          "source_name": "Elmwood",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-elmwood",
+          "catalog_name": "Elmwood",
+          "fps": "FPS1:WD:X+012.63:Y+001.29",
+          "pixel": [
+            2595,
+            488
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Phlan",
+          "to": "Melvaunt",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2388,
+              383
+            ],
+            [
+              2449,
+              390
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2396,
+              404
+            ],
+            [
+              2428,
+              396
+            ]
+          ],
+          "port_snap_pixels": [
+            22.47220505424423,
+            21.840329667841555
+          ]
+        },
+        {
+          "leg_index": 2,
+          "from": "Melvaunt",
+          "to": "Thentia",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2449,
+              390
+            ],
+            [
+              2491,
+              410
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2460,
+              428
+            ],
+            [
+              2484,
+              428
+            ]
+          ],
+          "port_snap_pixels": [
+            39.56008088970496,
+            19.313207915827967
+          ]
+        },
+        {
+          "leg_index": 3,
+          "from": "Thentia",
+          "to": "Mulmaster",
+          "status": "water_routed",
+          "pixels": [
+            [
+              2491,
+              410
+            ],
+            [
+              2648,
+              446
+            ]
+          ],
+          "geometry_kind": "water_mask_constrained_inferred_path",
+          "water_pixels": [
+            [
+              2564,
+              404
+            ],
+            [
+              2638,
+              389
+            ],
+            [
+              2639,
+              389
+            ],
+            [
+              2641,
+              389
+            ],
+            [
+              2642,
+              389
+            ],
+            [
+              2643,
+              390
+            ],
+            [
+              2643,
+              391
+            ],
+            [
+              2644,
+              391
+            ],
+            [
+              2644,
+              393
+            ],
+            [
+              2644,
+              394
+            ],
+            [
+              2644,
+              412
+            ]
+          ],
+          "port_snap_pixels": [
+            73.24616030891995,
+            34.23448553724738
+          ]
+        },
+        {
+          "leg_index": 4,
+          "from": "Mulmaster",
+          "to": "Hillsfar",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2648,
+              446
+            ],
+            [
+              2382,
+              503
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 5,
+          "from": "Hillsfar",
+          "to": "Zhentil Keep",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2382,
+              503
+            ],
+            [
+              2311,
+              435
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        },
+        {
+          "leg_index": 6,
+          "from": "Zhentil Keep",
+          "to": "Elmwood",
+          "status": "blocked_water_path",
+          "pixels": [
+            [
+              2311,
+              435
+            ],
+            [
+              2595,
+              488
+            ]
+          ],
+          "geometry_kind": null,
+          "water_pixels": null
+        }
+      ],
+      "fully_mapped": true
+    }
+  ],
+  "proposed_air_routes": [
+    {
+      "route_id": "proposed-island-air-001",
+      "name": "Moonshae Island Air Circuit",
+      "mode": "air",
+      "stops": [
+        {
+          "source_name": "Waterdeep",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-waterdeep",
+          "catalog_name": "Waterdeep",
+          "fps": "FPS1:WD:X+000.00:Y+000.00",
+          "pixel": [
+            694,
+            682
+          ]
+        },
+        {
+          "source_name": "Caer Calidyrr",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-caer-calidyrr",
+          "catalog_name": "Caer Calidyrr",
+          "fps": "FPS1:WD:X-001.32:Y-003.92",
+          "pixel": [
+            496,
+            1272
+          ]
+        },
+        {
+          "source_name": "Iron Keep",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-iron-keep",
+          "catalog_name": "Iron Keep",
+          "fps": "FPS1:WD:X-002.17:Y-004.54",
+          "pixel": [
+            367,
+            1365
+          ]
+        },
+        {
+          "source_name": "Llewellyn",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-llewellyn",
+          "catalog_name": "Llewellyn",
+          "fps": "FPS1:WD:X-000.76:Y-005.21",
+          "pixel": [
+            579,
+            1466
+          ]
+        },
+        {
+          "source_name": "Caer Corwell",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-caer-corwell",
+          "catalog_name": "Caer Corwell",
+          "fps": "FPS1:WD:X-001.41:Y-005.98",
+          "pixel": [
+            482,
+            1582
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Waterdeep",
+          "to": "Caer Calidyrr",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              694,
+              682
+            ],
+            [
+              496,
+              1272
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        },
+        {
+          "leg_index": 2,
+          "from": "Caer Calidyrr",
+          "to": "Iron Keep",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              496,
+              1272
+            ],
+            [
+              367,
+              1365
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        },
+        {
+          "leg_index": 3,
+          "from": "Iron Keep",
+          "to": "Llewellyn",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              367,
+              1365
+            ],
+            [
+              579,
+              1466
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        },
+        {
+          "leg_index": 4,
+          "from": "Llewellyn",
+          "to": "Caer Corwell",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              579,
+              1466
+            ],
+            [
+              482,
+              1582
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        }
+      ],
+      "fully_mapped": true,
+      "provenance": "User-requested campaign expansion; proposed links, not market-engine routes or canonical services.",
+      "service_status": "proposed_campaign_link"
+    },
+    {
+      "route_id": "proposed-island-air-002",
+      "name": "Nelanther Island Air Circuit",
+      "mode": "air",
+      "stops": [
+        {
+          "source_name": "Athkatla",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-athkatla",
+          "catalog_name": "Athkatla",
+          "fps": "FPS1:WD:X+002.78:Y-005.62",
+          "pixel": [
+            1113,
+            1528
+          ]
+        },
+        {
+          "source_name": "Irphong",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-irphong",
+          "catalog_name": "Irphong",
+          "fps": "FPS1:WD:X+000.43:Y-006.88",
+          "pixel": [
+            758,
+            1718
+          ]
+        },
+        {
+          "source_name": "Nemesser",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-nemesser",
+          "catalog_name": "Nemesser",
+          "fps": "FPS1:WD:X+000.10:Y-008.21",
+          "pixel": [
+            709,
+            1918
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Athkatla",
+          "to": "Irphong",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              1113,
+              1528
+            ],
+            [
+              758,
+              1718
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        },
+        {
+          "leg_index": 2,
+          "from": "Irphong",
+          "to": "Nemesser",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              758,
+              1718
+            ],
+            [
+              709,
+              1918
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        }
+      ],
+      "fully_mapped": true,
+      "provenance": "User-requested campaign expansion; proposed links, not market-engine routes or canonical services.",
+      "service_status": "proposed_campaign_link"
+    },
+    {
+      "route_id": "proposed-island-air-003",
+      "name": "Lantan Island Air Circuit",
+      "mode": "air",
+      "stops": [
+        {
+          "source_name": "Halarahh",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-halarahh",
+          "catalog_name": "Halarahh",
+          "fps": "FPS1:WD:X+012.01:Y-015.19",
+          "pixel": [
+            2501,
+            2968
+          ]
+        },
+        {
+          "source_name": "Sambar",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-sambar",
+          "catalog_name": "Sambar",
+          "fps": "FPS1:WD:X-001.71:Y-010.13",
+          "pixel": [
+            436,
+            2207
+          ]
+        },
+        {
+          "source_name": "Sundrah",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-sundrah",
+          "catalog_name": "Sundrah",
+          "fps": "FPS1:WD:X-001.55:Y-009.48",
+          "pixel": [
+            460,
+            2108
+          ]
+        },
+        {
+          "source_name": "Anchoril",
+          "status": "matched",
+          "match_method": "normalized_name",
+          "location_id": "fps-anchoril",
+          "catalog_name": "Anchoril",
+          "fps": "FPS1:WD:X-001.27:Y-010.69",
+          "pixel": [
+            503,
+            2291
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "leg_index": 1,
+          "from": "Halarahh",
+          "to": "Sambar",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              2501,
+              2968
+            ],
+            [
+              436,
+              2207
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        },
+        {
+          "leg_index": 2,
+          "from": "Sambar",
+          "to": "Sundrah",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              436,
+              2207
+            ],
+            [
+              460,
+              2108
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        },
+        {
+          "leg_index": 3,
+          "from": "Sundrah",
+          "to": "Anchoril",
+          "status": "mapped_schematic",
+          "pixels": [
+            [
+              460,
+              2108
+            ],
+            [
+              503,
+              2291
+            ]
+          ],
+          "geometry_kind": "straight_endpoint_connection_not_traced"
+        }
+      ],
+      "fully_mapped": true,
+      "provenance": "User-requested campaign expansion; proposed links, not market-engine routes or canonical services.",
+      "service_status": "proposed_campaign_link"
+    }
+  ],
+  "proposed_air_summary": {
+    "routes": 3,
+    "drawn_legs": 9,
+    "island_sites": [
+      "Anchoril",
+      "Caer Calidyrr",
+      "Caer Corwell",
+      "Iron Keep",
+      "Irphong",
+      "Llewellyn",
+      "Nemesser",
+      "Sambar",
+      "Sundrah"
+    ]
+  }
+}

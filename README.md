@@ -1449,11 +1449,10 @@ The same server serves two focused views:
 
 The commodity board and location page link to both views.
 
-Optional traced transport geometry can be supplied through
-`maps/road-geometries.json` (or `maps/road-geometries.path`) and
-`maps/sea-air-routes.json` (or `maps/sea-air-routes.path`). Sea legs use the
-export's water-mask-constrained waypoints; blocked sea legs are omitted rather
-than replaced by straight lines. Air legs remain explicitly schematic.
+Traced transport geometry is stored locally in `maps/road-geometries.json` and
+`maps/sea-air-routes.json`. Sea legs use the export's
+water-mask-constrained waypoints; blocked sea legs are omitted rather than
+replaced by straight lines. Air legs remain explicitly schematic.
 
 Optional `maps\road-geometries.json` data can provide poster-traced FPS
 polylines for roads and trails. When present, these curves replace straight
