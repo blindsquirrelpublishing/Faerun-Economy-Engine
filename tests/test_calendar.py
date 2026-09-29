@@ -37,6 +37,26 @@ def test_daily_date_changes_market_prices():
     assert first_price != second_price
 
 
+def test_calendar_tracks_lunar_phases_in_order():
+    new_moon = HarptosDate(1492, 1, 1)
+    waxing_crescent = new_moon.add_days(4)
+    first_quarter = new_moon.add_days(7)
+    waxing_gibbous = new_moon.add_days(11)
+    full_moon = new_moon.add_days(14)
+    waning_gibbous = new_moon.add_days(18)
+    last_quarter = new_moon.add_days(22)
+    waning_crescent = new_moon.add_days(25)
+
+    assert new_moon.moon_phase == "Moonless Night"
+    assert waxing_crescent.moon_phase == "Silver Sliver"
+    assert first_quarter.moon_phase == "Moonrise"
+    assert waxing_gibbous.moon_phase == "Silver Wake"
+    assert full_moon.moon_phase == "Full Silver"
+    assert waning_gibbous.moon_phase == "Silver Fade"
+    assert last_quarter.moon_phase == "Moonfall"
+    assert waning_crescent.moon_phase == "Dimming Halo"
+
+
 def test_explicit_date_disables_real_date_tracking():
     world = World(date=HarptosDate(1492, 2, 10))
     assert not world.follows_real_date

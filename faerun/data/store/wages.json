@@ -1,0 +1,126 @@
+[
+  {
+    "id": "administration",
+    "daily_wage_gp": 1.1375
+  },
+  {
+    "id": "animals",
+    "daily_wage_gp": 0.8125
+  },
+  {
+    "id": "arcane",
+    "daily_wage_gp": 4.875
+  },
+  {
+    "id": "bakeries",
+    "daily_wage_gp": 0.585
+  },
+  {
+    "id": "brewers",
+    "daily_wage_gp": 0.65
+  },
+  {
+    "id": "builders",
+    "daily_wage_gp": 0.65
+  },
+  {
+    "id": "butchers",
+    "daily_wage_gp": 0.65
+  },
+  {
+    "id": "carpenters",
+    "daily_wage_gp": 0.975
+  },
+  {
+    "id": "civil_security",
+    "daily_wage_gp": 0.65
+  },
+  {
+    "id": "commerce",
+    "daily_wage_gp": 1.1375
+  },
+  {
+    "id": "communications",
+    "daily_wage_gp": 0.715
+  },
+  {
+    "id": "culture",
+    "daily_wage_gp": 0.975
+  },
+  {
+    "id": "extraction",
+    "daily_wage_gp": 0.585
+  },
+  {
+    "id": "farms",
+    "daily_wage_gp": 0.325
+  },
+  {
+    "id": "fisheries",
+    "daily_wage_gp": 0.4875
+  },
+  {
+    "id": "forestry",
+    "daily_wage_gp": 0.455
+  },
+  {
+    "id": "garrison",
+    "daily_wage_gp": 0.65
+  },
+  {
+    "id": "general",
+    "daily_wage_gp": 0.325
+  },
+  {
+    "id": "health",
+    "daily_wage_gp": 1.4625
+  },
+  {
+    "id": "health_service",
+    "daily_wage_gp": 1.4625
+  },
+  {
+    "id": "hospitality",
+    "daily_wage_gp": 0.52
+  },
+  {
+    "id": "knowledge",
+    "daily_wage_gp": 1.3
+  },
+  {
+    "id": "logistics",
+    "daily_wage_gp": 0.52
+  },
+  {
+    "id": "maintenance",
+    "daily_wage_gp": 0.8125
+  },
+  {
+    "id": "professional",
+    "daily_wage_gp": 1.95
+  },
+  {
+    "id": "religion",
+    "daily_wage_gp": 0.8125
+  },
+  {
+    "id": "sanitation",
+    "daily_wage_gp": 0.39
+  },
+  {
+    "id": "smiths",
+    "daily_wage_gp": 0.975
+  },
+  {
+    "id": "temples",
+    "daily_wage_gp": 0.975
+  },
+  {
+    "id": "textiles",
+    "daily_wage_gp": 0.585
+  },
+  {
+    "id": "utilities",
+    "daily_wage_gp": 0.39
+  }
+]

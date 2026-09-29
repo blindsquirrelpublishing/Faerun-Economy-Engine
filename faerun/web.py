@@ -13,14 +13,18 @@ the whole UI ships as importable Python with no package-data to install.
 from __future__ import annotations
 
 import argparse
+import copy
+from contextlib import contextmanager
 import html
 import ipaddress
 import json
 import math
+import re
 import threading
 import traceback
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional, Tuple
 from urllib.parse import parse_qs, urlparse
@@ -42,6 +46,7 @@ from .economy import (
     market_report,
     price_for,
     price_history,
+    special_order_quote,
     trade_summary,
 )
 from .chronicle import chronicle_summary, month_labels
@@ -68,6 +73,9 @@ from .daggerfordassets import DAGGERFORD_ASSETS
 from .tradeapi import GET_TRADE_ROUTES, POST_TRADE_ROUTES
 from .tradeassets import TRADE_ASSETS
 from .trading import TradeError
+from .marketboardapi import GET_BOARD_ROUTES, POST_BOARD_ROUTES
+from .marketboardassets import BOARD_ASSETS
+from .eventsassets import EVENTS_ASSETS
 from .waterdeepassets import WATERDEEP_ASSETS
 
 # Static files are served from a single flat lookup keyed by bare filename.
@@ -77,6 +85,8 @@ STATIC.update(LOCATION_ASSETS)
 STATIC.update(DETAIL_ASSETS)
 STATIC.update(PLANNER_ASSETS)
 STATIC.update(TRADE_ASSETS)
+STATIC.update(BOARD_ASSETS)
+STATIC.update(EVENTS_ASSETS)
 STATIC.update(WATERDEEP_ASSETS)
 STATIC.update(DAGGERFORD_ASSETS)
 STATIC.update(MOBILE_ASSETS)
@@ -100,6 +110,11 @@ BINARY_STATIC: Dict[str, Tuple[Path, str]] = {
 # The price engine caches on the world instance and is not thread-safe, so all
 # engine access is serialised. Requests are cheap once the cache is warm.
 _LOCK = threading.Lock()
+_PROGRESS_LOCK = threading.Lock()
+_PROGRESS: Dict[str, Dict[str, Any]] = {}
+_PROGRESS_ID = re.compile(r"^[A-Za-z0-9_.:-]{1,80}$")
+_WARMUP_LOCK = threading.Lock()
+_SEASONAL_WARMUPS: set[int] = set()
 
 # A browser that navigates away mid-request kills the socket. That is routine,
 # not a fault, and must not be reported as a server error - there is nothing
@@ -121,6 +136,74 @@ def _finite(value: Any) -> Any:
     if isinstance(value, (list, tuple)):
         return [_finite(v) for v in value]
     return value
+
+
+def _progress_id(raw: Optional[str]) -> str:
+    value = str(raw or "").strip()
+    return value if _PROGRESS_ID.fullmatch(value) else ""
+
+
+def _set_progress(progress_id: str, **values: Any) -> None:
+    if not progress_id:
+        return
+    with _PROGRESS_LOCK:
+        current = dict(_PROGRESS.get(progress_id, {}))
+        current.update(values)
+        _PROGRESS[progress_id] = current
+
+
+def _seasonal_warmup_running(world: World) -> bool:
+    with _WARMUP_LOCK:
+        return id(world) in _SEASONAL_WARMUPS
+
+
+def _start_seasonal_warmup(world: World) -> None:
+    key = id(world)
+    with _WARMUP_LOCK:
+        if key in _SEASONAL_WARMUPS:
+            return
+        _SEASONAL_WARMUPS.add(key)
+
+    def warm() -> None:
+        try:
+            snapshot = copy.copy(world)
+            snapshot.config = replace(world.config, seasonal_inventory=True)
+            snapshot._price_cache = {}
+            for name in ("_requirements_plan", "_service_accounts_cache", "_resource_plan"):
+                snapshot.__dict__.pop(name, None)
+            settlement = next(iter(snapshot.settlements), None)
+            if settlement is None:
+                return
+            market_report(settlement, world=snapshot)
+            with _LOCK:
+                if world.config.seasonal_inventory and world.economy_state_key() == snapshot.economy_state_key():
+                    world._price_cache = getattr(world, "_price_cache", {})
+                    world._price_cache.update(snapshot._price_cache)
+        finally:
+            with _WARMUP_LOCK:
+                _SEASONAL_WARMUPS.discard(key)
+
+    threading.Thread(target=warm, name="seasonal-price-warmup", daemon=True).start()
+
+
+@contextmanager
+def _simple_market_mode(world: World, enabled: bool):
+    if not enabled:
+        yield
+        return
+    original = world.config
+    original_cache = getattr(world, "_price_cache", None)
+    world.config = replace(original, expanded_requirements=False, seasonal_inventory=False)
+    world.revision += 1
+    try:
+        yield
+    finally:
+        world.config = original
+        world.revision += 1
+        if original_cache is None:
+            world.__dict__.pop("_price_cache", None)
+        else:
+            world._price_cache = original_cache
 
 
 class ApiError(Exception):
@@ -237,6 +320,7 @@ def api_bootstrap(world: World, params) -> Dict[str, Any]:
         "day": world.date.day,
         "month_name": world.date.month_name,
         "season": world.date.season,
+        "moon_phase": world.date.moon_phase,
         "festival": world.date.festival,
         "follows_real_date": world.follows_real_date,
         "seed": world.config.seed,
@@ -251,18 +335,48 @@ def api_bootstrap(world: World, params) -> Dict[str, Any]:
         "settlements": settlements,
         "mobile_locations": mobile_locations,
         "commodities": commodities,
+        "businesses": [business.to_dict() for business in world.businesses.values()],
         "event_templates": sorted(EVENT_TEMPLATES),
         "events": [e.to_dict() for e in world.active_events()],
     }
 
 
 def api_market(world: World, params) -> Dict[str, Any]:
-    return market_report(
-        _required(params, "settlement"),
-        world=world,
-        category=_one(params, "category"),
-        sort="category",
-    )
+    progress_id = _progress_id(_one(params, "progress"))
+    simple = _one(params, "simple", "") in {"1", "true", "yes", "on"}
+
+    def progress(done: int, total: int, label: str) -> None:
+        _set_progress(progress_id, done=done, total=total, label=label,
+                      status="running")
+
+    _set_progress(progress_id, done=0, total=0, label="Starting", status="running")
+    warming = world.config.seasonal_inventory and _seasonal_warmup_running(world)
+    try:
+        with _simple_market_mode(world, simple or warming):
+            report = market_report(
+                _required(params, "settlement"),
+                world=world,
+                category=_one(params, "category"),
+                sort="category",
+                progress=progress if progress_id else None,
+            )
+    except Exception:
+        _set_progress(progress_id, status="failed")
+        raise
+    if simple:
+        report["simple_price_mode"] = True
+    _set_progress(progress_id, done=len(report["prices"]), total=len(report["prices"]),
+                  label="Complete", status="complete")
+    return report
+
+
+def api_progress(world: World, params) -> Dict[str, Any]:
+    progress_id = _progress_id(_required(params, "id"))
+    with _PROGRESS_LOCK:
+        progress = dict(_PROGRESS.get(progress_id, {}))
+    if not progress:
+        return {"id": progress_id, "status": "unknown", "done": 0, "total": 0, "label": ""}
+    return {"id": progress_id, **progress}
 
 
 def api_population(world: World, params) -> Dict[str, Any]:
@@ -377,6 +491,7 @@ def api_product(world: World, params) -> Dict[str, Any]:
         result["settlement"] = settlement.name
         result["settlement_id"] = settlement.id
         result["seasonality"] = seasonal_profile(commodity, settlement, world.date)
+        result["special_order"] = special_order_quote(settlement.id, commodity.id, world=world)
     return result
 
 
@@ -482,6 +597,66 @@ def api_businesses(world: World, params) -> Dict[str, Any]:
     }
 
 
+def api_business_detail(world: World, params) -> Dict[str, Any]:
+    business_id = _required(params, "business")
+    business = world.businesses.get(business_id)
+    if business is None:
+        matches = [b for b in world.businesses.values()
+                   if b.name.casefold() == business_id.casefold()]
+        business = matches[0] if matches else None
+    if business is None:
+        raise ApiError(f"unknown business: {business_id}")
+
+    data = business.to_dict()
+    data["headquarters_name"] = (
+        world.settlements[business.headquarters].name
+        if business.headquarters in world.settlements else business.headquarters
+    )
+    data["locations_detail"] = [
+        {
+            "id": location,
+            "name": world.settlements[location].name,
+            "inventory": business.inventory.get(location, {}),
+            "address": business.location_addresses[location],
+        }
+        for location in business.locations if location in world.settlements
+    ]
+    settlement_value = _one(params, "settlement") or business.headquarters
+    try:
+        settlement = world.find_settlement(settlement_value).id
+    except (KeyError, ValueError):
+        settlement = business.headquarters
+    market = api_businesses(world, {"settlement": [settlement]})
+    data["market_settlement"] = market["settlement"]
+    data["market_settlement_id"] = market["settlement_id"]
+    data["offers"] = next(
+        (entry["offers"] for entry in market["businesses"] if entry["id"] == business.id),
+        [],
+    )
+    return {"business": data}
+
+
+def api_carriers(world: World, params) -> Dict[str, Any]:
+    carriers = []
+    for business in world.businesses.values():
+        if not business.carrier_service_id:
+            continue
+        carriers.append({
+            "id": business.id,
+            "service_id": business.carrier_service_id,
+            "name": business.name,
+            "headquarters": business.headquarters,
+            "locations": list(business.locations),
+            "modes": list(business.carrier_modes),
+            "capacity_lb": business.capacity_lb,
+            "capacity_ft3": business.capacity_ft3,
+            "equipment": dict(business.transport_equipment),
+            "employees": business.employee_total,
+            "itinerary": list(business.itinerary),
+        })
+    return {"carriers": carriers, "count": len(carriers)}
+
+
 def api_history(world: World, params) -> Dict[str, Any]:
     return price_history(
         _required(params, "settlement"),
@@ -498,10 +673,15 @@ def api_trade(world: World, params) -> Dict[str, Any]:
 
 
 def api_route(world: World, params) -> Dict[str, Any]:
+    route_types = []
+    for value in params.get("route_type", []):
+        route_types.extend(part.strip() for part in value.split(",") if part.strip())
     return world.route(
         _required(params, "origin"),
         _required(params, "destination"),
         optimise=_one(params, "optimise", "days"),
+        include_inferred=_one(params, "include_inferred", "1") in {"1", "true", "yes", "on"},
+        route_types=route_types,
     )
 
 
@@ -510,16 +690,60 @@ def api_transport_plan(world: World, params) -> Dict[str, Any]:
         ("pounds", 100), ("minimum", 0), ("handling", 0), ("daily", 0), ("fixed", 0), ("contingency", 0))}
     if _one(params, "purchase_per_lb", "").strip():
         amounts["purchase_per_lb"] = _float(params, "purchase_per_lb", 0)
+    purchase_basis = "manual" if "purchase_per_lb" in amounts else "not supplied"
+    if "purchase_per_lb" not in amounts and _one(params, "cargo", "").strip():
+        try:
+            commodity = world.find_commodity(_one(params, "cargo"))
+            origin = world.find_settlement(_required(params, "origin"))
+            if commodity.weight > 0:
+                quote = price_for(origin, commodity.id, world=world, quality="standard")
+                amounts["purchase_per_lb"] = round(quote.price / commodity.weight, 6)
+                purchase_basis = f"origin standard market price in {origin.name}"
+        except (KeyError, ValueError, AttributeError, TypeError):
+            pass
     flags = {}
-    for key in ("include_inferred", "include_events", "allow_special"):
+    for key in ("include_inferred", "include_events", "allow_special", "prefer_land"):
         raw = _one(params, key, "0")
         if raw not in ("0", "1"):
             raise ApiError(f"{key} must be 0 or 1")
         flags[key] = raw == "1"
+    route_types = [part.strip() for part in _one(params, "route_types", "").split(",") if part.strip()]
+    freight_mode = _one(params, "freight_mode", "shared_freight")
     try:
         carrier_choices = json.loads(_one(params, "carrier_choices", "{}"))
-        return plan_shipment(world, _required(params, "origin"), _required(params, "destination"),
-                             **amounts, **flags, carrier_choices=carrier_choices)
+        selected_leg_ids = json.loads(_one(params, "selected_legs", "[]"))
+        result = plan_shipment(world, _required(params, "origin"), _required(params, "destination"),
+                             **amounts, **flags, carrier_choices=carrier_choices,
+                             selected_leg_ids=selected_leg_ids,
+                             route_types=route_types, freight_mode=freight_mode)
+        cargo_name = _one(params, "cargo", "").strip()
+        if cargo_name:
+            try:
+                commodity = world.find_commodity(cargo_name)
+                units = amounts["pounds"] / commodity.weight if commodity.weight > 0 else 0
+                result["cargo_unit"] = commodity.unit
+                result["cargo_weight_lb"] = amounts["pounds"]
+                result["cargo_weight_per_unit_lb"] = commodity.weight
+                result["cargo_units"] = units
+                density_by_category = {
+                    "metal": 450, "stone": 140, "material": 45, "food": 35,
+                    "drink": 55, "textile": 12, "luxury": 18, "gem": 180,
+                    "livestock": 45, "arms": 55, "product": 30, "arcane": 25,
+                    "exotic": 20,
+                }
+                density = density_by_category.get(commodity.category, 30)
+                volume_per_unit = commodity.weight / density
+                result["cargo_volume_per_unit_ft3"] = round(volume_per_unit, 6)
+                result["cargo_volume_ft3"] = round(units * volume_per_unit, 3)
+                result["cargo_volume_basis"] = f"modeled {density:g} lb/ft3 density for {commodity.category} goods"
+                if units > 0:
+                    for option in result["options"]:
+                        total = option["costs"].get("landed_total_gp")
+                        option["costs"]["landed_gp_per_unit"] = None if total is None else total / units
+            except (KeyError, ValueError, AttributeError, TypeError, ZeroDivisionError):
+                pass
+        result["purchase_price_basis"] = purchase_basis
+        return result
     except (ValueError, KeyError) as error:
         raise ApiError(str(error)) from error
 
@@ -577,6 +801,17 @@ def api_arbitrage(world: World, params) -> Dict[str, Any]:
         cargo_pounds=_float(params, "cargo", 2000.0),
         category=_one(params, "category"),
         limit=_int(params, "limit", 20),
+    )
+
+
+def api_special_order(world: World, params) -> Dict[str, Any]:
+    return special_order_quote(
+        _required(params, "settlement"),
+        _required(params, "commodity"),
+        world=world,
+        quantity=_int(params, "quantity", 1),
+        quality=_one(params, "quality") or "standard",
+        max_days=_float(params, "max_days", 90.0),
     )
 
 
@@ -725,6 +960,7 @@ def api_atlas(world: World, params) -> Dict[str, Any]:
 
 GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     **GET_TRADE_ROUTES,
+    **GET_BOARD_ROUTES,
     "/api/bootstrap": api_bootstrap,
     "/api/mobile-locations": api_mobile_locations,
     "/api/mobile-location": api_mobile_location,
@@ -738,6 +974,7 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     "/api/location": api_location,
     "/api/chronicle": api_chronicle,
     "/api/market": api_market,
+    "/api/progress": api_progress,
     "/api/population": api_population,
     "/api/census": api_census,
     "/api/census/hires": api_hires_census,
@@ -746,6 +983,8 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     "/api/compare": api_compare,
     "/api/product": api_product,
     "/api/businesses": api_businesses,
+    "/api/business": api_business_detail,
+    "/api/carriers": api_carriers,
     "/api/city-directory": api_city_directory,
     "/api/generated-buildings": api_generated_buildings,
     "/api/location-profiles": api_location_profiles,
@@ -756,6 +995,7 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     "/api/transport-plan": api_transport_plan,
     "/api/supply-chain": api_supply_chain,
     "/api/arbitrage": api_arbitrage,
+    "/api/special-order": api_special_order,
 }
 
 
@@ -765,7 +1005,7 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
 
 
 def post_world(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
-    """Set the date and/or the wobble seed."""
+    """Set the date, wobble seed and run mode."""
     date = world.date
     year = body.get("year")
     month = body.get("month")
@@ -784,7 +1024,16 @@ def post_world(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
     if seed is not None and int(seed) != world.config.seed:
         world.config.seed = int(seed)
         world.revision += 1
-    return api_bootstrap(world, {})
+    seasonal = body.get("seasonal_inventory")
+    if seasonal is not None:
+        enabled = bool(seasonal)
+        if enabled != world.config.seasonal_inventory:
+            world.config.seasonal_inventory = enabled
+            world.revision += 1
+    payload = api_bootstrap(world, {})
+    if world.config.seasonal_inventory:
+        _start_seasonal_warmup(world)
+    return payload
 
 
 def post_event(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
@@ -795,6 +1044,9 @@ def post_event(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
             f"{', '.join(sorted(EVENT_TEMPLATES))}"
         )
     kwargs: Dict[str, Any] = {"template": template, "world": world}
+    description = str(body.get("description") or "").strip()
+    if description:
+        kwargs["description"] = description
     scope = str(body.get("scope") or "settlement").strip().lower()
     target = str(body.get("target") or "").strip()
     if not target:
@@ -894,15 +1146,33 @@ def post_terrain_cell(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
     return payload
 
 
+def post_rebuild(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    """Reload commodities/settlements/businesses from disk into this server.
+
+    Picks up anything added or edited through the MCP catalog tools since
+    this process started, without a restart.
+    """
+    from .catalog import reload_from_disk
+
+    counts = reload_from_disk()
+    payload = api_bootstrap(world, {})
+    payload["reloaded"] = counts
+    return payload
+
+
 POST_ROUTES: Dict[str, Callable[[World, Dict[str, Any]], Dict[str, Any]]] = {
     **POST_TRADE_ROUTES,
+    **POST_BOARD_ROUTES,
     "/api/world": post_world,
     "/api/calibrate": post_calibrate,
     "/api/terrain-cell": post_terrain_cell,
     "/api/atlas/apply": post_atlas_apply,
     "/api/event": post_event,
     "/api/events/clear": post_clear_events,
+    "/api/rebuild": post_rebuild,
 }
+
+UNLOCKED_GET_ROUTES = {"/api/bootstrap", "/api/progress", "/api/map", "/api/underlay"}
 
 
 # ---------------------------------------------------------------------------
@@ -1033,13 +1303,20 @@ class Handler(BaseHTTPRequestHandler):
                 return
 
     def _guard_trade_request(self, mutation=False):
-        if not ipaddress.ip_address(self.client_address[0]).is_loopback:
-            raise ApiError("Trade records are accessible only from this machine", 403)
+        client_ip = ipaddress.ip_address(self.client_address[0])
+        if not (client_ip.is_loopback or client_ip.is_private):
+            raise ApiError("Trade records are accessible only from this machine or your local network", 403)
         host = urlparse("http://" + (self.headers.get("Host") or ""))
-        if (host.hostname not in ("localhost", "127.0.0.1", "::1")
-                or host.username or host.password or host.path or host.query or host.fragment
-                or (host.port or 80) != self.server.server_address[1]):
+        if host.username or host.password or host.path or host.query or host.fragment or (
+                host.port or 80) != self.server.server_address[1]:
             raise ApiError("Trade requests require the local server address", 403)
+        if host.hostname not in ("localhost", "127.0.0.1", "::1"):
+            try:
+                host_ip = ipaddress.ip_address(host.hostname)
+            except (ValueError, TypeError):
+                raise ApiError("Trade requests require the local server address", 403)
+            if not (host_ip.is_loopback or host_ip.is_private):
+                raise ApiError("Trade requests require the local server address", 403)
         origin = self.headers.get("Origin")
         if origin is not None and origin != f"http://{host.netloc}":
             raise ApiError("Cross-origin trade requests are not allowed", 403)
@@ -1071,10 +1348,13 @@ class Handler(BaseHTTPRequestHandler):
             return
         params = parse_qs(parsed.query)
         try:
-            if parsed.path in GET_TRADE_ROUTES:
+            if parsed.path in GET_TRADE_ROUTES or parsed.path in GET_BOARD_ROUTES:
                 self._guard_trade_request()
-            with _LOCK:
+            if parsed.path in UNLOCKED_GET_ROUTES:
                 payload = route(get_world(), params)
+            else:
+                with _LOCK:
+                    payload = route(get_world(), params)
         except (ApiError, TradeError) as exc:
             self._send_json({"error": str(exc)}, exc.status)
         except KeyError as exc:
@@ -1094,7 +1374,7 @@ class Handler(BaseHTTPRequestHandler):
         if route is None:
             self._send_json({"error": "no such endpoint"}, 404)
             return
-        if parsed.path in POST_TRADE_ROUTES:
+        if parsed.path in POST_TRADE_ROUTES or parsed.path in POST_BOARD_ROUTES:
             try:
                 self._guard_trade_request(mutation=True)
             except (ApiError, ValueError) as exc:
@@ -1156,13 +1436,18 @@ def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True,
     print(f"  3D world map     {url}/map.html")
     print(f"  location history {url}/location.html")
     print(f"  merchant guild   {url}/trade.html")
+    print(f"  request board    {url}/board.html")
     info = underlay_info()
     if info["available"]:
         print(f"  poster overlay   {info['name']}  ({info['path']})")
     else:
         print("  poster overlay   none found - drop a Faerun map image named")
         print(f"                   underlay.jpg in {info['searched'][0]}")
-    print("Warming the price cache on first request; press Ctrl+C to stop.")
+    if world.config.seasonal_inventory:
+        print("Warming seasonal prices in the background; standard quotes remain available.")
+        _start_seasonal_warmup(world)
+    else:
+        print("Standard prices are generated on demand; seasonal inventory is opt-in.")
     if open_browser:
         target = url + "/" + (page or "").lstrip("/")
         threading.Timer(0.5, lambda: webbrowser.open(target)).start()

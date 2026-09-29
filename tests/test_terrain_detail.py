@@ -8,16 +8,34 @@ from faerun.mapdata import terrain_detail
 from faerun.world import World
 
 
-def test_waterdeep_detail_is_a_bounded_five_mile_patch():
+def test_waterdeep_detail_is_a_bounded_one_mile_patch():
     detail = terrain_detail(World(), "Waterdeep", radius=250)
 
+    # A one-mile patch is capped at 100 miles however wide the request was, so
+    # one response stays near the size the five-mile grid used to send.
     assert detail["detail"] is True
+    assert detail["cellMiles"] == 1
+    assert detail["grid"] == [201, 201]
+    assert len(detail["terrain"]) == 201 * 201
+    assert len(detail["height"]) == 201 * 201
+    assert detail["bounds"][2] - detail["bounds"][0] == 201
+    assert detail["bounds"][3] - detail["bounds"][1] == 201
+
+
+def test_detail_reaches_one_mile_across_the_whole_poster():
+    detail = terrain_detail(World(), "Baldur's Gate", radius=250)
+
+    assert detail["cellMiles"] == 1
+    assert detail["grid"] == [201, 201]
+
+
+def test_detail_falls_back_to_five_miles_without_the_one_mile_survey(monkeypatch):
+    monkeypatch.setattr(mapdata, "_fine_grid", dict)
+
+    detail = terrain_detail(World(), "Waterdeep", radius=250)
+
     assert detail["cellMiles"] == 5
     assert detail["grid"] == [101, 101]
-    assert len(detail["terrain"]) == 10201
-    assert len(detail["height"]) == 10201
-    assert detail["bounds"][2] - detail["bounds"][0] == 505
-    assert detail["bounds"][3] - detail["bounds"][1] == 505
 
 
 def test_manual_terrain_override_is_persisted_and_can_be_removed(tmp_path, monkeypatch):

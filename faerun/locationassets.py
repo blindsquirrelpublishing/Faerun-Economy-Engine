@@ -33,17 +33,27 @@ LOCATION_HTML = """<!DOCTYPE html>
   </div>
 
   <div class="worldbar">
+    <div class="date-controls">
     <label>Settlement
       <input id="place-search" list="place-list" placeholder="Waterdeep" autocomplete="off">
       <datalist id="place-list"></datalist>
     </label>
     <button id="go" class="primary" type="button">Open</button>
     <span class="pill" data-world-date>&#8230;</span>
-    <a class="navlink" href="index.html">&#8592; Commodity board</a>
-    <a class="navlink" href="map.html">World map &#8594;</a>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+    <a class="navlink" href="index.html">Markets</a>
+    <a class="navlink navlink-current" aria-current="page">Locations</a>
+    <a class="navlink" href="business.html">Businesses</a>
+    <a class="navlink" href="product.html">Products</a>
+    <a class="navlink" href="route.html">Routes</a>
+    <a class="navlink" href="map.html">Map</a>
     <a class="navlink" href="planner.html">Route planner</a>
+    <a class="navlink" href="mobile.html">Travelling companies</a>
     <a class="navlink" href="trade.html">Merchant guild &amp; POs</a>
+    <a class="navlink" href="board.html">Request board</a>
     <a id="location-generator-link" class="navlink" href="location-generator.html" hidden>Generate buildings (separate scenario)</a>
+    </nav>
   </div>
 </header>
 
@@ -98,6 +108,10 @@ LOCATION_HTML = """<!DOCTYPE html>
       <div id="requirements-content" hidden>
         <p id="requirements-model" class="muted"></p>
         <div id="requirements-profile" class="requirements-cards"></div>
+        <section id="guilds-section" class="guilds-section" hidden aria-labelledby="guilds-title">
+          <h3 id="guilds-title">Active guild chapters</h3>
+          <div id="guilds" class="guild-cards"></div>
+        </section>
         <details class="requirements-notes">
           <summary>Estimation assumptions and provenance</summary>
           <div id="requirements-assumptions"></div>
@@ -105,6 +119,10 @@ LOCATION_HTML = """<!DOCTYPE html>
         <details class="requirements-notes">
           <summary>Labor-based establishments and workers (not named businesses)</summary>
           <div id="requirements-establishments"></div>
+        </details>
+        <details class="requirements-notes">
+          <summary>Wages by worker category</summary>
+          <div id="requirements-wages"></div>
         </details>
         <details id="requirements-output-section" class="requirements-notes" hidden>
           <summary>Output-equivalent facilities needed (not additional people)</summary>
@@ -232,6 +250,7 @@ LOCATION_HTML = """<!DOCTYPE html>
           <th class="num">x base</th>
           <th class="num">Buy without events</th>
           <th class="num">Event effect</th>
+          <th>Guild pressure</th>
           <th>Availability</th>
           <th>Source</th>
         </tr>
@@ -242,7 +261,7 @@ LOCATION_HTML = """<!DOCTYPE html>
 </main>
 
 <script src="date.js"></script>
-<script src="location.js"></script>
+<script src="location.js?v=2"></script>
 </body>
 </html>
 """
@@ -442,17 +461,33 @@ td.flat { color: var(--muted); }
   .location-main > .content { margin-top: 24px; }
 }
 
-body.location-page { height: auto; min-height: 100dvh; overflow: auto; background: var(--cp-bg-elevated); }
-.location-page .brand h1 { font-size: 25px; overflow-wrap: anywhere; }
+body.location-page { height: auto; min-height: 100dvh; overflow: auto; background: var(--cp-surface); }
+.location-page .brand h1 { font-size: 50px; line-height: 1.05; overflow-wrap: anywhere; }
 .location-page .tagline { display: none; }
-.location-page .topbar { align-items: start; }
+.location-page .topbar { align-items: start; background: var(--cp-surface); border: 0; box-shadow: none; }
+.location-page .worldbar { display: grid; grid-template-columns: 1fr; justify-items: end; gap: 12px; }
+.location-page .date-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; }
+.location-page .nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; }
+.location-page .date-controls,
+.location-page .nav-links { grid-column: 1; }
+.location-page .navlink { display: inline-flex; align-items: center; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); padding: 8px 12px; box-shadow: 0 3px 8px rgba(25, 35, 45, .06); }
+.location-page .navlink:hover { border-color: var(--cp-accent); background: var(--cp-accent-soft); color: var(--cp-accent); }
+.location-page [data-world-date] { font-size: 20px; padding: 10px 16px; }
 .location-page main.location-main { grid-template-columns: minmax(240px,21%) minmax(0, 1fr); gap: 32px; padding: 28px clamp(16px,3%,64px) 48px; background: var(--cp-surface); flex: none; min-height: auto; width: 100%; box-sizing: border-box; }
 .location-main > .content { min-width: 0; }
-.location-main > .sidebar { padding: 0; overflow: visible; background: transparent; display: block; }
+.location-main > .sidebar {
+  padding: 22px;
+  overflow: visible;
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  box-shadow: 0 7px 20px rgba(25, 35, 45, .07);
+  display: block;
+}
 .location-main h2 { font-size: 17px; font-weight: 650; letter-spacing: 0; }
 .location-main > .sidebar > h2 { padding-top: 20px; margin: 0 0 12px; border-top: 1px solid var(--cp-border); }
 .location-main > .sidebar > h2:first-child { padding-top: 0; border: 0; }
-.scrubber { padding: 24px clamp(16px,3%,64px) 20px; background: linear-gradient(90deg,var(--cp-surface-soft),var(--cp-surface)); flex: none; border-bottom: 1px solid var(--cp-border); }
+.scrubber { padding: 24px clamp(16px,3%,64px) 20px; background: var(--cp-surface); flex: none; border-bottom: 0; }
 .scrub-label { font-size: 23px; letter-spacing: 0; }
 .scrub-head > div:first-child { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 #scrub { accent-color: var(--cp-accent); cursor: pointer; }
@@ -478,6 +513,31 @@ body.location-page { height: auto; min-height: 100dvh; overflow: auto; backgroun
 .business-board { border-top: 0; padding: 0; margin: 20px 0 28px; }
 .businesses { grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 14px; }
 .business { min-width: 0; padding: 20px; border-radius: 6px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); }
+.business, .event-card, .requirements-card, .guild-card, .requirements-notes, .requirements-scroll, .business-board, .requirements-board {
+  border-radius: 16px;
+  box-shadow: 0 7px 20px rgba(25, 35, 45, .07);
+}
+.requirements-board, .business-board {
+  padding: 22px;
+}
+.event-card, .requirements-notes, .requirements-scroll, .guild-card {
+  padding: 16px;
+}
+.requirements-board > h2,
+.requirements-board > .requirements-heading,
+.business-board > h2,
+.business-board > .muted {
+  margin-left: 0;
+  margin-right: 0;
+}
+.business { background: var(--cp-surface); }
+.business table, .requirements-table { border-collapse: separate; border-spacing: 0 6px; }
+.business th, .requirements-table th { background: var(--cp-surface-soft); }
+.business th:first-child, .requirements-table th:first-child { border-radius: 10px 0 0 10px; }
+.business th:last-child, .requirements-table th:last-child { border-radius: 0 10px 10px 0; }
+.business td, .requirements-table td { border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+.business td:first-child, .requirements-table td:first-child { border-left: 1px solid var(--cp-border); border-radius: 10px 0 0 10px; }
+.business td:last-child, .requirements-table td:last-child { border-right: 1px solid var(--cp-border); border-radius: 0 10px 10px 0; }
 .business h3 { font-size: 17px; line-height: 1.4; }
 .business p { line-height: 1.6; }
 .business details { margin-top: 12px; border-top: 1px solid var(--cp-border); }
@@ -499,7 +559,7 @@ td.up { color: var(--cp-accent); }
 .location-page #place-search { min-width: 0; max-width: 100%; }
 .scrub-head, .scrub-buttons { flex-wrap: wrap; gap: 12px; }
 .analysis dd { min-width: 0; overflow-wrap: anywhere; }
-.requirements-board { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 2px solid var(--cp-border); }
+.requirements-board { margin-bottom: 32px; border-bottom: 2px solid var(--cp-border); }
 .requirements-board [hidden] { display: none; }
 .requirements-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; flex-wrap: wrap; }
 .requirements-heading h2 { margin: 0; font-size: 22px; }
@@ -511,6 +571,15 @@ td.up { color: var(--cp-accent); }
 .requirements-card dt { color: var(--cp-text-muted); font-size: 11px; line-height: 1.5; }
 .requirements-card dd { margin: 5px 0 0; font-size: 18px; font-weight: 650; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 .requirements-card small { display: block; color: var(--cp-text-muted); font-size: 10px; font-weight: 400; }
+.guilds-section { margin: 18px 0; }
+.guilds-section h3 { margin: 0 0 10px; font-size: 16px; }
+.guild-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.guild-card { min-width: 0; padding: 12px; border: 1px solid var(--cp-border); border-radius: 6px; background: var(--cp-surface-soft); }
+.guild-card h4 { margin: 0 0 8px; font-size: 13px; line-height: 1.35; }
+.guild-card dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+.guild-card dt { color: var(--cp-text-muted); font-size: 10px; }
+.guild-card dd { margin: 2px 0 0; font-size: 13px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.guild-card small { display: block; margin-top: 8px; color: var(--cp-text-muted); font-size: 10px; overflow-wrap: anywhere; }
 .requirements-notes { margin: 12px 0; padding: 12px; border: 1px solid var(--cp-border); border-radius: 6px; font-size: 12px; line-height: 1.65; }
 .requirements-notes summary { cursor: pointer; color: var(--cp-accent); font-weight: 600; }
 .requirements-notes pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
@@ -520,7 +589,21 @@ td.up { color: var(--cp-accent); }
 #requirements-count { color: var(--cp-text-muted); font-size: 12px; }
 .requirements-scroll { overflow: auto; max-height: 65dvh; border: 1px solid var(--cp-border); border-radius: 6px; }
 .requirements-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.requirements-subscroll .requirements-table { border-collapse: separate; border-spacing: 0 7px; }
+.requirements-subscroll .requirements-table th { border: 1px solid var(--cp-border); background: var(--cp-surface-soft); }
+.requirements-subscroll .requirements-table th:first-child { border-radius: 11px 0 0 11px; }
+.requirements-subscroll .requirements-table th:last-child { border-radius: 0 11px 11px 0; }
+.requirements-subscroll .requirements-table td { border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+.requirements-subscroll .requirements-table td:first-child { border-left: 1px solid var(--cp-border); border-radius: 11px 0 0 11px; }
+.requirements-subscroll .requirements-table td:last-child { border-right: 1px solid var(--cp-border); border-radius: 0 11px 11px 0; }
 #requirements-table { min-width: 1120px; }
+#requirements-table { border-collapse: separate; border-spacing: 0 7px; }
+#requirements-table thead th { border: 1px solid var(--cp-border); background: var(--cp-surface-soft); }
+#requirements-table thead th:first-child { border-radius: 11px 0 0 11px; }
+#requirements-table thead th:last-child { border-radius: 0 11px 11px 0; }
+#requirements-table tbody td { border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+#requirements-table tbody td:first-child { border-left: 1px solid var(--cp-border); border-radius: 11px 0 0 11px; }
+#requirements-table tbody td:last-child { border-right: 1px solid var(--cp-border); border-radius: 0 11px 11px 0; }
 .requirements-table caption { text-align: left; padding: 10px; font-size: 11px; color: var(--cp-text-muted); }
 .requirements-table th, .requirements-table td { padding: 10px 8px; border-bottom: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
 .requirements-table th { font-size: 10px; font-weight: 650; background: var(--cp-bg-elevated); }
@@ -553,7 +636,8 @@ td.up { color: var(--cp-accent); }
   .location-main > .sidebar { width: 100%; }
   .scrubber { padding: 20px 16px; }
   .scrub-label { font-size: 20px; }
-  .location-page .brand h1 { font-size: 24px; }
+  .location-page .brand h1 { font-size: 32px; }
+  .location-page .worldbar, .location-page .date-controls, .location-page .nav-links { justify-content: flex-start; justify-items: start; width: 100%; }
   .chart-key { margin-left: 0; flex-wrap: wrap; }
 }
 """
@@ -591,7 +675,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
              'businesses', 'timeline-status', 'load-history', 'history-chart', 'requirements-board',
              'requirements-content', 'requirements-status', 'requirements-model',
              'requirements-profile', 'requirements-assumptions',
-             'requirements-establishments', 'requirements-summary',
+             'guilds-section', 'guilds',
+             'requirements-establishments', 'requirements-wages', 'requirements-summary',
              'requirements-output-section', 'requirements-output',
              'requirements-defense-section', 'requirements-defense',
              'requirements-resources-section', 'requirements-resources',
@@ -637,6 +722,10 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
 
   function quoteMarkup(value) {
     return Number.isFinite(value) ? value.toFixed(1) + '%' : '&#8212;';
+  }
+
+  function ratePct(value) {
+    return Number.isFinite(value) ? (value * 100).toFixed(1) + '%' : '&#8212;';
   }
 
   function quoteMoney(value) {
@@ -913,6 +1002,39 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     );
   }
 
+  function renderGuilds(data) {
+    var guilds = data && data.guilds ? data.guilds : [];
+    el['guilds-section'].hidden = !guilds.length;
+    if (!guilds.length) {
+      el.guilds.innerHTML = '';
+      return;
+    }
+    el.guilds.innerHTML = guilds.map(function (guild) {
+      var scope = [];
+      if (guild.categories && guild.categories.length) { scope.push(guild.categories.join(', ')); }
+      if (guild.domains && guild.domains.length) { scope.push(guild.domains.slice(0, 5).join(', ')); }
+      if (guild.commodities && guild.commodities.length) { scope.push(guild.commodities.join(', ')); }
+      return '<article class="guild-card"><h4>' + esc(guild.name) + '</h4>' +
+        '<dl><div><dt>Chapter size</dt><dd>' + quantity(guild.size) + '</dd></div>' +
+        '<div><dt>Power</dt><dd>' + ratePct(guild.power) + '</dd></div>' +
+        '<div><dt>Enforcement</dt><dd>' + ratePct(guild.enforcement) + '</dd></div></dl>' +
+        '<small>Base dues ' + ratePct(guild.tax_rate) +
+        (scope.length ? ' / ' + esc(scope.join(' / ')) : '') + '</small></article>';
+    }).join('');
+  }
+
+  function guildImpact(q) {
+    var guilds = q.guilds || [];
+    if (!guilds.length) { return '&#8212;'; }
+    var names = guilds.slice(0, 2).map(function (guild) { return guild.name; }).join(', ');
+    if (guilds.length > 2) { names += ' +' + (guilds.length - 2); }
+    var availability = q.factors && Number.isFinite(q.factors.guild_availability)
+      ? 1 - q.factors.guild_availability : null;
+    return '<span title="' + esc(names) + '">' + ratePct(q.guild_tax_rate || 0) + ' tax</span>' +
+      '<small>' + ratePct(q.guild_enforcement || 0) + ' enforcement' +
+      (availability === null ? '' : '; ' + ratePct(availability) + ' stock holdback') + '</small>';
+  }
+
   function renderTable() {
     var body = el['price-table'].querySelector('tbody');
     if (!state.detail) { body.innerHTML = ''; return; }
@@ -933,7 +1055,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
       return true;
     });
     if (!rows.length) {
-      body.innerHTML = '<tr><td colspan="14" class="muted">Nothing matches.</td></tr>';
+      body.innerHTML = '<tr><td colspan="15" class="muted">Nothing matches.</td></tr>';
       return;
     }
     body.innerHTML = rows.map(function (q) {
@@ -964,6 +1086,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
         '<td class="num">' + wasText + '</td>' +
         '<td class="num ' + klass + '">' +
         (moved ? pct(change) : '&#8212;') + '</td>' +
+        '<td>' + guildImpact(q) + '</td>' +
         '<td>' + esc(q.availability) + '</td>' +
         '<td>' + esc(q.source || 'local') + '</td>' +
         '</tr>';
@@ -991,7 +1114,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
       var presence = business.is_headquarters
         ? 'Headquarters'
         : 'Satellite branch; headquarters in ' + esc(business.headquarters_name);
-      return '<article class="business"><h3>' + esc(business.name) + '</h3><p>' +
+      return '<article class="business"><h3><a href="business.html?business=' + encodeURIComponent(business.id) + '&settlement=' + encodeURIComponent(data.settlement_id) + '">' + esc(business.name) + '</a></h3><p>' +
         presence + '</p><p>' + esc(business.specialties.join(' / ')) +
         '</p><details><summary>' + business.offers.length + ' offers</summary>' +
         '<table><thead><tr><th>Product</th><th>Grade</th>' +
@@ -1152,6 +1275,53 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
             '</summary><p>' + esc(row.basis || 'No sector estimation basis supplied.') +
             '</p>' + inputTable + '</details></td></tr>';
         }).join(''), 'Modeled service sector demand, staffing and delivery');
+  }
+
+  function wageCategory(id) {
+    id = String(id || 'general');
+    if (id === 'arcane') return 'Arcane';
+    if (id === 'garrison') return 'Defense';
+    if (['builders', 'carpenters'].includes(id)) return 'Construction';
+    if (['farms', 'fisheries', 'forestry'].includes(id) || id.indexOf('extraction_') === 0) {
+      return 'Agriculture and extraction';
+    }
+    if (['bakeries', 'butchers', 'brewers', 'smiths', 'textiles'].includes(id)) {
+      return 'Craft and manufacturing';
+    }
+    if (['health', 'logistics', 'sanitation', 'temples'].includes(id)) {
+      return 'Civic and logistics';
+    }
+    return 'General labor';
+  }
+
+  function renderWages(profile) {
+    var groups = {};
+    (profile.establishments || []).forEach(function (row) {
+      var category = wageCategory(row.id);
+      var group = groups[category] || (groups[category] = {workers: 0, payroll: 0});
+      group.workers += Number(row.workers) || 0;
+      group.payroll += Number(row.wage_bill_gp_per_day) || 0;
+    });
+    var unallocated = Number(profile.unallocated_workers) || 0;
+    if (unallocated > 0) {
+      var general = groups['General labor'] || (groups['General labor'] = {workers: 0, payroll: 0});
+      general.workers += unallocated;
+      general.payroll += unallocated * (Number(profile.unallocated_daily_wage_gp) || 0);
+    }
+    var rows = Object.keys(groups).sort().map(function (category) {
+      var group = groups[category];
+      return '<tr><td>' + esc(category) + '</td><td class="num">' + quantity(group.workers) +
+        '</td><td class="num">' + economyMoney(group.workers ? group.payroll / group.workers : null) +
+        '</td><td class="num">' + economyMoney(group.payroll) + '</td></tr>';
+    }).join('');
+    var modifier = Number(profile.wage_modifier);
+    var total = Number(profile.wage_bill_gp_per_day);
+    return '<p>Estimated gp per productive worker-day. Location modifier: ' +
+      (Number.isFinite(modifier) ? modifier.toFixed(3) : 'not supplied') +
+      '. Service-sector FTE are reclassified from these workers and are not added again.</p>' +
+      requirementTable(['Worker category', 'Workers (FTE)', 'Average wage/day', 'Payroll/day'], rows,
+        'Estimated wages by worker category') +
+      '<p><strong>Total modeled payroll:</strong> ' + economyMoney(total) + ' gp/day.</p>';
   }
 
   function visitorLocations(rows, label) {
@@ -1385,6 +1555,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
               '</td><td>' + esc(row.basis) + '</td></tr>';
           }).join(''), 'Estimated establishments')
       : '<p>No establishment estimates supplied.</p>';
+    el['requirements-wages'].innerHTML = renderWages(profile);
     renderProfileDetails(profile, requirements.materials || []);
     var services = (profile.service_requirements || []).filter(function (service) {
       return !(requirements.water && service.scope === 'municipal_water_reference');
@@ -1591,6 +1762,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     el['event-cost'].textContent = '';
     el['active-events'].innerHTML = '<p class="muted">Loading selected month...</p>';
     el['requirements-content'].hidden = true;
+    el['guilds-section'].hidden = true;
+    el.guilds.innerHTML = '';
     el['requirements-download'].disabled = true;
     el['requirements-table'].querySelector('tbody').innerHTML = '';
     el['requirements-status'].textContent = message;
@@ -1614,7 +1787,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
   function updateHistory() {
     try {
       window.history.replaceState({}, '', '?settlement=' + encodeURIComponent(state.settlement) +
-        (state.month === null ? '' : '&month=' + encodeURIComponent(state.month)));
+        (state.month === null ? '' : '&month=' + encodeURIComponent(state.month)) +
+        (state.category ? '&category=' + encodeURIComponent(state.category) : ''));
     } catch (ignored) { /* file:// has no history to write */ }
   }
 
@@ -1662,7 +1836,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     /* Aborting a fetch cannot cancel server work, so every completion also
        checks its generation. History is expensive and requires explicit opt-in. */
     get('/api/location?settlement=' + encodeURIComponent(name) +
-        (month === null ? '' : '&month=' + month), controller.signal)
+      (month === null ? '' : '&month=' + month) +
+      (state.category ? '&category=' + encodeURIComponent(state.category) : ''), controller.signal)
       .then(function (data) {
         if (!isCurrent() || state.month !== month) { return; }
         state.detail = data;
@@ -1677,6 +1852,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
             pct(data.event_cost)
           : 'no event pressure';
         renderActiveEvents(data.events);
+        renderGuilds(data);
         renderTable();
         renderRequirements(data.requirements);
         showMonth();
@@ -1691,6 +1867,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
         el['living-standard'].textContent = '';
         el['event-cost'].textContent = '';
         el['requirements-content'].hidden = true;
+        el['guilds-section'].hidden = true;
+        el.guilds.innerHTML = '';
         el['requirements-download'].disabled = true;
         el['requirements-status'].textContent = 'Could not load requirements: ' + err.message;
         el['active-events'].innerHTML = '<p class="muted">Selected month could not be loaded.</p>';
@@ -1831,7 +2009,11 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     });
     el['category-filter'].addEventListener('change', function () {
       state.category = el['category-filter'].value;
-      renderTable();
+      clearDetail(state.category
+        ? 'Loading ' + state.category + ' requirements and prices for the selected month...'
+        : 'Loading all requirements and prices for the selected month...');
+      updateHistory();
+      loadDetail();
     });
     el['only-moved'].addEventListener('change', function () {
       state.onlyMoved = el['only-moved'].checked;
@@ -1864,19 +2046,17 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     wire();
     setTimelineEnabled(false);
     setMonthNavigation(false);
-    Promise.all([get('/api/bootstrap'), get('/api/chronicle')])
-      .then(function (both) {
-        var boot = both[0];
-        var chron = both[1];
+    get('/api/bootstrap')
+      .then(function (boot) {
         generatorLocations = boot.settlements;
         if (state.settlement) { updateGeneratorLink(state.settlement); }
         showWorldDate(boot);
-        state.today = chron.today;
         var requestedMonth = query('month');
+        state.category = query('category') || '';
         var parsedMonth = Number(requestedMonth);
         if (!state.settlement) {
           state.month = requestedMonth !== null && requestedMonth.trim() !== '' &&
-            Number.isInteger(parsedMonth) && parsedMonth >= 0 ? parsedMonth : state.today;
+            Number.isInteger(parsedMonth) && parsedMonth >= 0 ? parsedMonth : null;
         }
         el['place-list'].innerHTML = boot.settlements.map(function (s) {
           return '<option value="' + esc(s.name) + '">' + esc(s.region) +
@@ -1886,11 +2066,20 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
           boot.categories.map(function (c) {
             return '<option value="' + esc(c) + '">' + esc(c) + '</option>';
           }).join('');
+        el['category-filter'].value = state.category;
         var wanted = query('settlement') || 'Waterdeep';
         if (!state.settlement) {
           el['place-search'].value = wanted;
           loadSettlement(wanted);
         }
+        get('/api/chronicle')
+          .then(function (chron) {
+            state.today = chron.today;
+            setMonthNavigation(!!state.detail);
+          })
+          .catch(function () {
+            state.today = state.today === null ? state.month : state.today;
+          });
       })
       .catch(function (err) {
         if (state.settlement) { return; }

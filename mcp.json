@@ -25,17 +25,28 @@
   "servers": {
     "faerun-economy": {
       "type": "stdio",
-      "command": "python",
+      "command": "C:/repos/Source/Faerun-Economy-Engine/.venv/Scripts/python.exe",
       "args": ["-m", "faerun.mcp_server"],
-      "cwd": "C:/Users/murrayfife/OneDrive/Workspaces/Faerun Economy Engine"
+      "cwd": "C:/repos/Source/Faerun-Economy-Engine"
+    },
+    "adnd365-docs": {
+      "type": "stdio",
+      "command": "C:/repos/Source/ADNDDOCS/.venv/Scripts/python.exe",
+      "args": ["C:/repos/Source/ADNDDOCS/tools/mcp_docs_server/server.py"],
+      "cwd": "C:/repos/Source/ADNDDOCS"
     }
   },
 
   "mcpServers": {
     "faerun-economy": {
-      "command": "python",
+      "command": "C:/repos/Source/Faerun-Economy-Engine/.venv/Scripts/python.exe",
       "args": ["-m", "faerun.mcp_server"],
-      "cwd": "C:/Users/murrayfife/OneDrive/Workspaces/Faerun Economy Engine"
+      "cwd": "C:/repos/Source/Faerun-Economy-Engine"
+    },
+    "adnd365-docs": {
+      "command": "C:/repos/Source/ADNDDOCS/.venv/Scripts/python.exe",
+      "args": ["C:/repos/Source/ADNDDOCS/tools/mcp_docs_server/server.py"],
+      "cwd": "C:/repos/Source/ADNDDOCS"
     }
   }
 }

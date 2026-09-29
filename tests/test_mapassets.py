@@ -87,7 +87,37 @@ def test_double_clicking_a_market_loads_local_five_mile_terrain():
     assert "recentMarketClick = { id: id" in pointer_up
     assert "selectSettlement(id);" in pointer_up
     assert "if (doubleClick) { loadTerrainDetail(id); }" in pointer_up
-    assert "showStatus('5-mile terrain detail')" in MAP_JS
+    assert "showStatus(detail.cellMiles + '-mile terrain detail')" in MAP_JS
+    # Reaching a one-mile cell needs both limits to follow the camera in: the
+    # distance floor and the near plane were fixed at 350 and 60 miles.
+    assert "function minDistance()" in MAP_JS
+    assert "mesh.cellW * 4 / SCALE" in MAP_JS
+    assert "clamp(state.dist * factor, minDistance(), 12)" in MAP_JS
+    assert "cam.near = Math.min(0.06, state.dist * 0.02)" in MAP_JS
+    assert "if (vz < cam.near) { return null; }" in MAP_JS
+    # projectVertices is the hot loop and keeps its own copy of the near plane;
+    # leaving it at a fixed 0.06 culls the whole mesh once you zoom past it.
+    assert "if (d < near) { ok[k] = 0; continue; }" in MAP_JS
+    assert "clamp(state.dist, 0.35, 12)" not in MAP_JS
+
+
+def test_terrain_drawing_is_bounded_by_a_cell_budget_not_by_the_grid_size():
+    """A five-mile world field is half a million cells; the canvas can fill
+    about sixteen thousand a frame, so the renderer takes a window of the grid
+    and walks it on a lattice rather than drawing every cell."""
+    assert "var TERRAIN_BUDGET = 16000;" in MAP_JS
+    assert "function updateViewWindow()" in MAP_JS
+    assert "while (step < 64 && visible / (step * step) > budget) { step++; }" in MAP_JS
+    # The lattice is aligned so cells do not shimmer while panning.
+    assert "view.i0 -= view.i0 % step;" in MAP_JS
+    assert "updateViewWindow();" in MAP_JS
+    # Every consumer of the shared vertex arrays has to honour the window.
+    for drawer in ("function drawTerrain()", "function drawTowers()",
+                   "function drawSquareGrid()"):
+        body = MAP_JS[MAP_JS.index(drawer):MAP_JS.index(drawer) + 600]
+        assert "view.step" in body, drawer
+        assert "state.step" not in body, drawer
+    assert "ok.fill(0);" in MAP_JS
     assert "state.pitch = 1.35" in MAP_JS
     assert "if (state.detailId && state.map)" in MAP_JS
     assert "buildMesh(state.map);" in MAP_JS

@@ -326,6 +326,101 @@ def get_price(settlement: str, commodity: str, quantity: int = 1,
 
 
 @mcp.tool()
+def refresh_price_snapshot(mode: str = "both") -> Dict[str, Any]:
+    """Recompute and persist the full settlement x commodity price grid.
+
+    `mode` is "standard", "seasonal" or "both" (default). Precomputing lets
+    fast readers (get_cached_price, the web app) skip live recalculation;
+    call this again after adding/editing commodities, settlements, routes or
+    events, or whenever the date moves on and you want the cache to catch up.
+    Rebuilding the whole gazetteer takes tens of seconds per mode; seasonal
+    mode costs more because it replays daily inventory.
+    """
+    from .price_snapshot import refresh_price_snapshot as _refresh
+
+    try:
+        return _refresh(mode, world=world())
+    except ValueError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def get_price_snapshot_status() -> Dict[str, Any]:
+    """Whether standard/seasonal price snapshots exist and are current.
+
+    `stale: true` means the world has changed (catalog edit, date, event...)
+    since that snapshot was last built with refresh_price_snapshot.
+    """
+    from .price_snapshot import price_snapshot_status
+
+    return price_snapshot_status(world())
+
+
+@mcp.tool()
+def reload_catalog() -> Dict[str, Any]:
+    """Reload commodities, settlements and businesses into this MCP server.
+
+    Only useful if something else (another process, or a hand-edited JSON
+    file under faerun/data/store/) changed the catalog since this server
+    started; catalog tools in this same process already update its world
+    immediately. Named routes and sea lanes need no action here since
+    add_trade_route/add_sea_lane already keep every process in sync.
+    """
+    from .catalog import reload_from_disk
+
+    try:
+        return {"reloaded": reload_from_disk()}
+    except Exception as exc:  # noqa: BLE001 - surfaced to the caller, not raised
+        return _fail(exc)
+
+
+@mcp.tool()
+def restart_market_server(host: str = "127.0.0.1", port: int = 8883,
+                          seasonal_inventory: bool = True,
+                          category: str = "") -> Dict[str, Any]:
+    """Restart the standalone market-board web dashboard so it picks up recent changes.
+
+    The dashboard (`faerun.cli ... serve`) runs as its own long-lived process
+    with its own copy of the world, so adding or editing commodities,
+    settlements, businesses or routes through this MCP server does not
+    reach an already-running dashboard. Call this after such a change (or
+    whenever the browser looks stale) to stop the old server, if this tool
+    started it, and launch a fresh one that reads the current catalog.
+    `category` optionally opens the location page filtered to one category.
+    """
+    from .market_server import restart_market_server as _restart
+
+    try:
+        return _restart(host=host, port=port,
+                        seasonal_inventory=seasonal_inventory, category=category)
+    except OSError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def get_cached_price(settlement: str, commodity: str, mode: str = "standard") -> Dict[str, Any]:
+    """A previously precomputed quote, without recalculating it live.
+
+    Returns an error if no snapshot has been built yet (see
+    refresh_price_snapshot) or if the settlement/commodity is unknown.
+    """
+    from .price_snapshot import get_cached_price as _get_cached
+
+    w = world()
+    try:
+        s = w.find_settlement(settlement)
+        c = w.find_commodity(commodity)
+    except KeyError as exc:
+        return _fail(exc)
+    cached = _get_cached(s.id, c.id, mode)
+    if cached is None:
+        return _fail(ValueError(
+            f"no cached {mode} price for {s.name}/{c.name}; call refresh_price_snapshot first"
+        ))
+    return cached
+
+
+@mcp.tool()
 def get_population_report(settlement: str) -> Dict[str, Any]:
     """Resident scenario, comparison baseline and sources; not a census.
 
@@ -852,6 +947,459 @@ def reset_chronicle(install: bool = True) -> Dict[str, Any]:
         return {"removed": removed, "installed": added,
                 "events": len(w.events)}
     except Exception as exc:
+        return _fail(exc)
+
+
+# ---------------------------------------------------------------------------
+# Catalog CRUD: products, settlements, businesses, trade routes
+# ---------------------------------------------------------------------------
+# Every tool below edits the live world immediately and rewrites the matching
+# JSON file under faerun/data/store/, so the change is still there next time
+# the server (or the CLI, or the web app) starts.
+
+
+@mcp.tool()
+def list_wages() -> Dict[str, Any]:
+    """List baseline daily wages used by the labor and service models.
+
+    Values are gp per productive worker-day before the local settlement
+    modifier is applied. They are scenario assumptions, not canon or survey
+    data.
+    """
+    from .wages import list_wages as _list
+
+    return {"wages": _list()}
+
+
+@mcp.tool()
+def get_wage(occupation_id: str) -> Dict[str, Any]:
+    """Read one baseline wage by occupation id."""
+    from .wages import list_wages as _list
+
+    row = next((item for item in _list() if item["id"] == occupation_id), None)
+    return {"wage": row} if row else _fail(ValueError(f"Unknown wage occupation: {occupation_id!r}"))
+
+
+@mcp.tool()
+def create_wage(occupation_id: str, daily_wage_gp: float) -> Dict[str, Any]:
+    """Create a baseline wage record in gp per productive worker-day."""
+    from .wages import create_wage as _create
+
+    try:
+        row = _create(occupation_id, daily_wage_gp)
+        world().revision += 1
+        return {"created": row}
+    except ValueError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def update_wage(occupation_id: str, daily_wage_gp: float) -> Dict[str, Any]:
+    """Change an existing baseline wage; location modifiers remain automatic."""
+    from .wages import update_wage as _update
+
+    try:
+        row = _update(occupation_id, daily_wage_gp)
+        world().revision += 1
+        return {"updated": row}
+    except ValueError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def delete_wage(occupation_id: str) -> Dict[str, Any]:
+    """Remove a baseline wage record; unknown occupations use general labor pay."""
+    from .wages import delete_wage as _delete
+
+    removed = _delete(occupation_id)
+    if removed:
+        world().revision += 1
+    return {"removed": removed, "id": occupation_id}
+
+
+@mcp.tool()
+def create_commodity(
+    name: str, category: str, base_price: float, id: Optional[str] = None,
+    unit: str = "item", weight: float = 1.0, produced_by: Optional[List[str]] = None,
+    required_skill: Optional[Dict[str, float]] = None,
+    demand: float = 1.0, luxury: float = 0.0, perishable: float = 0.0,
+    demand_traits: Optional[Dict[str, float]] = None, season: Optional[Dict[str, float]] = None,
+    substitutes: Optional[List[str]] = None, requires: Optional[List[str]] = None,
+    description: str = "", bom: Optional[Dict[str, float]] = None,
+) -> Dict[str, Any]:
+    """Add a new tradeable product or raw commodity.
+
+    `id` defaults to a slug of `name`. `category` groups it for listings
+    (food, metal, cloth, arms, tool, luxury, gem, arcane, drink, livestock,
+    exotic, ...). `base_price` is gp per `unit` in an average market.
+    `produced_by` lists industry tags a settlement needs to make it locally
+    (see a settlement's `industries`). `demand` is per-capita consumption
+    (1.0 = staple); `luxury` is wealth elasticity (0 necessity, 1 pure
+    luxury); `perishable` drives spoilage in transit (0-1). `bom` names
+    input commodity ids and the units of each needed to make one unit of
+    this good, letting its price follow its ingredients.
+    """
+    from .catalog import CatalogError, create_commodity as _create
+
+    try:
+        commodity = _create(
+            name, category, base_price, id=id, unit=unit, weight=weight,
+            produced_by=produced_by, demand=demand, luxury=luxury,
+            required_skill=required_skill,
+            perishable=perishable, demand_traits=demand_traits, season=season,
+            substitutes=substitutes, requires=requires, description=description,
+            bom=bom,
+        )
+    except CatalogError as exc:
+        return _fail(exc)
+    return {"created": commodity.to_dict()}
+
+
+@mcp.tool()
+def update_commodity(
+    id: str, name: Optional[str] = None, category: Optional[str] = None,
+    base_price: Optional[float] = None, unit: Optional[str] = None,
+    weight: Optional[float] = None, produced_by: Optional[List[str]] = None,
+    required_skill: Optional[Dict[str, float]] = None,
+    demand: Optional[float] = None, luxury: Optional[float] = None,
+    perishable: Optional[float] = None, demand_traits: Optional[Dict[str, float]] = None,
+    season: Optional[Dict[str, float]] = None, substitutes: Optional[List[str]] = None,
+    requires: Optional[List[str]] = None, description: Optional[str] = None,
+    bom: Optional[Dict[str, float]] = None,
+) -> Dict[str, Any]:
+    """Change one or more fields of an existing product. Omitted fields are unchanged."""
+    from .catalog import CatalogError, update_commodity as _update
+
+    try:
+        commodity = _update(
+            id, name=name, category=category, base_price=base_price, unit=unit,
+            weight=weight, produced_by=produced_by, demand=demand, luxury=luxury,
+            required_skill=required_skill,
+            perishable=perishable, demand_traits=demand_traits, season=season,
+            substitutes=substitutes, requires=requires, description=description,
+            bom=bom,
+        )
+    except CatalogError as exc:
+        return _fail(exc)
+    return {"updated": commodity.to_dict()}
+
+
+@mcp.tool()
+def delete_commodity(id: str) -> Dict[str, Any]:
+    """Remove a product from the catalogue. Existing price history is unaffected."""
+    from .catalog import delete_commodity as _delete
+
+    return {"removed": _delete(id), "id": id}
+
+
+@mcp.tool()
+def create_settlement(
+    name: str, region: str, zone: str, population: int, x: float, y: float,
+    id: Optional[str] = None, wealth: float = 1.0, tax: float = 0.05,
+    security: float = 0.75, port: Optional[str] = None, river: bool = False,
+    terrain: str = "plains", landmass: str = "faerun", underdark: bool = False,
+    traits: Optional[List[str]] = None, industries: Optional[Dict[str, float]] = None,
+    specialties: Optional[Dict[str, float]] = None, shortages: Optional[List[str]] = None,
+    ruler: str = "", description: str = "",
+) -> Dict[str, Any]:
+    """Add a new market: a town, city, citadel, port or Underdark enclave.
+
+    `x`/`y` are map miles (x east from the Trackless Sea, y south from the
+    Sea of Moving Ice); nearby settlements get automatic caravan tracks once
+    `zone` matches or borders theirs. `port` names a sea basin ("Sea of
+    Swords", "Sea of Fallen Stars", "Moonsea", "Lake of Steam", ...) to make
+    it eligible for sea lanes. `industries` and `specialties` are tag ->
+    level dicts (e.g. {"farm": 2, "smith": 1}) that drive local production
+    and price bonuses; `shortages` lists commodity ids the town cannot supply.
+    """
+    from .catalog import CatalogError, create_settlement as _create
+
+    try:
+        settlement = _create(
+            name, region, zone, population, x, y, id=id, wealth=wealth, tax=tax,
+            security=security, port=port, river=river, terrain=terrain,
+            landmass=landmass, underdark=underdark, traits=traits,
+            industries=industries, specialties=specialties, shortages=shortages,
+            ruler=ruler, description=description,
+        )
+    except CatalogError as exc:
+        return _fail(exc)
+    return {"created": settlement.to_dict()}
+
+
+@mcp.tool()
+def update_settlement(
+    id: str, name: Optional[str] = None, region: Optional[str] = None,
+    zone: Optional[str] = None, population: Optional[int] = None,
+    x: Optional[float] = None, y: Optional[float] = None, wealth: Optional[float] = None,
+    tax: Optional[float] = None, security: Optional[float] = None,
+    port: Optional[str] = None, river: Optional[bool] = None, terrain: Optional[str] = None,
+    landmass: Optional[str] = None, underdark: Optional[bool] = None,
+    traits: Optional[List[str]] = None, industries: Optional[Dict[str, float]] = None,
+    specialties: Optional[Dict[str, float]] = None, shortages: Optional[List[str]] = None,
+    ruler: Optional[str] = None, description: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Change one or more fields of an existing settlement. Omitted fields are unchanged.
+
+    Moving `x`/`y` or changing `zone`, `terrain`, `landmass`, `underdark` or
+    `port` rebuilds the trade network, which can add, drop or re-cost routes.
+    """
+    from .catalog import CatalogError, update_settlement as _update
+
+    try:
+        settlement = _update(
+            id, name=name, region=region, zone=zone, population=population, x=x,
+            y=y, wealth=wealth, tax=tax, security=security, port=port, river=river,
+            terrain=terrain, landmass=landmass, underdark=underdark, traits=traits,
+            industries=industries, specialties=specialties, shortages=shortages,
+            ruler=ruler, description=description,
+        )
+    except CatalogError as exc:
+        return _fail(exc)
+    return {"updated": settlement.to_dict()}
+
+
+@mcp.tool()
+def delete_settlement(id: str) -> Dict[str, Any]:
+    """Remove a settlement and rebuild the trade network around the gap.
+
+    Businesses left with no remaining valid location are removed too.
+    """
+    from .catalog import delete_settlement as _delete
+
+    return {"removed": _delete(id), "id": id}
+
+
+@mcp.tool()
+def create_business(
+    name: str, headquarters: str, locations: List[str], id: Optional[str] = None,
+    specialties: Optional[List[str]] = None, offers: Optional[Dict[str, str]] = None,
+    price_modifier: float = 1.0, description: str = "",
+) -> Dict[str, Any]:
+    """Add a merchant house or workshop operating in one or more settlements.
+
+    `headquarters` and every entry in `locations` must be existing
+    settlements (name or id). `offers` maps a commodity id to the quality
+    it stocks there ("basic", "standard", "fine" or "masterwork").
+    `price_modifier` scales its prices versus the local market (1.0 = par).
+    """
+    from .catalog import CatalogError, create_business as _create
+
+    try:
+        business = _create(
+            name, headquarters, locations, id=id, specialties=specialties,
+            offers=offers, price_modifier=price_modifier, description=description,
+        )
+    except CatalogError as exc:
+        return _fail(exc)
+    return {"created": business.to_dict()}
+
+
+@mcp.tool()
+def update_business(
+    id: str, name: Optional[str] = None, headquarters: Optional[str] = None,
+    locations: Optional[List[str]] = None, specialties: Optional[List[str]] = None,
+    offers: Optional[Dict[str, str]] = None, price_modifier: Optional[float] = None,
+    description: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Change one or more fields of an existing business. Omitted fields are unchanged."""
+    from .catalog import CatalogError, update_business as _update
+
+    try:
+        business = _update(
+            id, name=name, headquarters=headquarters, locations=locations,
+            specialties=specialties, offers=offers, price_modifier=price_modifier,
+            description=description,
+        )
+    except CatalogError as exc:
+        return _fail(exc)
+    return {"updated": business.to_dict()}
+
+
+@mcp.tool()
+def delete_business(id: str) -> Dict[str, Any]:
+    """Remove a business from the world."""
+    from .catalog import delete_business as _delete
+
+    return {"removed": _delete(id), "id": id}
+
+
+@mcp.tool()
+def add_trade_route(name: str, stops: List[str], quality: float = 1.0,
+                     kind: str = "road") -> Dict[str, Any]:
+    """Add a named overland/river/tunnel trade artery linking settlements in order.
+
+    `stops` are settlement names or ids visited in order (at least two).
+    `quality` scales freight cost and speed (1.0 ordinary road; see
+    list_travel_modes for the vocabulary). `kind` is one of road, trail,
+    track, river, barge, portage, tunnel, air or teleport, or several
+    joined with "+" (e.g. "river+portage") for a route that changes carrier
+    partway. Re-adding a name already in use replaces that route.
+    """
+    from .catalog import CatalogError, add_route as _add
+
+    try:
+        return {"added": _add(name, stops, quality, kind)}
+    except CatalogError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def remove_trade_route(name: str) -> Dict[str, Any]:
+    """Remove a named route added with add_trade_route, by its exact name."""
+    from .catalog import remove_route as _remove
+
+    return {"removed": _remove(name), "name": name}
+
+
+@mcp.tool()
+def add_sea_lane(name: str, stops: List[str], quality: float = 1.0,
+                  kind: Optional[str] = None) -> Dict[str, Any]:
+    """Add a named sea lane between ports, regardless of distance heuristics.
+
+    `stops` are port settlement names or ids in order (at least two).
+    `kind` defaults to plain sea; use "sea+ferry" or "sea+air" for a lane
+    that changes carrier partway. Re-adding a name already in use replaces
+    that lane.
+    """
+    from .catalog import CatalogError, add_sea_lane as _add
+
+    try:
+        return {"added": _add(name, stops, quality, kind)}
+    except CatalogError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def remove_sea_lane(name: str) -> Dict[str, Any]:
+    """Remove a named sea lane added with add_sea_lane, by its exact name."""
+    from .catalog import remove_sea_lane as _remove
+
+    return {"removed": _remove(name), "name": name}
+
+
+# ---------------------------------------------------------------------------
+# Commodity request board
+# ---------------------------------------------------------------------------
+
+
+def _board():
+    from .orders import TradeStore, default_ledger_path
+
+    current = world()
+    if current.trade_store is None:
+        current.trade_store = TradeStore(default_ledger_path())
+    return current.trade_store
+
+
+@mcp.tool()
+def list_commodity_requests(status: Optional[str] = "open", offset: int = 0,
+                             limit: int = 50) -> Dict[str, Any]:
+    """List commodity requests posted to the public request/bid market board.
+
+    `status` filters to "open", "accepted" or "cancelled"; pass None for
+    every request. This is the same board the web request-board page reads.
+    """
+    from .trading import TradeError
+
+    try:
+        return _board().list_requests(world(), status=status, offset=offset, limit=limit)
+    except TradeError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def get_commodity_request(request_id: str) -> Dict[str, Any]:
+    """Read one commodity request with its bids and audit history."""
+    from .trading import TradeError
+
+    try:
+        return {"request": _board().request(world(), request_id)}
+    except TradeError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def post_commodity_request(
+    requester_name: str, commodity: str, quantity: int, quality: str,
+    settlement_id: str, needed_by: str, notes: str = "",
+    max_price_gp: Optional[float] = None,
+) -> Dict[str, Any]:
+    """Post a commodity request other parties can bid on.
+
+    `commodity` and `settlement_id` must be known catalog ids. `quality` is
+    one of basic, standard, fine or masterwork. `needed_by` is a Harptos
+    YYYY-MM-DD date on or after the current world date. `max_price_gp` is an
+    optional ceiling per unit; omit it to accept any price.
+    """
+    from .trading import TradeError
+
+    try:
+        request = _board().post_request(
+            world(), requester_name=requester_name, commodity=commodity,
+            quantity=quantity, quality=quality, settlement_id=settlement_id,
+            needed_by=needed_by, notes=notes, max_price_gp=max_price_gp,
+        )
+        return {"created": request}
+    except TradeError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def cancel_commodity_request(request_id: str, version: int) -> Dict[str, Any]:
+    """Cancel an open commodity request. `version` must match its current version."""
+    from .trading import TradeError
+
+    try:
+        return {"request": _board().cancel_request(world(), request_id=request_id, version=version)}
+    except TradeError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def place_commodity_bid(
+    request_id: str, bidder_name: str, price_gp: float, quantity: int,
+    delivery_by: str, notes: str = "",
+) -> Dict[str, Any]:
+    """Bid to fulfil an open commodity request.
+
+    `quantity` cannot exceed the request's remaining quantity, and
+    `delivery_by` must fall on or before the request's needed_by date.
+    """
+    from .trading import TradeError
+
+    try:
+        request = _board().bid(
+            world(), request_id=request_id, bidder_name=bidder_name,
+            price_gp=price_gp, quantity=quantity, delivery_by=delivery_by, notes=notes,
+        )
+        return {"request": request}
+    except TradeError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def withdraw_commodity_bid(request_id: str, bid_id: str) -> Dict[str, Any]:
+    """Withdraw a pending bid from a commodity request."""
+    from .trading import TradeError
+
+    try:
+        return {"request": _board().withdraw_bid(world(), request_id=request_id, bid_id=bid_id)}
+    except TradeError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def accept_commodity_bid(request_id: str, bid_id: str, version: int) -> Dict[str, Any]:
+    """Accept a pending bid, closing the request and rejecting its other bids.
+
+    `version` must match the request's current version.
+    """
+    from .trading import TradeError
+
+    try:
+        return {"request": _board().accept_bid(world(), request_id=request_id, bid_id=bid_id, version=version)}
+    except TradeError as exc:
         return _fail(exc)
 
 

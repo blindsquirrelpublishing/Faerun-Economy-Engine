@@ -23,43 +23,35 @@ INDEX_HTML = """<!DOCTYPE html>
     <span class="mark">&#9878;&#65038;</span>
     <div>
       <h1>Faer&ucirc;n Market Board</h1>
+      <span id="mode-badge" class="mode-badge">Standard mode</span>
       <p class="tagline">Commodity prices by settlement, adjusted for supply, demand, distance, tariffs and season.</p>
     </div>
   </div>
 
   <div class="worldbar">
+    <div class="date-controls">
     <label>Month <select id="month-select"></select></label>
     <label>Year <input id="year-input" type="number" step="1"></label>
     <label>Seed <input id="seed-input" type="number" step="1" title="Rerolls the random market wobble"></label>
+    <label class="check"><input id="seasonal-toggle" type="checkbox"> Seasonal inventory</label>
     <button id="apply-world" class="primary" type="button">Apply</button>
     <span id="world-date" class="pill" data-world-date></span>
-    <a class="navlink" id="history-link" href="location.html">Location history &#8594;</a>
-    <a class="navlink" href="map.html">World map &#8594;</a>
-    <a class="navlink" href="planner.html">Route planner &#8594;</a>
-    <a class="navlink" href="mobile.html">Travelling companies &#8594;</a>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+    <span class="navlink navlink-current" aria-current="page">Markets</span>
+    <a class="navlink" href="location.html">Locations</a>
+    <a class="navlink" href="business.html">Businesses</a>
+    <a class="navlink" href="product.html">Products</a>
+    <a class="navlink" href="route.html">Routes</a>
+    <a class="navlink" href="map.html">Map</a>
+    <a class="navlink" href="planner.html">Route planner</a>
+    <a class="navlink" href="mobile.html">Travelling companies</a>
     <a class="navlink" href="trade.html">Merchant guild &amp; POs</a>
+    <a class="navlink" href="events.html">Events</a>
+    <a class="navlink" href="board.html">Request board</a>
+    </nav>
   </div>
 </header>
-
-<details class="eventdrawer">
-  <summary>Events</summary>
-  <div class="eventbar">
-    <label>Event <select id="event-template"></select></label>
-    <label>Scope
-      <select id="event-scope">
-        <option value="settlement">Settlement</option>
-        <option value="region">Region</option>
-      </select>
-    </label>
-    <label>Target
-      <input id="event-target" list="event-target-list" placeholder="Neverwinter" autocomplete="off">
-      <datalist id="event-target-list"></datalist>
-    </label>
-    <button id="add-event" type="button">Add event</button>
-    <button id="clear-events" type="button" class="ghost">Clear all</button>
-    <div id="event-list" class="event-list"></div>
-  </div>
-</details>
 
 <main>
   <aside class="sidebar">
@@ -74,7 +66,9 @@ INDEX_HTML = """<!DOCTYPE html>
     <div class="controls">
       <input id="commodity-search" type="search" placeholder="Filter goods..." autocomplete="off">
       <select id="category-filter"><option value="">All categories</option></select>
+      <label class="check"><input id="available-only" type="checkbox" checked> Available products only</label>
       <label class="check"><input id="only-local" type="checkbox"> Local produce only</label>
+      <label class="check" title="Skip expanded requirements and seasonal inventory replay for faster reference prices"><input id="simple-price-mode" type="checkbox"> Simple prices</label>
       <span id="row-count" class="muted"></span>
     </div>
 
@@ -171,6 +165,25 @@ body {
 
 h1 { font-size: 20px; margin: 0; letter-spacing: .01em; font-weight: 600; }
 .tagline { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+.mode-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(17, 24, 39, 0.06);
+  color: var(--cp-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.mode-badge.seasonal {
+  background: linear-gradient(135deg, rgba(177, 31, 75, 0.15), rgba(245, 158, 11, 0.18));
+  border-color: rgba(177, 31, 75, 0.35);
+  color: var(--cp-accent);
+  box-shadow: inset 0 0 0 1px rgba(177, 31, 75, 0.12);
+}
 .muted { color: var(--muted); }
 
 button, input, select {
@@ -200,6 +213,8 @@ input[type=number] { width: 76px; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .mark { font-size: 28px; color: var(--ink); }
 .worldbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.date-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; }
+.nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; }
 .pill {
   background: var(--panel); border: 1px solid var(--line);
   border-radius: 999px; padding: 4px 12px; color: var(--ink); font-size: 12px;
@@ -208,6 +223,15 @@ input[type=number] { width: 76px; }
 .navlink {
   color: var(--ink); text-decoration: none; font-size: 13px;
   border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px;
+}
+.navlink-current,
+.topbar .navlink-current {
+  color: var(--cp-text-soft) !important;
+  background: var(--cp-surface-soft) !important;
+  border-color: var(--cp-border) !important;
+  opacity: .62;
+  cursor: default;
+  pointer-events: none;
 }
 .navlink:hover { border-color: var(--ink); }
 
@@ -274,6 +298,12 @@ main {
 .settlement.active { background: var(--ink); color: #ffffff; }
 .settlement.active .settlement-meta { color: #cccccc; }
 .settlement-meta { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.settlement-events { display: flex; flex-wrap: wrap; gap: 4px; grid-column: 1 / -1; margin-top: 4px; }
+.settlement-event { color: var(--cp-accent); font-size: 11px; line-height: 1.25; }
+.settlement-event::before { content: '• '; }
+.location-events-panel { margin-top: 14px; padding: 14px 16px; border: 1px solid var(--cp-border); border-left: 4px solid var(--cp-accent); border-radius: 12px; background: var(--cp-surface-soft); }
+.location-events-panel h3 { margin: 0 0 8px; font-size: 14px; }
+.location-event-narrative { margin: 8px 0 0; color: var(--cp-text-muted); line-height: 1.55; }
 
 .board { display: flex; flex-direction: column; }
 .market-header { padding: 14px 18px 6px; }
@@ -295,6 +325,40 @@ main {
 .check { gap: 4px; }
 .status { padding: 10px 18px; color: var(--muted); }
 .status.error { color: var(--ink); font-weight: 700; }
+.market-progress {
+  display: grid;
+  gap: 6px;
+  max-width: 420px;
+}
+.market-progress span { font-size: 12px; }
+.market-progress .bar {
+  position: relative;
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+}
+.market-progress .fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--cp-warning));
+  transition: width 180ms ease;
+}
+.market-progress .bar.indeterminate::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  width: 42%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--cp-warning));
+  animation: market-progress 1.1s ease-in-out infinite;
+}
+@keyframes market-progress {
+  0% { transform: translateX(-115%); }
+  100% { transform: translateX(250%); }
+}
 
 .table-wrap { overflow: auto; flex: 1; }
 table { border-collapse: collapse; width: 100%; font-size: 13px; }
@@ -349,6 +413,7 @@ button.primary:hover { background: var(--cp-accent-hover); }
 :focus-visible { outline: 2px solid var(--cp-accent); outline-offset: 3px; }
 .topbar {
   flex: 0 0 auto;
+  min-height: 168px;
   gap: 16px 24px;
   padding: 20px clamp(16px,3%,64px);
   background: var(--cp-surface-soft);
@@ -356,13 +421,29 @@ button.primary:hover { background: var(--cp-accent-hover); }
   border-top: 3px solid var(--cp-accent);
 }
 .brand { min-width: 0; }
-.brand h1 { font-size: 25px; font-weight: 600; line-height: 1.25; }
+.brand h1 { font-size: 50px; font-weight: 600; line-height: 1.05; overflow-wrap: anywhere; }
 .brand .mark { color: var(--cp-accent); font-size: 32px; flex-shrink: 0; }
 .tagline { display: none; }
 .worldbar { gap: 12px; min-width: 0; }
 .navlink { border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--cp-text-muted); padding: 8px 0; }
 .navlink:hover { color: var(--cp-accent); background: transparent; border-color: var(--cp-accent); }
 .pill { border: 0; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 600; border-radius: 6px; }
+#world-date { font-size: 20px; padding: 10px 16px; }
+.date-tile,
+[data-world-date] {
+  display: grid;
+  gap: 2px;
+  min-width: 210px;
+  min-height: 72px;
+  padding: 9px 16px !important;
+  text-align: center;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.date-line { display: block; }
+.date-line-day { font-size: 16px; font-weight: 700; }
+.date-line-season { font-size: 13px; text-transform: capitalize; }
+.date-line-moon { font-size: 12px; opacity: .78; }
 .eventdrawer { background: var(--cp-surface); }
 .eventdrawer summary { padding: 12px clamp(16px,3%,64px); color: var(--cp-text-muted); }
 main { grid-template-columns: minmax(210px,16%) minmax(0, 1fr) minmax(290px,23%); }
@@ -423,6 +504,197 @@ tbody tr:hover { background: var(--cp-accent-soft); }
 thead th { background: var(--cp-surface-soft); }
 .eventbar { padding: 12px clamp(16px,3%,64px); }
 .event-chip { background: var(--cp-surface-soft); border-color: var(--cp-border); color: var(--cp-text); border-radius: 6px; }
+.topbar, .sidebar, .market-header, .controls, .detail {
+  box-shadow: 0 8px 24px rgba(25, 35, 45, .06);
+}
+.board > .table-wrap {
+  margin: 0 18px 18px;
+  padding: 14px;
+  border: 1px solid var(--cp-border);
+  border-radius: 18px;
+  background: var(--cp-surface);
+  box-shadow: 0 8px 24px rgba(25, 35, 45, .07);
+}
+.board > .controls {
+  margin: 0 18px 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface);
+  box-shadow: 0 7px 20px rgba(25, 35, 45, .07);
+}
+.board > .market-header {
+  margin: 18px 18px 14px;
+  padding: 20px 22px;
+  border: 1px solid var(--cp-border);
+  border-radius: 18px;
+  background: var(--cp-surface);
+  box-shadow: 0 8px 24px rgba(25, 35, 45, .07);
+}
+.eventdrawer {
+  margin: 12px 18px 18px;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface);
+  box-shadow: 0 7px 20px rgba(25, 35, 45, .07);
+  overflow: hidden;
+}
+.eventdrawer + main {
+  margin-top: 0;
+  padding-top: 0;
+}
+.board-shell > .sidebar,
+main > .sidebar {
+  margin: 18px 0 18px 18px;
+  border: 1px solid var(--cp-border);
+  border-radius: 18px;
+  background: var(--cp-surface);
+  box-shadow: 0 8px 24px rgba(25, 35, 45, .07);
+}
+main > .detail {
+  margin: 18px 18px 18px 0;
+  border: 1px solid var(--cp-border);
+  border-radius: 18px;
+  background: var(--cp-surface);
+  box-shadow: 0 8px 24px rgba(25, 35, 45, .07);
+}
+.board,
+main > .sidebar,
+main > .detail {
+  background: var(--cp-surface);
+}
+.board {
+  min-height: 0;
+  overflow: hidden;
+}
+.board > .table-wrap {
+  min-height: 0;
+}
+main > .detail {
+  min-height: 0;
+  overflow: hidden;
+}
+main {
+  gap: 24px;
+  background: var(--cp-surface);
+}
+main > .sidebar,
+main > .detail {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+main {
+  grid-template-columns: minmax(250px, 20%) minmax(0, 1fr) minmax(290px, 23%);
+}
+.sidebar {
+  padding-right: 24px;
+}
+.settlement-list {
+  padding-right: 8px;
+  scrollbar-gutter: stable;
+}
+.sidebar > input,
+.sidebar > select {
+  width: calc(100% - 8px);
+  margin-inline: 4px;
+  border-radius: 12px;
+}
+.topbar {
+  background: var(--cp-surface);
+  border-top: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+body {
+  background: var(--cp-surface);
+}
+.worldbar { display: grid; justify-items: end; gap: 12px; }
+.navlink {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--cp-border);
+  border-radius: 10px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+  padding: 8px 12px;
+  box-shadow: 0 3px 8px rgba(25, 35, 45, .06);
+}
+.navlink:hover {
+  border-color: var(--cp-accent);
+  background: var(--cp-accent-soft);
+  color: var(--cp-accent);
+}
+.eventdrawer {
+  margin: 12px 18px 18px;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface);
+  box-shadow: 0 7px 20px rgba(25, 35, 45, .07);
+}
+.eventdrawer,
+.eventdrawer summary,
+.eventdrawer .eventbar {
+  background: var(--cp-surface);
+}
+@media (max-width: 1200px) {
+  main { grid-template-columns: 240px minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  main { grid-template-columns: 1fr; }
+  .sidebar { padding-right: 16px; }
+  .worldbar, .date-controls, .nav-links { justify-content: flex-start; justify-items: start; width: 100%; }
+}
+.sidebar .settlement {
+  margin: 4px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--cp-border);
+  border-radius: 12px;
+  background: var(--cp-surface-soft);
+}
+.sidebar .settlement:hover { background: var(--cp-accent-soft); }
+.sidebar .settlement.active {
+  border-color: var(--cp-accent);
+  background: var(--cp-accent-soft);
+  box-shadow: inset 3px 0 var(--cp-accent), 0 4px 12px rgba(25, 35, 45, .06);
+}
+.detail > .detail-empty,
+.detail > h3,
+.detail > .desc,
+.detail > .kv,
+.detail > .spark,
+.detail > .mini,
+.detail > .supply-breakdown {
+  padding: 16px;
+  border: 1px solid var(--cp-border);
+  border-radius: 14px;
+  background: var(--cp-surface-soft);
+}
+.detail > h3 { margin-top: 0; }
+.detail > .desc { margin-top: 10px; }
+.detail > .kv { margin-top: 10px; }
+.board > p.muted {
+  margin: 0 24px 24px;
+  padding: 14px 16px;
+  border: 1px solid var(--cp-border);
+  border-radius: 14px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  line-height: 1.65;
+  text-align: left;
+}
+button, input, select, textarea { border-radius: 10px; }
+button { box-shadow: 0 4px 10px rgba(25, 35, 45, .08); }
+.navlink { box-shadow: none; }
+#price-table { border-collapse: separate; border-spacing: 0 7px; }
+#price-table thead th { border-bottom: 0; background: var(--cp-surface-soft); }
+#price-table thead th:first-child { border-radius: 12px 0 0 12px; }
+#price-table thead th:last-child { border-radius: 0 12px 12px 0; }
+#price-table tbody td { border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+#price-table tbody td:first-child { border-left: 1px solid var(--cp-border); border-radius: 12px 0 0 12px; }
+#price-table tbody td:last-child { border-right: 1px solid var(--cp-border); border-radius: 0 12px 12px 0; }
+.detail { border-left: 1px solid var(--cp-border); }
 @media (max-width: 1200px) {
   main, main:has(.detail-empty) { grid-template-columns: 210px minmax(0, 1fr); }
   .detail:not(:has(.detail-empty)) { display: block; grid-column: 2; max-height: 45dvh; border-top: 1px solid var(--cp-border); }
@@ -432,7 +704,7 @@ thead th { background: var(--cp-surface-soft); }
 @media (max-width: 700px) {
   body { height: auto; min-height: 100dvh; overflow: auto; }
   .topbar { padding: 12px 16px; }
-  .brand h1 { font-size: 20px; }
+  .brand h1 { font-size: 32px; }
   .worldbar { width: 100%; }
   main, main:has(.detail-empty) { display: flex; flex-direction: column; }
   .sidebar { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; overflow: visible; }
@@ -597,6 +869,7 @@ const state = {
   selected: null,
   sort: { key: 'category', dir: 1 },
   requestToken: 0,
+  progressTimer: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -620,6 +893,34 @@ function quoteMarkup(value) {
 
 function quoteQuantity(value) {
   return Number.isFinite(value) ? value.toLocaleString(undefined, { maximumFractionDigits: 3 }) : '&mdash;';
+}
+
+function progressId() {
+  return 'market-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+}
+
+function marketProgress(progress) {
+  const done = Number(progress.done || 0);
+  const total = Number(progress.total || 0);
+  const percent = total > 0 ? Math.max(0, Math.min(100, Math.round(done / total * 100))) : null;
+  const label = progress.label && progress.status !== 'complete' ? ' · ' + progress.label : '';
+  const text = percent === null
+    ? 'Consulting the market...' + label
+    : 'Consulting the market... ' + done.toLocaleString() + ' / ' + total.toLocaleString() +
+      ' goods (' + percent + '%)' + label;
+  const aria = percent === null ? '' : ' aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + percent + '"';
+  const bar = percent === null
+    ? '<div class="bar indeterminate"></div>'
+    : '<div class="bar"><i class="fill" style="width:' + percent + '%"></i></div>';
+  return '<div class="market-progress" role="progressbar" aria-label="Consulting the market" aria-busy="true"' + aria + '>' +
+    '<span>' + esc(text) + '</span>' + bar + '</div>';
+}
+
+function stopProgress() {
+  if (state.progressTimer !== null) {
+    window.clearInterval(state.progressTimer);
+    state.progressTimer = null;
+  }
 }
 
 async function getJSON(path, params) {
@@ -648,8 +949,22 @@ async function postJSON(path, body) {
 // World / bootstrap
 // ---------------------------------------------------------------------------
 
+function setModeBadge(boot) {
+  const modeLabel = boot.seasonal_inventory ? 'Seasonal inventory' : 'Standard mode';
+  const badge = $('mode-badge');
+  if (badge) badge.textContent = modeLabel;
+  badge && badge.classList.toggle('seasonal', !!boot.seasonal_inventory);
+  return modeLabel;
+}
+
+function setDocumentTitle(boot) {
+  const modeLabel = setModeBadge(boot);
+  document.title = 'Faerun Market Board — ' + modeLabel;
+}
+
 function applyBoot(boot) {
   state.boot = boot;
+  setDocumentTitle(boot);
 
   const month = $('month-select');
   if (!month.options.length) {
@@ -663,17 +978,8 @@ function applyBoot(boot) {
   month.value = boot.month;
   $('year-input').value = boot.year;
   $('seed-input').value = boot.seed;
+  $('seasonal-toggle').checked = !!boot.seasonal_inventory;
   showWorldDate(boot);
-
-  const tmpl = $('event-template');
-  if (!tmpl.options.length) {
-    boot.event_templates.forEach((name) => {
-      const opt = document.createElement('option');
-      opt.value = name;
-      opt.textContent = name;
-      tmpl.appendChild(opt);
-    });
-  }
 
   const region = $('region-filter');
   if (region.options.length <= 1) {
@@ -695,39 +1001,7 @@ function applyBoot(boot) {
     });
   }
 
-  renderEvents();
-  renderTargets();
   renderSidebar();
-}
-
-function renderEvents() {
-  const box = $('event-list');
-  const events = state.boot.events || [];
-  if (!events.length) {
-    box.innerHTML = '<span class="muted">No active events</span>';
-    return;
-  }
-  box.innerHTML = events.map((e) =>
-    '<span class="event-chip">' + esc(e.name) +
-    '<button type="button" data-event-id="' + esc(e.id) + '" title="Remove">&times;</button></span>'
-  ).join('');
-  box.querySelectorAll('button[data-event-id]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      try {
-        applyBoot(await postJSON('/api/events/clear', { id: btn.dataset.eventId }));
-        await loadMarket();
-      } catch (err) { showError(err); }
-    });
-  });
-}
-
-function renderTargets() {
-  const scope = $('event-scope').value;
-  const list = $('event-target-list');
-  const values = scope === 'region'
-    ? state.boot.regions
-    : state.boot.settlements.map((s) => s.name);
-  list.innerHTML = values.map((v) => '<option value="' + esc(v) + '"></option>').join('');
 }
 
 // ---------------------------------------------------------------------------
@@ -752,17 +1026,34 @@ function renderSidebar() {
 
   let html = '';
   let current = null;
+  const events = state.boot.events || [];
+  function locationEvents(settlement) {
+    return events.filter((event) => {
+      const settlements = event.settlements || [];
+      const zones = event.zones || [];
+      const regions = event.regions || [];
+      return (!settlements.length && !zones.length && !regions.length)
+        || settlements.includes(settlement.id)
+        || zones.includes(settlement.zone)
+        || regions.includes(settlement.region);
+    });
+  }
   matches.forEach((s) => {
     if (s.region !== current) {
       current = s.region;
       html += '<div class="region-head">' + esc(current) + '</div>';
     }
     const flags = (s.port ? ' &#9875;&#65038;' : '') + (s.underdark ? ' &#9660;' : '');
+    const locationEventsForSettlement = locationEvents(s);
+    const eventHtml = locationEventsForSettlement.length
+      ? '<div class="settlement-events">' + locationEventsForSettlement.map((event) =>
+        '<span class="settlement-event" title="' + esc(event.description || event.name) + '">' + esc(event.name) + '</span>'
+      ).join('') + '</div>' : '';
     html += '<div class="settlement' + (s.id === state.settlementId ? ' active' : '') +
       '" data-id="' + esc(s.id) + '" title="' + esc(s.size + ', population ' +
       s.population.toLocaleString()) + '">' +
       '<span>' + esc(s.name) + flags + '</span>' +
-      '<span class="settlement-meta">' + esc(s.size) + '</span></div>';
+      '<span class="settlement-meta">' + esc(s.size) + '</span>' + eventHtml + '</div>';
   });
   box.innerHTML = html;
 
@@ -786,17 +1077,39 @@ function showError(err) {
   const status = $('board-status');
   status.className = 'status error';
   status.textContent = String(err.message || err);
+  $('row-count').textContent = 'Prices unavailable';
+}
+
+function setRowCount(text) {
+  $('row-count').textContent = text;
 }
 
 async function loadMarket() {
   if (!state.settlementId) return;
   const token = ++state.requestToken;
   const status = $('board-status');
+  const id = progressId();
+  stopProgress();
   status.className = 'status';
-  status.textContent = 'Consulting the market...';
-  try {
-    const report = await getJSON('/api/market', { settlement: state.settlementId });
+  setRowCount('Loading prices...');
+  status.innerHTML = marketProgress({ status: 'starting' });
+  state.progressTimer = window.setInterval(async () => {
     if (token !== state.requestToken) return;
+    try {
+      const progress = await getJSON('/api/progress', { id });
+      if (token === state.requestToken && progress.status !== 'unknown') {
+        status.innerHTML = marketProgress(progress);
+      }
+    } catch (_ignored) { /* progress is auxiliary; the market request owns errors */ }
+  }, 350);
+  try {
+    const report = await getJSON('/api/market', {
+      settlement: state.settlementId,
+      progress: id,
+      simple: $('simple-price-mode').checked ? '1' : '',
+    });
+    if (token !== state.requestToken) return;
+    stopProgress();
     state.report = report;
     state.rows = report.prices;
     status.textContent = '';
@@ -804,6 +1117,7 @@ async function loadMarket() {
     renderTable();
     if (state.selected) renderDetail(state.selected);
   } catch (err) {
+    stopProgress();
     if (token === state.requestToken) showError(err);
   }
 }
@@ -824,22 +1138,39 @@ function renderMarketHeader() {
 
   const tags = (r.traits || []).map((t) => '<span class="tag">' + esc(t) + '</span>').join('') +
     (r.events || []).map((e) => '<span class="tag warn">' + esc(e) + '</span>').join('');
+  const settlement = (state.boot.settlements || []).find((item) => item.id === state.settlementId);
+  const locationEvents = (state.boot.events || []).filter((event) => {
+    if (!settlement) return false;
+    const settlements = event.settlements || [];
+    const zones = event.zones || [];
+    const regions = event.regions || [];
+    return (!settlements.length && !zones.length && !regions.length)
+      || settlements.includes(settlement.id)
+      || zones.includes(settlement.zone)
+      || regions.includes(settlement.region);
+  });
+  const eventPanel = locationEvents.length
+    ? '<section class="location-events-panel"><h3>Happening here</h3>' + locationEvents.map((event) =>
+      '<article><strong>' + esc(event.name) + '</strong><p class="location-event-narrative">' + esc(event.description || 'No narrative recorded.') + '</p></article>'
+    ).join('') + '</section>' : '';
 
   $('market-header').innerHTML =
     '<h2>' + esc(r.settlement) + '</h2>' +
     '<div class="facts">' + facts + '</div>' +
     (r.ruler ? '<div class="facts">Ruled by ' + esc(r.ruler) + '</div>' : '') +
     (r.description ? '<p class="desc">' + esc(r.description) + '</p>' : '') +
-    (tags ? '<div class="tags">' + tags + '</div>' : '');
+    (tags ? '<div class="tags">' + tags + '</div>' : '') + eventPanel;
 }
 
 function visibleRows() {
   const query = $('commodity-search').value.trim().toLowerCase();
   const category = $('category-filter').value;
+  const availableOnly = $('available-only').checked;
   const localOnly = $('only-local').checked;
 
   let rows = state.rows.filter((q) => {
     if (category && q.category !== category) return false;
+    if (availableOnly && (!(Number(q.stock) > 0) || q.availability === 'unavailable')) return false;
     if (localOnly && q.source) return false;
     if (!query) return true;
     return q.commodity_name.toLowerCase().includes(query) ||
@@ -860,7 +1191,7 @@ function visibleRows() {
 
 function renderTable() {
   const rows = visibleRows();
-  $('row-count').textContent = rows.length + ' of ' + state.rows.length + ' goods';
+  setRowCount(rows.length + ' of ' + state.rows.length + ' goods');
 
   document.querySelectorAll('#price-table thead th').forEach((th) => {
     th.classList.toggle('sorted', th.dataset.sort === state.sort.key);
@@ -1003,7 +1334,7 @@ async function renderDetail(commodityId) {
     '<h4>Consumer buy price through the year</h4>' +
     '<button id="load-detail-history" type="button" aria-describedby="detail-history-warning">Load twelve-month price forecast</button>' +
     '<p id="detail-history-warning" class="muted">Optional: calculates future monthly prices. ' +
-      'Seasonal inventory may need many daily allocations. Other API requests may wait while this runs. ' +
+      'Seasonal inventory may need many daily allocations; the forecast runs in the background. ' +
       'The production and demand curves above do not require this forecast.</p>' +
     '<div id="detail-history" class="muted" role="status"></div>' +
     '<h4>Cheapest markets in the Realms</h4><div id="detail-compare" class="muted">loading...</div>';
@@ -1061,10 +1392,22 @@ function wire() {
   $('settlement-search').addEventListener('input', renderSidebar);
   $('region-filter').addEventListener('change', renderSidebar);
 
-  ['commodity-search', 'category-filter', 'only-local'].forEach((id) => {
+  ['commodity-search', 'category-filter', 'available-only', 'only-local'].forEach((id) => {
     const el = $(id);
     el.addEventListener(el.tagName === 'INPUT' && el.type !== 'checkbox' ? 'input' : 'change',
       () => { if (state.report) renderTable(); });
+  });
+
+  $('simple-price-mode').addEventListener('change', () => {
+    if (state.settlementId) loadMarket();
+  });
+
+  $('seasonal-toggle').addEventListener('change', async () => {
+    try {
+      const payload = { seasonal_inventory: $('seasonal-toggle').checked };
+      applyBoot(await postJSON('/api/world', payload));
+      await loadMarket();
+    } catch (err) { showError(err); }
   });
 
   document.querySelectorAll('#price-table thead th').forEach((th) => {
@@ -1097,27 +1440,6 @@ function wire() {
     } catch (err) { showError(err); }
   });
 
-  $('event-scope').addEventListener('change', renderTargets);
-
-  $('add-event').addEventListener('click', async () => {
-    const target = $('event-target').value.trim();
-    if (!target) { showError(new Error('Name a settlement or region for the event.')); return; }
-    try {
-      applyBoot(await postJSON('/api/event', {
-        template: $('event-template').value,
-        scope: $('event-scope').value,
-        target: target,
-      }));
-      await loadMarket();
-    } catch (err) { showError(err); }
-  });
-
-  $('clear-events').addEventListener('click', async () => {
-    try {
-      applyBoot(await postJSON('/api/events/clear', {}));
-      await loadMarket();
-    } catch (err) { showError(err); }
-  });
 }
 
 async function start() {
@@ -1139,7 +1461,9 @@ WORLD_DATE_JS = """
 function showWorldDate(boot) {
   const label = boot.follows_real_date ? 'Today' : 'Date';
   document.querySelectorAll('[data-world-date]').forEach((element) => {
-    element.textContent = label + ': ' + boot.date + ' - ' + boot.season;
+    element.innerHTML = '<span class="date-line date-line-day">' + label + ': ' + boot.date + '</span>'
+      + '<span class="date-line date-line-season">' + boot.season + '</span>'
+      + '<span class="date-line date-line-moon">' + (boot.moon_phase ? '☾ ' + boot.moon_phase : 'Moon phase unavailable') + '</span>';
     element.title = boot.follows_real_date
       ? 'Live date anchored at 1 Hammer 1492 DR = 1 January 2026 UTC'
       : 'Manually selected simulation date';

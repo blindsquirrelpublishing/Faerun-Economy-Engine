@@ -6,3 +6,5 @@ dist/
 build/
 *.egg-info/
 .artifacts/waterdeep-survey/
+faerun/data/store/price_snapshot_*.json
+faerun/data/store/market_server.json

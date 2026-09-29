@@ -51,22 +51,16 @@ FRAME_MARGIN = 140.0
 
 #: Target heightfield cell, in miles.  A grown frame keeps this roughly
 #: constant instead of stretching the cells, so detail does not thin out.
-CELL_MILES = 20.8
+#: Five miles is what the one-mile survey can feed without the build becoming
+#: a stall; the renderer decimates with ``state.step`` so drawing stays bounded.
+CELL_MILES = 5.0
 
-#: Hard ceiling on the field, because the rasteriser is O(cells x polygons)
-#: and a runaway survey should slow the map down, not hang it.  The real
-#: governor is the cell *count*: capping each axis on its own is what turns
-#: square cells oblong, and an oblong cell shows as a coastline smeared in one
-#: direction only.  The per-axis numbers below are just a backstop against a
-#: frame that is absurd in one dimension.
-#:
-#: 26000 is a little under twice the shipped 96 x 146 field, which is what the
-#: continent-wide poster frame costs.  The field is built once and cached, and
-#: the renderer decimates with ``state.step`` while dragging, so this is paid
-#: at load and not per frame.
-MAX_CELLS = 26000
-MAX_GRID_W = 320
-MAX_GRID_H = 320
+#: Hard ceiling on the field.  With the survey in place a cell is a lookup
+#: rather than a polygon sweep, so the ceiling is set by memory and by how long
+#: the O(cells) smoothing passes take, not by the rasteriser.
+MAX_CELLS = 560000
+MAX_GRID_W = 1100
+MAX_GRID_H = 1100
 
 #: How far a surveyed terrain label may sit from where the market realignment
 #: alone predicts, before it is treated as a bad match rather than a
@@ -110,6 +104,10 @@ LEGEND = {code: name for name, code in CODES.items()}
 LOCATION_TERRAIN_NAMES = ("location-terrain.json", "terrain-locations.json")
 LOCATION_TERRAIN_POINTER = "location-terrain.path"
 DETAIL_TERRAIN_NAME = "terrain-5-mile.json"
+#: The whole sheet read at one mile by tools/survey_terrain_1mile.py. It is
+#: preferred wherever it reaches, which since it covers the poster is
+#: everywhere the poster covers.
+FINE_TERRAIN_NAME = "terrain-1-mile.json"
 TERRAIN_OVERRIDES_NAME = "terrain-overrides.json"
 ROAD_GEOMETRY_NAMES = ("road-geometries.json", "roads.json")
 ROAD_GEOMETRY_POINTER = "road-geometries.path"
@@ -138,6 +136,7 @@ _FULL_GRID_TERRAIN = {
     "W": "water",
     "P": "plains",
     "C": "plains",
+    "G": "steppe",
     "F": "forest",
     "J": "jungle",
     "H": "hills",
@@ -147,6 +146,31 @@ _FULL_GRID_TERRAIN = {
     "D": "desert",
     "R": "desert",
     "I": "glacier",
+}
+
+#: The one-mile survey stores relief as one character per cell. Decoding is a
+#: dict lookup so a half-million-cell build does not pay a string scan a cell.
+_RELIEF_ALPHABET = (
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz+-"
+)
+_RELIEF_VALUES = {character: index for index, character in enumerate(_RELIEF_ALPHABET)}
+_RELIEF_SCALE = float(len(_RELIEF_ALPHABET) - 1)
+
+#: Lowest relief a surveyed terrain is given before its measured hachure
+#: density is folded in, so a forest still reads as raised ground on the
+#: heightfield even where the cartographer drew no relief at all.
+_FINE_FLOOR = {
+    "mountains": 0.58,
+    "hills": 0.28,
+    "glacier": 0.32,
+    "forest": 0.11,
+    "jungle": 0.11,
+    "desert": 0.10,
+    "steppe": 0.09,
+    "tundra": 0.09,
+    "marsh": 0.02,
+    "plains": 0.05,
 }
 
 
@@ -318,6 +342,8 @@ def _parse_full_terrain(payload: object) -> Dict[str, object]:
         "width": width,
         "cell_miles": cell_miles,
         "cell_count": int(payload.get("cell_count", width * len(rows))),
+        "relief": payload.get("relief") if isinstance(payload.get("relief"), dict) else None,
+        "value_alphabet": payload.get("value_alphabet"),
     }
 
 
@@ -343,6 +369,45 @@ def _full_terrain_cell(grid: Dict[str, object], east: float,
         return ""
     letter = value[column - int(grid["column_min"])]
     return _FULL_GRID_TERRAIN.get(letter, "")
+
+
+def _fine_terrain_sample(grid: Dict[str, object], east: float,
+                         north: float) -> Tuple[str, float]:
+    """Terrain name and measured relief at a Waterdeep-relative position.
+
+    Point-samples the one-mile survey rather than averaging the world cell's
+    whole footprint: at five miles that is twenty-five lookups per cell and
+    half a million cells, which costs more than the extra fidelity is worth.
+    """
+    if not grid:
+        return "", 0.0
+    cell_miles = float(grid["cell_miles"])
+    column = math.floor(east / cell_miles)
+    row = math.floor(north / cell_miles)
+    column_min = int(grid["column_min"])
+    if (
+        column < column_min
+        or column > int(grid["column_max"])
+        or row < int(grid["row_min"])
+        or row > int(grid["row_max"])
+    ):
+        return "", 0.0
+    rows = grid["rows"]
+    assert isinstance(rows, dict)
+    line = rows.get(str(row), "")
+    if not isinstance(line, str):
+        return "", 0.0
+    offset = column - column_min
+    terrain = _FULL_GRID_TERRAIN.get(line[offset], "")
+    if not terrain:
+        return "", 0.0
+    relief = 0.0
+    measured = grid.get("relief")
+    if isinstance(measured, dict):
+        values = measured.get(str(row))
+        if isinstance(values, str) and offset < len(values):
+            relief = _RELIEF_VALUES.get(values[offset], 0) / _RELIEF_SCALE
+    return terrain, relief
 
 
 def location_terrain_contexts() -> Tuple[Dict[str, Dict[str, object]], str]:
@@ -377,6 +442,20 @@ def location_terrain_stamp() -> str:
         return "-"
     stat = path.stat()
     return "%s:%d:%d" % (path, stat.st_mtime_ns, stat.st_size)
+
+
+def fine_terrain_stamp() -> str:
+    """Identity of the one-mile survey, for the heightfield cache key.
+
+    The world grid is built from this file, so rebuilding the survey has to
+    invalidate it; without this a running server serves the old terrain until
+    it is restarted.
+    """
+    path = project_root() / "maps" / FINE_TERRAIN_NAME
+    if not path.is_file():
+        return "-"
+    stat = path.stat()
+    return "%d:%d" % (stat.st_mtime_ns, stat.st_size)
 
 
 def road_geometry_path() -> Optional[Path]:
@@ -1518,12 +1597,48 @@ def _build(settlements: Sequence[object]) -> Dict[str, object]:
     height = [0.0] * count
     codes = [CODES["ocean"]] * count
 
+    fine_grid = _fine_grid()
+    fine_east = float(waterdeep.x) if waterdeep is not None else 0.0
+    fine_north = float(waterdeep.y) if waterdeep is not None else 0.0
+
+    # The survey is a literal reading of the artwork, and a coastal city's cell
+    # centre lands on the water side of the drawn shoreline as often as not.
+    # Markets have to stand on ground, so each one keeps its own cell.
+    market_cells = set()
+    for s in settlements:
+        gx = int((float(s.x) - x0) / cell_w)
+        gy = int((float(s.y) - y0) / cell_h)
+        if 0 <= gx < GRID_W and 0 <= gy < GRID_H:
+            market_cells.add(gy * GRID_W + gx)
+
     for gy in range(GRID_H):
         wy = y0 + (gy + 0.5) * cell_h
         row = gy * GRID_W
         for gx in range(GRID_W):
             wx = x0 + (gx + 0.5) * cell_w
             idx = row + gx
+
+            # Where the one-mile survey reaches, it is the better witness and
+            # it is cheap: one lookup replaces the polygon tests, the nearest
+            # settlement search, the range distances and the noise field.
+            if fine_grid and waterdeep is not None:
+                fine_terrain, fine_relief = _fine_terrain_sample(
+                    fine_grid, wx - fine_east, fine_north - wy
+                )
+                if fine_terrain:
+                    if fine_terrain in ("ocean", "water") and idx not in market_cells:
+                        codes[idx] = _terrain_code(fine_terrain)
+                        continue
+                    if fine_terrain in ("ocean", "water"):
+                        fine_terrain = "plains"
+                    land[idx] = True
+                    lift = _FINE_FLOOR.get(fine_terrain, 0.06)
+                    if fine_relief > lift:
+                        lift = fine_relief
+                    height[idx] = lift
+                    codes[idx] = _terrain_code(fine_terrain)
+                    continue
+
             direct_terrain = ""
             if full_grid and waterdeep is not None:
                 direct_terrain = _full_terrain_cell(
@@ -1835,34 +1950,75 @@ def _mark_coast(land: List[bool], height: List[float],
 
 _CACHE: Dict[str, object] = {}
 _DETAIL_CACHE: Dict[str, object] = {}
+_FINE_CACHE: Dict[str, object] = {}
 
 
-def _detail_grid() -> Dict[str, object]:
-    path = project_root() / "maps" / DETAIL_TERRAIN_NAME
+def _load_terrain_file(name: str, cache: Dict[str, object]) -> Dict[str, object]:
+    path = project_root() / "maps" / name
     if not path.is_file():
         return {}
     stamp = "%s:%d:%d" % (path, path.stat().st_mtime_ns, path.stat().st_size)
-    cached = _DETAIL_CACHE.get(stamp)
+    cached = cache.get(stamp)
     if cached is None:
         try:
             cached = _parse_full_terrain(json.loads(path.read_text(encoding="utf-8")))
         except (OSError, UnicodeError, json.JSONDecodeError, AtlasError):
             return {}
-        _DETAIL_CACHE.clear()
-        _DETAIL_CACHE[stamp] = cached
+        cache.clear()
+        cache[stamp] = cached
     return cached  # type: ignore[return-value]
+
+
+def _detail_grid() -> Dict[str, object]:
+    return _load_terrain_file(DETAIL_TERRAIN_NAME, _DETAIL_CACHE)
+
+
+def _fine_grid() -> Dict[str, object]:
+    return _load_terrain_file(FINE_TERRAIN_NAME, _FINE_CACHE)
+
+
+#: How far inside the fine patch a settlement has to sit before the patch is
+#: worth serving. Closer to the edge than this and the view is mostly missing.
+FINE_MARGIN_MILES = 25.0
+#: A one-mile patch is served no wider than this, whatever radius was asked
+#: for, to keep one response near the size the five-mile grid used to send.
+FINE_MAX_RADIUS_MILES = 100.0
+
+
+def _choose_detail_grid(east: float, north: float) -> Dict[str, object]:
+    """Prefer the one-mile patch where it reaches, else the five-mile grid."""
+    fine = _fine_grid()
+    if fine:
+        cell_miles = float(fine["cell_miles"])
+        margin = FINE_MARGIN_MILES / cell_miles
+        column = east / cell_miles
+        row = north / cell_miles
+        inside = (
+            int(fine["column_min"]) + margin <= column <= int(fine["column_max"]) - margin
+            and int(fine["row_min"]) + margin <= row <= int(fine["row_max"]) - margin
+        )
+        if inside:
+            return fine
+    return _detail_grid()
 
 
 def terrain_detail(world: object, settlement: str,
                    radius: float = 250.0) -> Dict[str, object]:
-    """Return a bounded five-mile terrain patch around one settlement."""
-    detail = _detail_grid()
-    if not detail:
-        raise AtlasError("five-mile terrain detail is not installed")
+    """Return a bounded local terrain patch around one settlement."""
     selected = world.find_settlement(settlement)  # type: ignore[attr-defined]
     waterdeep = world.find_settlement("Waterdeep")  # type: ignore[attr-defined]
+    detail = _choose_detail_grid(
+        float(selected.x) - float(waterdeep.x),
+        float(waterdeep.y) - float(selected.y),
+    )
+    if not detail:
+        raise AtlasError("local terrain detail is not installed")
     cell_miles = float(detail["cell_miles"])
     radius = max(50.0, min(400.0, float(radius)))
+    if cell_miles < 5.0:
+        # A one-mile patch at the full request would be a quarter of a million
+        # cells in one response. Trade reach for resolution.
+        radius = min(radius, FINE_MAX_RADIUS_MILES)
     center_column = math.floor((float(selected.x) - float(waterdeep.x)) / cell_miles)
     center_row = math.floor((float(waterdeep.y) - float(selected.y)) / cell_miles)
     cells_each_side = max(1, math.ceil(radius / cell_miles))
@@ -1876,12 +2032,18 @@ def terrain_detail(world: object, settlement: str,
     assert isinstance(rows, dict)
     source_column_min = int(detail["column_min"])
     code_map = {
-        "S": "o", "W": "w", "P": "p", "C": "p", "F": "f",
+        "S": "o", "W": "w", "P": "p", "C": "p", "G": "g", "F": "f",
         "J": "j", "H": "h", "M": "m", "T": "s", "O": "g",
         "D": "d", "R": "d", "I": "i", "U": "u", "X": "u",
     }
     relief = {"h": 14, "m": 28, "i": 12, "g": 4, "f": 6,
               "j": 7, "s": 0, "p": 2, "d": 3}
+    # The one-mile survey measures hachure density per cell, so where it is
+    # available the relief is read rather than guessed from the land cover.
+    measured = detail.get("relief")
+    alphabet = detail.get("value_alphabet")
+    scale = (len(alphabet) - 1) if isinstance(alphabet, str) and len(alphabet) > 1 else 1
+    values = {character: index for index, character in enumerate(alphabet or "")}
     coarse = terrain_grid(list(world.settlements.values()))  # type: ignore[attr-defined]
     terrain: List[str] = []
     heights: List[int] = []
@@ -1889,6 +2051,7 @@ def terrain_detail(world: object, settlement: str,
         row = rows.get(str(source_row), "")
         if not isinstance(row, str):
             row = ""
+        measured_row = measured.get(str(source_row)) if isinstance(measured, dict) else None
         for output_column, column in enumerate(range(column_min, column_max + 1)):
             offset = column - source_column_min
             letter = row[offset] if 0 <= offset < len(row) else "U"
@@ -1899,8 +2062,12 @@ def terrain_detail(world: object, settlement: str,
             base_height = height_at(coarse, world_x, world_y)
             if code in ("o", "w", "u"):
                 heights.append(int(round(min(0.0, base_height) * 1000.0)))
+                continue
+            if isinstance(measured_row, str) and 0 <= offset < len(measured_row):
+                lift = values.get(measured_row[offset], 0) / scale * 34.0
             else:
-                heights.append(int(round(base_height * 1000.0)) + relief.get(code, 0))
+                lift = float(relief.get(code, 0))
+            heights.append(int(round(base_height * 1000.0 + lift)))
     return {
         "detail": True,
         "settlement": selected.id,
@@ -1935,9 +2102,9 @@ def terrain_grid(settlements: Sequence[object]) -> Dict[str, object]:
     # first grid built without it would be served forever.
     poster = poster_frame(settlements)
     stamp = "-" if poster is None else "%.0f,%.0f,%.0f,%.0f" % poster
-    key = "%d:%08x:%s:%s:%s" % (
+    key = "%d:%08x:%s:%s:%s:%s" % (
         len(settlements), signature, stamp, location_terrain_stamp(),
-        terrain_overrides_stamp(),
+        terrain_overrides_stamp(), fine_terrain_stamp(),
     )
     cached = _CACHE.get(key)
     if cached is None:
@@ -2006,6 +2173,7 @@ def map_payload(world: object) -> Dict[str, object]:
             "underdark": s.underdark,
             "wealth": s.wealth,
             "surveyed": s.has_trait("surveyed_market"),
+            "gryphonPort": getattr(world, "is_gryphon_port", lambda _id: False)(s.id),
         })
 
     for location in getattr(world, "mobile_locations", {}).values():
@@ -2038,6 +2206,41 @@ def map_payload(world: object) -> Dict[str, object]:
             "route": position["route"],
         })
 
+    # Carrier businesses are rolling map participants. Their authored itinerary
+    # progress is a deterministic snapshot for the current world date.
+    for business in getattr(world, "businesses", {}).values():
+        if not getattr(business, "carrier_service_id", "") or business.location_mode != "rolling":
+            continue
+        schedule = business.itinerary[0] if business.itinerary else {}
+        origin = settlements_by_id = getattr(world, "settlements", {})
+        start = settlements_by_id.get(schedule.get("origin", business.headquarters))
+        destination = settlements_by_id.get(schedule.get("destination", business.headquarters))
+        if not start:
+            continue
+        progress = max(0.0, min(1.0, float(schedule.get("progress", 0.0))))
+        x = start.x if not destination else start.x + (destination.x - start.x) * progress
+        y = start.y if not destination else start.y + (destination.y - start.y) * progress
+        pins.append({
+            "id": business.id,
+            "name": business.name,
+            "region": "Carrier services",
+            "size": "carrier service",
+            "population": business.employee_total,
+            "x": x, "y": y, "bx": x, "by": y,
+            "z": round(max(0.0, height_at(grid, x, y)), 4),
+            "terrain": "road", "landmass": "faerun", "port": None, "river": False,
+            "underdark": False, "wealth": 1.0, "surveyed": False,
+            "mobile": True, "carrier": True,
+            "carrier_service_id": business.carrier_service_id,
+            "capacity_lb": business.capacity_lb,
+            "transport_equipment": dict(business.transport_equipment),
+            "status": schedule.get("status", "rolling"),
+            "origin": start.name,
+            "destination": destination.name if destination else start.name,
+            "progress": progress,
+            "route": schedule.get("route", ""),
+        })
+
     # A world built without survey enrichment can still show the remaining
     # names as plain dots. In the normal world these are empty because every
     # surveyed town/site has been promoted to a priced market.
@@ -2052,10 +2255,21 @@ def map_payload(world: object) -> Dict[str, object]:
     edges = getattr(world, "_edges", {}) or {}
     for src, legs in edges.items():
         for edge in legs:
-            key = (src, edge.dst) if src < edge.dst else (edge.dst, src)
+            pair = (src, edge.dst) if src < edge.dst else (edge.dst, src)
+            key = pair + (edge.kind, edge.name)
             if key in seen:
                 continue
             seen.add(key)
+            carrier_options = edge.carrier_options()
+            for carrier in carrier_options:
+                service_id = carrier.get("service_id")
+                business = next((item for item in getattr(world, "businesses", {}).values()
+                                 if service_id and item.carrier_service_id == service_id), None)
+                if business:
+                    carrier["business_id"] = business.id
+                    carrier["business_name"] = business.name
+                    carrier["business_capacity_lb"] = business.capacity_lb
+                    carrier["transport_equipment"] = dict(business.transport_equipment)
             routes.append({
                 "a": key[0],
                 "b": key[1],
@@ -2069,8 +2283,19 @@ def map_payload(world: object) -> Dict[str, object]:
                 "distance": round(edge.distance, 1),
                 "days": round(edge.days, 2),
                 "quality": edge.quality,
-                "carriers": edge.carrier_options(),
+                "carriers": carrier_options,
             })
+
+    for src, dst, name in getattr(world, "_unavailable_gryphon_edges", []):
+        if src not in world.settlements or dst not in world.settlements:
+            continue
+        start, end = world.settlements[src], world.settlements[dst]
+        routes.append({
+            "a": min(src, dst), "b": max(src, dst), "kind": "air",
+            "modes": ["air"], "multimodal": False, "inferred": False,
+            "name": name, "distance": round(math.dist((start.x, start.y), (end.x, end.y)), 1),
+            "days": None, "quality": 1.0, "carriers": [], "unavailable": True,
+        })
 
     return {
         "bounds": list(grid["bounds"]),

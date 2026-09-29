@@ -9,12 +9,12 @@ MOBILE_HTML = """<!DOCTYPE html>
 <link rel="stylesheet" href="app.css"><link rel="stylesheet" href="detail.css"><link rel="stylesheet" href="mobile.css"></head>
 <body><header class="topbar"><div class="brand"><span class="mark">&#9672;</span><div>
 <h1>Travelling Company</h1><p class="tagline">A dated mobile household, caravan and market participant.</p>
-</div></div><nav class="worldbar" aria-label="Main"><span class="pill" data-world-date>&#8230;</span>
-<a class="navlink" href="index.html">Commodity board</a><a class="navlink" href="map.html">World map</a>
-<a class="navlink" href="planner.html">Route planner</a></nav></header>
-<main class="detail-shell mobile-shell"><form id="controls" class="detail-controls"><label>Company
+ </div></div><div class="worldbar"><div class="date-controls"><span class="pill" data-world-date>&#8230;</span></div><nav class="nav-links" aria-label="Main">
+<a class="navlink" href="index.html">Markets</a><a class="navlink" href="location.html">Locations</a><a class="navlink" href="business.html">Businesses</a><a class="navlink" href="product.html">Products</a><a class="navlink" href="route.html">Routes</a><a class="navlink" href="map.html">Map</a>
+<a class="navlink" href="planner.html">Route planner</a><span class="navlink navlink-current" aria-current="page">Travelling companies</span><a class="navlink" href="trade.html">Merchant guild &amp; POs</a><a class="navlink" href="board.html">Request board</a></nav></div></header>
+<main class="detail-shell mobile-shell"><aside class="mobile-sidebar"><form id="controls" class="detail-controls"><label>Company
 <input id="mobile-location" list="mobile-locations" autocomplete="off"></label>
-<datalist id="mobile-locations"></datalist><button class="primary" type="submit">Open</button></form>
+<datalist id="mobile-locations"></datalist><button class="primary" type="submit">Open</button></form></aside><div class="mobile-content">
 <div id="status" class="status" role="status">Loading travelling company...</div>
 <section id="hero"></section>
 <div class="mobile-report-controls">
@@ -22,7 +22,7 @@ MOBILE_HTML = """<!DOCTYPE html>
 <button id="download-report" type="button" class="ghost" disabled>Download report JSON</button>
 </div>
 <section id="economic-report" aria-label="Economic report" aria-busy="false" hidden></section>
-<div id="content"></div></main>
+<div id="content"></div></div></main>
 <script src="date.js"></script><script src="mobile.js"></script></body></html>"""
 
 
@@ -31,15 +31,25 @@ MOBILE_CSS = """
 .mobile-shell .mobile-hero h2 { font-size: 30px; font-weight: 600; margin: 8px 0; overflow-wrap: anywhere; }
 .mobile-shell .mobile-hero p { max-width: 76ch; margin: 0 0 16px; color: var(--cp-text-muted); line-height: 1.7; }
 .mobile-shell .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.mobile-shell .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 0 0 24px; border: 0; background: transparent; }
+.mobile-shell .facts .fact { min-height: 82px; padding: 16px; border: 1px solid var(--cp-border); border-radius: 14px; background: var(--cp-surface-soft); box-shadow: 0 4px 12px rgba(25,35,45,.06); }
+.mobile-shell .facts .fact b { font-size: 21px; font-variant-numeric: tabular-nums; }
+.mobile-shell .facts .fact span { color: var(--cp-text-muted); font-size: 12px; }
 .mobile-shell .chip { padding: 4px 9px; border: 1px solid var(--cp-border); border-radius: 6px; font-size: 12px; background: var(--cp-surface-soft); }
 .mobile-shell .detail-grid { margin-top: 28px; }
 .mobile-shell .detail-section h3 { font-size: 18px; font-weight: 600; margin: 0 0 16px; }
+.mobile-shell .detail-section { border: 1px solid var(--cp-border); border-radius: 18px; padding: 20px; background: var(--cp-surface); box-shadow: 0 8px 24px rgba(25, 35, 45, .07); }
 .mobile-shell .detail-section p { line-height: 1.7; color: var(--cp-text-muted); overflow-wrap: anywhere; }
 .mobile-shell .detail-section ul { padding-left: 20px; margin: 0 0 24px; line-height: 1.7; }
 .mobile-shell .detail-section li { margin-bottom: 6px; overflow-wrap: anywhere; }
 .mobile-shell .table-scroll { max-width: 100%; }
 .mobile-shell .detail-table { min-width: 0; }
 .mobile-shell .detail-table th, .mobile-shell .detail-table td { vertical-align: top; }
+.mobile-shell .detail-table { border-collapse: separate; border-spacing: 0 7px; }
+.mobile-shell .detail-table th { background: var(--cp-surface-soft); }
+.mobile-shell .detail-table td { border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+.mobile-shell .detail-table td:first-child { border-left: 1px solid var(--cp-border); border-radius: 11px 0 0 11px; }
+.mobile-shell .detail-table td:last-child { border-right: 1px solid var(--cp-border); border-radius: 0 11px 11px 0; }
 .mobile-shell .mobile-table td:first-child { overflow-wrap: anywhere; }
 .mobile-shell .mobile-table td:last-child, .mobile-shell .mobile-table th:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .mobile-shell .mobile-itinerary { min-width: 760px; }
@@ -49,10 +59,31 @@ MOBILE_CSS = """
 .mobile-shell #economic-report { margin-bottom: 32px; }
 .mobile-shell #economic-report h2 { font-size: 22px; margin: 0 0 8px; }
 .mobile-shell #economic-report > p { color: var(--cp-text-muted); line-height: 1.7; overflow-wrap: anywhere; }
+.mobile-shell { background: var(--cp-surface); }
+main.detail-shell.mobile-shell { display:grid; grid-template-columns:minmax(250px,20%) minmax(0,1fr); gap:24px; align-items:start; }
+.mobile-shell .mobile-sidebar { position:sticky; top:20px; min-width:0; padding:20px 16px; background:var(--cp-surface); box-sizing:border-box; }
+.mobile-shell .mobile-sidebar .detail-controls { display:grid; margin:0; padding:0; border:0; box-shadow:none; background:transparent; }
+.mobile-shell .mobile-sidebar input { width:calc(100% - 8px); margin-inline:4px; border-radius:12px; }
+.mobile-shell .mobile-content { min-width:0; }
+body > .topbar { background: var(--cp-surface); border: 0; box-shadow: none; }
+.topbar .brand h1 { font-size: 50px; line-height: 1.05; overflow-wrap: anywhere; }
+.mobile-shell + * { background: var(--cp-surface); }
+.mobile-shell .worldbar { display: grid; grid-template-columns: 1fr; justify-items: end; gap: 12px; }
+.mobile-shell .date-controls,
+.mobile-shell .nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; }
+.mobile-shell .date-controls,
+.mobile-shell .nav-links { grid-column: 1; }
+.mobile-shell .navlink { display: inline-flex; align-items: center; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); padding: 8px 12px; box-shadow: 0 3px 8px rgba(25,35,45,.06); }
+.mobile-shell .navlink:hover { border-color: var(--cp-accent); background: var(--cp-accent-soft); color: var(--cp-accent); }
+.mobile-shell [data-world-date] { font-size: 20px; padding: 10px 16px; }
+.mobile-shell .detail-controls { margin: 18px 0 24px; padding: 18px; border: 1px solid var(--cp-border); border-radius: 18px; background: var(--cp-surface); box-shadow: 0 8px 24px rgba(25,35,45,.07); }
 @media (max-width: 760px) {
+  main.detail-shell.mobile-shell { display:block; }
+  .mobile-shell .mobile-sidebar { position:static; margin-bottom:24px; }
   .mobile-shell .mobile-hero { padding: 24px 0 20px; }
   .mobile-shell .mobile-hero h2 { font-size: 28px; }
   .mobile-report-controls button { width: 100%; }
+  .mobile-shell .worldbar, .mobile-shell .date-controls, .mobile-shell .nav-links { justify-content: flex-start; justify-items: start; width: 100%; }
 }
 """
 

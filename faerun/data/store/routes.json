@@ -1,0 +1,679 @@
+[
+  {
+    "name": "The Halruaan Skyway",
+    "stops": [
+      "halarahh",
+      "halagard",
+      "waterdeep"
+    ],
+    "quality": 1.0,
+    "kind": "skyship"
+  },
+  {
+    "name": "The Lantan Skyship Run",
+    "stops": [
+      "lantan",
+      "halagard",
+      "waterdeep"
+    ],
+    "quality": 0.9,
+    "kind": "skyship"
+  },
+  {
+    "name": "The High Road",
+    "stops": [
+      "luskan",
+      "port_llast",
+      "neverwinter",
+      "leilon",
+      "waterdeep"
+    ],
+    "quality": 1.25,
+    "kind": "road"
+  },
+  {
+    "name": "The Long Road",
+    "stops": [
+      "mirabar",
+      "longsaddle",
+      "triboar",
+      "red_larch",
+      "amphail",
+      "waterdeep"
+    ],
+    "quality": 1.1,
+    "kind": "road"
+  },
+  {
+    "name": "The Trade Way",
+    "stops": [
+      "waterdeep",
+      "daggerford",
+      "baldur_s_gate",
+      "beregost",
+      "nashkel",
+      "athkatla",
+      "zazesspur",
+      "myratma",
+      "memnon",
+      "calimport"
+    ],
+    "quality": 1.3,
+    "kind": "road"
+  },
+  {
+    "name": "The Coast Way",
+    "stops": [
+      "baldur_s_gate",
+      "candlekeep",
+      "beregost"
+    ],
+    "quality": 1.05,
+    "kind": "road"
+  },
+  {
+    "name": "The Dusk Road",
+    "stops": [
+      "baldur_s_gate",
+      "soubar",
+      "boareskyr_bridge",
+      "triel",
+      "llorkh"
+    ],
+    "quality": 0.85,
+    "kind": "road"
+  },
+  {
+    "name": "The Chionthar Road",
+    "stops": [
+      "baldur_s_gate",
+      "elturel",
+      "scornubel",
+      "hill_s_edge",
+      "berdusk",
+      "iriaebor",
+      "proskur",
+      "elversult",
+      "teziir",
+      "westgate"
+    ],
+    "quality": 1.15,
+    "kind": "road"
+  },
+  {
+    "name": "The Dawnpost",
+    "stops": [
+      "westgate",
+      "suzail",
+      "marsember"
+    ],
+    "quality": 1.15,
+    "kind": "road"
+  },
+  {
+    "name": "The Calantar's Way",
+    "stops": [
+      "arabel",
+      "suzail",
+      "wheloon"
+    ],
+    "quality": 1.3,
+    "kind": "road"
+  },
+  {
+    "name": "The Moonsea Ride",
+    "stops": [
+      "arabel",
+      "tilverton",
+      "shadowdale",
+      "hillsfar",
+      "zhentil_keep"
+    ],
+    "quality": 1.05,
+    "kind": "road"
+  },
+  {
+    "name": "The Way of the Manticore",
+    "stops": [
+      "highmoon",
+      "essembra",
+      "ashabenford",
+      "archenbridge",
+      "wheloon"
+    ],
+    "quality": 1.0,
+    "kind": "road"
+  },
+  {
+    "name": "The North Ride",
+    "stops": [
+      "silverymoon",
+      "everlund",
+      "sundabar"
+    ],
+    "quality": 1.1,
+    "kind": "road"
+  },
+  {
+    "name": "The Evermoor Way",
+    "stops": [
+      "everlund",
+      "nesme",
+      "yartar",
+      "triboar"
+    ],
+    "quality": 0.95,
+    "kind": "road"
+  },
+  {
+    "name": "The Silver Way",
+    "stops": [
+      "silverymoon",
+      "citadel_felbarr",
+      "citadel_adbar"
+    ],
+    "quality": 0.95,
+    "kind": "road"
+  },
+  {
+    "name": "The Mithral Road",
+    "stops": [
+      "mithral_hall",
+      "nesme",
+      "silverymoon"
+    ],
+    "quality": 0.95,
+    "kind": "road"
+  },
+  {
+    "name": "The Delimbiyr Route",
+    "stops": [
+      "waterdeep",
+      "secomber",
+      "loudwater",
+      "llorkh",
+      "parnast"
+    ],
+    "quality": 0.85,
+    "kind": "road"
+  },
+  {
+    "name": "The Golden Way",
+    "stops": [
+      "telflamm",
+      "phsant",
+      "eltabbar"
+    ],
+    "quality": 1.1,
+    "kind": "road"
+  },
+  {
+    "name": "The Eastern Shaar Road",
+    "stops": [
+      "skuld",
+      "messemprar",
+      "luthcheq",
+      "cimbar"
+    ],
+    "quality": 1.0,
+    "kind": "road"
+  },
+  {
+    "name": "The Vilhon Road",
+    "stops": [
+      "hlath",
+      "arrabar",
+      "ormpetarr"
+    ],
+    "quality": 1.0,
+    "kind": "road"
+  },
+  {
+    "name": "The Amnian Coast Road",
+    "stops": [
+      "athkatla",
+      "crimmor",
+      "purskul",
+      "esmeltaran",
+      "riatavin"
+    ],
+    "quality": 1.1,
+    "kind": "road"
+  },
+  {
+    "name": "The Tethyrian Roads",
+    "stops": [
+      "zazesspur",
+      "darromar",
+      "saradush"
+    ],
+    "quality": 1.05,
+    "kind": "road"
+  },
+  {
+    "name": "The Ten Towns Track",
+    "stops": [
+      "bryn_shander",
+      "targos",
+      "termalaine",
+      "lonelywood",
+      "easthaven",
+      "good_mead"
+    ],
+    "quality": 0.7,
+    "kind": "trail"
+  },
+  {
+    "name": "The Ten Trail",
+    "stops": [
+      "bryn_shander",
+      "luskan"
+    ],
+    "quality": 0.7,
+    "kind": "trail+ferry"
+  },
+  {
+    "name": "The Vast Road",
+    "stops": [
+      "procampur",
+      "tsurlagol",
+      "ravens_bluff",
+      "tantras",
+      "lyrabar"
+    ],
+    "quality": 1.05,
+    "kind": "road"
+  },
+  {
+    "name": "The Sembian Roads",
+    "stops": [
+      "urmlaspyr",
+      "saerloon",
+      "selgaunt",
+      "ordulin",
+      "yhaunn",
+      "procampur"
+    ],
+    "quality": 1.2,
+    "kind": "road"
+  },
+  {
+    "name": "The Dalelands Trail",
+    "stops": [
+      "shadowdale",
+      "ashabenford",
+      "essembra",
+      "myth_drannor",
+      "harrowdale_town"
+    ],
+    "quality": 0.9,
+    "kind": "trail"
+  },
+  {
+    "name": "The Halruaan Skyroad",
+    "stops": [
+      "halarahh",
+      "innarlith"
+    ],
+    "quality": 1.0,
+    "kind": "air"
+  },
+  {
+    "name": "The Lantanna Skybridge",
+    "stops": [
+      "lantan",
+      "halarahh"
+    ],
+    "quality": 0.9,
+    "kind": "skyship"
+  },
+  {
+    "name": "The Jungle Track",
+    "stops": [
+      "port_nyanzaru",
+      "ishau"
+    ],
+    "quality": 0.5,
+    "kind": "track+river"
+  },
+  {
+    "name": "The Jungle Track",
+    "stops": [
+      "ishau",
+      "lundeth"
+    ],
+    "quality": 0.5,
+    "kind": "track+river"
+  },
+  {
+    "name": "The Jungle Track",
+    "stops": [
+      "lundeth",
+      "tashluta"
+    ],
+    "quality": 0.5,
+    "kind": "track+river"
+  },
+  {
+    "name": "The Chionthar",
+    "stops": [
+      "baldur_s_gate",
+      "elturel",
+      "scornubel",
+      "berdusk"
+    ],
+    "quality": 1.2,
+    "kind": "river+barge"
+  },
+  {
+    "name": "The Delimbiyr",
+    "stops": [
+      "daggerford",
+      "secomber",
+      "loudwater"
+    ],
+    "quality": 1.1,
+    "kind": "river+portage"
+  },
+  {
+    "name": "The Dessarin",
+    "stops": [
+      "yartar",
+      "red_larch",
+      "waterdeep"
+    ],
+    "quality": 1.05,
+    "kind": "river+road"
+  },
+  {
+    "name": "The River Rauvin",
+    "stops": [
+      "silverymoon",
+      "everlund",
+      "nesme"
+    ],
+    "quality": 1.05,
+    "kind": "river"
+  },
+  {
+    "name": "The River Lis",
+    "stops": [
+      "mulmaster",
+      "harrowdale_town"
+    ],
+    "quality": 1.0,
+    "kind": "river+sea"
+  },
+  {
+    "name": "The Starwater",
+    "stops": [
+      "wheloon",
+      "marsember"
+    ],
+    "quality": 1.1,
+    "kind": "river+barge"
+  },
+  {
+    "name": "The Alamber Run",
+    "stops": [
+      "skuld",
+      "messemprar"
+    ],
+    "quality": 1.1,
+    "kind": "sea"
+  },
+  {
+    "name": "The Tesh",
+    "stops": [
+      "zhentil_keep",
+      "hillsfar"
+    ],
+    "quality": 0.95,
+    "kind": "river"
+  },
+  {
+    "name": "The Dark Dominion",
+    "stops": [
+      "menzoberranzan",
+      "blingdenstone"
+    ],
+    "quality": 0.7,
+    "kind": "tunnel"
+  },
+  {
+    "name": "The Duergar Deeps",
+    "stops": [
+      "menzoberranzan",
+      "gracklstugh"
+    ],
+    "quality": 0.6,
+    "kind": "tunnel"
+  },
+  {
+    "name": "The Derith Run",
+    "stops": [
+      "menzoberranzan",
+      "mantol_derith"
+    ],
+    "quality": 0.6,
+    "kind": "tunnel"
+  },
+  {
+    "name": "The Deepdark Road",
+    "stops": [
+      "mantol_derith",
+      "sshamath"
+    ],
+    "quality": 0.5,
+    "kind": "tunnel"
+  },
+  {
+    "name": "Gracklstugh Ore Road",
+    "stops": [
+      "gracklstugh",
+      "mantol_derith"
+    ],
+    "quality": 0.6,
+    "kind": "tunnel"
+  },
+  {
+    "name": "Mirabar Underway",
+    "stops": [
+      "gracklstugh",
+      "mirabar"
+    ],
+    "quality": 0.4,
+    "kind": "tunnel+trail"
+  },
+  {
+    "name": "Menzoberranzan Surface Way",
+    "stops": [
+      "menzoberranzan",
+      "nesme"
+    ],
+    "quality": 0.35,
+    "kind": "tunnel+trail"
+  },
+  {
+    "name": "Blingdenstone Trail",
+    "stops": [
+      "blingdenstone",
+      "silverymoon"
+    ],
+    "quality": 0.45,
+    "kind": "tunnel+trail"
+  },
+  {
+    "name": "Sshamath Smugglers' Road",
+    "stops": [
+      "sshamath",
+      "secomber"
+    ],
+    "quality": 0.35,
+    "kind": "tunnel+trail"
+  },
+  {
+    "name": "Sshamath Deep Way",
+    "stops": [
+      "sshamath",
+      "llorkh"
+    ],
+    "quality": 0.35,
+    "kind": "tunnel+trail"
+  },
+  {
+    "name": "The Darklake Barges",
+    "stops": [
+      "gracklstugh",
+      "menzoberranzan"
+    ],
+    "quality": 0.55,
+    "kind": "barge+tunnel"
+  },
+  {
+    "name": "The Red Road",
+    "stops": [
+      "eltabbar",
+      "phsant",
+      "telflamm"
+    ],
+    "quality": 0.9,
+    "kind": "road"
+  },
+  {
+    "name": "The Faerzress Circuit",
+    "stops": [
+      "menzoberranzan",
+      "blingdenstone",
+      "silverymoon"
+    ],
+    "quality": 0.4,
+    "kind": "tunnel+trail"
+  },
+  {
+    "name": "The Sand Road",
+    "stops": [
+      "parnast",
+      "llorkh",
+      "loudwater",
+      "secomber",
+      "waterdeep"
+    ],
+    "quality": 0.6,
+    "kind": "road"
+  },
+  {
+    "name": "Black Road across Anauroch to Dagger Falls",
+    "stops": [
+      "llorkh",
+      "dagger_falls"
+    ],
+    "quality": 0.7,
+    "kind": "trail"
+  },
+  {
+    "name": "The Elven Concord",
+    "stops": [
+      "shadowdale",
+      "ashabenford",
+      "essembra",
+      "myth_drannor",
+      "harrowdale_town"
+    ],
+    "quality": 0.5,
+    "kind": "trail"
+  },
+  {
+    "name": "The Clanhold Road",
+    "stops": [
+      "citadel_adbar",
+      "silverymoon",
+      "mithral_hall",
+      "waterdeep"
+    ],
+    "quality": 1.1,
+    "kind": "road"
+  },
+  {
+    "name": "The Genie's Road",
+    "stops": [
+      "calimport",
+      "memnon",
+      "myratma",
+      "zazesspur",
+      "athkatla",
+      "nashkel",
+      "beregost",
+      "baldur_s_gate",
+      "daggerford",
+      "waterdeep"
+    ],
+    "quality": 0.95,
+    "kind": "road"
+  },
+  {
+    "name": "The Iron Road",
+    "stops": [
+      "arabel",
+      "tilverton",
+      "shadowdale",
+      "hillsfar",
+      "zhentil_keep"
+    ],
+    "quality": 1.0,
+    "kind": "road"
+  },
+  {
+    "name": "The Bread Road",
+    "stops": [
+      "goldenfields",
+      "waterdeep"
+    ],
+    "quality": 1.2,
+    "kind": "river+road"
+  },
+  {
+    "name": "The Fleece Road",
+    "stops": [
+      "procampur",
+      "tsurlagol",
+      "ravens_bluff",
+      "tantras",
+      "lyrabar",
+      "urmlaspyr",
+      "saerloon",
+      "selgaunt",
+      "ordulin",
+      "yhaunn"
+    ],
+    "quality": 1.0,
+    "kind": "road"
+  },
+  {
+    "name": "The Glasswrights' Road",
+    "stops": [
+      "innarlith",
+      "westgate"
+    ],
+    "quality": 0.95,
+    "kind": "road"
+  },
+  {
+    "name": "The Herbalists' Trail",
+    "stops": [
+      "telflamm",
+      "phsant",
+      "eltabbar",
+      "shadowdale",
+      "ashabenford",
+      "essembra",
+      "myth_drannor",
+      "harrowdale_town",
+      "silverymoon",
+      "everlund",
+      "sundabar"
+    ],
+    "quality": 1.0,
+    "kind": "road+trail"
+  }
+]

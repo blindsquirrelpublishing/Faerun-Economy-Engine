@@ -201,10 +201,16 @@ function requirements() {
       population: 100, wealth: 1.2, mage_population: 2, standing_army: 4, militia: 8,
       annual_growth_rate: 0.025, builders: 3, carpenters: 2, new_homes_per_year: 1.5,
       reference_period: 'Fixed annual-average baseline; independent of selected month.',
+      wage_modifier: 1.25, unallocated_workers: 12,
+      unallocated_daily_wage_gp: 0.4, wage_bill_gp_per_day: 8.4,
       provenance: {basis: 'Population <estimate>'},
       assumptions: ['No canonical census', 'A < B'],
       establishments: [{id: 'bakery', name: 'Bakers <estimated>', count: 2,
-                        workers: 8, basis: 'Modeled <output>'}]
+                        workers: 8, daily_wage_gp: 0.7, wage_bill_gp_per_day: 5.6,
+                        basis: 'Modeled <output>'},
+                      {id: 'smiths', name: 'Smiths', count: 1, workers: 2,
+                        daily_wage_gp: 0.9, wage_bill_gp_per_day: 1.8,
+                        basis: 'Modeled craft'}]
     },
     assumptions: ['No canonical census', 'Only modeled demand'],
     summary: {
@@ -266,6 +272,12 @@ assert.ok(assumptions.includes('A &lt; B'));
 assert.equal(assumptions.split('No canonical census').length, 2);
 assert.ok(ui.el['requirements-establishments'].innerHTML.includes('Bakers &lt;estimated&gt;'));
 assert.ok(ui.el['requirements-establishments'].innerHTML.includes('Estimated workers (total)'));
+const wages = ui.el['requirements-wages'].innerHTML;
+assert.ok(wages.includes('Estimated wages by worker category'));
+assert.ok(wages.includes('General labor'));
+assert.ok(wages.includes('Craft and manufacturing'));
+assert.ok(wages.includes('Average wage/day'));
+assert.ok(wages.includes('Total modeled payroll'));
 assert.equal(ui.el['requirements-services-section'].hidden, true);
 data.profile.service_requirements = [{
   name: 'Water <supply>', unit: 'gallon', required_per_day: 300,

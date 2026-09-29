@@ -16,6 +16,7 @@ from faerun.economy import (
     market_report,
     price_for,
     price_history,
+    special_order_quote,
     sourcing_catalog,
     trade_summary,
 )
@@ -29,7 +30,9 @@ from faerun.living import (
     settlement_per_person_daily_requirements,
     settlement_daily_requirements,
 )
-from faerun.world import World
+from faerun.models import C, GuildChapter, S
+from faerun.world import EconomyConfig, World
+
 
 TERRAINS = {s.terrain for s in SETTLEMENTS}
 TRAITS = {t for s in SETTLEMENTS for t in s.traits}
@@ -200,6 +203,38 @@ def test_the_seed_changes_prices_but_not_much():
     pb = price_for("Baldur's Gate", "iron_ingot", world=b).price
     assert pa != pb
     assert abs(pa - pb) / pa < 0.25
+
+def test_guild_chapters_scale_and_apply_tax_and_availability_pressure():
+    small = S("Small Workshop", "Test", "test", 900, 0, 0, ind="craft3")
+    large = S("Large Workshop", "Test", "test", 9000, 10, 0, ind="craft3 trade2")
+    small_guild = next(guild for guild in small.guild_chapters() if guild.id == "artisans_guild")
+    large_guild = next(guild for guild in large.guild_chapters() if guild.id == "artisans_guild")
+    assert large_guild.size > small_guild.size
+    assert large_guild.power >= small_guild.power
+
+    commodity = C("widget", "Widget", "craft", 10, produced_by="craft")
+    quiet = World(
+        settlements=[S("Workshop", "Test", "test", 100, 0, 0, ind="craft3", spec="widget3")],
+        commodities=[commodity], businesses=[], config=EconomyConfig(noise=0, expanded_requirements=False),
+    )
+    strong = World(
+        settlements=[S(
+            "Workshop", "Test", "test", 100, 0, 0, ind="craft3", spec="widget3",
+            guilds=[GuildChapter(
+                "artisans_guild", "Artisans' Guild", domains=["craft"], categories=["craft"],
+                size=120, power=1.0, tax_rate=0.05, enforcement=1.0,
+            )],
+        )],
+        commodities=[commodity], businesses=[], config=EconomyConfig(noise=0, expanded_requirements=False),
+    )
+    base = price_for("Workshop", "widget", world=quiet).to_dict()
+    guilded = price_for("Workshop", "widget", world=strong).to_dict()
+    assert guilded["price"] > base["price"]
+    assert guilded["stock"] < base["stock"]
+    assert guilded["guild_tax_rate"] == pytest.approx(0.05)
+    assert guilded["guild_enforcement"] == pytest.approx(1.0)
+    assert guilded["guilds"][0]["product_tax_rate"] == pytest.approx(0.05)
+    assert guilded["factors"]["guild_availability"] < 1
 
 
 # ---------------------------------------------------------------------------
@@ -434,3 +469,32 @@ def test_routes_are_symmetric_and_plausible(world):
     assert there["distance"] == pytest.approx(back["distance"], rel=0.01)
     assert there["legs"][0]["from"] == "Waterdeep"
     assert there["path"][-1] == "Baldur's Gate"
+
+
+def test_special_order_not_needed_when_stocked(world):
+    quote = price_for("Waterdeep", "grain", world=world)
+    assert quote.stock > 0
+    result = special_order_quote("Waterdeep", "grain", world=world)
+    assert result["needed"] is False
+    assert result["available"] is True
+
+
+def test_special_order_prices_a_lead_time_for_unavailable_goods(world):
+    found = None
+    for c in world.commodities.values():
+        for row in compare_prices(c.id, world=world, limit=10_000)["markets"]:
+            if row["availability"] == "unavailable" and row["stock"] == 0:
+                found = (row["settlement"], c.id)
+                break
+        if found:
+            break
+    assert found, "expected at least one unavailable standard-grade commodity/market pair"
+    settlement, commodity = found
+    result = special_order_quote(settlement, commodity, world=world)
+    assert result["needed"] is True
+    if result["available"]:
+        assert result["special_order_price"] > 0
+        assert result["lead_time_days"] >= 3
+        assert result["source"] != world.find_settlement(settlement).name
+    else:
+        assert "no supplier" in result["reason"]

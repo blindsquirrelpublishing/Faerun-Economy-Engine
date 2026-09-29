@@ -21,7 +21,7 @@ from __future__ import annotations
 import hashlib
 import math
 from dataclasses import asdict
-from typing import Dict, Iterable, List, Optional, Sequence
+from typing import Callable, Dict, Iterable, List, Optional, Sequence
 
 from .calendar import season_of
 from .living import daily_requirement, settlement_daily_requirements
@@ -126,6 +126,8 @@ def supply_index(world: World, s: Settlement, c: Commodity, *, include_events: b
     if _region_allows(s, c):
         for tag in c.produced_by:
             level = s.industry_level(tag)
+            if level < c.required_skill.get(tag, 0.0):
+                continue
             if level:
                 raw += level * _terrain_mod(s.terrain, tag)
     primary = any(tag in PRIMARY for tag in c.produced_by)
@@ -225,6 +227,33 @@ def _quality_offers(price: float, buy_price: float, stock: int,
             "availability": _quality_availability(stocks[quality]),
         })
     return offers
+
+
+def _guild_pressure(s: Settlement, c: Commodity) -> Dict:
+    chapters = [guild for guild in s.guild_chapters() if guild.applies_to(c)]
+    if not chapters:
+        return {
+            "guilds": [],
+            "tax_rate": 0.0,
+            "enforcement": 0.0,
+            "availability_factor": 1.0,
+        }
+    guilds = []
+    for chapter in chapters:
+        product_tax = chapter.tax_rate * chapter.enforcement
+        guilds.append({
+            **chapter.to_dict(),
+            "product_tax_rate": round(product_tax, 4),
+        })
+    tax_rate = min(0.12, sum(row["product_tax_rate"] for row in guilds))
+    enforcement = min(1.0, sum(chapter.enforcement * chapter.power for chapter in chapters))
+    availability_factor = max(0.65, 1.0 - min(0.35, enforcement * 0.25))
+    return {
+        "guilds": guilds,
+        "tax_rate": tax_rate,
+        "enforcement": enforcement,
+        "availability_factor": availability_factor,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -511,14 +540,19 @@ def _commodity_markets(world: World, c: Commodity, *, _material=None) -> Dict[st
         wobble = _noise(world, s, c)
 
         inventory_pressure = _material["inventory_pressure"][sid] if inventory_mode else 1.0
-        price = core * (1.0 + markup) * tax * season_mult * inventory_pressure * event_price * wobble
+        guild_pressure = _guild_pressure(s, c)
+        guild_tax = 1.0 + guild_pressure["tax_rate"]
+        if guild_pressure["guilds"]:
+            names = ", ".join(row["name"] for row in guild_pressure["guilds"][:3])
+            notes.append(f"guild assessment: {names}")
+        price = core * (1.0 + markup) * tax * guild_tax * season_mult * inventory_pressure * event_price * wobble
         price = max(price, c.base_price * 0.25)
 
         production_per_day = production[sid]
         demand_per_day = demand_volume[sid]
         available_daily = max(0.0, production_per_day - allocation["exports_per_day"] + imported)
         stock_days = min(10.0, cfg.fresh_bread_days) if c.id == "bread" else 10.0
-        stock = max(0, int(round(available_daily * stock_days)))
+        stock = max(0, int(round(available_daily * stock_days * guild_pressure["availability_factor"])))
 
         multiplier = price / c.base_price
         if not reachable and supply <= 0:
@@ -566,6 +600,9 @@ def _commodity_markets(world: World, c: Commodity, *, _material=None) -> Dict[st
                 info.get("producer_price", max(c.base_price, _material["unit_cost"][sid] if _material is not None else 0.0))
                 if production_per_day > 0 else None),
             guild_markup_rate=cfg.export_margin,
+            guilds=guild_pressure["guilds"],
+            guild_tax_rate=round(guild_pressure["tax_rate"], 4),
+            guild_enforcement=round(guild_pressure["enforcement"], 3),
             supply_index=round(supply, 3),
             demand_index=round(demand, 3),
             production_per_day=round(production_per_day, 3),
@@ -579,6 +616,9 @@ def _commodity_markets(world: World, c: Commodity, *, _material=None) -> Dict[st
                 "core_price": round(core, 3),
                 "market_markup": round(markup, 3),
                 "tariff": round(s.tax, 3),
+                "guild_tax": round(guild_pressure["tax_rate"], 4),
+                "guild_enforcement": round(guild_pressure["enforcement"], 3),
+                "guild_availability": round(guild_pressure["availability_factor"], 3),
                 "season": round(season_mult, 3),
                 "inventory_pressure": round(inventory_pressure, 3),
                 "event": round(event_price, 3),
@@ -685,7 +725,8 @@ def _apply_quantity(quote: PriceQuote, quantity: int) -> PriceQuote:
 def market_report(settlement, world: Optional[World] = None,
                   category: Optional[str] = None,
                   commodities: Optional[Sequence[str]] = None,
-                  sort: str = "category") -> Dict:
+                  sort: str = "category",
+                  progress: Optional[Callable[[int, int, str], None]] = None) -> Dict:
     """Every price on offer in one market."""
     world = world or get_world()
     s = world.find_settlement(settlement)
@@ -698,7 +739,14 @@ def market_report(settlement, world: Optional[World] = None,
         ]
     from .trading import claims_for, tradable_quote
     claims = claims_for(world)
-    quotes = [tradable_quote(world, _commodity_markets(world, c)[s.id], claims) for c in goods]
+    quotes = []
+    total = len(goods)
+    for index, c in enumerate(goods):
+        if progress is not None:
+            progress(index, total, c.name)
+        quotes.append(tradable_quote(world, _commodity_markets(world, c)[s.id], claims))
+        if progress is not None:
+            progress(index + 1, total, c.name)
     if sort == "price":
         quotes.sort(key=lambda q: -q.price)
     elif sort == "multiplier":
@@ -985,6 +1033,77 @@ def find_arbitrage(origin, world: Optional[World] = None,
         "max_days": max_days,
         "deals": deals[:limit],
         "supply_basis": "Cargo is capped by uncommitted stock estimates after planned demand and allocated exports; alternatives share this pool and are not bookings.",
+    }
+
+
+def special_order_quote(settlement, commodity, world: Optional[World] = None,
+                        quantity: int = 1, quality: str = "standard",
+                        handling_days: float = 3.0, rush_premium: float = 0.35,
+                        max_days: float = 90.0) -> Dict:
+    """Price and lead time to special-order a good the local merchant does not stock.
+
+    The merchant does not carry uncommitted stock here, so instead of a shelf
+    price they quote a one-off order: the cheapest reachable market's landed
+    cost plus freight and a rush surcharge for arranging a small out-of-cycle
+    shipment, with a lead time of travel days plus handling to place the order.
+    """
+    world = world or get_world()
+    s = world.find_settlement(settlement)
+    c = world.find_commodity(commodity)
+    local = price_for(s.id, c.id, world, quantity=quantity, quality=quality)
+    if local.availability != "unavailable" and local.stock > 0:
+        return {
+            "settlement": s.name, "commodity": c.name, "unit": c.unit,
+            "needed": False, "available": True,
+            "reason": "carried in stock; no special order required",
+        }
+
+    from .trading import claims_for, tradable_quote
+
+    freight = _freight_map(world, s.id)
+    days = _days_map(world, s.id)
+    markets = _commodity_markets(world, c)
+    claims = claims_for(world)
+
+    best = None
+    for sid, travel_days in days.items():
+        if sid == s.id or travel_days > max_days or sid not in freight:
+            continue
+        candidate = tradable_quote(world, markets[sid], claims)
+        if candidate.availability == "unavailable" or candidate.uncommitted_stock <= 0:
+            continue
+        landed = candidate.price + freight[sid] * c.weight
+        if best is None or landed < best["landed"]:
+            best = {"sid": sid, "landed": landed, "days": travel_days, "candidate": candidate}
+
+    if best is None:
+        return {
+            "settlement": s.name, "commodity": c.name, "unit": c.unit,
+            "needed": True, "available": False,
+            "reason": f"no supplier reachable within {max_days:g} days carries uncommitted stock",
+        }
+
+    unit_price = round(best["landed"] * (1.0 + rush_premium), 3)
+    lead_time_days = math.ceil(best["days"]) + math.ceil(handling_days)
+    return {
+        "settlement": s.name,
+        "commodity": c.name,
+        "commodity_id": c.id,
+        "unit": c.unit,
+        "quantity": quantity,
+        "quality": quality,
+        "needed": True,
+        "available": True,
+        "special_order_price": unit_price,
+        "lead_time_days": lead_time_days,
+        "source": world.settlements[best["sid"]].name,
+        "source_days": round(best["days"], 1),
+        "rush_premium_pct": round(rush_premium * 100, 1),
+        "notes": [
+            f"special-ordered from {world.settlements[best['sid']].name}; "
+            "the local merchant does not carry uncommitted stock of this good",
+            f"landed cost plus a {rush_premium * 100:.0f}% rush surcharge for a small, out-of-cycle shipment",
+        ],
     }
 
 

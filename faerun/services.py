@@ -11,6 +11,7 @@ import math
 from typing import Iterable
 
 from .models import Commodity, Settlement
+from .wages import daily_wage_gp, location_wage_modifier
 
 
 DAYS_PER_YEAR = 365.0
@@ -180,6 +181,9 @@ def service_sector_plans(
         _number(level, f"industries[{tag!r}]")
     goods = _catalogue(commodities)
     buckets, free = _workers(profile, pop)
+    wage_modifier = location_wage_modifier(
+        s, profile["worker_population"], profile["unallocated_workers"]
+    )
     utility_productivity = _utility_productivity(s, profile)
     share = min(1.0, max(0.0, (wealth - .65) / .75))
     trade = min(3.0, s.industry_level("trade"))
@@ -306,6 +310,8 @@ def service_sector_plans(
             "capacity_per_day": float(capacity),
             "planned_per_day": float(min(resident + visitor, capacity)),
             "fee_gp_per_unit": float(fee * (.8 + .4 * share)),
+            "daily_wage_gp": daily_wage_gp(cid, wage_modifier),
+            "wage_bill_gp_per_day": float(labor * daily_wage_gp(cid, wage_modifier)),
             "market_service": market, "inputs_per_unit": inputs,
             "visitor_units_per_person_day": float(visitor_rates[cid]), "basis": basis,
             "worker_sources": sources[cid],

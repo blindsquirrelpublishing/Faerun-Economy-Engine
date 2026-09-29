@@ -558,12 +558,35 @@ def test_real_shared_freight_and_missing_established_route(desk, monkeypatch):
     monkeypatch.setattr(desk.world, "edge_risk", lambda edge: 0)
     quote = build_quote(desk.world, parameters(fixed_gp=2))
     shipping = quote["shipping"]
-    assert shipping["carrier"] == "Shared freight"
+    assert shipping["carrier"] == "Less than load — shared freight"
     assert shipping["one_way_days"] == 2
-    assert shipping["cost_gp"] == trading.money(shipping["benchmark_freight_gp"] + 2)
+    assert shipping["cost_gp"] == trading.money(max(shipping["benchmark_freight_gp"] + 2, 5.0))
     desk.world._edges = {}
     with pytest.raises(TradeError, match="route"):
         build_quote(desk.world, parameters())
+
+
+def test_real_full_load_bills_a_flat_per_load_rate_and_enforces_a_minimum_weight(desk, monkeypatch):
+    monkeypatch.setattr(trading, "transport_quote", desk.real_transport)
+    monkeypatch.setattr(desk.world, "edge_risk", lambda edge: 0)
+    with pytest.raises(TradeError, match="500"):
+        build_quote(desk.world, parameters(transport_mode="full_load"))
+    quote = build_quote(desk.world, parameters(quantity=300, transport_mode="full_load"))
+    shipping = quote["shipping"]
+    assert shipping["carrier"] == "Full load — dedicated carrier"
+    assert shipping["capacity_lb"] is None
+    assert shipping["cost_gp"] > 0
+
+
+def test_customer_pickup_charges_no_freight_or_transit_time(desk, monkeypatch):
+    monkeypatch.setattr(trading, "transport_quote", desk.real_transport)
+    monkeypatch.setattr(desk.world, "edge_risk", lambda edge: 0)
+    quote = build_quote(desk.world, parameters(transport_mode="customer_pickup"))
+    shipping = quote["shipping"]
+    assert shipping["carrier"] == "Customer's own transport"
+    assert shipping["cost_gp"] == 0
+    assert shipping["one_way_days"] == 0
+    assert quote["amounts"]["shipping_paid_separately_gp"] == 0
 
 
 @pytest.mark.parametrize("field,value", [
@@ -583,11 +606,13 @@ def test_quote_rejects_invalid_numeric_and_boolean_values(desk, field, value):
 
 @pytest.mark.parametrize("changes", [
     {"delivery_terms": "delivered", "transport_mode": "own_caravan"},
+    {"delivery_terms": "delivered", "transport_mode": "full_load"},
+    {"delivery_terms": "delivered", "transport_mode": "customer_pickup"},
     {"return_trip": True}, {"daily_gp": 3},
     {"customer_price_mode": "agreed", "customer_unit_price": .1234567},
     {"supplier_total_gp": 1}, {"quality": "legendary"}, {"acceptance_terms": ""},
-], ids=["delivered-own", "shared-return", "shared-daily", "unit-precision",
-        "untrusted-total", "unknown-grade", "missing-acceptance"])
+], ids=["delivered-own", "delivered-full-load", "delivered-pickup", "shared-return", "shared-daily",
+        "unit-precision", "untrusted-total", "unknown-grade", "missing-acceptance"])
 def test_quote_rejects_incompatible_or_untrusted_terms(desk, changes):
     with pytest.raises(TradeError):
         build_quote(desk.world, parameters(**changes))

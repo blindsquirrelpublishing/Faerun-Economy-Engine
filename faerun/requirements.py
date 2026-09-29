@@ -16,6 +16,7 @@ from .living import settlement_per_person_daily_requirements
 from .models import Commodity, Settlement
 from .population import population_report
 from .water import LITRES_PER_GALLON
+from .wages import daily_wage_gp, location_wage_modifier, wage_assumptions
 
 
 DAYS_PER_YEAR = 365.0
@@ -474,6 +475,13 @@ def settlement_profile(s: Settlement, *, include_services: bool = True) -> dict:
     temple_workers = occupation("temples", "Temple staff", pop * (
         .002 + .002 * _level(s, "temple")) if trait("temple") or _level(s, "temple") else 0,
         6, "population*(.002+.002*temple_level), only with a temple")
+    wage_modifier = location_wage_modifier(s, worker_pool, remaining)
+    unallocated_wage_gp = daily_wage_gp("general", wage_modifier)
+    wage_bill = remaining * unallocated_wage_gp
+    for row in establishments:
+        row["daily_wage_gp"] = daily_wage_gp(row["id"], wage_modifier)
+        row["wage_bill_gp_per_day"] = row["workers"] * row["daily_wage_gp"]
+        wage_bill += row["wage_bill_gp_per_day"]
     equipment = {}
     for cid, (army_share, reserve_share, army_renewal, reserve_renewal) in EQUIPMENT.items():
         standing_stock, militia_stock = army * army_share, militia * reserve_share
@@ -498,6 +506,10 @@ def settlement_profile(s: Settlement, *, include_services: bool = True) -> dict:
         "new_homes_per_year": new_homes, "existing_homes": homes,
         "repair_home_equivalents_per_year": repairs,
         "worker_population": worker_pool, "unallocated_workers": remaining,
+        "wage_modifier": wage_modifier,
+        "unallocated_daily_wage_gp": unallocated_wage_gp,
+        "wage_bill_gp_per_day": wage_bill,
+        "wage_assumptions": wage_assumptions(),
         "farm_workers": farmers, "fishers": fishers, "health_workers": health_workers,
         "logistics_workers": logistics_workers, "temple_workers": temple_workers,
         "sanitation_workers": sanitation_workers,

@@ -15,7 +15,14 @@
         .\run.ps1 -Check       # only run the checks, do not start the server
         .\run.ps1 -SkipCheck   # go straight to the board
         .\run.ps1 -Port 9000   # serve on a different port
+        .\run.ps1 -BindHost 0.0.0.0  # listen on every network interface, not just this PC
         .\run.ps1 -SeasonalInventory  # opt into daily seasonal stock replay
+
+        # -BindHost 0.0.0.0 lets other devices on your network reach the board at
+        # http://<this-PC's-LAN-IP>:<port>/, and Windows will likely prompt to
+        # allow python.exe through the firewall the first time. The merchant
+        # guild/PO trade desk and the request board still refuse anything but
+        # 127.0.0.1, by design, regardless of -BindHost.
 
         # Drape your own copy of a Faerun poster map over the 3D world map.
         # Anything dropped in the maps\ folder is found automatically, so this
@@ -32,6 +39,7 @@
 param(
     [switch]$Check,
     [switch]$SkipCheck,
+    [string]$BindHost = '127.0.0.1',
     [int]$Port = 8765,
     [switch]$NoBrowser,
     [switch]$Map,
@@ -219,15 +227,20 @@ if ($stale) {
     }
 }
 
+$shown = if ($BindHost -in @('0.0.0.0', '::', '')) { '127.0.0.1' } else { $BindHost }
 Write-Step "Starting the market board on port $Port"
-Write-Host "   Commodity board : http://127.0.0.1:$Port/"
-Write-Host "   3D world map    : http://127.0.0.1:$Port/map.html"
-Write-Host "   Location history: http://127.0.0.1:$Port/location.html"
+Write-Host "   Commodity board : http://${shown}:$Port/"
+Write-Host "   3D world map    : http://${shown}:$Port/map.html"
+Write-Host "   Location history: http://${shown}:$Port/location.html"
+if ($BindHost -ne $shown) {
+    Write-Host "   Listening on all interfaces; other devices can use this PC's LAN IP instead of $shown."
+    Write-Host '   The merchant guild/PO trade desk and request board still require 127.0.0.1.'
+}
 Write-Host '   Press Ctrl+C in this window to stop it.'
 $subcommand = if ($Map) { 'map' } else { 'serve' }
 $serveArgs = @('-m', 'faerun.cli')
 if ($SeasonalInventory) { $serveArgs += '--seasonal-inventory' }
-$serveArgs += @($subcommand, '--port', "$Port")
+$serveArgs += @($subcommand, '--host', $BindHost, '--port', "$Port")
 if ($NoBrowser) { $serveArgs += '--no-browser' }
 if ($Underlay) {
     if (-not (Test-Path -LiteralPath $Underlay)) {

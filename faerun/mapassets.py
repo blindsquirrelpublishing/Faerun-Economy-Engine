@@ -33,27 +33,19 @@ MAP_HTML = """<!DOCTYPE html>
     </div>
   </div>
   <div class="worldbar">
-    <form id="location-search-form" class="locationsearch" role="search">
-      <label class="sr-only" for="location-search">Find a location</label>
-      <input id="location-search" type="search" list="location-options"
-             placeholder="Find location..." autocomplete="off">
-      <datalist id="location-options"></datalist>
-      <button type="submit" title="Find location" aria-label="Find location">&#128269;</button>
-    </form>
-    <a class="navlink" href="index.html">&#8592; Commodity board</a>
+    <span id="world-date" class="pill" data-world-date>&#8230;</span>
+    <nav class="nav-links" aria-label="Main navigation">
+    <a class="navlink" href="index.html">Markets</a>
+    <a class="navlink" href="location.html">Locations</a>
+    <a class="navlink" href="business.html">Businesses</a>
+    <a class="navlink" href="product.html">Products</a>
+    <a class="navlink" href="route.html">Routes</a>
+    <span class="navlink navlink-current" aria-current="page">Map</span>
     <a class="navlink" href="planner.html">Route planner</a>
     <a class="navlink" href="mobile.html">Travelling companies</a>
     <a class="navlink" href="trade.html">Merchant guild &amp; POs</a>
-    <a class="navlink" href="waterdeep.html">Waterdeep atlas</a>
-    <fieldset class="mapview-switch" aria-label="Base map">
-      <legend class="sr-only">Base map</legend>
-      <label><input type="radio" name="map-view" value="overlay" checked><span>Poster map</span></label>
-      <label><input type="radio" name="map-view" value="terrain"><span>3D terrain</span></label>
-    </fieldset>
-    <label class="poster-only-control"><input id="poster-only" type="checkbox" disabled title="Available when the poster image has loaded"> Poster only</label>
-    <label><input id="opt-route-icons" type="checkbox" checked> Leg icons</label>
-    <a class="navlink" id="history-link" href="location.html">Location history &#8594;</a>
-    <span id="world-date" class="pill" data-world-date>&#8230;</span>
+    <a class="navlink" href="board.html">Request board</a>
+    </nav>
   </div>
 </header>
 
@@ -62,7 +54,22 @@ MAP_HTML = """<!DOCTYPE html>
     <canvas id="world-canvas"></canvas>
 
     <div class="hud">
-      <details class="mapsettings">
+      <div class="map-controls" aria-label="Map controls">
+        <form id="location-search-form" class="locationsearch" role="search">
+          <label class="sr-only" for="location-search">Find a location</label>
+          <input id="location-search" type="search" list="location-options" placeholder="Find location..." autocomplete="off">
+          <datalist id="location-options"></datalist>
+          <button type="submit" title="Find a location" aria-label="Find a location">&#128269;</button>
+        </form>
+        <fieldset class="mapview-switch" aria-label="Base map">
+          <legend class="sr-only">Base map</legend>
+          <label><input type="radio" name="map-view" value="overlay" checked><span>Poster map</span></label>
+          <label><input type="radio" name="map-view" value="terrain"><span>3D terrain</span></label>
+        </fieldset>
+        <label class="poster-only-control"><input id="poster-only" type="checkbox" disabled title="Available when the poster image has loaded"> Poster only</label>
+        <label><input id="opt-route-icons" type="checkbox" checked> Leg icons</label>
+      </div>
+      <details class="mapsettings" open ontoggle="this.open=true">
       <summary>Map layers &amp; alignment</summary>
       <div class="hudrow">
         <label>Colour dots by
@@ -86,6 +93,7 @@ MAP_HTML = """<!DOCTYPE html>
               <label><input type="checkbox" name="route-type" value="tunnel"> &#9673; Tunnel</label>
               <label><input type="checkbox" name="route-type" value="teleport"> &#10022; Teleportation circle</label>
               <label><input type="checkbox" name="route-type" value="air"> &#129413; Gryphon flight</label>
+              <label><input type="checkbox" name="route-type" value="skyship"> &#128752; Skyship</label>
             </div>
           </details>
         </div>
@@ -203,6 +211,18 @@ MAP_HTML = """<!DOCTYPE html>
   </div>
 
   <aside class="mappanel">
+    <section id="route-plan" class="routeplan" aria-live="polite">
+      <h2>Plan a route</h2>
+      <form id="route-plan-form">
+        <label class="sr-only" for="route-plan-origin">Origin</label>
+        <input id="route-plan-origin" type="search" list="location-options" placeholder="Origin" autocomplete="off">
+        <label class="sr-only" for="route-plan-destination">Destination</label>
+        <input id="route-plan-destination" type="search" list="location-options" placeholder="Destination" autocomplete="off">
+        <label><input type="checkbox" id="route-plan-cost"> Optimize for cost</label>
+        <button type="submit">Show route</button>
+      </form>
+      <div id="route-plan-result"></div>
+    </section>
     <section id="route-selection" class="routeselection" hidden aria-live="polite"></section>
     <div id="place-head" class="placehead">
       <h2>Choose a settlement</h2>
@@ -514,6 +534,19 @@ body[data-map-view="terrain"] #calib-help-row { display: none !important; }
 .supplychain small { display: block; color: var(--muted); }
 .supplychain .raw { color: #39724c; }
 .supplychain .processed { color: #9a4d26; }
+.routeplan { padding: 10px 14px; border-block: 1px solid var(--line); background: var(--panel); }
+.routeplan h2 { margin: 0 0 7px; font-size: 15px; color: var(--ink); }
+.routeplan form { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.routeplan input[type="search"] { flex: 1 1 120px; min-width: 0; padding: 4px 6px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); color: var(--ink); font: inherit; }
+.routeplan label { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.routeplan button { padding: 4px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; }
+.routeplan #route-plan-result { margin-top: 8px; font-size: 12px; color: var(--ink); }
+.routeplan #route-plan-result .muted { color: var(--muted); }
+.planned-route-legs { margin: 12px 0; padding: 0; list-style: none; }
+.planned-route-legs li { padding: 9px 10px; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface-soft); }
+.planned-route-legs li + li { margin-top: 7px; }
+.planned-route-legs b, .planned-route-legs small { display: block; }
+.planned-route-legs small { margin-top: 3px; color: var(--cp-text-muted); line-height: 1.5; }
 
 .statgrid {
   display: grid;
@@ -607,7 +640,7 @@ body[data-poster-only="true"] .worldviewcontrol { display: none; }
 .routefilter summary { border-color: var(--cp-border); background: var(--cp-surface); border-radius: 4px; }
 .routefiltermenu { position: relative; top: 4px; background: var(--cp-surface); box-shadow: none; }
 .locationsearch button { background: var(--cp-surface); }
-.mappanel { flex: 0 0 clamp(320px,27%,520px); max-width: none; min-width: 0; padding: 24px 20px; gap: 20px; background: var(--cp-surface); box-sizing: border-box; }
+.mappanel { flex: 0 0 clamp(320px,27%,520px); max-width: none; min-width: 0; min-height: calc(100% - 32px); align-self: stretch; margin: 16px; padding: 24px 20px; gap: 20px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 18px; box-shadow: 0 8px 24px rgba(25,35,45,.08); box-sizing: border-box; }
 .placehead h2 { font-size: 25px; font-weight: 650; }
 .placehead p { line-height: 1.65; }
 .placehead a, .placenotes a { color: var(--cp-link); }
@@ -647,11 +680,18 @@ body[data-poster-only="true"] .worldviewcontrol { display: none; }
 .carriertable td { padding: 8px 3px; }
 .route-detail-link { display: block; padding-top: 12px; border-top: 1px solid var(--cp-border); color: var(--cp-link); font-weight: 600; text-decoration: none; }
 .route-detail-link:hover { text-decoration: underline; }
+.flight-day-list { margin: 8px 0 0 18px; padding: 0; color: var(--cp-text-muted); }
+.flight-day-list li { padding: 3px 0; }
+.flight-rest { color: var(--cp-accent); font-style: italic; }
 .routefacts { grid-template-columns: 1fr auto 1fr; }
 .routefacts > * { min-width: 0; overflow-wrap: anywhere; }
 .supplychain { padding: 14px 0; background: transparent; }
 .supplychain .raw { color: var(--cp-text-muted); }
 .supplychain .processed { color: var(--cp-accent); }
+.routeplan { padding: 14px 0; background: transparent; border-block: 0; border-bottom: 1px solid var(--cp-border); }
+.routeplan input[type="search"], .routeplan button { border-color: var(--cp-border); background: var(--cp-surface); color: var(--cp-text); }
+.routeplan label { color: var(--cp-text-muted); }
+.routeplan #route-plan-result .muted { color: var(--cp-text-muted); }
 .pricewrap { overflow-x: auto; flex-shrink: 0; }
 .pricewrap th { padding: 10px 6px; border-bottom: 1px solid var(--cp-border-strong); background: var(--cp-bg-elevated); }
 .pricewrap td { padding: 9px 6px; }
@@ -663,8 +703,56 @@ body[data-poster-only="true"] .worldviewcontrol { display: none; }
 .terrainlegend { max-width: min(300px, calc(100% - 32px)); left: 16px; bottom: 16px; background: var(--cp-panel-strong); border-radius: 6px; }
 body[data-map-view="terrain"] .terrainlegend { bottom: 78px; }
 .maptip, .mapstatus { background: var(--cp-panel-strong); border-color: var(--cp-border); border-radius: 6px; }
-.mapbody .topbar { padding: 16px 24px; }
-.mapbody .worldbar { flex: 1 1 680px; justify-content: flex-end; gap: 12px 16px; }
+.mapbody .topbar { min-height: 168px; padding: 20px clamp(16px,3%,64px); background: var(--cp-surface); border: 0; box-shadow: none; }
+.mapbody .worldbar { display: grid; grid-template-columns: 1fr; justify-items: end; gap: 12px; flex: 1 1 680px; }
+.mapbody .map-controls,
+.mapbody .worldbar > [data-world-date],
+.mapbody .nav-links { grid-column: 1; }
+.map-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; }
+.mapbody .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+.mapbody .navlink { display: inline-flex; align-items: center; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); padding: 8px 12px; box-shadow: 0 3px 8px rgba(25,35,45,.06); }
+.mapbody .navlink:hover { border-color: var(--cp-accent); background: var(--cp-accent-soft); color: var(--cp-accent); }
+.mapbody .hud {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 320px;
+  max-width: 320px;
+  height: auto;
+  overflow-y: auto;
+  padding: 20px 16px;
+  background: var(--cp-surface);
+  border: 0;
+  border-right: 1px solid var(--cp-border);
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  z-index: 4;
+}
+.mapbody .mapsettings {
+  max-height: none;
+  overflow: visible;
+  padding: 16px;
+  border: 1px solid var(--cp-border);
+  border-radius: 14px;
+  background: var(--cp-surface-soft);
+  box-shadow: 0 4px 12px rgba(25,35,45,.06);
+}
+.mapbody .mapsettings > summary { padding: 0 0 14px; cursor: default; }
+.mapbody .hud .map-controls {
+  display: grid;
+  gap: 12px;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0 0 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--cp-border);
+}
+.mapbody .hud .locationsearch { max-width: none; }
+.mapbody .hud .mapview-switch { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; }
+.mapbody .hud .mapview-switch label,
+.mapbody .hud .map-controls > label { min-height: 32px; }
+.mapbody .brand h1 { font-size: 50px; line-height: 1.05; overflow-wrap: anywhere; }
+.mapbody [data-world-date] { font-size: 20px; padding: 10px 16px; }
 .mapbody .locationsearch { flex: 1 1 190px; max-width: 320px; }
 .locationsearch input { flex: 1; width: 100%; min-width: 0; border-radius: 6px 0 0 6px; }
 .locationsearch button { width: 40px; flex: 0 0 40px; border-radius: 0 6px 6px 0; }
@@ -676,16 +764,27 @@ body[data-map-view="terrain"] .terrainlegend { bottom: 78px; }
 .placehead h2 { font-size: 24px; overflow-wrap: anywhere; }
 .statgrid { background: linear-gradient(90deg,var(--cp-surface-soft),var(--cp-surface)); }
 .viewcontrols { border-radius: 6px; box-shadow: none; max-width: calc(100% - 32px); flex-wrap: wrap; }
-.mapbody .navlink:hover { background: transparent; border-color: var(--cp-accent); }
+.mapbody .navlink {
+  border: 1px solid var(--cp-border);
+  border-radius: 10px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+  padding: 8px 12px;
+  box-shadow: 0 3px 8px rgba(25,35,45,.06);
+}
+.mapbody .navlink:hover { background: var(--cp-accent-soft); border-color: var(--cp-accent); color: var(--cp-accent); }
+.map-controls .mapview-switch,
+.map-controls > label:not(.poster-only-control) { border-radius: 10px; }
 @media (max-width: 1000px) {
   body.mapbody { height: auto; min-height: 100dvh; overflow: auto; }
   .maplayout { flex: none; overflow: visible; }
   .stage { flex: none; height: 65dvh; min-height: 420px; }
-  .mappanel { max-width: none; flex: none; overflow: visible; padding: 20px 16px; }
+  .mappanel { max-width: none; flex: none; min-height: 0; margin: 0; overflow: visible; padding: 20px 16px; border-radius: 0; border-inline: 0; border-bottom: 0; box-shadow: none; }
+  .mapbody .hud { position: relative; inset: auto; width: 100%; max-width: none; height: auto; border-right: 0; border-bottom: 1px solid var(--cp-border); }
   .mapsettings { max-height: 35dvh; }
   .terrainlegend { bottom: 16px; }
   .mapbody .topbar { padding: 16px; }
-  .mapbody .worldbar { justify-content: flex-start; flex-basis: 100%; }
+  .mapbody .worldbar, .map-controls, .mapbody .nav-links { justify-content: flex-start; justify-items: start; flex-basis: 100%; width: 100%; }
   .mapbody .locationsearch { max-width: none; }
 }
 """
@@ -757,6 +856,9 @@ var state = {
   market: null,
   supplyChain: null,
   supplyRouteKeys: {},
+  planRoute: null,
+  planRouteKeys: {},
+  planRequest: 0,
   goodsFilter: '',
   goodsCategory: '',
   step: 1,
@@ -1177,6 +1279,30 @@ function buildPins(list) {
   });
 }
 
+var carrierTrackingStarted = false;
+function startCarrierTracking() {
+  if (carrierTrackingStarted) { return; }
+  carrierTrackingStarted = true;
+  var started = performance.now();
+  window.setInterval(function () {
+    var changed = false;
+    pins.filter(function (pin) { return pin.data.carrier; }).forEach(function (pin) {
+      var origin = pins.find(function (candidate) { return candidate.data.name === pin.data.origin; });
+      var destination = pins.find(function (candidate) { return candidate.data.name === pin.data.destination; });
+      if (!origin || !destination) { return; }
+      var progress = (Number(pin.data.progress || 0) + (performance.now() - started) / 180000) % 1;
+      var wx = origin.wx + (destination.wx - origin.wx) * progress;
+      var wy = origin.wy + (destination.wy - origin.wy) * progress;
+      var scene = toScene(wx, wy);
+      pin.data.progress = progress;
+      pin.wx = wx; pin.wy = wy; pin.sx = scene[0]; pin.sz = scene[1];
+      pin.h = sampleHeight(wx, wy);
+      changed = true;
+    });
+    if (changed) { invalidate(); }
+  }, 1000);
+}
+
 // Non-market survey labels retained for worlds that opt out of enrichment.
 var placeDots = [];
 
@@ -1572,6 +1698,7 @@ function routeDetails(spec, points, byId, fallbackName, fallbackKind) {
     distance: Number.isFinite(suppliedDistance) ? suppliedDistance : polylineMiles(points),
     days: spec ? Number(spec.days) : NaN,
     carriers: spec && spec.carriers ? spec.carriers : []
+    ,unavailable: !!(spec && spec.unavailable)
   };
 }
 
@@ -1579,7 +1706,7 @@ function routeTypeLabel(kind) {
   var labels = {
     road: 'Road', trail: 'Foot trail', sea: 'Sea',
     river: 'River', barge: 'Barge', ferry: 'Ferry', portage: 'Portage',
-    tunnel: 'Tunnel', teleport: 'Teleportation circle', air: 'Gryphon flight'
+    tunnel: 'Tunnel', teleport: 'Teleportation circle', air: 'Gryphon flight', skyship: 'Skyship'
   };
   return labels[kind] || String(kind || 'Route');
 }
@@ -1588,7 +1715,7 @@ function routeTypeIcon(kind) {
   var icons = {
     road: '\u2194', trail: '\u2022', sea: '\u26f5',
     river: '\u224b', barge: '\u25ad', ferry: '\u21c4', portage: '\u2191',
-    tunnel: '\u25c9', air: '\\ud83e\\udd85'
+    tunnel: '\u25c9', air: '\\ud83e\\udd85', skyship: '\u2708'
   };
   return icons[kind] || '\u25c6';
 }
@@ -1625,11 +1752,13 @@ function routeCarrierTable(details, routeIndex) {
     }).join('') + '</tbody></table>';
 }
 
-function routeMatchesFilter(line) {
-  if (line.inferredRoad && !state.inferredRoads) { return false; }
+function routeMatchesFilter(line, allowPlannedInferred) {
+  if (line.inferredRoad && !state.inferredRoads && !allowPlannedInferred) { return false; }
   if (!state.routeTypes.length) { return true; }
   var modes = line.details && line.details.modes ? line.details.modes : [line.kind];
-  return modes.some(function (mode) { return state.routeTypes.indexOf(mode) >= 0; });
+  return modes.some(function (mode) {
+    return state.routeTypes.indexOf(mode === 'track' ? 'trail' : mode) >= 0;
+  });
 }
 
 function routeConnectedLocationIds() {
@@ -1651,6 +1780,7 @@ function multilegService(line) {
 }
 
 function routeDisplayColor(line) {
+  if (line.details && line.details.unavailable) { return 'rgba(130, 130, 130, .48)'; }
   var service = multilegService(line);
   if (service && service.service_class === 'ground') {
     return GROUND_MULTILEG_ROUTE_STYLE;
@@ -1660,6 +1790,7 @@ function routeDisplayColor(line) {
 }
 
 function routeLineDash(line) {
+  if (line.details && line.details.unavailable) { return [5, 7]; }
   if (line.multi) { return [8, 5]; }
   if (line.kind === 'trail') { return [7, 5]; }
   if (line.kind === 'portage' || line.kind === 'teleport') { return [2, 5]; }
@@ -1806,7 +1937,7 @@ function rebuildRouteGeometry() {
     var points = anchorRoutePoints(rawPoints, tracedSpec, byId);
     if (points.length < 2) { return; }
     var routeKind = route.surface || 'sea';
-    var elevated = routeKind === 'air' || routeKind === 'teleport';
+    var elevated = routeKind === 'air' || routeKind === 'skyship' || routeKind === 'teleport';
     if (tracedSpec) { tracedSeaAirLegs[routeLegKey(tracedSpec)] = true; }
     var pointCount = elevated ? Math.max(17, (points.length - 1) * 8 + 1) : points.length;
     var xs = new Float32Array(pointCount);
@@ -1846,7 +1977,8 @@ function rebuildRouteGeometry() {
   });
 
   routeSpec.forEach(function (r) {
-    if (r.kind === 'road' && roadNetwork.connects(r.a, r.b)) { return; }
+    if (r.kind === 'road' && roadNetwork.connects(r.a, r.b)
+      && tracedRoadLegs[routeLegKey(r)]) { return; }
     if (tracedRoadLegs[routeLegKey(r)] && (r.kind === 'road' || r.kind === 'trail'
       || r.kind === 'track')) { return; }
     if (tracedSeaAirLegs[routeLegKey(r)] && (r.modes || [r.kind]).some(function (mode) {
@@ -1857,7 +1989,9 @@ function rebuildRouteGeometry() {
     if (!a || !b) { return; }
     var overland = r.kind === 'road' || r.kind === 'trail'
       || r.kind === 'track' || r.kind === 'portage';
-    var landPoints = overland ? landRoute(a.wx, a.wy, b.wx, b.wy) : null;
+    var airGoing = r.kind === 'air';
+    var landPoints = (overland || airGoing) ? landRoute(a.wx, a.wy, b.wx, b.wy) : null;
+    if (airGoing && !landPoints) { landPoints = [[a.wx, a.wy], [b.wx, b.wy]]; }
     if (overland && !landPoints) { return; }
     var waterGoing = r.kind === 'sea' || r.kind === 'ferry';
     var waterPoints = waterGoing ? waterRoute(a.wx, a.wy, b.wx, b.wy) : null;
@@ -1893,13 +2027,13 @@ function rebuildRouteGeometry() {
       }
       routeLines.push({
         xs: landXs, zs: landZs, hs: landHs, kind: r.kind,
-        multi: !!r.multimodal, landRouted: true,
+        multi: !!r.multimodal, landRouted: !airGoing, airRouted: airGoing,
         inferredRoad: !!r.inferred || (r.kind === 'road' && roadGeometrySpec.length > 0),
         details: routeDetails(r, landPoints, byId, r.name, r.kind)
       });
       return;
     }
-    var elevated = r.kind === 'air' || r.kind === 'teleport';
+    var elevated = r.kind === 'air' || r.kind === 'skyship' || r.kind === 'teleport';
     var routeSteps = elevated ? 16 : steps;
     var xs = new Float32Array(routeSteps + 1);
     var zs = new Float32Array(routeSteps + 1);
@@ -2237,6 +2371,10 @@ function updateCamera() {
   cam.ex = state.tx + state.dist * cp * syw;
   cam.ey = state.dist * sp;
   cam.ez = state.tz + state.dist * cp * cyw;
+  // The near plane has to follow the camera in. A fixed 60 miles is harmless
+  // at world scale and clips away the entire scene once you are close enough
+  // to read one-mile cells. Never further out than it used to be.
+  cam.near = Math.min(0.06, state.dist * 0.02);
 
   var fx = state.tx - cam.ex, fy = -cam.ey, fz = state.tz - cam.ez;
   var flen = Math.sqrt(fx * fx + fy * fy + fz * fz) || 1;
@@ -2293,7 +2431,7 @@ function project(x, y, z) {
   if (state.globe) { return projectGlobe(x, y, z); }
   var dx = x - cam.ex, dy = y - cam.ey, dz = z - cam.ez;
   var vz = dx * cam.fx + dy * cam.fy + dz * cam.fz;
-  if (vz < 0.06) { return null; }
+  if (vz < cam.near) { return null; }
   var s = cam.focal / vz;
   _pt[0] = cam.cx + (dx * cam.rx + dy * cam.ry + dz * cam.rz) * s;
   _pt[1] = cam.cy - (dx * cam.ux + dy * cam.uy + dz * cam.uz) * s;
@@ -2380,6 +2518,14 @@ function drawRoundWorldEdge() {
   ctx.stroke();
 }
 
+function minDistance() {
+  // How close the camera may get, in scene units of SCALE miles. Only a local
+  // detail patch earns the deep floor: the world heightfield has nothing finer
+  // than twenty-mile cells to show, so there is no point walking up to it.
+  if (!mesh || !mesh.detail || !mesh.cellW) { return 0.35; }
+  return Math.max(0.0015, mesh.cellW * 4 / SCALE);
+}
+
 function fitView() {
   // The poster page is its image, not the larger terrain union behind it.
   // Fitting that exact calibrated footprint preserves the artwork's aspect.
@@ -2414,7 +2560,7 @@ function fitView() {
     if (Math.abs(need - 1) < 0.02) { break; }
   }
   if (state.roundWorld) { state.dist *= 1.06; }
-  state.dist = clamp(state.dist, 0.35, 12);
+  state.dist = clamp(state.dist, minDistance(), 12);
 }
 
 function clipGroundToPoster() {
@@ -2464,6 +2610,51 @@ function drawSky() {
   ctx.fillRect(0, 0, w, h);
 }
 
+// ---------------------------------------------------------------------------
+// level of detail
+// ---------------------------------------------------------------------------
+
+// Cells the canvas can fill in one frame. Cost is not quite linear in the
+// count - a coarse step draws fewer, larger quads - so this is set from the
+// worst case, a shallow oblique view where the ground runs to the horizon.
+// Without it the five-mile field would ask for half a million quads a frame.
+var TERRAIN_BUDGET = 16000;
+
+// Cell index window that can reach the canvas, and the lattice spacing drawn
+// within it. Zoomed out the window is the whole field and the spacing is
+// coarse; zoomed in the window is small and every cell is drawn.
+var view = { i0: 0, i1: 0, j0: 0, j1: 0, step: 1 };
+
+function updateViewWindow() {
+  var W = mesh.W, H = mesh.H;
+  if (state.globe || state.roundWorld) {
+    // Both of these draw the whole field however far away it is, so there is
+    // no window to take.
+    view.i0 = 0; view.i1 = W; view.j0 = 0; view.j1 = H;
+  } else {
+    // Ground the camera can see, as a square around the target. At a shallow
+    // pitch the ground runs away to the horizon, so the box grows as the
+    // camera lies down.
+    var halfMiles = state.dist * SCALE * (cam.cx / cam.focal) * 1.6;
+    halfMiles /= Math.max(0.22, Math.sin(state.pitch));
+    var b = mesh.bounds;
+    var cxMiles = state.tx * SCALE + mesh.cx;
+    var cyMiles = state.tz * SCALE + mesh.cy;
+    view.i0 = Math.max(0, Math.floor((cxMiles - halfMiles - b[0]) / mesh.cellW));
+    view.i1 = Math.min(W, Math.ceil((cxMiles + halfMiles - b[0]) / mesh.cellW));
+    view.j0 = Math.max(0, Math.floor((cyMiles - halfMiles - b[1]) / mesh.cellH));
+    view.j1 = Math.min(H, Math.ceil((cyMiles + halfMiles - b[1]) / mesh.cellH));
+  }
+  var visible = Math.max(1, (view.i1 - view.i0) * (view.j1 - view.j0));
+  var budget = TERRAIN_BUDGET / state.step;
+  var step = 1;
+  while (step < 64 && visible / (step * step) > budget) { step++; }
+  view.step = step;
+  // Align to the lattice so cells do not shimmer as the view is panned.
+  view.i0 -= view.i0 % step;
+  view.j0 -= view.j0 % step;
+}
+
 function projectVertices() {
   var W = mesh.W, H = mesh.H;
   var vx = mesh.vx, vz = mesh.vz, vh = mesh.vh;
@@ -2483,15 +2674,26 @@ function projectVertices() {
     }
     return;
   }
-  var k = 0;
-  for (var j = 0; j <= H; j++) {
-    var z = vz[j];
+  var row = W + 1;
+  var step = view.step;
+  // Anything left outside the window keeps ok = 0, so every consumer of the
+  // shared vertex arrays skips it rather than reading a stale projection.
+  ok.fill(0);
+  var near = cam.near;
+  // One lattice point past the window, clamped, so the far edge of the last
+  // drawn cell has a projected corner to use.
+  for (var j = view.j0; j <= view.j1 + step; j += step) {
+    var jj = Math.min(j, H);
+    var z = vz[jj];
     var dz = z - cam.ez;
-    for (var i = 0; i <= W; i++, k++) {
-      var dx = vx[i] - cam.ex;
+    var base = jj * row;
+    for (var i = view.i0; i <= view.i1 + step; i += step) {
+      var ii = Math.min(i, W);
+      var k = base + ii;
+      var dx = vx[ii] - cam.ex;
       var dy = vh[k] * exag - cam.ey;
       var d = dx * cam.fx + dy * cam.fy + dz * cam.fz;
-      if (d < 0.06) { ok[k] = 0; continue; }
+      if (d < near) { ok[k] = 0; continue; }
       var s = cam.focal / d;
       px[k] = cam.cx + (dx * cam.rx + dy * cam.ry + dz * cam.rz) * s;
       py[k] = cam.cy - (dx * cam.ux + dy * cam.uy + dz * cam.uz) * s;
@@ -2544,7 +2746,7 @@ function drawGlobeBase() {
 }
 
 function drawTerrain() {
-  var W = mesh.W, H = mesh.H, step = state.step;
+  var W = mesh.W, H = mesh.H, step = view.step;
   var px = mesh.px, py = mesh.py, ok = mesh.ok, colors = mesh.colors;
   var row = W + 1;
 
@@ -2553,8 +2755,8 @@ function drawTerrain() {
   var cols = [];
   var rows = [];
   var i, j;
-  for (i = 0; i < W; i += step) { cols.push(i); }
-  for (j = 0; j < H; j += step) { rows.push(j); }
+  for (i = view.i0; i < view.i1; i += step) { cols.push(i); }
+  for (j = view.j0; j < view.j1; j += step) { rows.push(j); }
   if (Math.sin(state.yaw) <= 0) { cols.reverse(); }
   if (Math.cos(state.yaw) <= 0) { rows.reverse(); }
 
@@ -2603,12 +2805,12 @@ function drawTowerFace(points, color, shadow) {
 }
 
 function drawTowers() {
-  var W = mesh.W, H = mesh.H, step = state.step;
+  var W = mesh.W, H = mesh.H, step = view.step;
   var vx = mesh.vx, vz = mesh.vz, cells = mesh.cells, colors = mesh.colors;
   var cols = [], rows = [];
   var i, j;
-  for (i = 0; i < W; i += step) { cols.push(i); }
-  for (j = 0; j < H; j += step) { rows.push(j); }
+  for (i = view.i0; i < view.i1; i += step) { cols.push(i); }
+  for (j = view.j0; j < view.j1; j += step) { rows.push(j); }
   if (Math.sin(state.yaw) <= 0) { cols.reverse(); }
   if (Math.cos(state.yaw) <= 0) { rows.reverse(); }
 
@@ -2838,21 +3040,21 @@ function drawHexTerrain(gridOnly, towers, icons) {
 }
 
 function drawSquareGrid() {
-  var W = mesh.W, H = mesh.H, step = state.step;
+  var W = mesh.W, H = mesh.H, step = view.step;
   var px = mesh.px, py = mesh.py, ok = mesh.ok;
   var row = W + 1;
   ctx.beginPath();
-  for (var j = 0; j <= H; j += step) {
+  for (var j = view.j0; j <= view.j1; j += step) {
     var base = j * row;
-    for (var i = 0; i < W; i += step) {
+    for (var i = view.i0; i < view.i1; i += step) {
       var i2 = Math.min(i + step, W);
       if (!ok[base + i] || !ok[base + i2]) { continue; }
       ctx.moveTo(px[base + i], py[base + i]);
       ctx.lineTo(px[base + i2], py[base + i2]);
     }
   }
-  for (var x = 0; x <= W; x += step) {
-    for (var z = 0; z < H; z += step) {
+  for (var x = view.i0; x <= view.i1; x += step) {
+    for (var z = view.j0; z < view.j1; z += step) {
       var z2 = Math.min(z + step, H);
       var a = z * row + x, b = z2 * row + x;
       if (!ok[a] || !ok[b]) { continue; }
@@ -3036,7 +3238,7 @@ function routeBezierSegments(points) {
 function projectedRouteCurves(line) {
   var runs = [], points = [];
   for (var index = 0; index < line.xs.length; index++) {
-    var lift = line.lifts ? line.lifts[index] : 0;
+    var lift = (line.lifts ? line.lifts[index] : 0) + flightDayLift(line);
     var point = project(line.xs[index], line.hs[index] * state.exag + lift + 0.004, line.zs[index]);
     if (!point) {
       if (!state.globe) { return []; }
@@ -3046,6 +3248,36 @@ function projectedRouteCurves(line) {
   }
   if (points.length > 1) { runs.push(routeBezierSegments(points)); }
   return runs;
+}
+
+function projectedFlightHops(line) {
+  var hops = Math.max(1, Math.ceil(Number(line.details && line.details.distance || 0) / 80));
+  var gap = 0;
+  var points = [];
+  function pointAt(progress) {
+    var position = progress * (line.xs.length - 1);
+    var index = Math.min(line.xs.length - 2, Math.floor(position));
+    var fraction = position - index;
+    var x = line.xs[index] + (line.xs[index + 1] - line.xs[index]) * fraction;
+    var z = line.zs[index] + (line.zs[index + 1] - line.zs[index]) * fraction;
+    var h = line.hs[index] + (line.hs[index + 1] - line.hs[index]) * fraction;
+    var projected = project(x, h * state.exag + flightDayLift(line) + 0.004, z);
+    return projected ? [projected[0], projected[1]] : null;
+  }
+  for (var hop = 0; hop < hops; hop++) {
+    var start = pointAt(hop / hops + gap);
+    var end = pointAt((hop + 1) / hops - gap);
+    if (start && end) { points.push([start, end]); }
+  }
+  return points;
+}
+
+function flightDayLift(line) {
+  return 0;
+}
+
+function flightDayProgress(line) {
+  return 0.5;
 }
 
 function routeBezierPoint(segment, progress) {
@@ -3065,33 +3297,43 @@ function drawRoutes() {
   ctx.lineJoin = 'round';
   var selected = state.selectedRoute;
   var selectedGroup = selectedRouteGroup();
-  var supplyFocus = selected < 0 && Object.keys(state.supplyRouteKeys).length > 0;
-  var selectedLocation = selected < 0 && !supplyFocus ? state.selected : null;
+  var planFocus = selected < 0 && Object.keys(state.planRouteKeys).length > 0;
+  var supplyFocus = selected < 0 && !planFocus && Object.keys(state.supplyRouteKeys).length > 0;
+  var selectedLocation = selected < 0 && !planFocus && !supplyFocus ? state.selected : null;
   var locationHasRoutes = selectedLocation && routeLines.some(function (line) {
     return routeMatchesFilter(line) && line.details
       && (line.details.a === selectedLocation || line.details.b === selectedLocation);
   });
-  var focusOn = selected >= 0 || supplyFocus || locationHasRoutes;
-  for (var pass = 0; pass < (focusOn ? 2 : 1); pass++) {
+  var focusOn = selected >= 0 || planFocus || supplyFocus || locationHasRoutes;
+  for (var pass = 0; pass < 1; pass++) {
     for (var r = 0; r < routeLines.length; r++) {
       var line = routeLines[r];
-      if (!routeMatchesFilter(line)) { continue; }
+      if (!routeMatchesFilter(line, planFocus && planRouteMatches(line))) { continue; }
       var active = selected >= 0 ? selectedGroup.indexOf(line) >= 0
-        : (supplyFocus ? supplyRouteMatches(line) : !!(locationHasRoutes && line.details
-          && (line.details.a === selectedLocation || line.details.b === selectedLocation)));
-      if (focusOn && ((pass === 0 && active) || (pass === 1 && !active))) { continue; }
+        : (planFocus ? planRouteMatches(line) : (supplyFocus ? supplyRouteMatches(line) : !!(locationHasRoutes && line.details
+          && (line.details.a === selectedLocation || line.details.b === selectedLocation))));
+      if (focusOn && !active) { continue; }
       var width = ROUTE_WIDTH[line.kind] || 2.1;
       ctx.setLineDash(routeLineDash(line));
       var curves = projectedRouteCurves(line);
       ctx.beginPath();
-      curves.forEach(function (segments) {
-        ctx.moveTo(segments[0][0][0], segments[0][0][1]);
-        segments.forEach(function (segment) {
-          ctx.bezierCurveTo(segment[1][0], segment[1][1], segment[2][0], segment[2][1], segment[3][0], segment[3][1]);
+      if (line.kind === 'air') {
+        projectedFlightHops(line).forEach(function (hop) {
+          var midX = (hop[0][0] + hop[1][0]) / 2;
+          var midY = (hop[0][1] + hop[1][1]) / 2 - 18;
+          ctx.moveTo(hop[0][0], hop[0][1]);
+          ctx.quadraticCurveTo(midX, midY, hop[1][0], hop[1][1]);
         });
-      });
+      } else {
+        curves.forEach(function (segments) {
+          ctx.moveTo(segments[0][0][0], segments[0][0][1]);
+          segments.forEach(function (segment) {
+            ctx.bezierCurveTo(segment[1][0], segment[1][1], segment[2][0], segment[2][1], segment[3][0], segment[3][1]);
+          });
+        });
+      }
       if (curves.length) {
-        var dimmed = focusOn && !active;
+        var dimmed = false;
         ctx.strokeStyle = dimmed ? 'rgba(238, 238, 238, .72)' : 'rgba(255, 248, 224, .90)';
         ctx.lineWidth = width + 2.4;
         ctx.stroke();
@@ -3103,14 +3345,14 @@ function drawRoutes() {
   }
   // Icons need their own final pass or later crossing routes paint over them.
   if (state.routeIcons) {
-    for (var iconPass = 0; iconPass < (focusOn ? 2 : 1); iconPass++) {
+    for (var iconPass = 0; iconPass < 1; iconPass++) {
       for (var iconIndex = 0; iconIndex < routeLines.length; iconIndex++) {
         var iconLine = routeLines[iconIndex];
-        if (!routeMatchesFilter(iconLine)) { continue; }
+        if (!routeMatchesFilter(iconLine, planFocus && planRouteMatches(iconLine))) { continue; }
         var iconActive = selected >= 0 ? selectedGroup.indexOf(iconLine) >= 0
-          : (supplyFocus ? supplyRouteMatches(iconLine) : !!(locationHasRoutes && iconLine.details
-            && (iconLine.details.a === selectedLocation || iconLine.details.b === selectedLocation)));
-        if (focusOn && ((iconPass === 0 && iconActive) || (iconPass === 1 && !iconActive))) { continue; }
+          : (planFocus ? planRouteMatches(iconLine) : (supplyFocus ? supplyRouteMatches(iconLine) : !!(locationHasRoutes && iconLine.details
+            && (iconLine.details.a === selectedLocation || iconLine.details.b === selectedLocation))));
+        if (focusOn && !iconActive) { continue; }
         var iconPoint = routeIconPoint(iconLine, exag);
         if (iconPoint) { drawRouteIcon(iconPoint[0], iconPoint[1], iconLine, focusOn && !iconActive); }
       }
@@ -3121,9 +3363,12 @@ function drawRoutes() {
 }
 
 function routeIconPoint(line, exag) {
-  var index = Math.floor(line.xs.length / 2);
-  var lift = line.lifts ? line.lifts[index] : 0;
+  var index = line.kind === 'air'
+    ? Math.min(line.xs.length - 1, Math.floor(flightDayProgress(line) * line.xs.length))
+    : Math.floor(line.xs.length / 2);
+  var lift = (line.lifts ? line.lifts[index] : 0) + flightDayLift(line);
   var point = project(line.xs[index], line.hs[index] * exag + lift + 0.006, line.zs[index]);
+  if (point && line.kind === 'air') { point = [point[0], point[1] - 18, point[2]]; }
   return point ? [point[0], point[1]] : null;
 }
 
@@ -3265,6 +3510,7 @@ function drawPins() {
     }
 
     if (s.data.port) { drawPortIcon(s.px, s.py, r); }
+    if (s.data.gryphonPort) { drawGryphonIcon(s.px, s.py - r - 6, '#7a3b12'); }
 
     if (state.calibOn) {
       if (state.calibArmed === s.data.id) {
@@ -3447,6 +3693,7 @@ function drawLabels(order) {
 function draw() {
   if (!mesh) { return; }
   updateCamera();
+  updateViewWindow();
   drawSky();
   ctx.save();
   if (posterOnlyActive()) {
@@ -3577,7 +3824,7 @@ canvas.addEventListener('pointermove', function (ev) {
     return;
   }
   var dx = ev.clientX - drag.x;
-  var dy = ev.clientY - drag.y;
+  var dy = drag.y - ev.clientY;
   drag.x = ev.clientX;
   drag.y = ev.clientY;
   drag.moved += Math.abs(dx) + Math.abs(dy);
@@ -3660,7 +3907,7 @@ canvas.addEventListener('wheel', function (ev) {
   if (state.globe) {
     state.globeZoom = clamp(state.globeZoom / factor, 0.55, 2.5);
   } else {
-    state.dist = clamp(state.dist * factor, 0.35, 12);
+    state.dist = clamp(state.dist * factor, minDistance(), 12);
   }
   invalidate();
   endInteract();
@@ -3688,11 +3935,11 @@ window.addEventListener('keydown', function (ev) {
   }
   else if (ev.key === '+' || ev.key === '=') {
     if (state.globe) { state.globeZoom = clamp(state.globeZoom * 1.1, 0.55, 2.5); }
-    else { state.dist = clamp(state.dist * 0.9, 0.35, 12); }
+    else { state.dist = clamp(state.dist * 0.9, minDistance(), 12); }
   }
   else if (ev.key === '-' || ev.key === '_') {
     if (state.globe) { state.globeZoom = clamp(state.globeZoom / 1.1, 0.55, 2.5); }
-    else { state.dist = clamp(state.dist * 1.1, 0.35, 12); }
+    else { state.dist = clamp(state.dist * 1.1, minDistance(), 12); }
   }
   else if (ev.key === 'Escape' && state.calibOn) {
     // Cancel the half-finished control point first; a second Esc leaves the
@@ -3837,6 +4084,9 @@ function updateRouteSelection() {
   var end = last ? (last.reverse ? last.line.details.start : last.line.details.end) : details.end;
   var distance = group.reduce(function (total, routeLine) { return total + routeLine.details.distance; }, 0);
   var days = group.reduce(function (total, routeLine) { return total + routeLine.details.days; }, 0);
+  var dailyHops = group.reduce(function (total, routeLine) {
+    return total + (routeLine.kind === 'air' ? Math.max(1, Math.ceil(routeLine.details.distance / 80)) : 1);
+  }, 0);
   var service = multilegService(line);
   var modes = Array.from(new Set(group.reduce(function (all, routeLine) {
     return all.concat(routeLine.details.modes || []);
@@ -3849,7 +4099,7 @@ function updateRouteSelection() {
     var legEnd = leg.reverse ? leg.line.details.start : leg.line.details.end;
     return '<li><b>' + esc(legStart) + ' &rarr; ' + esc(legEnd) + '</b> <small>' +
       Math.round(leg.line.details.distance).toLocaleString() + ' mi &middot; ' +
-      routeTime(leg.line.details.days) + '</small><details class="routecarriers"' +
+      (leg.line.kind === 'air' ? Number(leg.line.details.days).toFixed(1) + ' days' : routeTime(leg.line.details.days)) + '</small><details class="routecarriers"' +
       (leg.line === line ? ' open' : '') + '><summary>' +
       (leg.line.details.carriers || []).length + ' available carriers</summary>' +
       routeCarrierTable(leg.line.details, routeLines.indexOf(leg.line)) + '</details></li>';
@@ -3860,8 +4110,8 @@ function updateRouteSelection() {
     '<div class="routeendpoints"><div><span>From</span><b>' + esc(start) + '</b></div>' +
     '<span aria-hidden="true">&rarr;</span><div><span>To</span><b>' + esc(end) + '</b></div></div>' +
     '<div class="routesummary"><div><span>Distance</span><b>' + Math.round(distance).toLocaleString() + ' mi</b></div>' +
-    '<div><span>Travel time</span><b>' + routeTime(days) + '</b></div>' +
-    '<div><span>Legs</span><b>' + legs.length + '</b></div></div>' +
+    '<div><span>Travel time</span><b>' + (modes.indexOf('air') >= 0 ? Number(days).toFixed(1) + ' days' : routeTime(days)) + '</b></div>' +
+    '<div><span>Daily hops</span><b>' + dailyHops + '</b></div></div>' +
     '<p class="routemodes"><span>Type</span> &middot; ' + type +
     (line.inferredRoad ? ' &middot; Model-generated connection (not a mapped road or trail)' : '') + '</p>' + itinerary +
     '<a class="route-detail-link" href="route.html?origin=' + encodeURIComponent(start) +
@@ -3893,6 +4143,163 @@ function supplyRouteMatches(line) {
   return !!(line.details && state.supplyRouteKeys[
     supplyRouteKey(line.details.start, line.details.end)
   ]);
+}
+
+function planRouteMatches(line) {
+  return !!(line.details && state.planRouteKeys[
+    supplyRouteKey(line.details.start, line.details.end)
+  ]);
+}
+
+function collectPlanRoute(data) {
+  (data.legs || []).forEach(function (leg) {
+    state.planRouteKeys[supplyRouteKey(leg.from, leg.to)] = true;
+  });
+}
+
+function collectPlanPath(names) {
+  for (var i = 0; i < names.length - 1; i++) {
+    state.planRouteKeys[supplyRouteKey(names[i], names[i + 1])] = true;
+  }
+}
+
+function fitPlanRoute(originName, destinationName) {
+  var originId = state.nameToId[originName];
+  var destId = state.nameToId[destinationName];
+  var originPin = pins.find(function (item) { return item.data.id === originId; });
+  var destPin = pins.find(function (item) { return item.data.id === destId; });
+  if (!originPin || !destPin) { return; }
+  state.tx = (originPin.sx + destPin.sx) / 2;
+  state.tz = (originPin.sz + destPin.sz) / 2;
+  var span = Math.hypot(destPin.sx - originPin.sx, destPin.sz - originPin.sz);
+  state.dist = clamp(span * 0.9 + 0.4, 0.55, 12);
+}
+
+function renderPlannedRoute(data) {
+  var panel = document.getElementById('route-plan-result');
+  function dailyFlightSchedule(leg) {
+    if (leg.mode !== 'air' && !(leg.modes || []).includes('air')) { return ''; }
+    var flightDays = Math.max(1, Math.ceil(Number(leg.miles || 0) / 80));
+    var rows = [];
+    for (var day = 1; day <= flightDays; day++) {
+      var miles = day === flightDays ? Number(leg.miles || 0) - (flightDays - 1) * 80 : 80;
+      rows.push('<li>Day ' + day + ': fly ' + Math.max(0, Math.round(miles)) + ' mi</li>');
+      if (day < flightDays) { rows.push('<li class="flight-rest">Land and rest before Day ' + (day + 1) + '</li>'); }
+    }
+    return '<ol class="flight-day-list"><li><b>Gryphon daily schedule</b> &middot; max 80 mi before landing</li>' + rows.join('') + '</ol>';
+  }
+  var legs = (data.legs || []).map(function (leg, index) {
+    return '<li><b>' + (index + 1) + '. ' + esc(leg.from) + ' \u2192 ' + esc(leg.to) +
+      '</b><small>' + esc(leg.via || 'local track') + ' &middot; ' + esc(leg.mode_label || leg.mode || '') +
+      ' &middot; ' + Math.round(leg.miles).toLocaleString() + ' mi &middot; ' + routeTime(leg.days) +
+      ' &middot; hazard ' + Number(leg.hazard || 0).toFixed(2) + 'x</small>' + dailyFlightSchedule(leg) + '</li>';
+  }).join('');
+  var plannerUrl = 'planner.html?origin=' + encodeURIComponent(data.origin) +
+    '&destination=' + encodeURIComponent(data.destination) +
+    '&include_inferred=' + (state.inferredRoads ? '1' : '0');
+  panel.innerHTML = '<p>' + esc(data.path.join(' \u2192 ')) + '</p>' +
+    (legs ? '<ol class="planned-route-legs">' + legs + '</ol>' : '') +
+    '<p class="muted">' + Math.round(data.distance).toLocaleString() + ' mi &middot; ' +
+    routeTime(data.days) + ' &middot; ' + esc(data.modes.map(routeTypeLabel).join(', ')) + '</p>' +
+    '<p><a class="route-detail-link" href="' + plannerUrl + '">Open detailed legs, prices &amp; carrier choices &rarr;</a></p>' +
+    '<button type="button" id="route-plan-clear" class="ghost">Clear</button>';
+}
+
+function clearPlannedRoute() {
+  state.planRoute = null;
+  state.planRouteKeys = {};
+  document.getElementById('route-plan-result').innerHTML = '';
+  invalidate();
+}
+
+function showPlanPath(names) {
+  var panel = document.getElementById('route-plan-result');
+  if (!names || names.length < 2) { return; }
+  state.planRoute = null;
+  state.planRouteKeys = {};
+  collectPlanPath(names);
+  panel.innerHTML = '<p>' + esc(names.join(' \u2192 ')) + '</p>' +
+    '<button type="button" id="route-plan-clear" class="ghost">Clear</button>';
+  fitPlanRoute(names[0], names[names.length - 1]);
+  invalidate();
+}
+
+function publishedMapPath(origin, destination) {
+  if (!routeLines || !routeLines.length) { return null; }
+  var edges = {};
+  routeLines.forEach(function (line) {
+    if (line.inferredRoad || !line.details || !routeMatchesFilter(line)) { return; }
+    var start = line.details.start, end = line.details.end;
+    if (!start || !end) { return; }
+    (edges[start] || (edges[start] = [])).push({to: end, cost: Number(line.details.distance) || 1});
+    (edges[end] || (edges[end] = [])).push({to: start, cost: Number(line.details.distance) || 1});
+  });
+  if (!edges[origin] || !edges[destination]) { return null; }
+  var distance = {}, previous = {}, open = [origin];
+  distance[origin] = 0;
+  while (open.length) {
+    open.sort(function (a, b) { return distance[a] - distance[b]; });
+    var current = open.shift();
+    if (current === destination) { break; }
+    (edges[current] || []).forEach(function (edge) {
+      var next = distance[current] + edge.cost;
+      if (distance[edge.to] === undefined || next < distance[edge.to]) {
+        distance[edge.to] = next;
+        previous[edge.to] = current;
+        if (open.indexOf(edge.to) < 0) { open.push(edge.to); }
+      }
+    });
+  }
+  if (distance[destination] === undefined) { return null; }
+  var path = [], cursor = destination;
+  while (cursor) { path.unshift(cursor); cursor = previous[cursor]; }
+  return path.length > 1 ? path : null;
+}
+
+async function showPlannedRoute(origin, destination, optimise) {
+  var panel = document.getElementById('route-plan-result');
+  if (!origin || !destination) { return; }
+  var requestToken = ++state.planRequest;
+  state.planRoute = null;
+  state.planRouteKeys = {};
+  var pendingUrl = new URL(window.location.href);
+  pendingUrl.searchParams.delete('planPath');
+  history.replaceState(null, '', pendingUrl.pathname + '?' + pendingUrl.searchParams.toString());
+  invalidate();
+  panel.innerHTML = '<p class="muted">Planning route&#8230;</p>';
+  try {
+    var selectedTypes = state.routeTypes.join(',');
+    var data = await getJson('/api/route?origin=' + encodeURIComponent(origin) +
+      '&destination=' + encodeURIComponent(destination) +
+      '&optimise=' + encodeURIComponent(optimise || 'days') +
+      '&include_inferred=' + (state.inferredRoads ? '1' : '0') +
+      (selectedTypes ? '&route_type=' + encodeURIComponent(selectedTypes) : ''));
+    if (requestToken !== state.planRequest) { return; }
+    if (!data.reachable) {
+      state.planRoute = null;
+      state.planRouteKeys = {};
+      panel.innerHTML = '<p class="muted">No route connects these settlements.</p>';
+      invalidate();
+      return;
+    }
+    state.planRoute = data;
+    state.planOptimise = optimise || 'days';
+    state.planRouteKeys = {};
+    collectPlanRoute(data);
+    renderPlannedRoute(data);
+    fitPlanRoute(data.origin, data.destination);
+    var planUrl = new URL(window.location.href);
+    planUrl.searchParams.set('planOrigin', data.origin);
+    planUrl.searchParams.set('planDestination', data.destination);
+    planUrl.searchParams.set('planOptimise', optimise || 'days');
+    planUrl.searchParams.delete('planPath');
+    if (state.routeTypes.length) { planUrl.searchParams.set('routeTypes', state.routeTypes.join(',')); }
+    history.replaceState(null, '', planUrl.pathname + '?' + planUrl.searchParams.toString());
+    invalidate();
+  } catch (err) {
+    if (requestToken !== state.planRequest) { return; }
+    panel.innerHTML = '<p class="muted">' + esc(err.message) + '</p>';
+  }
 }
 
 function supplyChainRows(node, depth) {
@@ -3970,6 +4377,13 @@ function loadTerrainDetail(id) {
     .then(function (detail) {
       if (request !== state.detailRequest || state.selected !== id) { return; }
       buildMesh(detail);
+      // Scene coordinates are relative to the mesh centre, so the old target
+      // now points hundreds of miles off the new patch. Harmless while the
+      // camera could not get closer than 350 miles; fatal once it can.
+      var middle = toScene((detail.bounds[0] + detail.bounds[2]) / 2,
+                           (detail.bounds[1] + detail.bounds[3]) / 2);
+      state.tx = middle[0];
+      state.tz = middle[1];
       buildPins(state.map.settlements);
       buildPlaces(state.map.places || []);
       rebuildRouteGeometry();
@@ -3978,7 +4392,7 @@ function loadTerrainDetail(id) {
       state.yaw = 0;
       state.pitch = 1.35;
       fitView();
-      showStatus('5-mile terrain detail');
+      showStatus(detail.cellMiles + '-mile terrain detail');
       invalidate();
     })
     .catch(function (err) {
@@ -4005,6 +4419,17 @@ async function selectSettlement(id) {
   head.innerHTML = '<h2>Loading&#8230;</h2>';
   var selectedPin = pins.find(function (item) { return item.data.id === id; });
   if (selectedPin && selectedPin.data.mobile) {
+    if (selectedPin.data.carrier) {
+      var carrier = selectedPin.data;
+      head.innerHTML = '<h2>' + esc(carrier.name) + '</h2><p class="sub">Carrier service &middot; ' +
+        esc(carrier.status || 'rolling') + '</p><p class="muted">' +
+        esc('On ' + (carrier.route || 'active route') + ': ' + carrier.origin + ' to ' + carrier.destination) +
+        ' &middot; ' + Math.round(carrier.progress * 100) + '% complete</p><p class="muted">Capacity: ' +
+        Number(carrier.capacity_lb || 0).toLocaleString() + ' lb</p><p><a href="business.html?business=' +
+        encodeURIComponent(carrier.id) + '">Open carrier business profile</a></p>';
+      if (link) { link.href = 'business.html?business=' + encodeURIComponent(carrier.id); }
+      return;
+    }
     try {
       var mobile = await getJson('/api/mobile-location?id=' + encodeURIComponent(id));
       var position = mobile.position;
@@ -4034,6 +4459,7 @@ function focusSettlement(id) {
     state.detailRequest++;
     buildMesh(state.map);
     buildPins(state.map.settlements);
+    startCarrierTracking();
     buildPlaces(state.map.places || []);
     rebuildRouteGeometry();
     state.detailId = '';
@@ -4744,6 +5170,10 @@ function wireControls() {
     state.routeTypes = routeTypeInputs.filter(function (input) { return input.checked; })
       .map(function (input) { return input.value; });
     if (!state.routeTypes.length) { routeAll.checked = true; }
+    var routeUrl = new URL(window.location.href);
+    if (state.routeTypes.length) { routeUrl.searchParams.set('routeTypes', state.routeTypes.join(',')); }
+    else { routeUrl.searchParams.delete('routeTypes'); }
+    history.replaceState(null, '', routeUrl.pathname + '?' + routeUrl.searchParams.toString());
     var summary = document.getElementById('route-type-summary');
     summary.textContent = state.routeTypes.length === 0 ? 'All types'
       : (state.routeTypes.length <= 2
@@ -4751,6 +5181,10 @@ function wireControls() {
         : state.routeTypes.length + ' types');
     if (state.selectedRoute >= 0 && !routeMatchesFilter(routeLines[state.selectedRoute])) {
       selectRoute(-1);
+    }
+    if (state.planRoute) {
+      showPlannedRoute(state.planRoute.origin, state.planRoute.destination,
+        state.planOptimise || 'days');
     }
     invalidate();
   }
@@ -4897,6 +5331,25 @@ function wireControls() {
   document.getElementById('location-search').addEventListener('input', function (ev) {
     ev.target.setCustomValidity('');
   });
+  document.getElementById('route-plan-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var originInput = document.getElementById('route-plan-origin');
+    var destinationInput = document.getElementById('route-plan-destination');
+    var origin = findLocation(originInput.value);
+    var destination = findLocation(destinationInput.value);
+    var panel = document.getElementById('route-plan-result');
+    if (!origin || !destination) {
+      panel.innerHTML = '<p class="muted">Enter an origin and destination that both match a settlement.</p>';
+      return;
+    }
+    originInput.value = origin.name;
+    destinationInput.value = destination.name;
+    showPlannedRoute(origin.name, destination.name,
+      document.getElementById('route-plan-cost').checked ? 'cost' : 'days');
+  });
+  document.getElementById('route-plan-result').addEventListener('click', function (ev) {
+    if (ev.target.id === 'route-plan-clear') { clearPlannedRoute(); }
+  });
   window.addEventListener('resize', function () {
     resize();
   });
@@ -4971,6 +5424,37 @@ async function start() {
     showStatus('');
     invalidate();
     window.requestAnimationFrame(frame);
+    var planParams = new URLSearchParams(window.location.search);
+    var savedRouteTypes = (planParams.get('routeTypes') || '').split(',').filter(Boolean);
+    if (savedRouteTypes.length) {
+      document.querySelectorAll('input[name="route-type"]').forEach(function (input) {
+        input.checked = savedRouteTypes.indexOf(input.value) >= 0;
+      });
+      document.getElementById('opt-route-all').checked = false;
+      state.routeTypes = savedRouteTypes;
+      document.getElementById('route-type-summary').textContent = savedRouteTypes.length <= 2
+        ? savedRouteTypes.map(routeTypeLabel).join(', ')
+        : savedRouteTypes.length + ' types';
+    }
+    var planPath = planParams.get('planPath');
+    var planOrigin = planParams.get('planOrigin');
+    var planDestination = planParams.get('planDestination');
+    if (planPath) {
+      try {
+        var names = JSON.parse(planPath);
+        if (Array.isArray(names) && names.length > 1) {
+          document.getElementById('route-plan-origin').value = names[0];
+          document.getElementById('route-plan-destination').value = names[names.length - 1];
+          showPlanPath(names);
+        }
+      } catch (err) { /* malformed deep link: ignore and show the plain map */ }
+    } else if (planOrigin && planDestination) {
+      document.getElementById('route-plan-origin').value = planOrigin;
+      document.getElementById('route-plan-destination').value = planDestination;
+      var planOptimise = planParams.get('planOptimise') || 'days';
+      document.getElementById('route-plan-cost').checked = planOptimise === 'cost';
+      showPlannedRoute(planOrigin, planDestination, planOptimise);
+    }
     // Deliberately not awaited: the poster can be tens of megabytes and the
     // map must not sit blank waiting for it.
     loadUnderlay();

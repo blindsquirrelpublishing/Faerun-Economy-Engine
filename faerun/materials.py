@@ -364,7 +364,8 @@ def requirements_markets(world: World) -> Dict[str, Dict[str, PriceQuote]]:
     return quotes
 
 
-def location_requirements(settlement, world: Optional[World] = None) -> Dict:
+def location_requirements(settlement, world: Optional[World] = None,
+                          category: Optional[str] = None) -> Dict:
     """Expose the same requirements and allocations that drive market prices."""
     from .economy import _commodity_markets
 
@@ -378,7 +379,11 @@ def location_requirements(settlement, world: Optional[World] = None) -> Dict:
     from .trading import claims_for, tradable_quote
     claims = claims_for(world)
     rows = []
-    for cid, c in world.commodities.items():
+    selected = [
+        (cid, c) for cid, c in world.commodities.items()
+        if category is None or c.category == category
+    ]
+    for cid, c in selected:
         markets = _commodity_markets(world, c)
         q = tradable_quote(world, markets[s.id], claims)
         destinations = [

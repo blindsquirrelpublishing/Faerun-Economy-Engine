@@ -66,9 +66,52 @@ def _parse_tags(spec) -> List[str]:
     return str(spec).split()
 
 
-# ---------------------------------------------------------------------------
-# Commodities
-# ---------------------------------------------------------------------------
+def _size_norm(population: int) -> float:
+    return max(0.0, min(1.0, (math.log(max(population, 20)) - math.log(50)) /
+                        (math.log(150000) - math.log(50))))
+
+
+def _polished_commodity_description(name: str, category: str, unit: str = "item") -> str:
+    """Generate a readable default description for any commodity lacking custom text."""
+    title = str(name).strip()
+    if not title:
+        return "A traded commodity in the Faerûn economy."
+
+    general = {
+        "food": "A staple trade good prized for daily sustenance and household use.",
+        "drink": "A prepared beverage traded for refreshment, hospitality, and ritual use.",
+        "luxury": "A refined luxury good sought by elites, merchants, and collectors.",
+        "textile": "A woven or worked textile valued for clothing, shelter, and travel.",
+        "material": "A bulk material that serves as the foundation of building, crafting, and repair.",
+        "product": "A practical manufactured good made for everyday trade and labor.",
+        "metal": "A mined or refined metal valued for armor, tools, and industry.",
+        "gem": "A prized mineral or gemstone traded for ornament, wealth, and arcane study.",
+        "arcane": "A magical trade good used by spellcasters, scholars, and ritualists.",
+        "arms": "A weapon or defensive item made for war, hunting, and personal protection.",
+        "livestock": "A living herd animal traded for labor, food, and transport.",
+        "exotic": "A rare and often imported good prized for its scarcity and prestige.",
+    }
+    if category in general:
+        base = general[category]
+    elif category in ("farm", "craft"):
+        base = "A practical good produced by local industry and moved through ordinary commerce."
+    else:
+        base = "A traded commodity valued in the markets of Faerûn."
+
+    if "wine" in title.lower() or "ale" in title.lower() or "beer" in title.lower() or "mead" in title.lower():
+        base = "A prepared beverage prized for hospitality, ceremony, and everyday refreshment."
+    elif "cloth" in title.lower() or "linen" in title.lower() or "silk" in title.lower() or "wool" in title.lower():
+        base = "A woven textile valued for clothing, furnishing, and caravan gear."
+    elif "ore" in title.lower() or "iron" in title.lower() or "steel" in title.lower() or "copper" in title.lower() or "gold" in title.lower() or "silver" in title.lower():
+        base = "A mineral or refined metal traded for tools, industry, and coinage."
+    elif "armor" in title.lower() or "sword" in title.lower() or "axe" in title.lower() or "bow" in title.lower() or "shield" in title.lower() or "dagger" in title.lower():
+        base = "A weapon or protective item forged for war, hunting, and martial service."
+    elif "book" in title.lower() or "parchment" in title.lower() or "paper" in title.lower() or "ink" in title.lower():
+        base = "A written or scholarly good valued by scribes, mages, and record-keepers."
+    elif "spell" in title.lower() or "focus" in title.lower() or "reagent" in title.lower() or "crystal" in title.lower():
+        base = "A magical trade good used for ritual practice, scholarship, and spellcraft."
+
+    return f"{title} is a {category} good in Faerûn, traded in {unit} lots for daily use, craft, and commerce. {base}"
 
 
 @dataclass
@@ -82,6 +125,7 @@ class Commodity:
     unit: str = "item"
     weight: float = 1.0        # lb per unit (drives freight cost)
     produced_by: List[str] = field(default_factory=list)   # industry tags
+    required_skill: Dict[str, float] = field(default_factory=dict)  # minimum industry level by tag
     demand: float = 1.0        # per-capita demand index (1.0 == staple)
     luxury: float = 0.0        # 0 = necessity, 1 = pure luxury (wealth elasticity)
     perishable: float = 0.0    # 0 = imperishable, 1 = highly perishable
@@ -107,6 +151,12 @@ class Commodity:
 
     def to_dict(self) -> Dict[str, Any]:
         data = asdict(self)
+        if not data.get("description"):
+            data["description"] = _polished_commodity_description(
+                data.get("name", ""),
+                data.get("category", "product"),
+                data.get("unit", "item"),
+            )
         data["production_type"] = self.production_type
         return data
 
@@ -119,6 +169,7 @@ def C(
     unit: str = "item",
     weight: float = 1.0,
     produced_by: str = "",
+    required_skill: Optional[Dict[str, float]] = None,
     demand: float = 1.0,
     luxury: float = 0.0,
     perishable: float = 0.0,
@@ -135,6 +186,9 @@ def C(
     reserve_days: float = 0.0,
 ) -> Commodity:
     """Compact constructor used by the data tables."""
+    normalized_description = description or _polished_commodity_description(
+        name, category, unit
+    )
     return Commodity(
         id=id,
         name=name,
@@ -143,6 +197,7 @@ def C(
         unit=unit,
         weight=float(weight),
         produced_by=_parse_tags(produced_by),
+        required_skill={tag: float(level) for tag, level in (required_skill or {}).items()},
         demand=float(demand),
         luxury=float(luxury),
         perishable=float(perishable),
@@ -150,7 +205,7 @@ def C(
         season=dict(season or {}),
         substitutes=_parse_tags(substitutes),
         requires=_parse_tags(requires),
-        description=description,
+        description=normalized_description,
         production_profile=list(production_profile or []),
         demand_profile=list(demand_profile or []),
         regional_production_profiles={key: list(values) for key, values in (regional_production_profiles or {}).items()},
@@ -158,6 +213,112 @@ def C(
         storage_loss=storage_loss,
         reserve_days=reserve_days,
     )
+
+
+@dataclass
+class GuildChapter:
+    """A local guild chapter with enough presence to affect market behavior."""
+
+    id: str
+    name: str
+    domains: List[str] = field(default_factory=list)
+    categories: List[str] = field(default_factory=list)
+    commodities: List[str] = field(default_factory=list)
+    size: int = 0
+    power: float = 0.0
+    tax_rate: float = 0.0
+    enforcement: float = 0.0
+
+    def applies_to(self, commodity: Commodity) -> bool:
+        return (
+            "*" in self.categories
+            or commodity.id in self.commodities
+            or commodity.category in self.categories
+            or any(tag in self.domains for tag in commodity.produced_by)
+        )
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+GUILD_TEMPLATES = (
+    {
+        "id": "merchant_guild",
+        "name": "Merchant Guild",
+        "domains": ["trade"],
+        "categories": ["*"],
+        "weight": 0.75,
+    },
+    {
+        "id": "farmers_millers_guild",
+        "name": "Farmers' and Millers' Guild",
+        "domains": ["farm", "orchard", "cattle", "herd", "brew", "vint", "distill"],
+        "categories": ["food"],
+        "weight": 0.55,
+    },
+    {
+        "id": "fishers_watermen_guild",
+        "name": "Fishers' and Watermen's Guild",
+        "domains": ["fish", "whale", "ship", "salt"],
+        "categories": ["food"],
+        "weight": 0.5,
+    },
+    {
+        "id": "smiths_armorers_guild",
+        "name": "Smiths' and Armorers' Guild",
+        "domains": ["smith", "armor", "weapon", "mine_iron", "mine_copper", "mine_tin", "mine_silver", "mine_gold", "mine_gem", "mine_mithral", "mine_adamantine", "mine_coal"],
+        "categories": ["arms", "metal"],
+        "weight": 0.65,
+    },
+    {
+        "id": "artisans_guild",
+        "name": "Artisans' Guild",
+        "domains": ["craft", "textile", "glass", "pottery", "paper", "tan", "rope", "log", "quarry"],
+        "categories": ["craft", "luxury"],
+        "weight": 0.55,
+    },
+    {
+        "id": "alchemists_apothecaries_guild",
+        "name": "Alchemists' and Apothecaries' Guild",
+        "domains": ["alch", "herb", "spice", "arcane"],
+        "categories": ["arcane", "luxury"],
+        "weight": 0.6,
+    },
+)
+
+
+def inferred_guild_chapters(settlement: "Settlement") -> List[GuildChapter]:
+    """Infer plausible active guild chapters from settlement scale and industries."""
+    if settlement.population < 400:
+        return []
+    market_scale = _size_norm(settlement.population)
+    trade_level = settlement.industry_level("trade")
+    civic_bonus = 0.25 if settlement.has_trait("mercantile") else 0.0
+    civic_bonus += 0.15 if settlement.has_trait("cosmopolitan") else 0.0
+    chapters: List[GuildChapter] = []
+    for template in GUILD_TEMPLATES:
+        raw_level = max((settlement.industry_level(tag) for tag in template["domains"]), default=0.0)
+        if template["id"] == "merchant_guild":
+            raw_level = max(raw_level, trade_level + civic_bonus)
+        level = raw_level * float(template["weight"])
+        if level < 0.85 or (settlement.population < 900 and level < 1.2):
+            continue
+        size = max(3, round(settlement.population * (0.0015 + level * 0.0025) * (0.45 + market_scale)))
+        power = min(1.0, 0.12 + 0.10 * level + 0.08 * trade_level + 0.13 * settlement.wealth
+                    + 0.10 * settlement.security + 0.12 * market_scale)
+        enforcement = min(1.0, math.sqrt(size) / 25.0 * power)
+        tax_rate = (0.002 + 0.010 * power) * min(1.0, level / 2.5)
+        chapters.append(GuildChapter(
+            id=str(template["id"]),
+            name=str(template["name"]),
+            domains=list(template["domains"]),
+            categories=list(template["categories"]),
+            size=int(size),
+            power=round(power, 3),
+            tax_rate=round(tax_rate, 4),
+            enforcement=round(enforcement, 3),
+        ))
+    return chapters
 
 
 # ---------------------------------------------------------------------------
@@ -191,6 +352,7 @@ class Settlement:
     ruler: str = ""
     description: str = ""
     population_basis: Optional[PopulationBasis] = None
+    guilds: List[GuildChapter] = field(default_factory=list)
 
     @property
     def size(self) -> str:
@@ -206,10 +368,18 @@ class Settlement:
     def industry_level(self, tag: str) -> float:
         return float(self.industries.get(tag, 0.0))
 
+    def guild_chapters(self) -> List[GuildChapter]:
+        explicit = list(self.guilds)
+        explicit_ids = {guild.id for guild in explicit}
+        inferred = [chapter for chapter in inferred_guild_chapters(self)
+                    if chapter.id not in explicit_ids]
+        return explicit + inferred
+
     def to_dict(self) -> Dict[str, Any]:
         data = asdict(self)
         data["size"] = self.size
         data.pop("population_basis")
+        data["guilds"] = [guild.to_dict() for guild in self.guild_chapters()]
         data["population_model"] = population_report(self)
         return data
 
@@ -226,13 +396,116 @@ class Business:
     offers: Dict[str, str]
     price_modifier: float = 1.0
     description: str = ""
+    ability_scores: Dict[str, int] = field(default_factory=lambda: {
+        "CAP": 10, "OPS": 10, "STA": 10,
+        "PLN": 10, "CTR": 10, "REP": 10,
+    })
+    skills: Dict[str, int] = field(default_factory=dict)
+    inventory: Dict[str, Dict[str, int]] = field(default_factory=dict)
+    services: List[str] = field(default_factory=list)
+    roles: Dict[str, int] = field(default_factory=dict)
+    employees: Dict[str, int] = field(default_factory=dict)
+    employee_roster: List[Dict[str, Any]] = field(default_factory=list)
+    location_addresses: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    location_mode: str = "fixed"
+    itinerary: List[Dict[str, Any]] = field(default_factory=list)
+    carrier_service_id: str = ""
+    carrier_modes: List[str] = field(default_factory=list)
+    transport_equipment: Dict[str, int] = field(default_factory=dict)
+    capacity_lb: int = 0
+    capacity_ft3: float = 0.0
+
+    def __post_init__(self) -> None:
+        if self.location_mode not in {"fixed", "rolling"}:
+            raise ValueError("Business location_mode must be 'fixed' or 'rolling'")
+        if not self.employees:
+            self.employees = {
+                "owners": 1 if len(self.locations) == 1 else 2,
+                "managers": max(1, len(self.locations) // 2),
+                "merchants": max(2, len(self.offers)),
+                "warehouse_staff": max(1, len(self.locations)),
+            }
+        for role, count in self.employees.items():
+            if not isinstance(count, int) or count < 0:
+                raise ValueError(f"Employee counts must be non-negative integers: {role}")
+        if self.capacity_lb < 0 or not isinstance(self.capacity_lb, int):
+            raise ValueError("Business capacity_lb must be a non-negative integer")
+        if self.capacity_ft3 < 0 or not isinstance(self.capacity_ft3, (int, float)):
+            raise ValueError("Business capacity_ft3 must be non-negative")
+        if self.carrier_service_id and not self.capacity_ft3 and self.capacity_lb:
+            self.capacity_ft3 = round(self.capacity_lb / 40.0, 2)
+        for equipment, count in self.transport_equipment.items():
+            if isinstance(count, bool) or not isinstance(count, int) or count < 0:
+                raise ValueError(f"Transport equipment counts must be non-negative integers: {equipment}")
+        if not self.employee_roster:
+            default_classes = {
+                "owners": ("Manager", 5),
+                "managers": ("Manager", 3),
+                "merchants": ("Artisan", 2),
+                "warehouse_staff": ("Laborer", 2),
+            }
+            self.employee_roster = [
+                {"class": worker_class, "level": level, "count": count}
+                for role, count in self.employees.items()
+                if count and (worker_class := default_classes.get(role, ("Laborer", 1))[0])
+                for level in [default_classes.get(role, ("Laborer", 1))[1]]
+            ]
+        for worker in self.employee_roster:
+            if not isinstance(worker, dict) or not isinstance(worker.get("class"), str):
+                raise ValueError("Employee roster entries require a class")
+            if not isinstance(worker.get("level"), int) or not 1 <= worker["level"] <= 10:
+                raise ValueError("Employee roster levels must be integers from 1 to 10")
+            if not isinstance(worker.get("count"), int) or worker["count"] < 0:
+                raise ValueError("Employee roster counts must be non-negative integers")
+        for index, location in enumerate(self.locations, start=1):
+            if location not in self.location_addresses:
+                label = location.replace("_", " ").title()
+                district = "Trade Quarter"
+                road = "High Road" if location == self.headquarters else "Market Road"
+                number = 10 + ((sum(ord(char) for char in self.id + location) + index) % 890)
+                self.location_addresses[location] = {
+                    "street": f"{road}, {number}",
+                    "district": district,
+                    "city": label,
+                    "zip": f"FA-{sum(ord(char) for char in location) % 100:02d}-{number:03d}",
+                }
+            address = self.location_addresses[location]
+            required = {"street", "district", "city", "zip"}
+            if not required.issubset(address) or any(not str(address[key]).strip() for key in required):
+                raise ValueError(f"Business address is incomplete: {location}")
+        unknown_addresses = set(self.location_addresses) - set(self.locations)
+        if unknown_addresses:
+            raise ValueError(f"Business address is not a branch: {sorted(unknown_addresses)[0]}")
+        if not self.inventory:
+            quality_stock = {"basic": 8.0, "standard": 14.0, "fine": 9.0, "masterwork": 3.0}
+            self.inventory = {
+                location: {
+                    commodity: int(round(quality_stock.get(quality, 8.0) * (1.5 if location == self.headquarters else 0.75)))
+                    for commodity, quality in self.offers.items()
+                }
+                for location in self.locations
+            }
+        for location, stock in self.inventory.items():
+            if location not in self.locations:
+                raise ValueError(f"Business inventory location is not a branch: {location}")
+            for commodity, quantity in stock.items():
+                if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity < 0:
+                    raise ValueError(f"Business inventory must be a non-negative whole number: {commodity}")
 
     def to_dict(self) -> Dict[str, Any]:
         data = asdict(self)
         data["satellites"] = [
             location for location in self.locations if location != self.headquarters
         ]
+        data["inventory_total"] = round(sum(
+            quantity for stock in self.inventory.values() for quantity in stock.values()
+        ), 2)
+        data["employee_total"] = sum(worker["count"] for worker in self.employee_roster)
         return data
+
+    @property
+    def employee_total(self) -> int:
+        return sum(worker["count"] for worker in self.employee_roster)
 
 
 def S(
@@ -257,6 +530,7 @@ def S(
     ruler: str = "",
     desc: str = "",
     population_basis: Optional[PopulationBasis] = None,
+    guilds: Optional[List[GuildChapter]] = None,
 ) -> Settlement:
     """Compact constructor used by the gazetteer."""
     return Settlement(
@@ -282,6 +556,7 @@ def S(
         ruler=ruler,
         description=desc,
         population_basis=population_basis,
+        guilds=list(guilds or []),
     )
 
 
@@ -409,6 +684,9 @@ class PriceQuote:
     producer_gate_price: Optional[float] = None
     producer_price_factor: float = 1.0
     guild_markup_rate: float = 0.12
+    guilds: List[Dict[str, Any]] = field(default_factory=list)
+    guild_tax_rate: float = 0.0
+    guild_enforcement: float = 0.0
     order_available_by_quality: Optional[Dict[str, int]] = None
     order_claimed_stock: int = 0
     order_supply_window: Optional[Dict[str, Any]] = None

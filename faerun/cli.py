@@ -520,9 +520,16 @@ def cmd_serve(args: argparse.Namespace, world: World) -> None:
     # report whether the overlay will be available.
     if getattr(args, "underlay", ""):
         set_override(args.underlay)
+    page = getattr(args, "page", "")
+    category = getattr(args, "category", "")
+    if category and not page:
+        categories = {commodity.category for commodity in world.commodities.values()}
+        if category not in categories:
+            raise SystemExit(f"unknown category {category!r}; try one of: {', '.join(sorted(categories))}")
+        page = "location.html?category=" + quote(category)
     serve(host=args.host, port=args.port, open_browser=not args.no_browser,
           verbose=getattr(args, "verbose", False),
-          page=getattr(args, "page", ""))
+          page=page)
 
 
 def cmd_map(args: argparse.Namespace, world: World) -> None:
@@ -534,10 +541,18 @@ def cmd_map(args: argparse.Namespace, world: World) -> None:
 def cmd_location(args: argparse.Namespace, world: World) -> None:
     """Same server again, landing on one settlement's history."""
     page = "location.html"
+    query = []
     if args.settlement:
         # Resolve here so a typo fails at the prompt rather than in the browser.
         s = world.find_settlement(args.settlement)
-        page += "?settlement=" + quote(s.id)
+        query.append("settlement=" + quote(s.id))
+    if args.category:
+        categories = {commodity.category for commodity in world.commodities.values()}
+        if args.category not in categories:
+            raise SystemExit(f"unknown category {args.category!r}; try one of: {', '.join(sorted(categories))}")
+        query.append("category=" + quote(args.category))
+    if query:
+        page += "?" + "&".join(query)
     args.page = page
     cmd_serve(args, world)
 
@@ -882,6 +897,8 @@ def build_parser() -> argparse.ArgumentParser:
                    help="log every request")
     v.add_argument("--underlay", default="", metavar="PATH",
                    help="your own poster map image to overlay on the world map")
+    v.add_argument("--category", default="",
+                   help="open the location page filtered to this commodity category, e.g. food")
     v.set_defaults(func=cmd_serve, page="")
 
     loc = sub.add_parser("location",
@@ -896,6 +913,8 @@ def build_parser() -> argparse.ArgumentParser:
                      help="log every request")
     loc.add_argument("--underlay", default="", metavar="PATH",
                      help="your own poster map image to overlay on the world map")
+    loc.add_argument("--category", default="",
+                     help="filter the location detail page to this commodity category, e.g. food")
     loc.set_defaults(func=cmd_location, page="location.html")
 
     w = sub.add_parser("map", help="open the 3D world map in a web UI")

@@ -130,11 +130,12 @@ def test_missing_and_cyclic_recipe_inputs_are_reported():
         _recipe_order({"a": a, "b": b})
 
 
-def test_filtered_location_detail_still_contains_complete_requirements():
+def test_filtered_location_detail_limits_market_and_material_rows_to_category():
     world = World(settlements=[deepcopy(S("Test", "Test", "test", 400, 0, 0, ind="farm2 craft2"))])
     detail = location_detail("Test", world=world, category="food")
     assert all(row["category"] == "food" for row in detail["market"]["prices"])
-    assert len(detail["requirements"]["materials"]) == len(world.commodities)
+    assert all(row["category"] == "food" for row in detail["requirements"]["materials"])
+    assert len(detail["requirements"]["materials"]) < len(world.commodities)
     assert set(row["commodity_id"] for row in market_report("Test", world=world)["daily_requirements"]) == set(world.commodities)
     world.config.expanded_requirements = False
     assert location_detail("Test", world=world, category="food")["requirements"]["enabled"] is False

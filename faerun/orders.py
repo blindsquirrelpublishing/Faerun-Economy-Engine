@@ -13,7 +13,7 @@ import sqlite3
 import uuid
 
 from .trading import (
-    CENT, TradeError, boolean, build_quote, integer, iso, number,
+    CENT, QUALITIES, TradeError, boolean, build_quote, integer, iso, number,
     parse_date, public_quote, remaining_supply, text,
 )
 
@@ -52,6 +52,33 @@ CREATE TABLE IF NOT EXISTS trade_payments (
 );
 CREATE TABLE IF NOT EXISTS trade_audit (
  id INTEGER PRIMARY KEY AUTOINCREMENT, order_id TEXT NOT NULL REFERENCES trade_orders(id),
+ action TEXT NOT NULL, created_at TEXT NOT NULL, simulation_date TEXT NOT NULL,
+ details TEXT NOT NULL
+);
+"""
+
+# Market board: customer-posted commodity requests other parties can bid on.
+# Kept separate from the quoted PO/dispatch lifecycle above; added additively so
+# existing ledgers gain these tables without a schema-version bump.
+MARKET_SCHEMA = """
+CREATE TABLE IF NOT EXISTS market_requests (
+ id TEXT PRIMARY KEY, requester_name TEXT NOT NULL, commodity TEXT NOT NULL,
+ quantity INTEGER NOT NULL CHECK(quantity>0), quality TEXT NOT NULL,
+ settlement_id TEXT NOT NULL, needed_by TEXT NOT NULL, notes TEXT NOT NULL,
+ max_price_cents INTEGER, status TEXT NOT NULL CHECK(status IN ('open','accepted','cancelled')),
+ accepted_bid_id TEXT, version INTEGER NOT NULL DEFAULT 1,
+ created_at TEXT NOT NULL, simulation_date TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS market_bids (
+ id TEXT PRIMARY KEY, request_id TEXT NOT NULL REFERENCES market_requests(id),
+ bidder_name TEXT NOT NULL, price_cents INTEGER NOT NULL CHECK(price_cents>0),
+ quantity INTEGER NOT NULL CHECK(quantity>0), delivery_by TEXT NOT NULL,
+ notes TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('pending','accepted','rejected','withdrawn')),
+ created_at TEXT NOT NULL, simulation_date TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS market_bid_request ON market_bids(request_id);
+CREATE TABLE IF NOT EXISTS market_audit (
+ id INTEGER PRIMARY KEY AUTOINCREMENT, request_id TEXT NOT NULL REFERENCES market_requests(id),
  action TEXT NOT NULL, created_at TEXT NOT NULL, simulation_date TEXT NOT NULL,
  details TEXT NOT NULL
 );
@@ -100,6 +127,9 @@ class TradeStore:
                         db.execute(statement)
                 db.execute(f"PRAGMA application_id={APPLICATION_ID}")
                 db.execute("PRAGMA user_version=1")
+            for statement in MARKET_SCHEMA.split(";"):
+                if statement.strip():
+                    db.execute(statement)
             db.commit()
 
     @contextmanager
@@ -371,3 +401,163 @@ class TradeStore:
                         {"accepted": accepted, "claims_released": action == "cancel",
                          "late": world.date.absolute_day() > parse_date(quote["delivery_date"], "delivery_date").absolute_day()})
             return self._order(db, world, order_id)
+
+    # -- Market board: customer-posted commodity requests and bids ----------
+
+    @staticmethod
+    def _bid(row):
+        return {
+            "id": row["id"], "request_id": row["request_id"], "bidder_name": row["bidder_name"],
+            "price_gp": row["price_cents"] / 100, "quantity": row["quantity"],
+            "delivery_by": row["delivery_by"], "notes": row["notes"], "status": row["status"],
+            "created_at": row["created_at"], "simulation_date": row["simulation_date"],
+        }
+
+    def _request(self, db, world, request_id):
+        row = db.execute("SELECT * FROM market_requests WHERE id=?", (request_id,)).fetchone()
+        if row is None:
+            raise TradeError("Commodity request not found", 404)
+        request = dict(row)
+        cents = request.pop("max_price_cents")
+        request["max_price_gp"] = cents / 100 if cents is not None else None
+        request["is_expired"] = (request["status"] == "open"
+                                  and world.date.absolute_day() > parse_date(request["needed_by"], "needed_by").absolute_day())
+        request["bids"] = [self._bid(r) for r in db.execute(
+            "SELECT * FROM market_bids WHERE request_id=? ORDER BY created_at,id", (request_id,))]
+        request["audit"] = [
+            {"action": r["action"], "created_at": r["created_at"], "simulation_date": r["simulation_date"],
+             "details": json.loads(r["details"])}
+            for r in db.execute("SELECT * FROM market_audit WHERE request_id=? ORDER BY id", (request_id,))
+        ]
+        return request
+
+    @staticmethod
+    def _market_audit(db, request_id, action, world, details):
+        db.execute("INSERT INTO market_audit(request_id,action,created_at,simulation_date,details) VALUES (?,?,?,?,?)",
+                   (request_id, action, _now(), iso(world.date), _json(details)))
+
+    def post_request(self, world, *, requester_name, commodity, quantity, quality,
+                      settlement_id, needed_by, notes="", max_price_gp=None):
+        requester = text(requester_name, "requester_name", maximum=160)
+        commodity_id = text(commodity, "commodity", maximum=80)
+        if commodity_id not in world.commodities:
+            raise TradeError("Unknown commodity")
+        quantity = integer(quantity, "quantity", maximum=1_000_000)
+        if quality not in QUALITIES:
+            raise TradeError("Unknown quality")
+        settlement_id = text(settlement_id, "settlement_id", maximum=80)
+        if settlement_id not in world.settlements:
+            raise TradeError("Unknown settlement")
+        due = parse_date(needed_by, "needed_by")
+        if due.absolute_day() < world.date.absolute_day():
+            raise TradeError("needed_by cannot be in the past")
+        notes = text(notes, "notes", required=False, maximum=2000)
+        cents = _cents(number(max_price_gp, "max_price_gp", minimum=.01,
+                              maximum=1_000_000_000_000)) if max_price_gp is not None else None
+        request_id = str(uuid.uuid4())
+        with self.connection(write=True) as db:
+            db.execute(
+                "INSERT INTO market_requests(id,requester_name,commodity,quantity,quality,settlement_id,"
+                "needed_by,notes,max_price_cents,status,version,created_at,simulation_date) "
+                "VALUES (?,?,?,?,?,?,?,?,?,'open',1,?,?)",
+                (request_id, requester, commodity_id, quantity, quality, settlement_id,
+                 needed_by, notes, cents, _now(), iso(world.date)))
+            self._market_audit(db, request_id, "posted", world,
+                               {"quantity": quantity, "quality": quality, "commodity": commodity_id})
+            return self._request(db, world, request_id)
+
+    def list_requests(self, world, *, status=None, offset=0, limit=50):
+        offset = integer(offset, "offset", minimum=0)
+        limit = integer(limit, "limit", maximum=500)
+        if status is not None and status not in ("open", "accepted", "cancelled"):
+            raise TradeError("Unknown request status filter")
+        with self.connection() as db:
+            clause = " WHERE status=?" if status else ""
+            args = (status,) if status else ()
+            count = db.execute(f"SELECT COUNT(*) FROM market_requests{clause}", args).fetchone()[0]
+            rows = db.execute(
+                f"SELECT id FROM market_requests{clause} ORDER BY created_at DESC,id LIMIT ? OFFSET ?",
+                (*args, limit, offset)).fetchall()
+            return {"requests": [self._request(db, world, row["id"]) for row in rows],
+                    "total": count, "offset": offset, "limit": limit}
+
+    def request(self, world, request_id):
+        with self.connection() as db:
+            return self._request(db, world, text(request_id, "request_id", maximum=64))
+
+    def cancel_request(self, world, *, request_id, version):
+        request_id = text(request_id, "request_id", maximum=64)
+        version = integer(version, "version", maximum=1_000_000_000)
+        with self.connection(write=True) as db:
+            request = self._request(db, world, request_id)
+            if request["status"] != "open":
+                raise TradeError("Only open requests can be cancelled", 409)
+            if request["version"] != version:
+                raise TradeError("Request changed; refresh it before applying this action", 409)
+            db.execute("UPDATE market_requests SET status='cancelled',version=version+1 WHERE id=?", (request_id,))
+            self._market_audit(db, request_id, "cancelled", world, {})
+            return self._request(db, world, request_id)
+
+    def bid(self, world, *, request_id, bidder_name, price_gp, quantity, delivery_by, notes=""):
+        request_id = text(request_id, "request_id", maximum=64)
+        bidder = text(bidder_name, "bidder_name", maximum=160)
+        price = number(price_gp, "price_gp", minimum=.01, maximum=1_000_000_000_000)
+        with self.connection(write=True) as db:
+            request = self._request(db, world, request_id)
+            if request["status"] != "open":
+                raise TradeError("Bids can only be placed on open requests", 409)
+            if request["is_expired"]:
+                raise TradeError("This request's need-by date has passed", 409)
+            quantity = integer(quantity, "quantity", maximum=request["quantity"])
+            delivery = parse_date(delivery_by, "delivery_by")
+            if delivery.absolute_day() > parse_date(request["needed_by"], "needed_by").absolute_day():
+                raise TradeError("delivery_by must be on or before the request's needed_by date")
+            if delivery.absolute_day() < world.date.absolute_day():
+                raise TradeError("delivery_by cannot be in the past")
+            notes = text(notes, "notes", required=False, maximum=2000)
+            bid_id = str(uuid.uuid4())
+            db.execute(
+                "INSERT INTO market_bids(id,request_id,bidder_name,price_cents,quantity,delivery_by,notes,"
+                "status,created_at,simulation_date) VALUES (?,?,?,?,?,?,?,'pending',?,?)",
+                (bid_id, request_id, bidder, _cents(price), quantity, delivery_by, notes, _now(), iso(world.date)))
+            self._market_audit(db, request_id, "bid_placed", world,
+                               {"bid_id": bid_id, "bidder_name": bidder, "price_gp": float(price), "quantity": quantity})
+            return self._request(db, world, request_id)
+
+    def withdraw_bid(self, world, *, request_id, bid_id):
+        request_id = text(request_id, "request_id", maximum=64)
+        bid_id = text(bid_id, "bid_id", maximum=64)
+        with self.connection(write=True) as db:
+            request = self._request(db, world, request_id)
+            match = next((b for b in request["bids"] if b["id"] == bid_id), None)
+            if match is None:
+                raise TradeError("Bid not found", 404)
+            if match["status"] != "pending":
+                raise TradeError("Only pending bids can be withdrawn", 409)
+            db.execute("UPDATE market_bids SET status='withdrawn' WHERE id=?", (bid_id,))
+            self._market_audit(db, request_id, "bid_withdrawn", world, {"bid_id": bid_id})
+            return self._request(db, world, request_id)
+
+    def accept_bid(self, world, *, request_id, bid_id, version):
+        request_id = text(request_id, "request_id", maximum=64)
+        bid_id = text(bid_id, "bid_id", maximum=64)
+        version = integer(version, "version", maximum=1_000_000_000)
+        with self.connection(write=True) as db:
+            request = self._request(db, world, request_id)
+            if request["status"] != "open":
+                raise TradeError("Only open requests can accept a bid", 409)
+            if request["version"] != version:
+                raise TradeError("Request changed; refresh it before applying this action", 409)
+            match = next((b for b in request["bids"] if b["id"] == bid_id), None)
+            if match is None:
+                raise TradeError("Bid not found", 404)
+            if match["status"] != "pending":
+                raise TradeError("Only a pending bid can be accepted", 409)
+            db.execute("UPDATE market_bids SET status='accepted' WHERE id=?", (bid_id,))
+            db.execute("UPDATE market_bids SET status='rejected' WHERE request_id=? AND id!=? AND status='pending'",
+                       (request_id, bid_id))
+            db.execute("UPDATE market_requests SET status='accepted',accepted_bid_id=?,version=version+1 WHERE id=?",
+                       (bid_id, request_id))
+            self._market_audit(db, request_id, "bid_accepted", world, {"bid_id": bid_id})
+            return self._request(db, world, request_id)
+

@@ -8,7 +8,25 @@ from dataclasses import replace
 from .world import FREIGHT_RATE, MULTIMODAL_COST, MULTIMODAL_DELAY
 
 
-def shipment_leg(world, edge, pounds, premium, minimum, choices):
+def carrier_business_metadata(world, carrier):
+    service_id = carrier.get("service_id", "")
+    if not service_id:
+        return {}
+    business = next((item for item in world.businesses.values()
+                     if item.carrier_service_id == service_id), None)
+    if business is None:
+        return {}
+    return {
+        "business_id": business.id,
+        "business_name": business.name,
+        "business_capacity_lb": business.capacity_lb,
+        "business_capacity_ft3": business.capacity_ft3,
+        "transport_equipment": dict(business.transport_equipment),
+        "carrier_modes": list(business.carrier_modes),
+    }
+
+
+def shipment_leg(world, edge, pounds, premium, minimum, choices, freight_mode="shared_freight"):
     identity = (edge.src, edge.dst, edge.kind, edge.name, edge.distance, edge.quality)
     leg_id = hashlib.sha256(json.dumps(identity).encode()).hexdigest()[:20]
     selected = choices.get(leg_id, {})
@@ -22,30 +40,51 @@ def shipment_leg(world, edge, pounds, premium, minimum, choices):
     for mode in edge.modes:
         segment = replace(edge, kind=mode, distance=edge.distance / len(edge.modes))
         options = []
-        for carrier in segment.carrier_options():
+        available_carriers = segment.carrier_options()
+        for carrier in available_carriers:
             count = math.ceil(pounds / carrier["max_load_lb"])
             load_cost = carrier["cost_gp"] * cost_adjustment
             options.append({"name": carrier["name"], "mode": mode,
                             "capacity_lb": carrier["max_load_lb"], "shipments_required": count,
+                            "capacity_ft3": carrier.get("max_volume_ft3", 0),
                             "full_load_cost_gp": load_cost, "shipment_cost_gp": load_cost * count,
+                            "ltl_cost_gp": (carrier["cost_gp"] / max(1, carrier["max_load_lb"])) * pounds * cost_adjustment,
                             "travel_days": carrier["days"] * time_adjustment,
+                            **carrier_business_metadata(world, carrier),
                             "selected": selected.get(mode) == carrier["name"]})
+        if options:
+            preferred = min(options, key=lambda carrier: carrier["shipment_cost_gp"])
+            preferred_name = preferred["name"]
+            for carrier in options:
+                carrier["preferred"] = carrier["name"] == preferred_name
         chosen = next((carrier for carrier in options if carrier["selected"]), None)
+        if freight_mode == "full_load" and chosen is None and options:
+            chosen = min(options, key=lambda carrier: carrier["shipment_cost_gp"])
+        if freight_mode == "own_caravan":
+            chosen = {"name": "Own caravan", "mode": mode, "capacity_lb": 4000,
+                      "shipments_required": math.ceil(pounds / 4000),
+                      "full_load_cost_gp": 0, "shipment_cost_gp": 5 * segment.days,
+                      "travel_days": segment.days}
         if selected.get(mode) and chosen is None:
             raise ValueError("Selected carrier is not available on this leg")
         shared_cost = segment.freight_units(0) * FREIGHT_RATE * pounds * cost_adjustment
-        stages.append({"mode": mode, "distance_miles": segment.distance,
+        if freight_mode == "customer_pickup":
+            chosen = {"name": "Customer pickup", "mode": mode, "capacity_lb": pounds,
+                      "shipments_required": 1, "full_load_cost_gp": 0,
+                      "shipment_cost_gp": 0, "travel_days": 0}
+        stages.append({"mode": mode, "distance_miles": segment.effective_distance,
                        "selected_carrier": chosen["name"] if chosen else "",
                        "shared_cost_gp": shared_cost,
                        "shared_travel_days": segment.days * time_adjustment,
-                       "cost_gp": chosen["shipment_cost_gp"] if chosen else shared_cost,
+                       "cost_gp": (chosen["ltl_cost_gp"] if freight_mode == "shared_freight" else chosen["shipment_cost_gp"])
+                       if chosen else shared_cost,
                        "travel_days": chosen["travel_days"] if chosen else segment.days * time_adjustment,
                        "carriers": options})
         carriers.extend(options)
     freight = sum(stage["cost_gp"] for stage in stages)
     return {"id": leg_id, "origin": world.settlements[edge.src].name,
             "destination": world.settlements[edge.dst].name, "connection": edge.name,
-            "mode": edge.kind, "distance_miles": edge.distance,
+            "mode": edge.kind, "distance_miles": edge.effective_distance,
             "travel_days": sum(stage["travel_days"] for stage in stages),
             "line_haul_gp": freight, "minimum_topup_gp": max(0, minimum - freight),
             "risk_premium": premium, "inferred": edge.inferred,
@@ -68,9 +107,18 @@ def direct_path(world, origin, destination, weight):
 def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling=0,
                   daily=0, fixed=0, contingency=0, include_inferred=False,
                   include_events=False, allow_special=False, purchase_per_lb=None,
-                  carrier_choices=None):
+                  carrier_choices=None, selected_leg_ids=None, route_types=None,
+                  freight_mode="shared_freight", prefer_land=False):
     if carrier_choices is None:
         carrier_choices = {}
+    if selected_leg_ids is None:
+        selected_leg_ids = []
+    route_types = {str(kind).strip() for kind in (route_types or ()) if str(kind).strip()}
+    if freight_mode not in {"shared_freight", "full_load", "own_caravan", "customer_pickup"}:
+        raise ValueError("freight_mode must be shared_freight, full_load, own_caravan, or customer_pickup")
+    # Preserve allowed leg types when stale selected-leg IDs fall back to fresh route alternatives.
+    if not isinstance(selected_leg_ids, list) or any(not isinstance(item, str) for item in selected_leg_ids):
+        raise ValueError("selected_leg_ids must be a list of leg IDs")
     if not isinstance(carrier_choices, dict) or any(
         not isinstance(key, str) or not isinstance(modes, dict) or any(
             not isinstance(mode, str) or not isinstance(name, str) for mode, name in modes.items())
@@ -98,38 +146,90 @@ def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling
         security = (world.settlements[edge.src].security + world.settlements[edge.dst].security) / 2
         return edge.hazard(security) * 0.6
 
+    def baseline_risk(edge):
+        security = (world.settlements[edge.src].security + world.settlements[edge.dst].security) / 2
+        return edge.hazard(security) * 0.6
+
     def freight(edge):
         return edge.freight_units(risk(edge)) * FREIGHT_RATE * pounds
 
     options = {}
     unavailable = []
-    for label, cheapest, allowed in (
-        ("Fastest", False, None),
-        ("Lowest line-haul", True, None),
-        ("Land only", False, {"road", "trail", "track"}),
-        ("Water only", False, {"sea", "river", "barge", "ferry"}),
+    selection_matched = False
+    for label, metric, allowed, land_preferred in (
+        ("Fastest", "days", None, False),
+        ("Lowest line-haul", "cost", None, False),
+        ("Land preferred", "days", None, True),
+        ("Lowest risk", "risk", None, False),
+        ("Shortest distance", "distance", None, False),
+        ("Fewest connections", "connections", None, False),
+        ("Land only", "days", {"road", "trail", "track"}, False),
+        ("Water only", "days", {"sea", "river", "barge", "ferry"}, False),
     ):
+        use_land_preference = prefer_land or land_preferred
         def weight(edge):
             if not include_inferred and edge.inferred:
                 return math.inf
-            if not allow_special and set(edge.modes) & {"air", "teleport"}:
+            if not allow_special and set(edge.modes) & {"air", "skyship", "teleport"}:
+                return math.inf
+            if route_types and not all(
+                ("trail" if mode == "track" else mode) in route_types
+                for mode in edge.modes
+            ):
                 return math.inf
             if allowed is not None and not set(edge.modes) <= allowed:
                 return math.inf
-            return freight(edge) if cheapest else edge.days
+            if use_land_preference and not all(
+                ("trail" if mode == "track" else mode) in {"road", "trail", "portage", "tunnel"}
+                for mode in edge.modes
+            ):
+                return math.inf
+            return {"cost": freight(edge), "risk": risk(edge),
+                    "distance": edge.effective_distance, "connections": 1}.get(metric, edge.days)
 
         route = direct_path(world, start.id, end.id, weight)
+        if route is None and use_land_preference:
+            def fallback_weight(edge):
+                if not include_inferred and edge.inferred:
+                    return math.inf
+                if not allow_special and set(edge.modes) & {"air", "skyship", "teleport"}:
+                    return math.inf
+                if route_types and not all(
+                    ("trail" if mode == "track" else mode) in route_types
+                    for mode in edge.modes
+                ):
+                    return math.inf
+                return {"cost": freight(edge), "risk": risk(edge),
+                    "distance": edge.effective_distance, "connections": 1}.get(metric, edge.days)
+            route = direct_path(world, start.id, end.id, fallback_weight)
         if route is None:
             unavailable.append(label)
             continue
+        candidate_ids = [shipment_leg(world, edge, pounds, risk(edge), minimum, {}, freight_mode).get("id") for edge in route]
+        if selected_leg_ids:
+            if not set(selected_leg_ids).issubset(candidate_ids):
+                continue
+            selection_matched = True
+            route = [edge for edge, leg_id in zip(route, candidate_ids) if leg_id in selected_leg_ids]
+            if not route:
+                continue
         identity = tuple((edge.src, edge.dst, edge.kind, edge.name, edge.distance, edge.quality)
                          for edge in route)
         if identity in options:
             options[identity]["labels"].append(label)
             continue
-        legs = [shipment_leg(world, edge, pounds, risk(edge), minimum, carrier_choices) for edge in route]
+        legs = []
+        for edge in route:
+            leg = shipment_leg(world, edge, pounds, risk(edge), minimum, carrier_choices, freight_mode)
+            conflict_risk = max(0.0, risk(edge) - baseline_risk(edge))
+            leg["conflict_risk"] = conflict_risk
+            leg["security_surcharge_gp"] = round(
+                leg["line_haul_gp"] * conflict_risk / max(1.0, 1.0 + risk(edge)), 3
+            )
+            legs.append(leg)
         days = sum(leg["travel_days"] for leg in legs)
         costs = {"line_haul_gp": sum(leg["line_haul_gp"] for leg in legs),
+             "security_surcharge_gp": sum(leg["security_surcharge_gp"] for leg in legs),
                  "minimum_topup_gp": sum(leg["minimum_topup_gp"] for leg in legs),
                  "handling_gp": handling * (len(route) - 1), "daily_gp": daily * days,
                  "fixed_gp": fixed}
@@ -142,9 +242,18 @@ def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling
                  landed_gp_per_lb=None if landed is None else landed / pounds)
         options[identity] = {"id": ".".join(leg["id"] for leg in legs),
                      "labels": [label], "legs": legs, "connections": len(route) - 1,
-                             "travel_days": days, "distance_miles": sum(edge.distance for edge in route),
+                             "travel_days": days, "distance_miles": sum(edge.effective_distance for edge in route),
                              "path": [start.name] + [leg["destination"] for leg in legs],
                              "uses_inferred": any(edge.inferred for edge in route), "costs": costs}
+    if selected_leg_ids and not selection_matched:
+        return plan_shipment(
+            world, origin, destination, pounds=pounds, minimum=minimum,
+            handling=handling, daily=daily, fixed=fixed, contingency=contingency,
+            include_inferred=include_inferred, include_events=include_events,
+            allow_special=allow_special, purchase_per_lb=purchase_per_lb,
+            carrier_choices=carrier_choices, selected_leg_ids=[], route_types=route_types,
+            freight_mode=freight_mode,
+        )
     known_legs = {leg["id"] for option in options.values() for leg in option["legs"]}
     if not set(carrier_choices) <= known_legs:
         raise ValueError("Carrier choices refer to routes no longer available")
@@ -152,7 +261,8 @@ def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling
             "date": str(world.date), "include_events": include_events,
             "assumptions": {**values, "purchase_per_lb": purchase_per_lb,
                             "include_inferred": include_inferred, "allow_special": allow_special,
-                            "carrier_choices": carrier_choices},
+                            "carrier_choices": carrier_choices,
+                            "selected_leg_ids": selected_leg_ids},
             "profile_inferred": "surveyed_market" in start.traits or "surveyed_market" in end.traits,
             "options": sorted(options.values(), key=lambda row: (row["travel_days"], row["costs"]["total_gp"])),
             "unavailable": unavailable}

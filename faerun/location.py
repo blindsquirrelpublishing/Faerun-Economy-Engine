@@ -348,7 +348,7 @@ def location_detail(settlement, world: Optional[World] = None,
         report = market_report(s.id, world=world, category=category)
         from .materials import location_requirements
 
-        requirements = location_requirements(s.id, world)
+        requirements = location_requirements(s.id, world, category=category)
         active = [event_to_dict(e) for e in world.events_for(s)]
         if world.active_events():
             with _without_events(world):
@@ -392,7 +392,9 @@ def location_detail(settlement, world: Optional[World] = None,
         "date": str(date),
         "label": f"{date.month_name} {date.year}",
         "season": date.season,
+        "category": category,
         "market": report,
+        "guilds": [guild.to_dict() for guild in s.guild_chapters()],
         "requirements": requirements,
         "lore": location_lore(s),
         "events": active,

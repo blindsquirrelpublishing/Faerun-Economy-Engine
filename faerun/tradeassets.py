@@ -7,7 +7,7 @@ TRADE_HTML = """<!DOCTYPE html>
 <link rel="stylesheet" href="app.css"><link rel="stylesheet" href="detail.css"><link rel="stylesheet" href="trade.css">
 </head><body>
 <header class="topbar"><div class="brand"><div><h1>Merchant guild trade desk</h1><p class="tagline">Wholesale quotes, purchase orders and a manual cash ledger.</p></div></div>
-<nav class="worldbar" aria-label="Main"><span class="pill" id="trade-date">Loading world date...</span><a class="navlink" href="index.html">Markets &amp; world date</a><a class="navlink" href="planner.html">Route planner</a><a class="navlink" href="map.html">World map</a></nav></header>
+<div class="worldbar"><div class="date-controls"><span class="pill" id="trade-date">Loading world date...</span></div><nav class="nav-links" aria-label="Main navigation"><a class="navlink" href="index.html">Markets</a><a class="navlink" href="location.html">Locations</a><a class="navlink" href="business.html">Businesses</a><a class="navlink" href="product.html">Products</a><a class="navlink" href="route.html">Routes</a><a class="navlink" href="map.html">Map</a><a class="navlink" href="planner.html">Route planner</a><a class="navlink" href="mobile.html">Travelling companies</a><span class="navlink navlink-current" aria-current="page">Merchant guild &amp; POs</span><a class="navlink" href="board.html">Request board</a></nav></div></header>
 <main class="detail-shell trade-shell">
 <h1 class="detail-title">Merchant guild (wholesale)</h1>
 <p class="detail-subtitle">Compare supplier prices, reserve a dated supply allocation, then record your own payments and shipment milestones. No external purchase or payment is made.</p>
@@ -26,10 +26,10 @@ TRADE_HTML = """<!DOCTYPE html>
 <label>Supply basis<select id="supply_mode" name="supply_mode" required><option value="allocated_export">Allocated export takeover</option><option value="uncommitted">Uncommitted forecast quota</option></select></label>
 <label>Purchase channel<select id="purchase_channel" name="purchase_channel" required><option value="producer">Producer gate</option><option value="guild">Merchant guild (wholesale)</option></select></label>
 <label>Supplier delivery terms<select id="delivery_terms" name="delivery_terms" required><option value="pickup">Pickup</option><option value="delivered">Supplier delivered</option></select></label>
-<label>Transport mode<select id="transport_mode" name="transport_mode" required><option value="own_caravan">Own caravan — one horse wagon</option><option value="shared_freight">Shared freight — hired / mixed-mode route</option></select></label>
+<label>Transport mode<select id="transport_mode" name="transport_mode" required><option value="own_caravan">Own caravan — one horse wagon</option><option value="full_load">Full load (FTL) — dedicated hired carrier</option><option value="shared_freight">Less than load (LTL) — shared / mixed-mode route</option><option value="customer_pickup">Customer pickup — buyer arranges their own transport</option></select></label>
 </div>
 <p class="trade-help" id="harptos-help">Use Harptos YYYY-MM-DD, not a Gregorian calendar date. Pickup is at the end of the selected supply window, as shown in the quote. Use the world date controls on Markets to advance the simulation; this desk never advances time automatically.</p>
-<p class="trade-help" id="transport-help">Own caravan uses one 4,000 lb horse wagon. Operating days cover travel, not loading or trading; budget those activities with fixed charges. Shared freight may use a hired mixed-mode route, with no own-caravan daily charge or empty return trip. Supplier-delivered quotes require shared freight.</p>
+<p class="trade-help" id="transport-help">Own caravan uses one 4,000 lb horse wagon. Full load (FTL) hires one or more whole vehicles exclusively for this shipment (minimum 500 lb cargo), billed at a flat per-load rate. Less than load (LTL) shares a hired mixed-mode route, prorated by weight, with a flat 5 gp handling minimum. Customer pickup means the buyer collects and hauls the order themselves at no freight cost. Operating days cover travel, not loading or trading; budget those activities with fixed charges. Supplier-delivered quotes require less-than-load shared freight.</p>
 <fieldset><legend>Shipment allowances</legend><div class="trade-fields">
 <label>Fixed charges (gp)<input id="fixed_gp" name="fixed_gp" type="number" min="0" step="any" required></label>
 <label>Contingency (%)<input id="contingency_pct" name="contingency_pct" type="number" min="0" max="100" step="any" required></label>
@@ -52,6 +52,7 @@ TRADE_HTML = """<!DOCTYPE html>
 </fieldset></form>
 <section aria-labelledby="quote-heading"><h2 id="quote-heading">2. Review the quote</h2>
 <p id="quote-state" class="trade-help" role="status" aria-live="polite">No quote yet.</p>
+<button id="download-quote-button" type="button" disabled>Download quote</button>
 <div id="quote-summary"><p class="empty">Complete the fields above to compare costs and availability.</p></div>
 <form id="reserve-form" aria-label="Confirm purchase order"><fieldset id="reservation-inputs" disabled><legend>Explicit reservation</legend>
 <div class="trade-fields">
@@ -89,12 +90,47 @@ TRADE_HTML = """<!DOCTYPE html>
 
 TRADE_CSS = """
 .trade-shell { color: var(--cp-text); }
-body > .topbar { height: auto; min-height: 90px; flex-wrap: wrap; gap: 16px; padding: 20px clamp(16px,3%,64px); background: var(--cp-surface-soft); border-top: 3px solid var(--cp-accent); }
+body > .topbar { height: auto; min-height: 168px; flex-wrap: wrap; gap: 16px; padding: 20px clamp(16px,3%,64px); background: var(--cp-surface); border-top: 3px solid var(--cp-accent); }
 .topbar .brand { min-width: 0; }
-.topbar .worldbar { flex-wrap: wrap; min-width: 0; gap: 16px; }
+.topbar .brand h1 { font-size: 50px; line-height: 1.05; overflow-wrap: anywhere; }
+.topbar .worldbar { display: grid; grid-template-columns: 1fr; justify-items: end; flex-wrap: wrap; min-width: 0; gap: 16px; }
+.topbar .date-controls,
+.topbar .nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; grid-column: 1; }
+.topbar .date-controls .pill { display: grid; gap: 2px; min-width: 210px; min-height: 72px; font-size: 20px; padding: 9px 16px; text-align: center; line-height: 1.15; white-space: nowrap; }
+.topbar .date-line { display: block; }
+.topbar .date-line-day { font-size: 16px; font-weight: 700; }
+.topbar .date-line-season { font-size: 13px; text-transform: capitalize; }
+.topbar .date-line-moon { font-size: 12px; opacity: .78; }
+.trade-shell #quote-form,
+.trade-shell #reserve-form {
+  border: 1px solid var(--cp-border);
+  border-radius: 18px;
+  padding: 22px;
+  background: var(--cp-surface);
+  box-shadow: 0 8px 24px rgba(25, 35, 45, .08);
+}
+.trade-shell #quote-form > fieldset,
+.trade-shell #reserve-form > fieldset {
+  padding: 0;
+}
+.trade-shell #quote-inputs > fieldset {
+  margin-top: 22px;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--cp-border);
+}
+.trade-shell .trade-fields {
+  padding: 18px;
+  border: 1px solid var(--cp-border);
+  border-radius: 14px;
+  background: var(--cp-surface-soft);
+}
+.trade-shell .trade-fields label { min-width: 0; }
+.trade-shell #quote-button,
+.trade-shell #reserve-button { margin-top: 20px; }
 .trade-shell *, .trade-shell *::before, .trade-shell *::after { box-sizing: border-box; }
 .trade-shell [hidden] { display: none !important; }
 .trade-shell section { border-top: 1px solid var(--cp-border); padding-top: 24px; margin-top: 28px; }
+.trade-shell section { border: 1px solid var(--cp-border); border-radius: 18px; padding: 22px; background: var(--cp-surface); box-shadow: 0 8px 24px rgba(25, 35, 45, .07); }
 .trade-shell h2 { font-size: 20px; margin: 0 0 16px; }
 .trade-shell h3 { font-size: 16px; margin: 22px 0 12px; }
 .trade-shell fieldset { border: 0; min-width: 0; padding: 18px 0; margin: 0; }
@@ -103,11 +139,11 @@ body > .topbar { height: auto; min-height: 90px; flex-wrap: wrap; gap: 16px; pad
 .trade-fields { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,220px),1fr)); gap: 16px 22px; align-items: start; }
 .trade-fields label { display: grid; gap: 8px; min-width: 0; font-size: 13px; color: var(--cp-text-muted); }
 .trade-wide { grid-column: 1 / -1; }
-.trade-shell :is(input:not([type=checkbox]),select,textarea) { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--cp-border); border-radius: 6px; background: var(--cp-surface-soft); color: var(--cp-text); font: inherit; font-size: 14px; }
+.trade-shell :is(input:not([type=checkbox]),select,textarea) { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--cp-border); border-radius: 12px; background: var(--cp-surface-soft); color: var(--cp-text); font: inherit; font-size: 14px; }
 .trade-shell textarea { resize: vertical; }
 .trade-shell input[type=checkbox] { width: 18px; height: 18px; flex: 0 0 18px; accent-color: var(--cp-accent); }
 .trade-shell label.trade-check { display: flex; align-items: flex-start; gap: 10px; margin: 16px 0; font-size: 13px; color: var(--cp-text); line-height: 1.6; }
-.trade-shell button { min-height: 44px; white-space: normal; padding: 10px 18px; border-radius: 6px; border: 1px solid var(--cp-border); background: var(--cp-surface-soft); color: var(--cp-text); cursor: pointer; }
+.trade-shell button { min-height: 44px; white-space: normal; padding: 10px 18px; border-radius: 12px; border: 1px solid var(--cp-border); background: var(--cp-surface-soft); color: var(--cp-text); cursor: pointer; }
 .trade-shell button.primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
 .trade-shell button:disabled { opacity: .5; cursor: not-allowed; }
 .trade-shell :is(input,select,textarea,button,a,summary,.table-scroll):focus-visible { outline: 2px solid var(--cp-accent); outline-offset: 3px; }
@@ -124,6 +160,13 @@ body > .topbar { height: auto; min-height: 90px; flex-wrap: wrap; gap: 16px; pad
 .trade-shell .table-scroll { max-height: 60dvh; }
 .trade-shell .detail-table { min-width: 740px; }
 .trade-shell .detail-table td { vertical-align: top; overflow-wrap: anywhere; max-width: 360px; white-space: normal; }
+.trade-shell .detail-table { border-collapse: separate; border-spacing: 0 7px; }
+.trade-shell .detail-table th { border: 1px solid var(--cp-border); background: var(--cp-surface-soft); }
+.trade-shell .detail-table th:first-child { border-radius: 11px 0 0 11px; }
+.trade-shell .detail-table th:last-child { border-radius: 0 11px 11px 0; }
+.trade-shell .detail-table td { border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+.trade-shell .detail-table td:first-child { border-left: 1px solid var(--cp-border); border-radius: 11px 0 0 11px; }
+.trade-shell .detail-table td:last-child { border-right: 1px solid var(--cp-border); border-radius: 0 11px 11px 0; }
 .trade-shell pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; margin: 0; max-width: 70ch; }
 .trade-assumptions { margin-top: 28px; border-top: 1px solid var(--cp-border); padding-top: 20px; }
 .trade-assumptions summary { cursor: pointer; color: var(--cp-text); font-weight: 600; }
@@ -165,7 +208,7 @@ function flag(value) { return value === true ? 'Yes' : value === false ? 'No' : 
 function status(message, error=false) { el('status').textContent=message; el('status').className='status'+(error?' error':''); }
 function label(value, labels) { return labels[value] || text(value); }
 const supplyLabels = {allocated_export:'Allocated export takeover (existing destination allocation)',uncommitted:'Uncommitted forecast quota'};
-const transportLabels = {own_caravan:'Own caravan — one 4,000 lb horse wagon',shared_freight:'Shared freight — hired / mixed-mode route'};
+const transportLabels = {own_caravan:'Own caravan — one 4,000 lb horse wagon',shared_freight:'Less than load (LTL) — shared / mixed-mode route',full_load:'Full load (FTL) — dedicated hired carrier',customer_pickup:'Customer pickup — buyer arranges their own transport'};
 const customerLabels = {retail:'Retail',wholesale:'Merchant guild (wholesale)',agreed:'Agreed unit price'};
 const paymentLabels = {customer_payment:'Customer payment received',customer_refund:'Customer refund paid',
   supplier_payment:'Supplier payment paid',supplier_refund:'Supplier refund received',expense:'Other expense paid'};
@@ -226,7 +269,7 @@ function quoteBody() {
     supply_mode:choice('supply_mode','Supply basis',['uncommitted','allocated_export']),
     purchase_channel:choice('purchase_channel','Purchase channel',['producer','guild']),
     delivery_terms:choice('delivery_terms','Supplier delivery terms',['pickup','delivered']),
-    transport_mode:choice('transport_mode','Transport mode',['own_caravan','shared_freight']),
+    transport_mode:choice('transport_mode','Transport mode',['own_caravan','full_load','shared_freight','customer_pickup']),
     customer_price_mode:choice('customer_price_mode','Customer pricing',['retail','wholesale','agreed']),
     tax_terms:choice('tax_terms','Customer tax terms',['included','extra']),
     deposit_percent:numeric('deposit_percent','Customer deposit',0,100),
@@ -243,7 +286,7 @@ function quoteBody() {
   if (body.supply_mode==='allocated_export' && body.quality!=='standard')
     throw new Error('Allocated export takeover supports standard grade only. Choose standard or uncommitted graded stock.');
   if (body.delivery_terms==='delivered' && body.transport_mode!=='shared_freight')
-    throw new Error('Supplier-delivered quotes require shared freight.');
+    throw new Error('Supplier-delivered quotes require less-than-load shared freight.');
   if (body.transport_mode==='own_caravan') {
     body.daily_gp=numeric('daily_gp','Daily operating cost');
     body.return_trip=el('return_trip').checked;
@@ -290,6 +333,7 @@ function syncControls() {
   const takeover=!!(state.quote && (state.quote.supply||{}).takeover_requires_ack);
   el('takeover-ack').hidden=!takeover; el('allocation_authorized').required=takeover;
   el('reserve-button').disabled=locked || !reserveReady();
+  el('download-quote-button').disabled=!state.quote;
   el('refresh-orders').disabled=state.busy;
   el('previous-orders').disabled=state.busy || state.offset<=0;
   el('next-orders').disabled=state.busy || state.offset+state.limit>=state.total;
@@ -306,7 +350,7 @@ function syncControls() {
 }
 function normalizeTransport() {
   if (el('delivery_terms').value==='delivered') el('transport_mode').value='shared_freight';
-  if (el('transport_mode').value==='shared_freight') {
+  if (el('transport_mode').value!=='own_caravan') {
     el('daily_gp').value='0';
     el('return_trip').checked=false;
   }
@@ -359,6 +403,64 @@ function renderQuote(q, persisted=false) {
     +'<p class="trade-help">Usable deposit is the quoted deposit after holding back customer duty, not money already collected. Actual receipts belong in the manual cash ledger.</p>'
     +warnings(q.warnings)+'<details><summary>Quote assumptions</summary>'+list(q.assumptions)+'</details>';
 }
+function quoteText(q) {
+  const p=q.prices||{}, s=q.supply||{}, w=s.window||{}, ship=q.shipping||{}, t=q.terms||{}, a=q.amounts||{};
+  const lines=['Faerun Merchant Guild Trade Quote','Quote '+text(q.id)+' - Created '+text(q.created_at)+' - Expires '+text(q.expires_at),''];
+  const section=(title,rows)=>{
+    lines.push(title+':');
+    rows.forEach(([name,value])=>lines.push('  '+name+': '+text(value)));
+    lines.push('');
+  };
+  section('Order',[['Origin',(q.origin||{}).name],['Destination',(q.destination||{}).name],
+    ['Commodity',(q.commodity||{}).name],['Quantity / unit',number(q.quantity)+' '+text((q.commodity||{}).unit)],
+    ['Quality',q.quality],['Pickup date (Harptos)',q.pickup_date],['Delivery date (Harptos)',q.delivery_date]]);
+  section('Price comparison (gp per unit)',[['Producer gate',money(p.producer_gate_gp)],
+    ['Merchant guild (wholesale)',money(p.guild_wholesale_gp)],
+    ['Modeled delivered wholesale reference',money(p.delivered_wholesale_gp)],['Retail',money(p.retail_gp)],
+    ['Merchant buyback (reference only; not wholesale)',money(p.merchant_buyback_gp)],
+    ['Minimum quantity',number(p.minimum_quantity)],['Lot size',number(p.lot_size)],
+    ['Margin discount',percent(p.margin_discount_pct)],['Guild markup',percent(p.guild_markup_pct)]]);
+  section('Dated supply & carriage',[['Supply basis',label(s.mode,supplyLabels)],
+    ['Forecast window',text(w.start)+' to '+text(w.end)],['Capacity (units)',number(s.capacity_units)],
+    ['Already claimed (units)',number(s.claimed_units)],['Available forecast quota (units)',number(s.available_units)],
+    ['Supply model',s.basis],['Flow calculation',s.flow_basis],
+    ['Claim scope',label(s.claim_scope,{carried_inventory:'Carried inventory across dates',dated_flow:'Dated flow allocation'})],
+    ['Authorized takeover required',flag(s.takeover_requires_ack)],['Transport',label(ship.mode,transportLabels)],
+    ['Supplier delivery terms',label(ship.terms,{pickup:'Pickup',delivered:'Supplier delivered'})],
+    ['Route',(ship.path||[]).join(' -> ')],['Carrier',ship.carrier],['One-way travel (days)',number(ship.one_way_days)],
+    ['Costed travel (days)',number(ship.cost_days)],['Shipping estimate',money(ship.cost_gp)],
+    ['Daily operating allowance',money(ship.daily_gp)],['Fixed allowance',money(ship.fixed_gp)],
+    ['Contingency allowance',percent(ship.contingency_pct)],['Empty return budgeted',flag(ship.return_trip)],
+    ['Cargo weight (lb)',number(ship.cargo_lb)],['Carrier capacity (lb)',number(ship.capacity_lb)],
+    ['Earliest delivery (Harptos)',ship.earliest_delivery_date],['Carriage cost basis',ship.basis]]);
+  section('Quoted customer & supplier terms',[
+    ['Supplier purchase channel',label(t.purchase_channel,{producer:'Producer gate',guild:'Merchant guild (wholesale)'})],
+    ['Customer pricing',label(t.customer_price_mode,customerLabels)],['Customer unit price',money(t.customer_unit_price_gp)],
+    ['Customer tax terms',label(t.tax_terms,{included:'Included',extra:'Added separately'})],['Deposit',percent(t.deposit_percent)],
+    ['Customer payment terms',label(t.payment_terms,{on_delivery:'Balance on delivery',before_dispatch:'Full prepayment before dispatch'})],
+    ['Delivery / acceptance terms',t.acceptance_terms],['Supplier tax exemption',flag(t.supplier_tax_exempt)],
+    ['Exemption reason',t.tax_exemption_reason]]);
+  section('Projected economics (not recorded cash)',[['Supplier net',money(a.supplier_net_gp)],
+    ['Supplier tax',money(a.supplier_tax_gp)],['Supplier total due',money(a.supplier_total_gp)],
+    ['Shipping paid separately',money(a.shipping_paid_separately_gp)],['Customer net',money(a.customer_net_gp)],
+    ['Customer tax',money(a.customer_tax_gp)],['Customer total due',money(a.customer_total_gp)],
+    ['Customer deposit due',money(a.customer_deposit_due_gp)],
+    ['Customer duty held back from deposit',money(a.customer_deposit_tax_reserve_gp)],
+    ['Usable customer deposit (after duty reserve)',money(a.customer_deposit_usable_gp)],
+    ['Estimated cost',money(a.estimated_cost_gp)],['Projected profit (estimate)',money(a.estimated_profit_gp)]]);
+  if ((q.warnings||[]).length) section('Warnings to review',q.warnings.map(item=>['-',item]));
+  if ((q.assumptions||[]).length) section('Quote assumptions',q.assumptions.map(item=>['-',item]));
+  return lines.join('\n');
+}
+function downloadQuote() {
+  if (!state.quote) throw new Error('No quote to download yet.');
+  const blob=new Blob([quoteText(state.quote)],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const anchor=document.createElement('a');
+  anchor.href=url; anchor.download='faerun-trade-quote-'+state.quote.id+'.txt';
+  document.body.appendChild(anchor); anchor.click(); anchor.remove();
+  URL.revokeObjectURL(url);
+}
 function adoptQuote(q, mark) {
   if (!q || !q.id) throw new Error('The server did not return a quote.');
   state.quote=q; state.fingerprint=mark; clearAcknowledgments();
@@ -405,7 +507,7 @@ function choosePrefill(id, value, items) {
 function updateOptions(data, initial=false) {
   if (!data || typeof data.enabled!=='boolean') throw new Error('The server did not return trade options.');
   state.options=data; state.enabled=data.enabled;
-  el('trade-date').textContent=data.date?text(data.date.label)+' · '+text(data.date.iso):'World date unavailable';
+  el('trade-date').innerHTML=data.date?'<span class="date-line date-line-day">'+text(data.date.label)+'</span><span class="date-line date-line-season">'+text(data.date.season||'')+'</span><span class="date-line date-line-moon">'+text(data.date.moon_phase||data.date.iso)+'</span>':'<span class="date-line date-line-day">World date unavailable</span>';
   el('trade-assumptions').innerHTML=list(data.assumptions);
   if ((!initial && state.initialized) || !data.enabled) return;
   populateSelect('origin',data.settlements); populateSelect('destination',data.settlements);
@@ -575,6 +677,9 @@ function bindTrade() {
   }
   el('reserve-form').addEventListener('submit',event=>{event.preventDefault(); void reserve();});
   el('payment-form').addEventListener('submit',event=>{event.preventDefault(); void recordPayment();});
+  el('download-quote-button').addEventListener('click',()=>{
+    try { downloadQuote(); } catch (error) { status(error.message,true); }
+  });
   el('refresh-orders').addEventListener('click',()=>void refreshDesk());
   el('previous-orders').addEventListener('click',()=>void pageOrders(Math.max(0,state.offset-state.limit)));
   el('next-orders').addEventListener('click',()=>void pageOrders(state.offset+state.limit));

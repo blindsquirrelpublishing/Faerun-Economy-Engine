@@ -723,6 +723,24 @@ Storage losses are not shipment losses. Trade routes still allocate
 labor ceilings are not modeled. Consumer buy/sell prices, quantity discounts
 and merchant-guild contract pricing retain their existing meanings.
 
+## Special orders for out-of-stock retail goods
+
+`economy.special_order_quote(settlement, commodity, world=None, quantity=1,
+quality="standard", handling_days=3, rush_premium=0.35, max_days=90.0)` (also
+`GET /api/special-order?settlement=...&commodity=...`) prices a retail good
+that a location does not currently carry. When the destination's stock is
+zero or availability is `"unavailable"`, it finds the cheapest reachable
+market that still has uncommitted stock, adds freight for the good's weight,
+and applies a rush surcharge (default 35%) on top of the landed cost to cover
+a small, out-of-cycle shipment instead of the merchant's normal bulk supply
+chain. The lead time is the travel days from that supplier, rounded up, plus
+a fixed handling allowance (default 3 days) to place and pack the order. If
+the good is already carried in stock, the result reports `needed: false`; if
+no reachable market has uncommitted stock within `max_days`, it reports
+`available: false`. `GET /api/product?commodity=...&settlement=...` includes
+this as a `special_order` object, and the product detail page shows it as a
+"Special order" panel when the standard grade is out of stock locally.
+
 ## Merchant guild wholesale and customer purchase orders
 
 Open **Merchant guild & POs** from the board, map, product or location page
@@ -752,12 +770,18 @@ cheaper than every distorted local retail price.
    or an **existing export allocation takeover** to the specified destination.
    A takeover requires authorization and standard grade because modeled
    exports do not carry a separate quality mix.
-2. Choose producer or guild procurement, pickup or supplier delivery, and
-   owned-caravan or shared-carrier transport. The owned-caravan estimate uses
-   one 4,000-lb horse wagon on established roads; an optional empty return
-   adds operating days, not another freight invoice. Budget extra loading,
-   trading, insurance or other costs explicitly through the fixed allowance.
-   Supplier delivery includes shared freight once in the supplier invoice.
+2. Choose producer or guild procurement, pickup or supplier delivery, and a
+   shipment term. **Own caravan** budgets one 4,000-lb horse wagon's operating
+   costs on established roads; an optional empty return adds operating days,
+   not another freight invoice. **Full load (FTL)** hires one or more whole
+   vehicles exclusively for this shipment, billed at a flat per-load rate
+   regardless of headroom, and requires at least 500 lb of cargo. **Less than
+   load (LTL)** shares a hired mixed-mode route, prorated by weight, with a
+   flat 5 gp handling minimum. **Customer pickup** means the buyer collects
+   and hauls the order themselves at no freight cost and no minimum quantity.
+   Budget extra loading, trading, insurance or other costs explicitly through
+   the fixed allowance. Supplier-delivered orders always use less-than-load
+   shared freight; the other three terms are pickup-only arrangements.
 3. Set a customer retail, wholesale or agreed unit price, tax-included or
    tax-extra terms, deposit percentage, payment timing and acceptance terms.
    The quote shows net/tax/gross amounts, procurement and transport costs,

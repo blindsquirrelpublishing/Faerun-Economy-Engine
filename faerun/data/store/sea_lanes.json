@@ -1,0 +1,359 @@
+[
+  {
+    "name": "The Sword Coast Run",
+    "stops": [
+      "luskan",
+      "neverwinter",
+      "waterdeep",
+      "baldur_s_gate",
+      "athkatla",
+      "zazesspur",
+      "memnon",
+      "calimport"
+    ],
+    "quality": 1.2,
+    "kind": null
+  },
+  {
+    "name": "The Shining Sea Run",
+    "stops": [
+      "calimport",
+      "almraiven",
+      "suldolphor",
+      "lantan",
+      "tashluta",
+      "port_nyanzaru"
+    ],
+    "quality": 1.0,
+    "kind": null
+  },
+  {
+    "name": "The Nelanther Passage",
+    "stops": [
+      "baldur_s_gate",
+      "mintarn",
+      "orlumbor",
+      "waterdeep"
+    ],
+    "quality": 1.0,
+    "kind": null
+  },
+  {
+    "name": "The Moonshae Crossing",
+    "stops": [
+      "waterdeep",
+      "caer_calidyrr",
+      "caer_corwell",
+      "baldur_s_gate"
+    ],
+    "quality": 0.95,
+    "kind": "sea+ferry"
+  },
+  {
+    "name": "The Northern Reach",
+    "stops": [
+      "luskan",
+      "ruathym"
+    ],
+    "quality": 0.85,
+    "kind": null
+  },
+  {
+    "name": "The Nimbral Run",
+    "stops": [
+      "lantan",
+      "nimbral",
+      "velen"
+    ],
+    "quality": 0.9,
+    "kind": "sea+air"
+  },
+  {
+    "name": "The Inner Sea Run",
+    "stops": [
+      "marsember",
+      "suzail",
+      "urmlaspyr",
+      "saerloon",
+      "selgaunt",
+      "yhaunn",
+      "procampur",
+      "tsurlagol",
+      "ravens_bluff",
+      "tantras",
+      "harrowdale_town",
+      "lyrabar",
+      "telflamm",
+      "bezantur",
+      "velprintalar"
+    ],
+    "quality": 1.2,
+    "kind": null
+  },
+  {
+    "name": "The Dragonmere Ferry",
+    "stops": [
+      "urmlaspyr",
+      "westgate"
+    ],
+    "quality": 1.0,
+    "kind": "ferry"
+  },
+  {
+    "name": "The Dragonmere",
+    "stops": [
+      "westgate",
+      "teziir",
+      "suzail",
+      "marsember"
+    ],
+    "quality": 1.15,
+    "kind": null
+  },
+  {
+    "name": "The Vilhon Passage",
+    "stops": [
+      "westgate",
+      "alaghon",
+      "arrabar",
+      "airspur",
+      "cimbar",
+      "messemprar",
+      "bezantur"
+    ],
+    "quality": 1.05,
+    "kind": null
+  },
+  {
+    "name": "The Moonsea Run",
+    "stops": [
+      "phlan",
+      "melvaunt",
+      "thentia",
+      "mulmaster",
+      "hillsfar",
+      "zhentil_keep",
+      "elmwood"
+    ],
+    "quality": 1.05,
+    "kind": null
+  },
+  {
+    "name": "The Cloudspire Road",
+    "stops": [
+      "halarahh",
+      "halagard",
+      "delselar",
+      "thindar",
+      "samargol",
+      "port_nyanzaru"
+    ],
+    "quality": 1.0,
+    "kind": "sea"
+  },
+  {
+    "name": "The Gearwork Passage",
+    "stops": [
+      "suldolphor",
+      "urbreth",
+      "lantan",
+      "calimport",
+      "memnon",
+      "myratma",
+      "zazesspur",
+      "athkatla",
+      "nashkel",
+      "beregost",
+      "baldur_s_gate",
+      "daggerford",
+      "waterdeep"
+    ],
+    "quality": 1.0,
+    "kind": "sea"
+  },
+  {
+    "name": "The Frostbound Road",
+    "stops": [
+      "bryn_shander",
+      "luskan",
+      "neverwinter",
+      "waterdeep",
+      "baldur_s_gate",
+      "athkatla",
+      "zazesspur",
+      "memnon",
+      "calimport"
+    ],
+    "quality": 0.7,
+    "kind": "sea+ferry"
+  },
+  {
+    "name": "The Green Road",
+    "stops": [
+      "port_nyanzaru",
+      "tashluta",
+      "lantan",
+      "suldolphor",
+      "almraiven",
+      "calimport"
+    ],
+    "quality": 0.85,
+    "kind": "sea"
+  },
+  {
+    "name": "The Ffolk Passage",
+    "stops": [
+      "caer_calidyrr",
+      "waterdeep",
+      "baldur_s_gate"
+    ],
+    "quality": 0.75,
+    "kind": "sea+ferry"
+  },
+  {
+    "name": "The Hidden Isle Passage",
+    "stops": [
+      "nimbral",
+      "velen"
+    ],
+    "quality": 0.6,
+    "kind": "sea+air"
+  },
+  {
+    "name": "The Bronze Road",
+    "stops": [
+      "mordulkin",
+      "luthcheq",
+      "cimbar",
+      "airspur",
+      "arrabar",
+      "alaghon",
+      "westgate"
+    ],
+    "quality": 1.1,
+    "kind": "sea"
+  },
+  {
+    "name": "The River Road",
+    "stops": [
+      "skuld",
+      "messemprar",
+      "phsant",
+      "eltabbar"
+    ],
+    "quality": 0.85,
+    "kind": "sea"
+  },
+  {
+    "name": "The Shipwright's Lane",
+    "stops": [
+      "alaghon",
+      "westgate"
+    ],
+    "quality": 1.05,
+    "kind": "sea"
+  },
+  {
+    "name": "The Salt and Amber Coast",
+    "stops": [
+      "westgate",
+      "alaghon",
+      "arrabar",
+      "airspur",
+      "cimbar",
+      "messemprar",
+      "bezantur",
+      "marsember",
+      "suzail",
+      "urmlaspyr",
+      "saerloon",
+      "selgaunt",
+      "yhaunn",
+      "procampur",
+      "tsurlagol",
+      "ravens_bluff",
+      "tantras",
+      "harrowdale_town",
+      "lyrabar",
+      "telflamm",
+      "velprintalar"
+    ],
+    "quality": 0.95,
+    "kind": "sea"
+  },
+  {
+    "name": "The Nomad's Road",
+    "stops": [
+      "calimport",
+      "memnon",
+      "myratma",
+      "zazesspur",
+      "athkatla",
+      "nashkel",
+      "beregost",
+      "baldur_s_gate",
+      "daggerford",
+      "waterdeep",
+      "skuld",
+      "messemprar"
+    ],
+    "quality": 0.9,
+    "kind": "sea"
+  },
+  {
+    "name": "The Timberline",
+    "stops": [
+      "westgate",
+      "alaghon",
+      "arrabar",
+      "airspur",
+      "cimbar",
+      "messemprar",
+      "bezantur",
+      "highmoon",
+      "essembra",
+      "ashabenford",
+      "archenbridge",
+      "wheloon"
+    ],
+    "quality": 1.0,
+    "kind": "sea"
+  },
+  {
+    "name": "The Gemcutters' Road",
+    "stops": [
+      "telflamm",
+      "phsant",
+      "eltabbar",
+      "port_nyanzaru",
+      "tashluta",
+      "lantan",
+      "suldolphor",
+      "almraiven",
+      "calimport"
+    ],
+    "quality": 0.9,
+    "kind": "sea"
+  },
+  {
+    "name": "The Hunters' Coast",
+    "stops": [
+      "bryn_shander",
+      "targos",
+      "termalaine",
+      "lonelywood",
+      "easthaven",
+      "good_mead",
+      "luskan",
+      "neverwinter",
+      "waterdeep",
+      "baldur_s_gate",
+      "athkatla",
+      "zazesspur",
+      "memnon",
+      "calimport"
+    ],
+    "quality": 1.0,
+    "kind": "sea"
+  }
+]

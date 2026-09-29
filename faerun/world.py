@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import heapq
 import math
+from collections import deque
 from dataclasses import dataclass, field, fields
 from functools import lru_cache
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
@@ -62,6 +63,34 @@ MAX_COASTING_LEG_MILES = 650.0
 BLOCKED_COASTING_LEGS = {
     frozenset(("tashluta", "thindar")),
     frozenset(("urmlaspyr", "westgate")),
+}
+
+#: explicit override -- a settlement tagged this way keeps gryphon eyries,
+#: mews and a farrier who knows the beasts regardless of its size.
+GRYPHON_PORT_TRAIT = "gryphon_port"
+#: settlements large enough to garrison and stable a flight on their own
+#: account, e.g. Waterdeep's Griffon Cavalry, need only the population and a
+#: standing garrison or court to justify one -- no separate authoring.
+GRYPHON_PORT_MIN_POPULATION = 25000
+GRYPHON_PORT_AUTO_TRAITS = ("military", "noble")
+#: how many of its nearest sister ports a gryphon port connects to; flights
+#: are dear enough that a rider picks the closest eyrie, not every one on the
+#: continent.
+GRYPHON_PORT_NEIGHBORS = 5
+#: a hub can also drop a rider at a settlement with no eyrie of its own, so
+#: long as the hop is short enough that the beasts don't need housing at the
+#: far end -- onward travel continues by whatever mundane route is cheapest.
+GRYPHON_PORT_SPOKE_MAX_MILES = 150.0
+GRYPHON_PORT_SPOKE_NEIGHBORS = 3
+GRYPHON_FLIGHT_MILES_PER_DAY = 80.0
+BLOCKED_GRYPHON_DIRECT_LEGS = {
+    frozenset(("athkatla", "waterdeep")),
+    frozenset(("darromar", "halarahh")),
+    frozenset(("arrabar", "saerloon")),
+}
+FORCED_GRYPHON_LEGS = {
+    frozenset(("waterdeep", "baldur_s_gate")),
+    frozenset(("baldur_s_gate", "athkatla")),
 }
 
 
@@ -163,7 +192,8 @@ def _surveyed_markets(established: Sequence[Settlement]) -> List[Settlement]:
 #: the Underdark is neither, and skyships buy speed at a ruinous price.
 MODES = {
     "teleport": (8.00, 5000.0, 0.20),  # licensed permanent portal circles
-    "air": (3.20, 110.0, 0.85),    # Halruaan skyships, Netherese relics
+    "air": (3.20, 80.0, 0.85),     # Gryphon flights: land and rest after each 80-mile day
+    "skyship": (2.40, 200.0, 0.35),  # Continuous flight with port resupply, not daily grounding
     "sea": (0.30, 72.0, 0.90),     # deep-water hulls
     "river": (0.55, 40.0, 0.70),   # downstream-capable river craft
     "ferry": (0.70, 30.0, 0.80),   # short crossings, lake and estuary hops
@@ -178,7 +208,8 @@ MODES = {
 #: Human-readable names, used by the CLI, the MCP server and the map legend.
 MODE_LABELS = {
     "teleport": "teleportation circle",
-    "air": "skyship",
+    "air": "Gryphon flight",
+    "skyship": "Skyship",
     "sea": "sea lane",
     "river": "river",
     "ferry": "ferry",
@@ -286,6 +317,7 @@ CARRIERS = {
         ("Ox freight wagon", 6000, 0.82, 0.72),
         ("Horse freight wagon", 4000, 1.00, 1.00),
         ("Mule cart", 2000, 0.88, 0.90),
+        ("Common carrier service", 12000, 1.35, 0.90),
     ),
     "trail": (
         ("Pack pony string", 1200, 0.95, 1.05),
@@ -330,7 +362,10 @@ CARRIERS = {
         ("Hippogriff flight", 450, 0.82, 0.88),
         ("Giant eagle flight", 300, 1.08, 1.18),
         ("Pegasus courier", 200, 1.35, 1.32),
+    ),
+    "skyship": (
         ("Halruaan skyship", 20000, 0.74, 0.82),
+        ("Lantan experimental skyship", 12000, 0.92, 0.95),
     ),
 }
 
@@ -355,6 +390,24 @@ MULTILEG_CARRIER_SERVICES = {
         "carrier": "Coasting cog",
         "name": "Sword Coast Coasters",
         "service_id": "calimshan-lantan-coastal-run",
+    },
+    "The Trade Way": {
+        "carrier": "Horse freight wagon",
+        "name": "Waterdeep-Daggerford Caravan Company",
+        "service_id": "waterdeep-daggerford-trade-way",
+        "service_class": "ground",
+    },
+    "The High Road": {
+        "carrier": "Ox freight wagon",
+        "name": "North Coast High Road Freight",
+        "service_id": "sword-coast-high-road-freight",
+        "service_class": "ground",
+    },
+    "The Genie's Road": {
+        "carrier": "Horse freight wagon",
+        "name": "Sword Coast Overland Exchange",
+        "service_id": "sword-coast-overland-exchange",
+        "service_class": "ground",
     },
 }
 
@@ -386,18 +439,22 @@ class Edge:
         return len(parse_modes(self.kind)) > 1
 
     @property
+    def effective_distance(self) -> float:
+        return self.distance * (2.0 if "sea" in self.modes else 1.0)
+
+    @property
     def speed(self) -> float:
         base = _profile_for_kind(self.kind)[1]
         return base * max(0.5, min(1.35, self.quality))
 
     @property
     def days(self) -> float:
-        return self.distance / max(1.0, self.speed)
+        return self.effective_distance / max(1.0, self.speed)
 
     def freight_units(self, risk: float) -> float:
         """Pound-miles of effective freight, including a risk premium."""
         factor = _profile_for_kind(self.kind)[0] / max(0.4, min(1.35, self.quality))
-        return self.distance * factor * (1.0 + risk)
+        return self.effective_distance * factor * (1.0 + risk)
 
     def hazard(self, security: float) -> float:
         """0 (safe) .. ~1 (very dangerous) for this leg."""
@@ -417,10 +474,12 @@ class Edge:
                     "mode": mode,
                     "name": name,
                     "max_load_lb": max_load,
-                    "cost_gp": round(rate * max_load * self.distance, 2),
+                    "max_volume_ft3": round(max_load / 40.0, 2),
+                    "volume_capacity_basis": "modeled at 40 lb/ft3 average freight density",
+                    "cost_gp": round(rate * max_load * self.effective_distance, 2),
                     "cost_gp_per_ton_mile": round(rate * 2000, 3),
                     "speed_miles_per_day": round(speed, 1),
-                    "days": round(self.distance / max(1.0, speed), 2),
+                    "days": round(self.effective_distance / max(1.0, speed), 2),
                 }
                 if service and service["carrier"] == name:
                     option.update({
@@ -627,23 +686,12 @@ class World:
         distance = math.dist((sa.x, sa.y), (sb.x, sb.y))
         distance = max(8.0, distance)
         kind = canonical_kind(kind)
-        existing = None
-        for edge in self._edges.setdefault(a, []):
-            if edge.dst == b:
-                existing = edge
-                break
-        if existing is not None:
-            # Two *separate* arteries between the same pair are alternatives,
-            # not a multimodal leg: a town on both a road and a river lets a
-            # trader pick the cheaper, so the better one wins outright. A leg
-            # is only multimodal when a single named route declares it so,
-            # meaning the cargo genuinely has to change carrier en route.
-            better = (_profile_for_kind(kind)[0] / quality
-                      < _profile_for_kind(existing.kind)[0] / existing.quality)
-            if not better:
-                return
-            self._edges[a] = [e for e in self._edges[a] if e.dst != b]
-            self._edges[b] = [e for e in self._edges.get(b, []) if e.dst != a]
+        # Keep distinct named arteries between the same settlements. A road
+        # and a sea lane may share endpoints, but route-type filtering must
+        # still be able to select either one.
+        if any(edge.dst == b and edge.kind == kind and edge.name == name
+               for edge in self._edges.setdefault(a, [])):
+            return
         self._edges.setdefault(a, []).append(Edge(a, b, distance, quality, kind, name, inferred))
         self._edges.setdefault(b, []).append(Edge(b, a, distance, quality, kind, name, inferred))
 
@@ -681,6 +729,7 @@ class World:
 
     def _build_graph(self) -> None:
         self._edges = {sid: [] for sid in self.settlements}
+        self._unavailable_gryphon_edges = []
 
         # 1. Named roads, trails, rivers, tunnels and skyways. A kind may name
         #    several modes at once, joined with "+", for arteries that have to
@@ -706,6 +755,33 @@ class World:
             for a, b in zip(stops, stops[1:]):
                 self._add_edge(a, b, quality, kind, name)
 
+        # Every permanent circle is on record with every other -- a caster
+        # need only know the destination sigil sequence, not travel there
+        # first -- so any two known circles can dial one another directly,
+        # not just the pairs an authored route happens to name from a hub.
+        # A circle's own quality is the best any authored route credits it
+        # with; an unauthored pair is only as good as the weaker of the two.
+        circle_ids = {
+            stop
+            for _name, stops, _quality, kind in self._named
+            if "teleport" in kind.split("+")
+            for stop in stops
+            if stop in self.settlements
+        }
+        circle_quality = {}
+        for cid in circle_ids:
+            best = max(
+                (edge.quality for edge in self._edges.get(cid, [])
+                 if "teleport" in edge.modes),
+                default=1.0,
+            )
+            circle_quality[cid] = best
+        circles = sorted(circle_ids)
+        for i, a in enumerate(circles):
+            for b in circles[i + 1:]:
+                quality = min(circle_quality[a], circle_quality[b])
+                self._add_edge(a, b, quality, "teleport", "Teleportation circle")
+
         # 2. Named sea lanes. These default to plain "sea", but a lane may
         #    carry an explicit kind as a fourth element when it is more than
         #    that -- a lane that ends in a river mouth, say.
@@ -727,6 +803,54 @@ class World:
 
         for name, start, end, quality in SURVEYED_FERRY_ROUTES:
             self._add_edge(start, end, quality, "ferry", name)
+
+        # 2b. Dynamic gryphon flight: any settlement with the facilities to
+        #    feed and house the animals can fly to any other with the same,
+        #    not just the pairs an authored skyroad happens to name. This
+        #    supplements those authored routes rather than replacing them --
+        #    `_add_edge` keeps whichever leg between a pair is cheaper.
+        self._gryphon_ports = self._compute_gryphon_ports()
+        ports = [self.settlements[sid] for sid in self._gryphon_ports]
+        for s in ports:
+            near = sorted(
+                ((math.dist((s.x, s.y), (o.x, o.y)), o) for o in ports if o.id != s.id),
+                key=lambda pair: pair[0],
+            )
+            for _distance, other in near[:GRYPHON_PORT_NEIGHBORS]:
+                if s.id in {"nimbral", "caer_calidyrr"} or other.id in {"nimbral", "caer_calidyrr"}:
+                    continue
+                if (s.id != "nimbral" and other.id != "nimbral"
+                    and (frozenset((s.id, other.id)) in FORCED_GRYPHON_LEGS
+                    or self._gryphon_leg_is_landable(s, other))):
+                    if frozenset((s.id, other.id)) in BLOCKED_GRYPHON_DIRECT_LEGS:
+                        continue
+                    self._add_edge(s.id, other.id, 1.0, "air", "Gryphon flight")
+                else:
+                    self._unavailable_gryphon_edges.append((s.id, other.id, "Gryphon flight"))
+
+        # A hub-to-hub flight need not be the whole journey: a rider can also
+        # be set down at a nearby settlement with no eyrie of its own, then
+        # finish overland or by water. Capped to a short hop, so it stands in
+        # for a quick puddle-jump rather than a full skyroad.
+        spokes = [s for s in self.settlements.values() if s.id not in self._gryphon_ports]
+        for s in ports:
+            near = sorted(
+                (
+                    (d, o) for d, o in (
+                        (math.dist((s.x, s.y), (o.x, o.y)), o) for o in spokes
+                    )
+                    if d <= GRYPHON_PORT_SPOKE_MAX_MILES
+                ),
+                key=lambda pair: pair[0],
+            )
+            for _distance, other in near[:GRYPHON_PORT_SPOKE_NEIGHBORS]:
+                if s.id in {"nimbral", "caer_calidyrr"} or other.id in {"nimbral", "caer_calidyrr"}:
+                    continue
+                if (s.id != "nimbral" and other.id != "nimbral"
+                    and self._gryphon_leg_is_landable(s, other)):
+                    self._add_edge(s.id, other.id, 1.0, "air", "Gryphon flight")
+                else:
+                    self._unavailable_gryphon_edges.append((s.id, other.id, "Gryphon flight"))
 
         # 3. Local caravan tracks: link each settlement to its nearest
         #    neighbours in the same or an adjacent zone.
@@ -888,6 +1012,100 @@ class World:
     def edges_from(self, settlement_id: str) -> List[Edge]:
         return self._edges.get(settlement_id, [])
 
+    def _compute_gryphon_ports(self) -> set:
+        """Settlement ids with the facilities to feed and house a flight.
+
+        A settlement qualifies by explicit override, by being big and
+        established enough to garrison one on its own (a large city or
+        better with a military garrison or a court to fund it), or by
+        already being one end of an authored skyroad or air-capable sea
+        lane -- those clearly have the facilities whether or not they are
+        tagged or that large.
+        """
+        ports = set()
+        for s in self.settlements.values():
+            if s.has_trait(GRYPHON_PORT_TRAIT):
+                ports.add(s.id)
+            elif (s.population >= GRYPHON_PORT_MIN_POPULATION
+                  and any(s.has_trait(t) for t in GRYPHON_PORT_AUTO_TRAITS)):
+                ports.add(s.id)
+        for _name, stops, _quality, kind in self._named:
+            if "air" in kind.split("+"):
+                ports.update(stop for stop in stops if stop in self.settlements)
+        return ports
+
+    def _gryphon_leg_is_landable(self, start: Settlement, end: Settlement) -> bool:
+        """Require a continuous land corridor for an 80-mile-hop flight."""
+        if start.landmass != end.landmass:
+            return False
+        try:
+            from .mapdata import _detail_grid
+
+            detail = _detail_grid()
+            if not detail:
+                return True
+            waterdeep = self.find_settlement("Waterdeep")
+            cell_miles = float(detail["cell_miles"])
+            column_min = int(detail["column_min"])
+            row_min = int(detail["row_min"])
+            column_max = int(detail["column_max"])
+            row_max = int(detail["row_max"])
+            rows = detail["rows"]
+            def terrain_at(column, row):
+                if not (column_min <= column <= column_max and row_min <= row <= row_max):
+                    return "S"
+                source_row = rows.get(str(row), "")
+                offset = column - column_min
+                return source_row[offset] if 0 <= offset < len(source_row) else "U"
+
+            def nearest_land(settlement):
+                column = math.floor((settlement.x - waterdeep.x) / cell_miles)
+                row = math.floor((waterdeep.y - settlement.y) / cell_miles)
+                for radius in range(13):
+                    candidates = []
+                    for dx in range(-radius, radius + 1):
+                        for dy in range(-radius, radius + 1):
+                            if max(abs(dx), abs(dy)) != radius:
+                                continue
+                            candidate = (column + dx, row + dy)
+                            if terrain_at(*candidate) not in {"S", "W"}:
+                                candidates.append(candidate)
+                    if candidates:
+                        return min(candidates, key=lambda item: math.dist(item, (column, row)))
+                return None
+
+            start_cell, end_cell = nearest_land(start), nearest_land(end)
+            if not start_cell or not end_cell:
+                return False
+            queue = deque([start_cell])
+            visited = {start_cell}
+            while queue:
+                column, row = queue.popleft()
+                if (column, row) == end_cell:
+                    return True
+                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1),
+                               (1, 1), (1, -1), (-1, 1), (-1, -1)):
+                    candidate = (column + dx, row + dy)
+                    if candidate in visited or terrain_at(*candidate) in {"S", "W"}:
+                        continue
+                    visited.add(candidate)
+                    queue.append(candidate)
+            return False
+        except (AtlasError, OSError, KeyError, TypeError, ValueError):
+            return True
+
+    def is_gryphon_port(self, key: str) -> bool:
+        settlement = self.lookup_settlement(key)
+        return bool(settlement and settlement.id in self._gryphon_ports)
+
+    @property
+    def gryphon_ports(self) -> List[Settlement]:
+        """Every settlement with gryphon-flight facilities, by name."""
+        return sorted(
+            (self.settlements[sid] for sid in self._gryphon_ports),
+            key=lambda s: s.name,
+        )
+
     @property
     def named_routes(self) -> List[Tuple[str, List[str], float, str]]:
         return self._named
@@ -987,7 +1205,8 @@ class World:
         self.revision += 1
 
     # -- pathfinding --------------------------------------------------------
-    def _dijkstra(self, start: str, weight):
+    def _dijkstra(self, start: str, weight, allow_inferred: bool = True,
+                  route_types: Optional[set[str]] = None):
         """Generic single-source shortest path. `weight(edge) -> float`."""
         dist = {start: 0.0}
         prev: Dict[str, Optional[Edge]] = {start: None}
@@ -999,6 +1218,13 @@ class World:
                 continue
             seen.add(node)
             for edge in self._edges.get(node, []):
+                if not allow_inferred and edge.inferred:
+                    continue
+                if route_types and not any(
+                    ("trail" if mode == "track" else mode) in route_types
+                    for mode in edge.kind.split("+")
+                ):
+                    continue
                 nd = d + weight(edge)
                 if nd < dist.get(edge.dst, math.inf):
                     dist[edge.dst] = nd
@@ -1058,7 +1284,7 @@ class World:
                 if nd < dist.get(edge.dst, math.inf):
                     dist[edge.dst] = nd
                     origin[edge.dst] = origin[node]
-                    haul[edge.dst] = (miles + edge.distance, days + edge.days)
+                    haul[edge.dst] = (miles + edge.effective_distance, days + edge.days)
                     heapq.heappush(queue, (nd, edge.dst))
         return dist, origin, haul
 
@@ -1086,7 +1312,7 @@ class World:
                     total = cost + leg
                     if total < costs.get(edge.dst, math.inf):
                         costs[edge.dst] = total
-                        distances[edge.dst] = (miles + edge.distance, days + edge.days)
+                        distances[edge.dst] = (miles + edge.effective_distance, days + edge.days)
                         heapq.heappush(queue, (total, edge.dst))
             cache[source] = costs, distances
         return cache[source]
@@ -1114,10 +1340,12 @@ class World:
                 labels[edge.dst] = [(price, elapsed) for price, elapsed in existing
                                     if not (delivered <= price and arrival <= elapsed)]
                 labels[edge.dst].append((delivered, arrival))
-                heapq.heappush(queue, (delivered, arrival, edge.dst, origin, miles + edge.distance))
+                heapq.heappush(queue, (delivered, arrival, edge.dst, origin, miles + edge.effective_distance))
         return landed, origins, hauls
 
-    def route(self, start: str, end: str, optimise: str = "days") -> Dict:
+    def route(self, start: str, end: str, optimise: str = "days",
+              include_inferred: bool = True,
+              route_types: Optional[Iterable[str]] = None) -> Dict:
         """Best path between two markets, optimising 'days' or 'cost'."""
         a = self.find_settlement(start)
         b = self.find_settlement(end)
@@ -1125,7 +1353,30 @@ class World:
             weight = lambda e: e.freight_units(self.edge_risk(e)) * FREIGHT_RATE * 100
         else:
             weight = lambda e: e.days * (1.0 + self.edge_risk(e) * 0.25)
-        dist, prev = self._dijkstra(a.id, weight)
+        allowed_types = {str(kind).strip() for kind in (route_types or ()) if str(kind).strip()}
+        def land_weight(edge):
+            if any(mode in {"sea", "river", "barge", "ferry"} for mode in edge.modes):
+                return math.inf
+            return weight(edge)
+
+        # Inland destinations should use the connected road/trail network when it
+        # can reach them. Water remains a fallback for places whose land network
+        # is incomplete, and explicit route-type filters retain full control.
+        if not allowed_types and not getattr(b, "port", None):
+            dist, prev = self._dijkstra(
+                a.id, land_weight, allow_inferred=include_inferred,
+                route_types=None,
+            )
+            if b.id not in dist:
+                dist, prev = self._dijkstra(
+                    a.id, weight, allow_inferred=include_inferred,
+                    route_types=None,
+                )
+        else:
+            dist, prev = self._dijkstra(
+                a.id, weight, allow_inferred=include_inferred,
+                route_types=allowed_types or None,
+            )
         if b.id not in dist:
             return {
                 "origin": a.name, "destination": b.name, "reachable": False,
@@ -1141,7 +1392,7 @@ class World:
             node = edge.src
         legs.reverse()
         total_days = sum(e.days for e in legs)
-        total_distance = sum(e.distance for e in legs)
+        total_distance = sum(e.effective_distance for e in legs)
         hazard = 0.0
         for e in legs:
             hazard = max(hazard, self.edge_risk(e))

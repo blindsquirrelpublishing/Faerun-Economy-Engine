@@ -1,6 +1,6 @@
 """JSON-facing merchant guild and customer PO operations."""
 
-from .trading import TradeError, iso
+from .trading import FULL_LOAD_MINIMUM_LB, LTL_MINIMUM_CHARGE_GP, TradeError, iso
 
 
 def _store(world):
@@ -26,6 +26,17 @@ def options(world, params):
         "settlements": [{"id": s.id, "name": s.name} for s in locations],
         "commodities": [{"id": c.id, "name": c.name, "unit": c.unit, "weight": c.weight} for c in goods],
         "qualities": ["basic", "standard", "fine", "masterwork"],
+        "shipment_terms": [
+            {"id": "own_caravan", "name": "Own caravan",
+             "basis": "Owned 4,000-lb horse wagon; operating cost only, pickup terms only.", "minimum": "4,000 lb capacity"},
+            {"id": "full_load", "name": "Full load (FTL)",
+             "basis": "One or more whole vehicle loads hired exclusively for this shipment, billed at a flat per-load rate.",
+             "minimum": f"{FULL_LOAD_MINIMUM_LB:g} lb cargo"},
+            {"id": "shared_freight", "name": "Less than load (LTL)",
+             "basis": "Shared/mixed-mode hired freight, prorated by weight.", "minimum": f"{LTL_MINIMUM_CHARGE_GP:g} gp flat charge"},
+            {"id": "customer_pickup", "name": "Customer pickup",
+             "basis": "The customer collects and hauls the order themselves; no freight is quoted or charged.", "minimum": "none"},
+        ],
         "defaults": {
             "origin": "berdusk" if "berdusk" in world.settlements else locations[0].id,
             "destination": "proskur" if "proskur" in world.settlements else locations[-1].id,

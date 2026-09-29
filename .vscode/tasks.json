@@ -2,14 +2,212 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Faerun: seasonal app (8883)",
+			"label": "Faerun: market app (8883)",
 			"type": "shell",
 			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
 			"args": [
 				"-u",
 				"-m",
 				"faerun.cli",
-				"--seasonal-inventory",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8883",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun: market app (8883, LAN)",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"0.0.0.0",
+				"--port",
+				"8883",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"detail": "Listens on every network interface so other devices on your LAN can reach the commodity board. The merchant guild/PO trade desk and request board still require 127.0.0.1 by design."
+		},
+		{
+			"label": "Faerun fresh map app 8890",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8890",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun fresh map app 8891",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8891",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun fresh map app 8892",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8892",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun fresh map app 8893",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8893",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Reset Faerun servers and start 8883",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-CimInstance Win32_Process -Filter \"Name = 'python.exe'\" | Where-Object { $_.CommandLine -like '*faerun.cli*serve*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }; Start-Process -FilePath 'C:\\repos\\Source\\Faerun-Economy-Engine\\.venv\\Scripts\\python.exe' -ArgumentList '-u','-m','faerun.cli','--no-seasonal-inventory','serve','--host','127.0.0.1','--port','8883','--no-browser' -WorkingDirectory 'C:\\repos\\Source\\Faerun-Economy-Engine' -WindowStyle Hidden"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run clean Faerun 8883 reset",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"C:\\repos\\Source\\Faerun-Economy-Engine\\tools\\reset-faerun-servers.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun canonical 8883",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8883",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun canonical 8883 repaired",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8883",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun canonical 8883 final",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
+				"serve",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"8883",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Faerun canonical 8883 refreshed",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-u",
+				"-m",
+				"faerun.cli",
+				"--no-seasonal-inventory",
 				"serve",
 				"--host",
 				"127.0.0.1",

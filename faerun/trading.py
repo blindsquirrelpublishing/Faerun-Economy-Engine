@@ -17,6 +17,11 @@ from .economy import QUALITY_TIERS
 CENT = Decimal("0.01")
 UNIT_PRECISION = Decimal("0.000001")
 MINIMUM_ORDER_GP = Decimal("25")
+#: cargo below this weight cannot be booked as a dedicated full load; use less-than-load or customer pickup instead
+FULL_LOAD_MINIMUM_LB = 500.0
+#: flat floor on a less-than-load (shared/mixed-mode) freight invoice
+LTL_MINIMUM_CHARGE_GP = Decimal("5")
+TRANSPORT_MODES = ("own_caravan", "full_load", "shared_freight", "customer_pickup")
 QUALITIES = dict(QUALITY_TIERS)
 FIELDS = {
     "origin", "destination", "commodity", "quantity", "quality", "supply_date",
@@ -265,18 +270,65 @@ def guild_prices(gate, quantity, commodity, export_margin):
     return gate * (1 + retained), minimum, float(discount * 100), float(retained * 100)
 
 
+def _cheapest_full_load_choices(plan):
+    """Pick the cheapest whole-vehicle carrier per leg/mode from a plain plan.
+
+    Billing a carrier's `shipment_cost_gp` (a flat per-load rate, rounded up to
+    whole loads) rather than the continuous per-pound rate is exactly what a
+    dedicated full-load hire means, so no separate pricing model is needed.
+    """
+    choices = {}
+    for option in plan["options"]:
+        for leg in option["legs"]:
+            for stage in leg["transport_stages"]:
+                if not stage["carriers"]:
+                    continue
+                best = min(stage["carriers"], key=lambda c: c["shipment_cost_gp"])
+                choices.setdefault(leg["id"], {})[stage["mode"]] = best["name"]
+    return choices
+
+
 def transport_quote(world, origin, destination, pounds, params):
     from .transport import direct_path, plan_shipment, shipment_leg
 
     mode = params["transport_mode"]
     if mode == "own_caravan" and pounds > 4000:
         raise TradeError("This owned-caravan budget is for one 4,000-lb horse wagon; reduce quantity or use shared freight")
+    if mode == "customer_pickup":
+        cost = Decimal(str(params["fixed_gp"])) * (1 + Decimal(str(params["contingency_pct"])) / 100)
+        return {"mode": mode, "terms": params["delivery_terms"],
+                "path": [origin.name] if origin.id == destination.id else [origin.name, destination.name],
+                "one_way_days": 0.0, "cost_days": 0.0, "cost_gp": money(cost),
+                "benchmark_freight_gp": 0.0, "cargo_lb": pounds, "capacity_lb": None,
+                "carrier": "Customer's own transport",
+                "basis": "The customer collects and hauls this order themselves; no supplier-arranged freight is quoted or charged. No minimum quantity applies."}
     if origin.id == destination.id:
         local_cost = Decimal(str(params["fixed_gp"])) * (1 + Decimal(str(params["contingency_pct"])) / 100)
         return {"mode": mode, "terms": params["delivery_terms"], "path": [origin.name],
                 "one_way_days": 0.0, "cost_days": 0.0, "cost_gp": money(local_cost),
                 "benchmark_freight_gp": 0.0, "cargo_lb": pounds, "capacity_lb": 4000 if mode == "own_caravan" else None,
                 "carrier": "Local pickup", "basis": "Local transfer; no intersettlement freight."}
+    if mode == "full_load":
+        if pounds < FULL_LOAD_MINIMUM_LB:
+            raise TradeError(
+                f"Full load freight requires at least {FULL_LOAD_MINIMUM_LB:g} lb of cargo; "
+                "use less-than-load or customer pickup for smaller shipments")
+        discovery = plan_shipment(world, origin.id, destination.id, pounds=pounds,
+                                  fixed=params["fixed_gp"], contingency=params["contingency_pct"],
+                                  include_events=True, include_inferred=False, allow_special=False)
+        if not discovery["options"]:
+            raise TradeError("No established transport route is available")
+        plan = plan_shipment(world, origin.id, destination.id, pounds=pounds,
+                             fixed=params["fixed_gp"], contingency=params["contingency_pct"],
+                             include_events=True, include_inferred=False, allow_special=False,
+                             carrier_choices=_cheapest_full_load_choices(discovery))
+        option = min(plan["options"], key=lambda row: row["costs"]["total_gp"])
+        return {"mode": mode, "terms": params["delivery_terms"], "path": option["path"],
+                "one_way_days": option["travel_days"], "cost_days": option["travel_days"],
+                "cost_gp": money(option["costs"]["total_gp"]),
+                "benchmark_freight_gp": option["costs"]["line_haul_gp"],
+                "cargo_lb": pounds, "capacity_lb": None, "carrier": "Full load — dedicated carrier",
+                "basis": "One or more whole vehicle loads hired exclusively for this shipment, billed at the flat per-load rate regardless of headroom."}
     if mode == "own_caravan":
         route = direct_path(world, origin.id, destination.id,
                             lambda edge: edge.days if edge.modes == ("road",) and not edge.inferred else math.inf)
@@ -314,12 +366,15 @@ def transport_quote(world, origin, destination, pounds, params):
     if not plan["options"]:
         raise TradeError("No established transport route is available")
     option = min(plan["options"], key=lambda row: row["costs"]["total_gp"])
+    cost = Decimal(str(option["costs"]["total_gp"]))
+    if cost < LTL_MINIMUM_CHARGE_GP:
+        cost = LTL_MINIMUM_CHARGE_GP
     return {"mode": mode, "terms": params["delivery_terms"], "path": option["path"],
             "one_way_days": option["travel_days"], "cost_days": option["travel_days"],
-            "cost_gp": money(option["costs"]["total_gp"]),
+            "cost_gp": money(cost),
             "benchmark_freight_gp": option["costs"]["line_haul_gp"],
-            "cargo_lb": pounds, "capacity_lb": None, "carrier": "Shared freight",
-            "basis": "Estimated shared-carrier freight, including route risk; not a booked carrier service."}
+            "cargo_lb": pounds, "capacity_lb": None, "carrier": "Less than load — shared freight",
+            "basis": f"Estimated shared-carrier freight prorated by weight, including route risk; not a booked carrier service. A flat {LTL_MINIMUM_CHARGE_GP:g} gp handling minimum applies."}
 
 
 def build_quote(world, raw, claims=(), *, revalidate=False):
@@ -338,10 +393,10 @@ def build_quote(world, raw, claims=(), *, revalidate=False):
     if channel not in ("producer", "guild"):
         raise TradeError("purchase_channel must be producer or guild")
     terms = choice(raw, "delivery_terms", "pickup", ("pickup", "delivered"))
-    transport_mode = choice(raw, "transport_mode", "shared_freight", ("own_caravan", "shared_freight"))
+    transport_mode = choice(raw, "transport_mode", "shared_freight", TRANSPORT_MODES)
     return_trip = boolean(raw.get("return_trip", False), "return_trip")
     if terms == "delivered" and transport_mode != "shared_freight":
-        raise TradeError("Supplier-delivered orders use shared freight; owned-caravan costs belong to pickup orders")
+        raise TradeError("Supplier-delivered orders use less-than-load shared freight; owned-caravan, full-load and customer-pickup costs belong to pickup orders")
     if return_trip and transport_mode != "own_caravan":
         raise TradeError("An empty return allowance only applies to an owned caravan")
     if mode == "allocated_export" and (quality != "standard" or origin.id == destination.id):

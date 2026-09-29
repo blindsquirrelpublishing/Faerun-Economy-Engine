@@ -31,6 +31,17 @@ FESTIVALS = {
 REAL_DATE_EPOCH = date(2026, 1, 1)
 HARPTOS_EPOCH_YEAR = 1492
 HARPTOS_DAYS_PER_YEAR = 365
+LUNAR_CYCLE_DAYS = 29.530588853
+LUNAR_PHASE_NAMES = [
+    "Moonless Night",
+    "Silver Sliver",
+    "Moonrise",
+    "Silver Wake",
+    "Full Silver",
+    "Silver Fade",
+    "Moonfall",
+    "Dimming Halo",
+]
 FESTIVAL_MONTHS = frozenset(FESTIVALS)
 
 MONTH_INDEX = {name.lower(): i + 1 for i, (name, _, _) in enumerate(MONTHS)}
@@ -130,6 +141,28 @@ class HarptosDate:
     @property
     def season(self) -> str:
         return season_of(self.month)
+
+    @property
+    def moon_phase(self) -> str:
+        """Return a stable phase label for Selûne's cycle in Faerûn."""
+        cycle_day = (self.absolute_day() - HarptosDate(1492, 1, 1).absolute_day()) % LUNAR_CYCLE_DAYS
+        fraction = cycle_day / LUNAR_CYCLE_DAYS
+        index = min(int(fraction * len(LUNAR_PHASE_NAMES)), len(LUNAR_PHASE_NAMES) - 1)
+        if 0.0 <= fraction < 0.0625:
+            return "Moonless Night"
+        if 0.0625 <= fraction < 0.1875:
+            return "Silver Sliver"
+        if 0.1875 <= fraction < 0.3125:
+            return "Moonrise"
+        if 0.3125 <= fraction < 0.4375:
+            return "Silver Wake"
+        if 0.4375 <= fraction < 0.5625:
+            return "Full Silver"
+        if 0.5625 <= fraction < 0.6875:
+            return "Silver Fade"
+        if 0.6875 <= fraction < 0.8125:
+            return "Moonfall"
+        return "Dimming Halo"
 
     @property
     def month_name(self) -> str:
