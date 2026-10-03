@@ -2002,6 +2002,28 @@ def _choose_detail_grid(east: float, north: float) -> Dict[str, object]:
     return _detail_grid()
 
 
+def planar_terrain_tile(column: int, row: int) -> Dict[str, object]:
+    detail = _fine_grid()
+    if not detail or detail["cell_miles"] != 1:
+        raise AtlasError("one-mile terrain is not installed")
+    size = 200
+    column_min = max(int(detail["column_min"]), column * size)
+    column_max = min(int(detail["column_max"]), (column + 1) * size - 1)
+    row_min = max(int(detail["row_min"]), row * size)
+    row_max = min(int(detail["row_max"]), (row + 1) * size - 1)
+    if column_min > column_max or row_min > row_max:
+        return {"grid": [0, 0], "terrain": "", "cellMiles": 1}
+    rows = detail["rows"]
+    translation = str.maketrans({letter: _terrain_code(terrain)
+                                for letter, terrain in _FULL_GRID_TERRAIN.items()})
+    offset = column_min - int(detail["column_min"])
+    width = column_max - column_min + 1
+    terrain = "".join(rows[str(north)][offset:offset + width].translate(translation)
+                      for north in range(row_max, row_min - 1, -1))
+    return {"grid": [width, row_max - row_min + 1], "terrain": terrain,
+            "column": column_min, "row": row_max, "cellMiles": 1}
+
+
 def terrain_detail(world: object, settlement: str,
                    radius: float = 250.0) -> Dict[str, object]:
     """Return a bounded local terrain patch around one settlement."""
@@ -2144,6 +2166,8 @@ def height_at(grid: Dict[str, object], x: float, y: float) -> float:
 
 def map_payload(world: object) -> Dict[str, object]:
     """Everything the browser needs to draw the world: relief, pins and roads."""
+    if hasattr(world, "sync_route_edits"):
+        world.sync_route_edits()
     settlements = list(world.settlements.values())  # type: ignore[attr-defined]
     grid = terrain_grid(settlements)
     # Shipped positions, so the map screen can preview a realignment against the
@@ -2199,6 +2223,8 @@ def map_payload(world: object) -> Dict[str, object]:
             "wealth": location.wealth,
             "surveyed": False,
             "mobile": True,
+            "position_source": position["position_source"],
+            "progress": position["progress"],
             "status": position["status"],
             "host": position["host"],
             "origin": position["origin"],
@@ -2252,7 +2278,7 @@ def map_payload(world: object) -> Dict[str, object]:
 
     seen = set()
     routes = []
-    edges = getattr(world, "_edges", {}) or {}
+    edges = getattr(world, "_original_edges", getattr(world, "_edges", {})) or {}
     for src, legs in edges.items():
         for edge in legs:
             pair = (src, edge.dst) if src < edge.dst else (edge.dst, src)

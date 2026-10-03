@@ -944,13 +944,13 @@ def _freight_map(world: World, origin_id: str) -> Dict[str, float]:
     """gp to carry one pound from `origin_id` to everywhere reachable."""
     weight = lambda e: e.freight_units(world.edge_risk(e)) * FREIGHT_RATE
     dist, _ = world._dijkstra(origin_id, weight)
-    return dist
+    return {identifier: value for identifier, value in dist.items() if identifier in world.settlements}
 
 
 def _days_map(world: World, origin_id: str) -> Dict[str, float]:
     weight = lambda e: e.days * (1.0 + world.edge_risk(e) * 0.25)
     dist, _ = world._dijkstra(origin_id, weight)
-    return dist
+    return {identifier: value for identifier, value in dist.items() if identifier in world.settlements}
 
 
 def find_arbitrage(origin, world: Optional[World] = None,

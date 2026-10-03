@@ -36,8 +36,44 @@ def test_mobile_location_interpolates_along_a_dated_route():
     assert position["status"] == "travelling"
     assert position["route"] == "The Long Road"
     assert position["progress"] == pytest.approx(1 / 3, abs=0.0001)
-    assert min(waterdeep.x, amphail.x) <= position["x"] <= max(waterdeep.x, amphail.x)
-    assert min(waterdeep.y, amphail.y) <= position["y"] <= max(waterdeep.y, amphail.y)
+    assert position["position_source"] in {"mapped_route", "route_unavailable"}
+
+
+def test_company_follows_bent_route_by_distance(monkeypatch):
+    from types import SimpleNamespace
+    from faerun.data.mobile_locations import MOBILE_LOCATIONS
+    from faerun import locationedits
+
+    monkeypatch.setattr(locationedits, "load_location_edits", lambda: {"locations": {}})
+    stops = {identifier: SimpleNamespace(id=identifier, name=identifier, x=east, y=south)
+             for identifier, east, south in [("waterdeep", 0, 0), ("amphail", 20, 10)]}
+    def route(origin, destination, **options):
+        assert options["include_inferred"] is False
+        assert options["route_types"] == {"road", "track", "trail", "ferry"}
+        return {"reachable": True, "mapRoads": True,
+                "legs": [{"points": [[0, 0], [0, 10], [20, 10]]}]}
+    world = SimpleNamespace(date=HarptosDate(1492, 9, 18), find_settlement=stops.__getitem__, route=route)
+    position = MOBILE_LOCATIONS[0].position(world)
+    assert (position["x"], position["y"]) == (0, 10)
+    assert position["position_source"] == "mapped_route"
+    world.date = HarptosDate(1492, 9, 20)
+    assert MOBILE_LOCATIONS[0].position(world)["x"] == 20
+    world.route = lambda *args, **kwargs: {"reachable": False}
+    missing = MOBILE_LOCATIONS[0].position(world)
+    assert missing["position_source"] == "route_unavailable"
+    assert (missing["x"], missing["y"]) == (0, 0)
+
+
+def test_company_camp_uses_edited_host_coordinates(monkeypatch):
+    from types import SimpleNamespace
+    from faerun.data.mobile_locations import MOBILE_LOCATIONS
+    from faerun import locationedits
+
+    monkeypatch.setattr(locationedits, "load_location_edits", lambda: {"locations": {"amphail": {"x": 650, "y": 1160}}})
+    host = SimpleNamespace(id="amphail", name="Amphail", x=621.7, y=1126)
+    world = SimpleNamespace(date=HarptosDate(1492, 9, 31), find_settlement=lambda identifier: host)
+    position = MOBILE_LOCATIONS[0].position(world)
+    assert (position["x"], position["y"]) == (650, 1160)
 
 
 def test_festival_day_gap_keeps_the_company_at_its_previous_stop():

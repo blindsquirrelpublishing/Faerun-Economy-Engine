@@ -13,6 +13,36 @@ from faerun.web import Handler
 from faerun.webassets import APP_CSS, ASSETS, INDEX_HTML
 
 
+def test_map_exposes_daily_travel_rates_without_mutating_cached_payload(monkeypatch):
+    cached = {"settlements": []}
+    monkeypatch.setattr(web, "map_payload", lambda world: cached)
+    payload = web.api_map(None, {})
+    assert payload["travelMilesPerDay"]["road"] == 24
+    assert payload["travelMilesPerDay"]["air"] == 80
+    assert payload["travelMilesPerDay"]["sea"] == 72
+    assert "teleport" not in payload["travelMilesPerDay"]
+    assert "travelMilesPerDay" not in cached
+
+
+def test_location_endpoint_persists_marker_edits(monkeypatch, tmp_path):
+    from faerun import locationedits
+
+    monkeypatch.setattr(locationedits, "location_edits_path", lambda: tmp_path / "edits.json")
+    cached = {"settlements": [{"id": "town", "name": "Town", "x": 1, "y": 2}], "places": []}
+    monkeypatch.setattr(web, "map_payload", lambda world: cached)
+    handler = web.POST_ROUTES["/api/map-location"]
+    result = handler(None, {"revision": 0, "name": "Camp", "x": 3, "y": 4})
+    assert result["id"].startswith("location:")
+    assert web.api_map(None, {})["settlements"][-1]["name"] == "Camp"
+    handler(None, {"revision": 1, "id": "town", "name": "Town", "x": 5, "y": 6})
+    assert web.api_map(None, {})["settlements"][0]["x"] == 5
+    assert cached["settlements"][0]["x"] == 1
+    handler(None, {"revision": 2, "id": "town", "deleted": True})
+    assert len(web.api_map(None, {})["settlements"]) == 1
+    with pytest.raises(web.ApiError, match="changed elsewhere"):
+        handler(None, {"revision": 0, "name": "Old", "x": 0, "y": 0})
+
+
 class DisconnectedWriter:
     def write(self, _raw: bytes) -> None:
         raise ConnectionAbortedError(10053, "client disconnected")

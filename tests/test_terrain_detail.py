@@ -8,6 +8,18 @@ from faerun.mapdata import terrain_detail
 from faerun.world import World
 
 
+def test_planar_tile_preserves_one_mile_cells(monkeypatch):
+    monkeypatch.setattr(mapdata, "_fine_grid", lambda: {
+        "cell_miles": 1, "column_min": 0, "column_max": 2,
+        "row_min": 0, "row_max": 1, "rows": {"1": "FGP", "0": "SHM"},
+    })
+    tile = mapdata.planar_terrain_tile(0, 0)
+    assert tile["grid"] == [3, 2]
+    assert tile["terrain"] == "fgpohm"
+    assert tile["column"] == 0 and tile["row"] == 1
+    assert mapdata.planar_terrain_tile(-1, 0)["grid"] == [0, 0]
+
+
 def test_waterdeep_detail_is_a_bounded_one_mile_patch():
     detail = terrain_detail(World(), "Waterdeep", radius=250)
 

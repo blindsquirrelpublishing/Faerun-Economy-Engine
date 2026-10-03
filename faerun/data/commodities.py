@@ -204,7 +204,7 @@ _HARVEST_GOODS = {
         "spices_exotic black_pepper long_pepper cinnamon cassia cloves nutmeg "
         "mace_spice cardamom ginger turmeric star_anise allspice vanilla"
     ),
-    "coffee": "coffee",
+    "coffee": "coffee coffee_green",
     "cotton": "cotton",
     "wool": "wool",
 }
@@ -230,8 +230,7 @@ for calendar_id, goods in _HARVEST_GOODS.items():
 # Consumption curves are deliberately limited to uses with seasonal demand.
 # Crop scarcity price flags do NOT imply that people eat less bread in winter.
 # Workshops, mills, roasters-as-workshops, brewers and alchemists have no annual
-# shutdown: only the harvested aggregate coffee good above follows crop supply;
-# the existing catalogue has no separate green-bean/roasting production chain.
+# shutdown: the aggregate roasted coffee and green-bean goods follow crop supply.
 _DEMAND_CALENDARS = {
     "heating": [1.5, 1.4, 1.15, 1, 0.85, 0.7, 0.65, 0.7, 0.9, 1.1, 1.3, 1.45],
     "lighting": [1.35, 1.25, 1.1, 1, 0.9, 0.8, 0.75, 0.8, 1, 1.1, 1.2, 1.35],
@@ -278,6 +277,7 @@ _STORAGE_POLICIES = [
     ("herbs_healing tea", 270, 0.0015, 60),
     ("antitoxin potion_healing holy_water reagents_rare spell_components", 730, 0.0001, 30),
     ("coffee", 60, 0.012, 7),
+    ("coffee_green", 365, 0.0005, 60),
     ("cotton wool linen cloth_dyed furs", 400, 0.0004, 45),
     ("coal charcoal timber wax", 400, 0.0001, 45),
 ]
@@ -289,7 +289,7 @@ _SPICE_GOODS = (
 )
 _STORAGE_POLICIES.append((_SPICE_GOODS, 365, 0.0008, 45))
 # Coffee's description explicitly says roasted: allow weeks, not the many
-# months appropriate to green beans. Do not invent a second catalogue good.
+# months appropriate to green beans.
 for goods, days, loss, reserve in _STORAGE_POLICIES:
     for commodity_id in goods.split():
         commodity = COMMODITIES_BY_ID[commodity_id]

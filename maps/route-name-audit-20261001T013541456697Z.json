@@ -1,0 +1,1905 @@
+{
+  "revision": 1840,
+  "legs": [
+    {
+      "id": "custom:2dd2317b-d86e-4c50-8f4a-ce1a32199f56",
+      "old": "Daggerford Rtoad: Daggerford to The Trade Way Junction 2",
+      "new": "Daggerford Rtoad: Daggerford to Daggerford South Junction",
+      "kind": "road"
+    },
+    {
+      "id": "custom:df4e687d-7f54-434a-848a-352220182499",
+      "old": "New leg: Baldur's Gate to Crimmor",
+      "new": "Baldur's Gate to Crimmor Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:a47b79af-4c5f-4a14-964e-5e292e52bb3c",
+      "old": "New leg: Scornubel to Elturel",
+      "new": "Elturel to Scornubel Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:aafcba8f-5361-42f5-b7a0-e91c6655a3ab",
+      "old": "New leg: The Trade Way Junction 3 to Scornubel",
+      "new": "Dragonspear Castle Southeast Junction to Scornubel Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7781d44c-e07a-4d9d-a47b-2d48f36d2ca7",
+      "old": "New leg",
+      "new": "Triel to Elturel Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:77fb6701-109c-4886-9308-2be4665179ae",
+      "old": "New leg",
+      "new": "Soubar West Junction to Baldur's Gate Northeast Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:ac188c9b-e273-420f-9a8a-af5ddfd8da5c",
+      "old": "New leg",
+      "new": "Elturel Northwest Junction to Elturel Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:9e43aa54-b82a-4c8f-8d29-708efbd948fd",
+      "old": "New leg",
+      "new": "Beregost Northwest Junction to Candlekeep Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:f4a3c32e-5cd7-4ca6-ac6b-37f844a2904a",
+      "old": "New leg: Elturel to New leg Junction 6",
+      "new": "Elturel to Berdusk Southwest Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:baa86145-72c1-4279-af9d-6b42cbf9f5dd",
+      "old": "New leg: Crimmor to Athkatla",
+      "new": "Athkatla to Crimmor Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c0c956e8-2cdf-4433-ae2d-f10314446172",
+      "old": "New leg",
+      "new": "Esmeltaran Southwest Junction to Brost Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:0a6b4f44-9909-48d5-bc4c-a8a7f6927920",
+      "old": "New leg: New leg Junction 7 to Murann",
+      "new": "Murann to Imnescar South Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:fcc119aa-57a9-4cd6-a2de-b191aae090a9",
+      "old": "New leg: Eshpurta to Crimmor (part 1)",
+      "new": "Crimmor to Keczulla Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:453fc832-3b7c-4151-b015-a804e2859c80",
+      "old": "New leg: Eshpurta to Crimmor (part 2)",
+      "new": "Keczulla to Eshpurta Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:589b9936-5d6a-4024-9075-c25c92ac924d",
+      "old": "New leg: Keczulla to Imnescar (part 1)",
+      "new": "Imnescar to Esmeltaran Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e8a70b17-757d-4bab-bd1c-0d00d810f53b",
+      "old": "New leg: Keczulla to Imnescar (part 2)",
+      "new": "Esmeltaran to Keczulla Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d917dad6-4979-4369-b4a2-3c3f9a1f098f",
+      "old": "New leg: Hlondeth to New leg Junction 7 (part 1)",
+      "new": "Imnescar South Junction to Brost East Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:82ef52e7-fe99-473f-a85c-0c8b360df610",
+      "old": "New leg: Hlondeth to New leg Junction 7 (part 2)",
+      "new": "Brost East Junction to Hlondeth Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:537305b9-ad64-4edd-b247-3285049a7abe",
+      "old": "New leg: Berdusk to Nashkel",
+      "new": "Nashkel to Berdusk Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:f1c09987-8db9-48fc-82e5-ab386df47c5d",
+      "old": "New leg: Asbravn to Nashkel (part 2)",
+      "new": "Berdusk to Asbravn Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:86718c79-42ef-483c-8b76-ba7096cfc180",
+      "old": "New leg: Mirabar to Luskan",
+      "new": "Mirabar to Luskan Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:ce466500-b7cd-409d-b71a-f36ba7d9e82a",
+      "old": "New leg: Luskan to Waterdeep (part 1)",
+      "new": "Luskan to Neverwinter Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7204540e-d282-4dea-8e0f-d71694436e74",
+      "old": "New leg: Luskan to Waterdeep (part 2)",
+      "new": "Neverwinter to Waterdeep Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:1c63146f-b6f2-49c0-96bf-5b6a717e76e0",
+      "old": "New leg: Mirabar to Waterdeep (part 2) (part 1)",
+      "new": "Triboar to Longsaddle Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:f3d717be-1724-4070-aae6-bb7860c3aeb2",
+      "old": "New leg: Mirabar to Waterdeep (part 2) (part 2)",
+      "new": "Longsaddle to Mirabar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d51b84a1-d8e8-46db-97cd-9446dfcc2035",
+      "old": "New leg: Mirabar to Waterdeep (part 1) (part 1)",
+      "new": "Waterdeep to Red Larch Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:943c6973-6bb0-4ed7-b491-252d9f313f41",
+      "old": "New leg: Mirabar to Waterdeep (part 1) (part 2)",
+      "new": "Red Larch to Triboar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:269048e6-874c-4c98-b676-03a9ea96d471",
+      "old": "New leg: Ascore to Triboar (part 1)",
+      "new": "Triboar to Yartar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e30fd0da-b2f1-4c17-92ec-1ea6296bbdd0",
+      "old": "New leg: Ascore to Triboar (part 2) (part 1)",
+      "new": "Yartar to Everlund Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:92a7d5d3-c8f9-4d4f-81d2-6ac8f94b99d2",
+      "old": "New leg: Ascore to Triboar (part 2) (part 2) (part 1)",
+      "new": "Everlund to Silverymoon Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:8c7e5858-3148-40fe-9902-45dcea0d8e5a",
+      "old": "New leg: Ascore to Triboar (part 2) (part 2) (part 2) (part 1)",
+      "new": "Silverymoon to Sundabar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d694be0c-7b28-4dbe-a425-41274f2ae2ab",
+      "old": "New leg: Ascore to Sundabar",
+      "new": "Sundabar to Ascore Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:def02f1d-05d3-44d6-93de-3c1ea54305c6",
+      "old": "The Black Road (part 1)",
+      "new": "The Black Road: Secomber Junction to Secomber",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:27ce2d24-fd12-4c67-8a89-71693912047f",
+      "old": "The Black Road (part 2) (part 1)",
+      "new": "The Black Road: Secomber to Loudwater",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:8ef0ca78-e896-443b-9cc8-6ead3909f058",
+      "old": "The Black Road (part 2) (part 2) (part 1)",
+      "new": "The Black Road: Loudwater to Llorkh",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:9f3c394a-f12d-42b1-b276-e8467a654309",
+      "old": "The Black Road (part 2) (part 2) (part 2) (part 1)",
+      "new": "The Black Road: Llorkh to Dagger Falls",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:47a96116-b912-4abf-b84b-3342fb2ef9f1",
+      "old": "The Black Road (part 2) (part 2) (part 2) (part 2)",
+      "new": "The Black Road: Dagger Falls to Teshwave",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3e0551c4-c074-4d94-8927-f735cdff0efb",
+      "old": "New leg: Red Larch to Secomber",
+      "new": "Red Larch to Secomber Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3d0d792d-e9c3-49a0-b708-decb79851add",
+      "old": "New leg",
+      "new": "Goldenfields Northeast Junction to Goldenfields Track",
+      "kind": "track"
+    },
+    {
+      "id": "custom:d5f0b3f5-2a75-4b7c-98c1-e497887955f5",
+      "old": "New leg: Citadel Adbar to Sundabar to Ascore/New leg Junction",
+      "new": "Citadel Adbar to Ascore West Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:65ea0b16-9f04-4658-a727-a4fc9b8543cb",
+      "old": "New leg: Hluthvar to Scornubel (part 1)",
+      "new": "Scornubel to Hluthvar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:54376724-b698-4645-bec5-de64aebf7ee1",
+      "old": "New leg: Hluthvar to Scornubel (part 2)",
+      "new": "Hluthvar to Tilverton Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:a6aa1872-3d98-4fb2-ad38-e681f27f99d7",
+      "old": "New leg: Hluthvar to Triel (part 1)",
+      "new": "Triel to Hill's Edge Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:c07792a8-6ba9-4570-b864-db4d66f8ee26",
+      "old": "New leg: Hluthvar to Triel (part 2) (part 1)",
+      "new": "Hill's Edge to Corm Orp Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:d165ad8a-e89c-463a-b7e1-0563e5b06283",
+      "old": "New leg: Corm Orp to Hluthvar",
+      "new": "Corm Orp to Hluthvar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:ed06c10c-a4e5-44f7-bd6c-b1e1e725bc71",
+      "old": "New leg",
+      "new": "Greenest Northwest Junction to Greenest Track",
+      "kind": "track"
+    },
+    {
+      "id": "custom:c7c52515-3187-4cc7-a9a7-1f0adfc74e61",
+      "old": "New leg (part 1)",
+      "new": "Hluthvar to Asbravn Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:a28fe407-e7f3-4512-9a26-4b39180c98c2",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Asbravn to Iriaebor Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:12a1be0e-dca8-4d76-9813-7ba5646fb044",
+      "old": "New leg (part 2) (part 2) (part 1)",
+      "new": "Iriaebor to Eshpurta Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3c3ad9e9-2999-4790-ae49-ad0693065ee9",
+      "old": "New leg (part 2) (part 2) (part 2)",
+      "new": "Eshpurta to Brost East Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:d8f47c91-bfc1-43d8-920f-878204f5fe48",
+      "old": "New leg: Alagh\u00f4n to Hlondeth",
+      "new": "Alagh\u00f4n to Hlondeth Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:a9f2f98f-ba5c-4e86-86a4-fdc16e156e55",
+      "old": "Traders Road: Westgate to Iriaebor (part 1) (part 1)",
+      "new": "Traders Road: Iriaebor to Easting",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e1949015-83a6-4031-939b-de648e077c56",
+      "old": "Traders Road: Westgate to Iriaebor (part 1) (part 2)",
+      "new": "Traders Road: Easting to Priapurl",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e69430a5-b8b3-4619-94a8-927942e5646d",
+      "old": "Traders Road: Westgate to Iriaebor (part 2) (part 1)",
+      "new": "Traders Road: Priapurl to Elversult",
+      "kind": "road"
+    },
+    {
+      "id": "custom:6c4e46b5-5ea6-4b42-a797-64ddefa9ebf9",
+      "old": "Traders Road: Westgate to Iriaebor (part 2) (part 2) (part 1)",
+      "new": "Traders Road: Elversult to Teziir",
+      "kind": "road"
+    },
+    {
+      "id": "custom:6df6346e-9516-4f5a-a672-686e9bbb260b",
+      "old": "New leg: Traders Road Junction to New leg Junction 10",
+      "new": "Traders Road Junction to Lheshayl West Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:a2493459-eb8c-4f54-8ccf-3f44c101e8c0",
+      "old": "New leg: Traders Road/New leg Junction to Starmantle",
+      "new": "Reddansyr North Junction to Starmantle Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:1d1471b5-db44-40aa-a124-50c8954d982c",
+      "old": "New leg: Nathlekh to Ormath",
+      "new": "Ormath to Nathlekh Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:14b6ffd9-3778-4126-b17b-3fcbcab10d91",
+      "old": "New leg (part 2)",
+      "new": "Yhep to Kagarr Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:88573cf1-0dd2-4006-8a80-f055152ad222",
+      "old": "New leg (part 1) (part 2)",
+      "new": "Ankhapur to Yhep Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:bda3ed34-5b65-4eda-ac91-e11c9995a68a",
+      "old": "New leg (part 1) (part 1) (part 2)",
+      "new": "Saelmur to Ankhapur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:67debdad-6d3e-4024-966d-8411056368bd",
+      "old": "New leg (part 1) (part 1) (part 1) (part 2)",
+      "new": "Mintar to Saelmur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:44ee4251-f60b-4139-aa1f-e443e9a8483f",
+      "old": "New leg (part 1) (part 1) (part 1) (part 1) (part 1)",
+      "new": "Riatavin to Saradush Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:bbd4441b-574b-4360-b8cc-1800d4eabada",
+      "old": "New leg (part 1) (part 1) (part 1) (part 1) (part 2)",
+      "new": "Saradush to Mintar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:ee5a6889-1ef0-4709-a787-097ddc3c6bcf",
+      "old": "New leg: Kagarr to Ankhapur",
+      "new": "Ankhapur to Kagarr Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:706a0a8d-edb5-4600-8f24-6da40972904a",
+      "old": "New leg",
+      "new": "Kagarr South Junction to Kagarr East Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:e5f5f059-cc77-4554-9b34-fadcb7888930",
+      "old": "The Golden Road: Arrabar to Shaarmid (part 1)",
+      "new": "The Golden Road: Arrabar to Fort Arran",
+      "kind": "road"
+    },
+    {
+      "id": "custom:ec5734e0-7601-41d1-92d7-2ce8217896d5",
+      "old": "The Golden Road: Arrabar to Shaarmid (part 2) (part 1)",
+      "new": "The Golden Road: Fort Arran to Ormpetarr",
+      "kind": "road"
+    },
+    {
+      "id": "custom:b9649f8a-16eb-4caf-85cd-e1f619c8f026",
+      "old": "The Golden Road: Arrabar to Shaarmid (part 2) (part 2) (part 1)",
+      "new": "The Golden Road: Ormpetarr to Innarlith",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4de8bb05-afa5-498c-8ba6-ef471b9aff33",
+      "old": "The Golden Road: Arrabar to Shaarmid (part 2) (part 2) (part 2)",
+      "new": "The Golden Road: Innarlith to Shaarmid",
+      "kind": "road"
+    },
+    {
+      "id": "custom:191f0286-541c-478d-944a-0d3ddfaef776",
+      "old": "New leg",
+      "new": "Lheshayl to Surkh Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:609c9f89-30b8-45d4-ac38-a8605e19d0e8",
+      "old": "New leg",
+      "new": "Mimph to Nimpeth Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:bf8ccf11-65f8-4d5d-8f7a-fb67090918f4",
+      "old": "Emerald Way: Hlath to Arrabar (part 1)",
+      "new": "Emerald Way: Arrabar to Shamph",
+      "kind": "road"
+    },
+    {
+      "id": "custom:aff34178-5022-4723-815d-0d996673b8f4",
+      "old": "Emerald Way: Hlath to Arrabar (part 2)",
+      "new": "Emerald Way: Shamph to Hlath",
+      "kind": "road"
+    },
+    {
+      "id": "custom:a19677dd-85be-4612-9734-17f426b159d0",
+      "old": "New leg",
+      "new": "Emerald Way Junction to Mussum Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:7a233f73-f1a3-41cc-8e2f-7356a9c704e1",
+      "old": "New leg: Iljak to Shamph",
+      "new": "Shamph to Iljak Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4f76a3b3-b41b-4c98-9985-4d846b9ead52",
+      "old": "New leg: Samra to Iljak",
+      "new": "Iljak to Samra Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:8ececbb8-9f8c-4930-9f54-26d772f2ad2c",
+      "old": "New leg: Samra to Shamph",
+      "new": "Samra to Shamph Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:3504d35d-ace0-4085-be58-310c6721b385",
+      "old": "New leg",
+      "new": "The Old Road Junction to Elbulder Southeast Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:457d38e4-5f71-4322-84ec-35f2c28079e2",
+      "old": "New leg: Torsch to Innarlith",
+      "new": "Innarlith to Torsch Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d992a578-cffc-44e6-aeea-4b72f759073b",
+      "old": "The Old Road (part 1)",
+      "new": "The Old Road: Shamph to Elbulder",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:350ad8fc-8c7b-41d3-b16b-e5058fd94e4b",
+      "old": "The Old Road (part 2)",
+      "new": "The Old Road: Elbulder to Delzimmer West Junction",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3abab2fd-4716-4351-ab72-2d0a92d24915",
+      "old": "New leg (part 1)",
+      "new": "Hlath to Reth Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:421dd7fa-e3e7-402b-81ce-628949a7f26e",
+      "old": "New leg (part 2)",
+      "new": "Reth to Airspur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:1dbc9852-26f5-45b7-965f-99dc15ffc321",
+      "old": "New leg: Cimbar to Cimbar",
+      "new": "Soorenar to Akanax Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:2358b63d-7b74-4b9e-be0c-c8b1bf22bed9",
+      "old": "New leg: Airspur to Mordulkin (part 1)",
+      "new": "Airspur to Cimbar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:72b7a471-2579-4dba-9654-f7f409a81edc",
+      "old": "New leg: Airspur to Mordulkin (part 2) (part 1)",
+      "new": "Cimbar to Soorenar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:646beebd-f177-4aea-b22a-5acca70c9d7a",
+      "old": "New leg: Airspur to Mordulkin (part 2) (part 2) (part 1)",
+      "new": "Soorenar to Luthcheq Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4e2ad3b1-d326-4bfd-aefb-b38aaa8e6f3f",
+      "old": "New leg: Airspur to Mordulkin (part 2) (part 2) (part 2)",
+      "new": "Luthcheq to Mordulkin Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:42196218-4895-407e-8d86-cad7c0b8ebf0",
+      "old": "New leg (part 1)",
+      "new": "Mordulkin to Messemprar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:9d93bb40-85a4-4a0d-8e00-207c8de50485",
+      "old": "New leg (part 2)",
+      "new": "Messemprar to Shussel Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:fcd0009a-2de9-4b4d-9d17-1520d76db4d1",
+      "old": "New leg: Shussel to Unthalass",
+      "new": "Shussel to Unthalass Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:49847ee6-b52a-4750-af76-e82369d196c9",
+      "old": "New leg (part 1)",
+      "new": "Shaarmid to Kholtar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:2f81b549-d3b4-4bce-8c63-00ba50552a9f",
+      "old": "New leg (part 2)",
+      "new": "Kholtar to Eartheart Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c55707e5-5f80-43e1-b791-e7c5b336c260",
+      "old": "New leg: Shaarmid to Delzimmer (part 1)",
+      "new": "Shaarmid to Kormul Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:ff1a9729-9d5b-4a64-b5ef-b8239288804a",
+      "old": "New leg: Shaarmid to Delzimmer (part 2) (part 1)",
+      "new": "Kormul to Rethmar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4afec376-4483-42a3-ae41-8e3a94ae4c0e",
+      "old": "New leg: Shaarmid to Delzimmer (part 2) (part 2) (part 1)",
+      "new": "Rethmar to Channathgate Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d42e2769-d3b3-4e62-a84c-93b80f303d64",
+      "old": "New leg: Shaarmid to Delzimmer (part 2) (part 2) (part 2) (part 1)",
+      "new": "Channathgate to Three Swords Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:f001c56b-77fd-4581-b8d2-02ec3b798409",
+      "old": "New leg: Shaarmid to Delzimmer (part 2) (part 2) (part 2) (part 2) (part 1)",
+      "new": "Three Swords to Eartheart Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:1b10bb76-a388-4ff7-b3c3-6d08bc8750f3",
+      "old": "New leg: Shaarmid to Delzimmer (part 2) (part 2) (part 2) (part 2) (part 2)",
+      "new": "Eartheart to Delzimmer Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5ca5fb24-d534-45a8-b1b3-7ff7109c71b6",
+      "old": "New leg: Saradush to Castle Tethyr (part 1)",
+      "new": "Castle Tethyr to Darromar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c8892bdd-5e81-479b-939c-1d947c51f514",
+      "old": "New leg: Saradush to Castle Tethyr (part 2)",
+      "new": "Darromar to Saradush Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d580ca99-2a45-4a16-a07c-a99f3e451fe0",
+      "old": "New leg: Crimmor to Calimport (part 2)",
+      "new": "Memnon to Calimport Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:37285b44-fd31-43eb-a74a-96b2bd15053a",
+      "old": "New leg: Crimmor to Calimport (part 1) (part 2)",
+      "new": "Myratma to Memnon Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c287eb65-821e-49a8-954d-4d47bcd94393",
+      "old": "New leg: Crimmor to Calimport (part 1) (part 1) (part 2)",
+      "new": "Castle Tethyr to Myratma Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5c61a380-b03f-47ff-96a8-3a59f46d48ca",
+      "old": "New leg: Crimmor to Calimport (part 1) (part 1) (part 1) (part 2)",
+      "new": "Zazesspur to Castle Tethyr Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7f941b73-4b1b-44fd-a6ad-89471b382fb6",
+      "old": "New leg: Crimmor to Calimport (part 1) (part 1) (part 1) (part 1) (part 1)",
+      "new": "Crimmor to Imnescar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c20a1225-8267-4d39-b13f-31aeb6f4e0ab",
+      "old": "New leg: Crimmor to Calimport (part 1) (part 1) (part 1) (part 1) (part 2)",
+      "new": "Imnescar to Zazesspur Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5d3f02e9-2c97-47fe-af81-6efbb0f91235",
+      "old": "New leg (part 1)",
+      "new": "Mintar West Junction to Yeshpek Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:defafe17-4a80-4a50-bf7c-f55d74fb43aa",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Yeshpek to Tulmon Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:17d1bbd9-d91c-4e2d-af7e-b008b84177bc",
+      "old": "New leg (part 2) (part 2)",
+      "new": "Tulmon to Suldolphor Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:38295c6f-7227-47f6-b791-b8cc5a796b44",
+      "old": "New leg (part 2)",
+      "new": "Almraiven to Yeshpek Northwest Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:ae3ebf0a-652b-4e67-9ab8-ac65e1132ab9",
+      "old": "New leg (part 1) (part 1)",
+      "new": "Manshaka to Schamedar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:c2f05003-659c-4193-9645-a227027828d3",
+      "old": "New leg (part 1) (part 2)",
+      "new": "Schamedar to Almraiven Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:01a05cc7-d47d-40b6-8856-41b2cfb03012",
+      "old": "New leg: Theymarsh to Sheirtalar (part 1)",
+      "new": "Theymarsh to Ormpur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:014cbe7e-eedc-409b-b8e4-43fdd69b8d5b",
+      "old": "New leg: Theymarsh to Sheirtalar (part 2)",
+      "new": "Ormpur to Sheirtalar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:73ac0e88-2507-436d-9473-e5940f576498",
+      "old": "New leg (part 1)",
+      "new": "Theymarsh to Yallasch Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:a257f8dd-db9a-4cda-b2f3-3b6b750bf7b9",
+      "old": "New leg (part 2)",
+      "new": "Yallasch to Yallasch Northeast Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:814ec444-127b-4d72-b1c8-a32a93c37d50",
+      "old": "New leg",
+      "new": "Derlusk to Ormpur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:fe1f6a01-7a17-4800-bcdf-0534d2be0c48",
+      "old": "New leg: Kormul to Sheirtalar",
+      "new": "Sheirtalar to Kormul Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:af8923ed-f18b-47a1-a626-d6243992a0f1",
+      "old": "New leg: New leg Junction 21 to Sammarash (part 1)",
+      "new": "Sammarash to Ithmong Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:a6e1a34d-00dc-4505-837f-81d8cfe5e99b",
+      "old": "New leg: New leg Junction 21 to Sammarash (part 2) (part 1)",
+      "new": "Ithmong to Lushpool Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:1c7be07b-cf27-482c-9848-0d906b8e7539",
+      "old": "New leg: New leg Junction 21 to Sammarash (part 2) (part 2)",
+      "new": "Lushpool to Sheirtalar East Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7b596f9d-9d1a-45a5-b165-d1294883a74c",
+      "old": "New leg",
+      "new": "Ithmong to Lapalgard Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:0461b7e5-6d88-4c99-a975-135bbac31387",
+      "old": "New leg",
+      "new": "Lushpool to Lapalgard South Waypoint Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:47aad7e8-1be6-4159-9998-23bbce92ccdd",
+      "old": "New leg: Delzimmer to Cathyr",
+      "new": "Delzimmer to Cathyr Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:9e50536b-e6c4-4013-99e3-136466342399",
+      "old": "New leg",
+      "new": "Maarlith to Cathyr Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:1111bc53-414e-4c6f-8dde-21a13281d9e9",
+      "old": "New leg: Shoun to Krenalir (part 1)",
+      "new": "Shoun to Beluir Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e477b07f-628e-4b00-aafd-03e28e919d19",
+      "old": "New leg: Shoun to Krenalir (part 2) (part 1)",
+      "new": "Beluir to Chethel Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:753c6bdd-2baa-44a5-bcf4-2a7a5331dc7f",
+      "old": "New leg: Shoun to Krenalir (part 2) (part 2)",
+      "new": "Chethel to Krenalir North Waypoint Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:307bd105-a7c8-4c20-a5e0-255d10d72756",
+      "old": "New leg: Delzimmer to Beluir",
+      "new": "Delzimmer to Beluir Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:8618ff59-ac06-4821-83f7-95b204caed37",
+      "old": "New leg (part 1)",
+      "new": "Shoun to Assur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:04e373b5-5bef-436c-8d77-7248ce6d6de9",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Assur to Vaelan Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:a7233309-eb93-420b-b275-0b9529f2c639",
+      "old": "New leg (part 2) (part 2)",
+      "new": "Vaelan to Ormpe Northwest Waypoint Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:aaa57510-16ba-478b-8f28-b6779c61dc97",
+      "old": "New leg (part 2)",
+      "new": "Neldorild to Skuld Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:df7ac3d2-b730-4e2c-8911-941093d8e3f0",
+      "old": "New leg (part 1) (part 1)",
+      "new": "Unthalass to Gheldaneth Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:02898f8a-5d16-460d-891b-6c94a10a752c",
+      "old": "New leg (part 1) (part 2)",
+      "new": "Gheldaneth to Neldorild Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:f189f52d-c59c-42f2-8a84-a76c1447fc39",
+      "old": "New leg",
+      "new": "Skuld to Gheldaneth Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:e811e5f0-b32f-4aa9-ab86-a22a11109477",
+      "old": "New leg: Zindalankh to Skuld (part 1)",
+      "new": "Skuld to Maerlar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:f66b3ba0-9963-4f0f-a82f-35d2b5652114",
+      "old": "New leg: Zindalankh to Skuld (part 2) (part 1)",
+      "new": "Maerlar to Khalab Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:184dc3fe-f1e3-4739-a570-4e543c90fa1a",
+      "old": "New leg: Zindalankh to Skuld (part 2) (part 2)",
+      "new": "Khalab to Zindalankh Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:8e936f2e-3124-4088-928c-2db7df333c0b",
+      "old": "New leg: Phannaskul to New leg Junction 23",
+      "new": "Phannaskul to Phannaskul Southeast Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:93fc1f15-df3f-49bd-879b-f6e81c3325fd",
+      "old": "New leg (part 1)",
+      "new": "Eltabbar to Pyarados Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:336f0471-f41f-4841-b5e2-956e134a7bcb",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Pyarados to Rauthil Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:f075b159-acb1-4e19-814d-625a901ca8f5",
+      "old": "New leg (part 2) (part 2)",
+      "new": "Rauthil to Maerlar Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:7ac0cb49-6728-4574-8873-8919f7173ff9",
+      "old": "New leg",
+      "new": "Sultim to Rauthil Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:382b5002-f6b9-48f2-8088-c4cd21726fd0",
+      "old": "New leg",
+      "new": "Sultim Northeast Junction to Sultim Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:62da79c0-8789-459d-9ef0-e104dfb62a1a",
+      "old": "New leg (part 1)",
+      "new": "Rauthil to Murghyr Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:73185966-fb8c-446e-b9e6-e3de95760799",
+      "old": "New leg (part 2)",
+      "new": "Murghyr to Murghyr Southeast Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:55445dec-cfd5-441e-8356-787033152583",
+      "old": "New leg: Nethjet to Pyarados (part 1)",
+      "new": "Nethjet to Amruthar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d572c0ac-24a9-4f7e-972f-91d4c75e09d2",
+      "old": "New leg: Nethjet to Pyarados (part 2)",
+      "new": "Amruthar to Pyarados Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:a735afa9-032f-4b4e-9094-5858dc8ebec6",
+      "old": "New leg: Eltabbar to Tyraturos",
+      "new": "Eltabbar to Tyraturos Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:261a3837-723b-4f3c-aeec-ab3725cefc4e",
+      "old": "New leg: Tyraturos to Bezantur",
+      "new": "Bezantur to Tyraturos Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:540fb69c-af29-4e8f-940c-1f75135a5697",
+      "old": "New leg: Mulsantir to Telflamm (part 1)",
+      "new": "Telflamm to Phent Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:61b66f6a-9d87-422d-bb1c-d88e1be66ba5",
+      "old": "New leg: Mulsantir to Telflamm (part 2) (part 1)",
+      "new": "Phent to Phsant Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c9f03e30-7184-4247-8824-f590cc28c406",
+      "old": "New leg: Mulsantir to Telflamm (part 2) (part 2) (part 1)",
+      "new": "Phsant to Tammar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5521f012-5b13-43a6-9e11-8e675a1a3f70",
+      "old": "New leg: Mulsantir to Telflamm (part 2) (part 2) (part 2) (part 1)",
+      "new": "Tammar to Two Stars Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d40c1ccd-28f1-4135-93fa-0a66ba944344",
+      "old": "New leg: Mulsantir to Telflamm (part 2) (part 2) (part 2) (part 2)",
+      "new": "Two Stars to Mulsantir Southwest Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4ea2dfc2-90aa-4b30-8040-2b34b08cc121",
+      "old": "New leg",
+      "new": "Mulsantir Southwest Junction to Mulsantir Ferry",
+      "kind": "ferry"
+    },
+    {
+      "id": "custom:fcc95acd-acba-4c53-b737-133e7cf9ff87",
+      "old": "New leg: Mulptan to Mulsantir",
+      "new": "Mulptan to Mulsantir Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:9bbaf0d4-bfc2-45d4-8b69-843c8fbb1324",
+      "old": "New leg: Winterkeep to New leg Junction 26 (part 1)",
+      "new": "Citadel Rashemen West Junction to Citadel Rashemen Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:f3b70f69-5e0c-48ef-9b39-1b2d9e484212",
+      "old": "New leg: Winterkeep to New leg Junction 26 (part 2)",
+      "new": "Citadel Rashemen to Winterkeep South Waypoint Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:f5de2319-6218-489b-9f85-f734441c5d48",
+      "old": "New leg: Kront to Uthmere (part 1)",
+      "new": "Uthmere to Bezentil Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5cc59f6e-7865-4af5-a4a6-fe744a53c44b",
+      "old": "New leg: Kront to Uthmere (part 2)",
+      "new": "Bezentil to Kront Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:aad311dc-7dbf-46c9-bfca-bc3d5a12a9c8",
+      "old": "New leg: Kront to Two Stars",
+      "new": "Kront to Two Stars Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e38bac5c-d314-469c-b133-5744dab5696a",
+      "old": "New leg: Kront to Tammar",
+      "new": "Kront to Tammar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:1c311bfe-87b0-43dc-aa52-322744adcd18",
+      "old": "New leg",
+      "new": "Phent to Nethentir Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:46a25d2d-82bf-42a5-b751-7be23b82041e",
+      "old": "New leg: Two Stars to Nethentir",
+      "new": "Two Stars to Nethentir Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7b9eb344-ab11-4e79-bc7c-44db71878e55",
+      "old": "New leg: Tammar to New leg Junction 27",
+      "new": "Tammar to Tammar Southeast Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5f1e1fe4-9dbc-4f68-adec-7e02581dea52",
+      "old": "New leg (part 1)",
+      "new": "Immilmar to Mulptan Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:b5f5c678-27f5-4f81-8092-b8e17b913d8b",
+      "old": "New leg (part 2)",
+      "new": "Mulptan to Nathoud Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:d6b12944-476d-496e-8593-f40ce0d86c89",
+      "old": "New leg: Trail's End to Ilmwatch",
+      "new": "Trail's End to Ilmwatch Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c4dba85e-e528-41fd-a266-3aebe8c3d336",
+      "old": "New leg (part 1)",
+      "new": "Trail's End East Junction to Jiyyd Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3c560a8b-9e47-4469-a225-79241f79b59e",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Jiyyd to N'Jast Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:5b0e1505-7d1c-4395-a8df-4492aa61372f",
+      "old": "New leg (part 2) (part 2)",
+      "new": "N'Jast to Nathoud Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:15f913c6-eb3a-4fb0-8328-57329d576571",
+      "old": "New leg",
+      "new": "Peltarch to Peltarch South Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:63801d24-1df5-490d-b659-576f8a71a158",
+      "old": "New leg",
+      "new": "Peltarch to Jiyyd Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:fb59630e-fa86-4cd5-a266-8df50583c132",
+      "old": "New leg",
+      "new": "N'Jast to Kront Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:93b8cbc3-6e23-4138-89b0-51500a9784d9",
+      "old": "New leg: Sarshel to Lyrabar (part 1)",
+      "new": "Sarshel East Waypoint to Hlammach Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:34867f94-d989-415a-9deb-ff195d8b225b",
+      "old": "New leg: Sarshel to Lyrabar (part 2)",
+      "new": "Hlammach to Lyrabar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:297ed8b1-43c6-4375-be06-0599fad3efb1",
+      "old": "New leg: Ilmwatch to New leg Junction 30",
+      "new": "Ilmwatch to Sarshel South Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e152c129-2724-4a29-9181-bd54678b7a9d",
+      "old": "New leg: Laviguer to New leg Junction 32",
+      "new": "Laviguer to Sarshel North Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:0f2aae73-9a4d-4bb7-83b0-c62736eee47d",
+      "old": "New leg: Mulmaster to Procampur (part 1)",
+      "new": "Mulmaster to Dragon Falls Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d50401dd-d231-4552-a22b-333a09540f21",
+      "old": "New leg: Mulmaster to Procampur (part 2)",
+      "new": "Dragon Falls to Procampur Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:58211f44-68e4-42bf-b644-c2aab49c0c0b",
+      "old": "New leg",
+      "new": "Tsurlagol to Tsurlagol Northwest Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:365989d9-897c-458a-9ef1-326de8ce19d0",
+      "old": "New leg",
+      "new": "Calaunt to Dragon Falls North Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3ed78988-477e-4a6c-b037-fe5dd98909d3",
+      "old": "New leg: Calaunt to Ravens Bluff",
+      "new": "Calaunt to Ravens Bluff Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:ba34dfbc-1a11-4bc3-845e-deb497e52449",
+      "old": "New leg",
+      "new": "Tantras to Tantras Northeast Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:bfa3cc63-d0a2-4e3e-98d1-768db095c3be",
+      "old": "New leg",
+      "new": "Tantras Northeast Junction to Dragon Falls Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:5895ca2c-72a7-4583-b741-9d8db981dbae",
+      "old": "New leg (part 1)",
+      "new": "Zhentil Keep to Phlan Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:b2f5856e-40ba-4706-80ad-d44fcd45499e",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Phlan to Melvaunt Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:f6e04455-fc13-4ddd-9ab6-5f58de202878",
+      "old": "New leg (part 2) (part 2)",
+      "new": "Melvaunt to Glister Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:f4ec90dc-b7f6-494b-9e03-d38b70f86418",
+      "old": "New leg (part 1)",
+      "new": "Citadel of the Raven to Ilinvur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:3276157c-79f8-4397-87db-806c0ae3f9da",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Ilinvur to Valls Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:0fb60696-d100-40a8-acb5-6666b52c648c",
+      "old": "New leg (part 2) (part 2) (part 1)",
+      "new": "Valls to Praka Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:290acb05-7eef-466e-bdab-bd0bc94d086c",
+      "old": "New leg (part 2) (part 2) (part 2) (part 1)",
+      "new": "Praka to Heliogabalus Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:bc389625-65dd-47ea-8ae8-1902acf383f2",
+      "old": "New leg (part 2) (part 2) (part 2) (part 2)",
+      "new": "Heliogabalus to Ironspur Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:5a09b302-612d-45bb-98ca-b83489ff04bc",
+      "old": "New leg",
+      "new": "Castle Perilous to Darmshall North Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:959ebfae-42a8-4136-8386-6d82cecc8a00",
+      "old": "New leg: Palischuk to New leg Junction 38",
+      "new": "Palischuk to Talagbar Northwest Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:1f40cbc3-d992-4421-a0b7-e7a89b4e32a1",
+      "old": "New leg: New leg Junction 37 to Darmshall",
+      "new": "Darmshall North Junction to Darmshall Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:c138c536-3718-4d62-b85f-f5d3b54632e4",
+      "old": "New leg",
+      "new": "Whitehorn to Citadel of the Raven Northeast Junction Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:5d91ab52-3b72-437e-a15e-c7efbfa60ef7",
+      "old": "New leg: Citadel of the Raven to Teshwave",
+      "new": "Citadel of the Raven to Teshwave Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:b42eb822-5032-4ee8-8868-c117a0b1ff22",
+      "old": "New leg",
+      "new": "Teshwave North Junction to Zhentil Keep Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:9c49ee7d-f96c-4ff2-8382-eeced4acebbd",
+      "old": "New leg: Teshwave to Yulash",
+      "new": "Teshwave to Yulash Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:1cba94ec-f110-4aeb-95e2-0926d433f829",
+      "old": "New leg: Yulash to Hillsfar",
+      "new": "Yulash to Hillsfar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:8539e782-24bd-4dd6-84c9-9f625e143e06",
+      "old": "New leg: Teshwave to Elventree (part 2) (part 2)",
+      "new": "Hillsfar to Elventree Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:856f1516-cc37-4dd4-a512-11910bd661d7",
+      "old": "New leg: New leg Junction 40 to Tilverton (part 2)",
+      "new": "Voonlar to Teshwave East Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:f55b1cfb-a7a7-4f22-af1d-8efb3dce3132",
+      "old": "New leg: Shadowdale to Tilverton",
+      "new": "Tilverton to Shadowdale Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:87323bd8-9f52-4620-9a87-8856dc3bcf91",
+      "old": "New leg: New leg Junction 40 to Tilverton (part 1) (part 2)",
+      "new": "Shadowdale to Voonlar Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:16ce0357-4348-4f23-a20c-fb1697f62e9e",
+      "old": "New leg: Hillsfar to Tilverton (part 1)",
+      "new": "Hillsfar to Ashabenford Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:a17a6ed5-3448-4c92-8256-bc70fa48097b",
+      "old": "New leg: Ashabenford to Tilverton",
+      "new": "Ashabenford to Tilverton Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:5d20ea97-9266-46b0-9f90-80794bea5849",
+      "old": "New leg",
+      "new": "Hillsfar South Junction to Harrowdale Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:68b67210-477c-4991-a6ec-9112c6b2127a",
+      "old": "New leg",
+      "new": "Harrowdale to Scardale Trail",
+      "kind": "trail"
+    },
+    {
+      "id": "custom:bb77351b-216c-4bf8-9c83-e7dd96369dbd",
+      "old": "New leg: New leg Junction 43 to Ordulin (part 1)",
+      "new": "Essembra Northwest Junction to Essembra Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:e08d9216-5e87-44c8-b601-35e970744059",
+      "old": "New leg: New leg Junction 43 to Ordulin (part 2)",
+      "new": "Essembra to Ordulin Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:826afa2a-269e-4230-9cb6-011749726e2e",
+      "old": "New leg: New leg Junction 44 to Scardale",
+      "new": "Scardale to Harrowdale Town South Junction Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:9c58bf2e-3847-4b3a-9f3d-736cdc660111",
+      "old": "New leg (part 1)",
+      "new": "Easting to Proskur Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:afac400c-e25a-4c80-9aee-1ab871521b2b",
+      "old": "New leg: Yhaunn to Proskur (part 1)",
+      "new": "Proskur to Arabel Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:0a4c261b-c3f8-4f90-b546-6d083945ea68",
+      "old": "New leg: Yhaunn to Proskur (part 2) (part 1)",
+      "new": "Arabel to Highmoon Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:2192139c-45ad-4065-88ee-a38a1636e71f",
+      "old": "New leg: Yhaunn to Proskur (part 2) (part 2) (part 1)",
+      "new": "Highmoon to Ordulin Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:626cae27-10f1-4a7a-8fa8-2f82d58ca398",
+      "old": "New leg: Yhaunn to Ordulin",
+      "new": "Ordulin to Yhaunn Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7c1c30d8-90d0-43e5-98cf-018679133732",
+      "old": "New leg (part 1)",
+      "new": "Daerlun to Wheloon Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:9487b0da-2ef4-49d1-8a4d-b9aedff30aa9",
+      "old": "New leg (part 2) (part 1)",
+      "new": "Wheloon to Archenbridge Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:c4c6468e-377a-4524-bdf4-214cb40cd6da",
+      "old": "New leg (part 2): Ordulin to Archenbridge",
+      "new": "Archenbridge to Ordulin Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4896e494-e963-444d-aa9b-68815ba3f894",
+      "old": "New leg: Arabel to Suzail",
+      "new": "Suzail to Arabel Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:cb835585-e948-4295-8c82-4501c1e48bae",
+      "old": "New leg: New leg Junction 45 to Suzail",
+      "new": "Arabel West Junction to Suzail Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:7e90363b-6bec-48ed-a604-7cb26ac01770",
+      "old": "New leg: Ordulin to New leg Junction 46 (part 1)",
+      "new": "Marsember North Junction to Selgaunt Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:9e6b0b5a-3d5c-4604-9056-324b9815bddd",
+      "old": "New leg: Ordulin to Selgaunt",
+      "new": "Selgaunt to Ordulin Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:d339031b-6c58-4793-83c6-2812ce3013bb",
+      "old": "New leg: New leg Junction 47 to Saerloon",
+      "new": "Saerloon Northwest Junction to Saerloon Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:94b82ddd-edb4-4ae1-a2b2-61a076f87a49",
+      "old": "New leg: Daerlun to Urmlaspyr",
+      "new": "Daerlun to Urmlaspyr Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:06535179-a29e-41cb-830a-4e99c4217448",
+      "old": "New leg: Tilverton to Arabel",
+      "new": "Tilverton to Arabel Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:051f4283-02e4-42a3-9180-dddea26610c7",
+      "old": "New leg: Proskur to Elversult",
+      "new": "Proskur to Elversult Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:8f139d6e-1daf-4c70-911c-d874fa4bd8ea",
+      "old": "New leg: Yulash to New leg Junction 41",
+      "new": "Voonlar North Junction to Yulash Road",
+      "kind": "road"
+    },
+    {
+      "id": "custom:4c7c9b41-59cc-46fe-a346-563ea7b2290d",
+      "old": "New leg",
+      "new": "Zhentil Keep to Yulash North Waypoint Ferry",
+      "kind": "ferry"
+    },
+    {
+      "id": "custom:6efdcc0d-4b85-4e4a-a3a6-8c05b90a1e58",
+      "old": "New leg",
+      "new": "Ilmwatch to Uthmere Ferry",
+      "kind": "ferry"
+    },
+    {
+      "id": "custom:c0b14191-6708-4468-8554-a043794f3dec",
+      "old": "New leg",
+      "new": "Trail's End to Praka Ferry",
+      "kind": "ferry"
+    }
+  ],
+  "junctions": [
+    {
+      "id": "8844e44c-0161-4b49-b211-92fd2a0e2bf2",
+      "old": "Red Larch Trail/New leg Junction",
+      "new": "Goldenfields Northeast Junction",
+      "nearest_settlement_miles": 8.16
+    },
+    {
+      "id": "cadc3e30-1a80-4a81-8a31-e9335155b50d",
+      "old": "Sundabar to Ascore/New leg Junction",
+      "new": "Ascore West Junction",
+      "nearest_settlement_miles": 77.0
+    },
+    {
+      "id": "56c6074b-bfcd-45c3-8d33-d28bae72b46a",
+      "old": "The Trade Way Junction 2",
+      "new": "Daggerford South Junction",
+      "nearest_settlement_miles": 4.76
+    },
+    {
+      "id": "020f4e5a-5983-4162-9891-7ee76a40a209",
+      "old": "The Trade Way Junction 3",
+      "new": "Dragonspear Castle Southeast Junction",
+      "nearest_settlement_miles": 67.72
+    },
+    {
+      "id": "3edb0ea2-12c0-45cd-8de5-a62fae79d2d9",
+      "old": "New leg Junction",
+      "new": "Soubar West Junction",
+      "nearest_settlement_miles": 14.52
+    },
+    {
+      "id": "0051dfb2-8402-4af1-9e22-02543297304c",
+      "old": "The Trade Way Junction 4",
+      "new": "Baldur's Gate Northeast Junction",
+      "nearest_settlement_miles": 36.15
+    },
+    {
+      "id": "e22f0598-1df8-4873-9296-95f2f09be11f",
+      "old": "New leg Junction 2",
+      "new": "Elturel Northwest Junction",
+      "nearest_settlement_miles": 60.99
+    },
+    {
+      "id": "b29e1196-a5fa-44c1-83db-ffd4c2fa4b3a",
+      "old": "New leg Junction 3",
+      "new": "Beregost Northwest Junction",
+      "nearest_settlement_miles": 11.66
+    },
+    {
+      "id": "90201d83-6ab7-492b-9bcb-97098ec31013",
+      "old": "New leg Junction 4",
+      "new": "The Twin Towers Junction",
+      "nearest_settlement_miles": 0.0
+    },
+    {
+      "id": "af9b4fc2-bb92-4744-b333-f13e8be2c4cd",
+      "old": "New leg Junction 5",
+      "new": "Greenest Northwest Junction",
+      "nearest_settlement_miles": 7.99
+    },
+    {
+      "id": "483290cd-2f03-4e61-a11c-0065478da477",
+      "old": "New leg Junction 6",
+      "new": "Berdusk Southwest Junction",
+      "nearest_settlement_miles": 43.93
+    },
+    {
+      "id": "6ce4a518-cc86-462b-b3ce-8b15f089adae",
+      "old": "New leg Junction 7",
+      "new": "Imnescar South Junction",
+      "nearest_settlement_miles": 60.3
+    },
+    {
+      "id": "a9ceb7bd-9c72-4fb1-b9d6-61a7fa0d3376",
+      "old": "New leg Junction 8",
+      "new": "Esmeltaran Southwest Junction",
+      "nearest_settlement_miles": 44.91
+    },
+    {
+      "id": "402b5e76-cfc8-471f-934b-ecc32c83dc60",
+      "old": "New leg Junction 9",
+      "new": "Brost East Junction",
+      "nearest_settlement_miles": 140.23
+    },
+    {
+      "id": "c1c340c4-d38b-45f0-b593-b0571c3242cb",
+      "old": "New leg Junction 10",
+      "new": "Lheshayl West Junction",
+      "nearest_settlement_miles": 21.5
+    },
+    {
+      "id": "52769b83-3a35-41bf-8270-b89742549f7e",
+      "old": "New leg Junction 11",
+      "new": "Lheshayl West Junction 2",
+      "nearest_settlement_miles": 71.57
+    },
+    {
+      "id": "43e9e1e9-a34e-4a75-bf3e-88850bfd39d9",
+      "old": "New leg Junction 12",
+      "new": "Hlondeth West Junction",
+      "nearest_settlement_miles": 98.1
+    },
+    {
+      "id": "a5ef2aad-d28d-479f-8fed-0d1046fa915b",
+      "old": "New leg Junction 13",
+      "new": "Hlondeth Northwest Junction",
+      "nearest_settlement_miles": 31.14
+    },
+    {
+      "id": "7a3ffd1b-4e77-4a63-a876-afed79c426cf",
+      "old": "New leg Junction 14",
+      "new": "Xorhun Southeast Junction",
+      "nearest_settlement_miles": 8.03
+    },
+    {
+      "id": "54cab0f6-7ee8-447d-8db2-603d470dff57",
+      "old": "New leg Junction 15",
+      "new": "Nonthal Southeast Junction",
+      "nearest_settlement_miles": 11.84
+    },
+    {
+      "id": "e5a37481-2736-4a5a-9f16-631fdd359902",
+      "old": "Traders Road/New leg Junction",
+      "new": "Reddansyr North Junction",
+      "nearest_settlement_miles": 10.87
+    },
+    {
+      "id": "27655521-27d3-4cb3-b31c-dba87dfae7d1",
+      "old": "New leg Junction 16",
+      "new": "Mintar West Junction",
+      "nearest_settlement_miles": 31.41
+    },
+    {
+      "id": "33903e5e-b7ff-4f7a-b291-0b883a20b09a",
+      "old": "New leg Junction 17",
+      "new": "Dalelost South Junction",
+      "nearest_settlement_miles": 11.92
+    },
+    {
+      "id": "781617ab-fa1f-4c2b-b2e8-d5117d45751a",
+      "old": "New leg Junction 18",
+      "new": "Kagarr South Junction",
+      "nearest_settlement_miles": 13.39
+    },
+    {
+      "id": "1ce1e41b-2cd7-42f9-9725-3a9d1d0c3ccd",
+      "old": "New leg/The Golden Road Junction",
+      "new": "Kagarr East Junction",
+      "nearest_settlement_miles": 47.34
+    },
+    {
+      "id": "4468a52b-6a78-47f3-bc52-d4529fa3b037",
+      "old": "The Old Road Junction 2",
+      "new": "Elbulder Southeast Junction",
+      "nearest_settlement_miles": 116.49
+    },
+    {
+      "id": "ff27b39e-a51c-4fe5-9985-3b7a969b9060",
+      "old": "The Old Road/New leg Junction",
+      "new": "Delzimmer West Junction",
+      "nearest_settlement_miles": 69.52
+    },
+    {
+      "id": "0535546f-d72f-43d5-8c6c-fd0592f56ee4",
+      "old": "New leg Junction 19",
+      "new": "Yeshpek Northwest Junction",
+      "nearest_settlement_miles": 27.27
+    },
+    {
+      "id": "d36b22f5-fe21-48c0-b351-8024454e1b48",
+      "old": "New leg Junction 20",
+      "new": "Yallasch Northeast Junction",
+      "nearest_settlement_miles": 57.14
+    },
+    {
+      "id": "07118e3d-a9f5-4d89-a46f-cf1f434e375e",
+      "old": "New leg Junction 21",
+      "new": "Sheirtalar East Junction",
+      "nearest_settlement_miles": 46.55
+    },
+    {
+      "id": "0a3fc88f-5dd0-4492-8e95-349bd00ad9ad",
+      "old": "New leg Junction 22",
+      "new": "Murghyr Southeast Junction",
+      "nearest_settlement_miles": 78.51
+    },
+    {
+      "id": "6e3f6a62-9f01-4a0e-8b81-f34180213c27",
+      "old": "New leg Junction 23",
+      "new": "Phannaskul Southeast Junction",
+      "nearest_settlement_miles": 22.8
+    },
+    {
+      "id": "130db26e-e237-447c-a1e6-fc1de093a6d8",
+      "old": "New leg Junction 24",
+      "new": "Sultim Northeast Junction",
+      "nearest_settlement_miles": 80.99
+    },
+    {
+      "id": "fcf86787-89be-4788-bc5c-29897bc87e9d",
+      "old": "New leg Junction 25",
+      "new": "Mulsantir Southwest Junction",
+      "nearest_settlement_miles": 23.17
+    },
+    {
+      "id": "af1137a0-4ef7-4b97-9c97-0827959bc5bf",
+      "old": "New leg Junction 26",
+      "new": "Citadel Rashemen West Junction",
+      "nearest_settlement_miles": 88.75
+    },
+    {
+      "id": "ee5fa264-2029-4f78-a571-937caa47a892",
+      "old": "New leg Junction 27",
+      "new": "Tammar Southeast Junction",
+      "nearest_settlement_miles": 92.58
+    },
+    {
+      "id": "08262750-5fea-43a7-8ddb-ca16fd642b15",
+      "old": "New leg Junction 28",
+      "new": "Trail's End East Junction",
+      "nearest_settlement_miles": 32.95
+    },
+    {
+      "id": "fc9b9644-94a0-49cd-8fe2-c08da8d1539c",
+      "old": "New leg Junction 29",
+      "new": "Peltarch South Junction",
+      "nearest_settlement_miles": 41.42
+    },
+    {
+      "id": "c2d5eb83-9181-4923-bdbe-3d0aea7b628e",
+      "old": "New leg Junction 30",
+      "new": "Sarshel South Junction",
+      "nearest_settlement_miles": 14.82
+    },
+    {
+      "id": "68a2d6e4-0701-45fd-a946-047f0def9230",
+      "old": "New leg Junction 31",
+      "new": "Dilpur Northwest Junction",
+      "nearest_settlement_miles": 16.23
+    },
+    {
+      "id": "64a3fafc-2b15-4b02-b8a8-e83cc3623d2f",
+      "old": "New leg Junction 32",
+      "new": "Sarshel North Junction",
+      "nearest_settlement_miles": 17.0
+    },
+    {
+      "id": "08097324-b5e8-4c41-a907-bd363f6285db",
+      "old": "New leg Junction 33",
+      "new": "Dragon Falls North Junction",
+      "nearest_settlement_miles": 34.15
+    },
+    {
+      "id": "56539d4d-a3ec-4be2-8e30-5d3b8d64cbb4",
+      "old": "New leg Junction 34",
+      "new": "Tsurlagol Northwest Junction",
+      "nearest_settlement_miles": 20.11
+    },
+    {
+      "id": "9cd3dad8-7bf2-4143-9cc0-c98e9c463327",
+      "old": "New leg Junction 35",
+      "new": "Tantras Northeast Junction",
+      "nearest_settlement_miles": 17.65
+    },
+    {
+      "id": "2aa3ff3c-fddb-4818-b048-b8d1d94ad71e",
+      "old": "New leg Junction 36",
+      "new": "Citadel of the Raven Northeast Junction",
+      "nearest_settlement_miles": 33.33
+    },
+    {
+      "id": "5b23bad9-90e4-45d9-a76d-7d703eda88ba",
+      "old": "New leg Junction 37",
+      "new": "Darmshall North Junction",
+      "nearest_settlement_miles": 8.19
+    },
+    {
+      "id": "c4edf6c4-4e83-4c2f-a9a3-954eb3208e2a",
+      "old": "New leg Junction 38",
+      "new": "Talagbar Northwest Junction",
+      "nearest_settlement_miles": 29.33
+    },
+    {
+      "id": "d1d5f327-ca71-42ab-b71c-d4e269b0d99d",
+      "old": "New leg Junction 39",
+      "new": "Teshwave North Junction",
+      "nearest_settlement_miles": 29.14
+    },
+    {
+      "id": "ccaf94cf-cbe3-4a2c-8e53-3d2643af90a2",
+      "old": "New leg Junction 40",
+      "new": "Teshwave East Junction",
+      "nearest_settlement_miles": 20.19
+    },
+    {
+      "id": "d1f42fa9-312e-429d-a368-6b764540efe0",
+      "old": "New leg Junction 41",
+      "new": "Voonlar North Junction",
+      "nearest_settlement_miles": 21.81
+    },
+    {
+      "id": "3e3970f6-1479-4f84-8d1e-16a3351401a0",
+      "old": "New leg Junction 42",
+      "new": "Hillsfar South Junction",
+      "nearest_settlement_miles": 32.87
+    },
+    {
+      "id": "79af8b13-87c2-4921-ade0-14c4121eb70f",
+      "old": "New leg Junction 43",
+      "new": "Essembra Northwest Junction",
+      "nearest_settlement_miles": 34.17
+    },
+    {
+      "id": "0bcde6cd-38a8-47c0-b458-0a3113ea4ca0",
+      "old": "New leg Junction 44",
+      "new": "Harrowdale Town South Junction",
+      "nearest_settlement_miles": 73.06
+    },
+    {
+      "id": "12d791ac-d258-4283-9bcb-325b73a14d27",
+      "old": "New leg Junction 45",
+      "new": "Arabel West Junction",
+      "nearest_settlement_miles": 107.97
+    },
+    {
+      "id": "9016df5e-76fd-4c0d-b718-d224752c9942",
+      "old": "New leg Junction 46",
+      "new": "Marsember North Junction",
+      "nearest_settlement_miles": 34.53
+    },
+    {
+      "id": "15581c51-a09b-4167-80a4-04f46a17ead1",
+      "old": "New leg Junction 47",
+      "new": "Saerloon Northwest Junction",
+      "nearest_settlement_miles": 14.92
+    }
+  ],
+  "warnings": [
+    {
+      "id": "custom:0461b7e5-6d88-4c99-a975-135bbac31387",
+      "nearest": "Lapalgard",
+      "miles": 6.25,
+      "point": [
+        1827.7921517895643,
+        2814.8174725097024
+      ]
+    },
+    {
+      "id": "custom:753c6bdd-2baa-44a5-bcf4-2a7a5331dc7f",
+      "nearest": "Krenalir",
+      "miles": 12.37,
+      "point": [
+        3292.8633031479085,
+        2684.3733155454934
+      ]
+    },
+    {
+      "id": "custom:a7233309-eb93-420b-b275-0b9529f2c639",
+      "nearest": "Ormpe",
+      "miles": 6.33,
+      "point": [
+        3731.090987494609,
+        2380.362966257007
+      ]
+    },
+    {
+      "id": "custom:f3b70f69-5e0c-48ef-9b39-1b2d9e484212",
+      "nearest": "Winterkeep",
+      "miles": 143.54,
+      "point": [
+        3841.0521776627857,
+        1107.18487225097
+      ]
+    },
+    {
+      "id": "custom:feab72ec-a4d3-4c1e-92b3-31bd632d3f0f",
+      "nearest": "N'Jast",
+      "miles": 194.0,
+      "point": [
+        2864.3380767572235,
+        661.9498571582576
+      ]
+    },
+    {
+      "id": "custom:93b8cbc3-6e23-4138-89b0-51500a9784d9",
+      "nearest": "Sarshel",
+      "miles": 24.8,
+      "point": [
+        2497.800776196637,
+        1224.1533931651575
+      ]
+    },
+    {
+      "id": "custom:4c7c9b41-59cc-46fe-a346-563ea7b2290d",
+      "nearest": "Yulash",
+      "miles": 7.8,
+      "point": [
+        1887.0724881414403,
+        1016.796932945235
+      ]
+    }
+  ],
+  "base_legs": [
+    {
+      "id": "route:Teleportation circle|bezantur|sshamath",
+      "old": "Teleportation circle",
+      "new": "Bezantur to Sshamath Portal"
+    },
+    {
+      "id": "route:Teleportation circle|eltabbar|sshamath",
+      "old": "Teleportation circle",
+      "new": "Eltabbar to Sshamath Portal"
+    },
+    {
+      "id": "route:Teleportation circle|halarahh|sshamath",
+      "old": "Teleportation circle",
+      "new": "Halarahh to Sshamath Portal"
+    },
+    {
+      "id": "route:Teleportation circle|nimbral|sshamath",
+      "old": "Teleportation circle",
+      "new": "Nimbral to Sshamath Portal"
+    },
+    {
+      "id": "route:Teleportation circle|sshamath|winterkeep",
+      "old": "Teleportation circle",
+      "new": "Sshamath to Winterkeep Portal"
+    },
+    {
+      "id": "route:Teleportation circle|bezantur|halarahh",
+      "old": "Teleportation circle",
+      "new": "Bezantur to Halarahh Portal"
+    },
+    {
+      "id": "route:Teleportation circle|eltabbar|halarahh",
+      "old": "Teleportation circle",
+      "new": "Eltabbar to Halarahh Portal"
+    },
+    {
+      "id": "route:Teleportation circle|halarahh|nimbral",
+      "old": "Teleportation circle",
+      "new": "Halarahh to Nimbral Portal"
+    },
+    {
+      "id": "route:Teleportation circle|halarahh|winterkeep",
+      "old": "Teleportation circle",
+      "new": "Halarahh to Winterkeep Portal"
+    },
+    {
+      "id": "route:Teleportation circle|bezantur|eltabbar",
+      "old": "Teleportation circle",
+      "new": "Bezantur to Eltabbar Portal"
+    },
+    {
+      "id": "route:Teleportation circle|eltabbar|nimbral",
+      "old": "Teleportation circle",
+      "new": "Eltabbar to Nimbral Portal"
+    },
+    {
+      "id": "route:Teleportation circle|eltabbar|winterkeep",
+      "old": "Teleportation circle",
+      "new": "Eltabbar to Winterkeep Portal"
+    },
+    {
+      "id": "route:Teleportation circle|bezantur|nimbral",
+      "old": "Teleportation circle",
+      "new": "Bezantur to Nimbral Portal"
+    },
+    {
+      "id": "route:Teleportation circle|bezantur|winterkeep",
+      "old": "Teleportation circle",
+      "new": "Bezantur to Winterkeep Portal"
+    },
+    {
+      "id": "route:Teleportation circle|nimbral|winterkeep",
+      "old": "Teleportation circle",
+      "new": "Nimbral to Winterkeep Portal"
+    }
+  ],
+  "active_legs_audited": 241,
+  "junctions_audited": 61,
+  "backup": "C:\\repos\\Source\\Faerun-Economy-Engine\\maps\\route-leg-edits.before-name-audit-20261001T013541456697Z.json",
+  "saved_revision": 1841
+}

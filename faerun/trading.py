@@ -355,7 +355,7 @@ def transport_quote(world, origin, destination, pounds, params):
         cost = (Decimal(str(math.ceil(cost_days))) * Decimal(str(params["daily_gp"]))
                 + Decimal(str(params["fixed_gp"]))) * (1 + Decimal(str(params["contingency_pct"])) / 100)
         return {"mode": mode, "terms": params["delivery_terms"],
-                "path": [origin.name] + [world.settlements[e.dst].name for e in route],
+                "path": [origin.name] + [world.route_node(e.dst).name for e in route],
                 "one_way_days": days, "cost_days": math.ceil(cost_days), "cost_gp": money(cost),
                 "benchmark_freight_gp": benchmark, "cargo_lb": pounds, "capacity_lb": 4000,
                 "carrier": "Horse freight wagon",

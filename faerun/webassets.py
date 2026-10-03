@@ -49,6 +49,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <a class="navlink" href="trade.html">Merchant guild &amp; POs</a>
     <a class="navlink" href="events.html">Events</a>
     <a class="navlink" href="board.html">Request board</a>
+    <a class="navlink" href="lore.html">Lore</a>
     </nav>
   </div>
 </header>

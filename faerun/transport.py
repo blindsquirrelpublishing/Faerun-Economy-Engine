@@ -82,8 +82,8 @@ def shipment_leg(world, edge, pounds, premium, minimum, choices, freight_mode="s
                        "carriers": options})
         carriers.extend(options)
     freight = sum(stage["cost_gp"] for stage in stages)
-    return {"id": leg_id, "origin": world.settlements[edge.src].name,
-            "destination": world.settlements[edge.dst].name, "connection": edge.name,
+    return {"id": leg_id, "origin": world.route_node(edge.src).name,
+            "destination": world.route_node(edge.dst).name, "connection": edge.name,
             "mode": edge.kind, "distance_miles": edge.effective_distance,
             "travel_days": sum(stage["travel_days"] for stage in stages),
             "line_haul_gp": freight, "minimum_topup_gp": max(0, minimum - freight),
@@ -101,7 +101,7 @@ def direct_path(world, origin, destination, weight):
         edge = previous[node]
         legs.append(edge)
         node = edge.src
-    return list(reversed(legs))
+    return world.simplify_route(list(reversed(legs)))
 
 
 def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling=0,
@@ -109,6 +109,7 @@ def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling
                   include_events=False, allow_special=False, purchase_per_lb=None,
                   carrier_choices=None, selected_leg_ids=None, route_types=None,
                   freight_mode="shared_freight", prefer_land=False):
+    world.sync_route_edits()
     if carrier_choices is None:
         carrier_choices = {}
     if selected_leg_ids is None:
@@ -136,18 +137,18 @@ def plan_shipment(world, origin, destination, *, pounds=100, minimum=0, handling
         raise ValueError("Shipment weight must be greater than zero")
     if contingency > 100:
         raise ValueError("Contingency must be between 0 and 100 percent")
-    start, end = world.find_settlement(origin), world.find_settlement(destination)
+    start, end = world.find_route_node(origin), world.find_route_node(destination)
     if start.id == end.id:
         raise ValueError("Choose different origin and destination locations")
 
     def risk(edge):
         if include_events:
             return world.edge_risk(edge)
-        security = (world.settlements[edge.src].security + world.settlements[edge.dst].security) / 2
+        security = (world.route_node(edge.src).security + world.route_node(edge.dst).security) / 2
         return edge.hazard(security) * 0.6
 
     def baseline_risk(edge):
-        security = (world.settlements[edge.src].security + world.settlements[edge.dst].security) / 2
+        security = (world.route_node(edge.src).security + world.route_node(edge.dst).security) / 2
         return edge.hazard(security) * 0.6
 
     def freight(edge):

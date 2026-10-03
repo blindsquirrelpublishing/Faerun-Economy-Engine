@@ -1,0 +1,33 @@
+{
+  "format": "faerun-terrain-regions-v1",
+  "frame": "FPS1:WD",
+  "coordinate_units": "miles",
+  "description": "Approximate editorial hill interiors near Goldenfields, outlined against the supplied poster and topographical image. Fill open-ground gaps only; preserve forest, mountains, water and wetlands. Not surveyed boundaries.",
+  "review_bounds": [-60, 220, -40, 210],
+  "regions": [
+    {
+      "id": "goldenfields-northern-hills",
+      "name": "Northern hills",
+      "terrain": "H",
+      "replace": ["G", "P", "D"],
+      "bounds": [55, 140, 137, 180],
+      "polygon": [[55, 159], [62, 178], [85, 180], [113, 176], [134, 166], [140, 155], [125, 146], [104, 141], [85, 137], [67, 143]]
+    },
+    {
+      "id": "goldenfields-eastern-hills",
+      "name": "Eastern hills",
+      "terrain": "H",
+      "replace": ["G", "P", "D"],
+      "bounds": [70, 145, 58, 116],
+      "polygon": [[70, 94], [81, 110], [102, 116], [126, 109], [145, 103], [140, 86], [125, 79], [119, 61], [99, 58], [85, 67], [79, 82]]
+    },
+    {
+      "id": "goldenfields-southeastern-hills",
+      "name": "Southeastern hills",
+      "terrain": "H",
+      "replace": ["G", "P", "D"],
+      "bounds": [115, 181, -14, 64],
+      "polygon": [[115, 44], [119, 61], [133, 64], [139, 49], [160, 43], [176, 29], [181, 10], [173, -7], [158, -14], [143, -8], [139, 9], [133, 24], [119, 30]]
+    }
+  ]
+}

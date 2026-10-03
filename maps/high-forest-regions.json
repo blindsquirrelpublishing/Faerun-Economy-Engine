@@ -1,0 +1,33 @@
+{
+  "format": "faerun-terrain-regions-v1",
+  "frame": "FPS1:WD",
+  "coordinate_units": "miles",
+  "description": "Approximate editorial regions traced against the supplied poster and current terrain, not surveyed boundaries. Bounds enclose polygons; only polygon interiors are filled. Later regions take priority. Water, wetland, ice and unknown cells are preserved.",
+  "regions": [
+    {
+      "id": "high-forest",
+      "name": "High Forest",
+      "terrain": "F",
+      "replace": ["G", "P", "D", "M"],
+      "feather_miles": 12,
+      "bounds": [195, 430, 75, 295],
+      "polygon": [[195, 105], [205, 170], [205, 235], [230, 255], [260, 275], [300, 290], [365, 295], [405, 275], [425, 230], [430, 170], [405, 120], [375, 95], [325, 75], [260, 75], [220, 85]]
+    },
+    {
+      "id": "lost-peaks",
+      "name": "Lost Peaks",
+      "terrain": "M",
+      "replace": ["F", "G", "P", "D", "H"],
+      "bounds": [235, 275, 190, 230],
+      "polygon": [[235, 215], [245, 230], [257, 225], [272, 212], [275, 197], [260, 190], [247, 199]]
+    },
+    {
+      "id": "star-mounts",
+      "name": "Star Mounts",
+      "terrain": "M",
+      "replace": ["F", "G", "P", "D", "H"],
+      "bounds": [220, 315, 80, 140],
+      "polygon": [[220, 87], [230, 110], [248, 120], [265, 140], [283, 136], [305, 122], [315, 108], [305, 100], [280, 113], [260, 111], [246, 96], [232, 80]]
+    }
+  ]
+}

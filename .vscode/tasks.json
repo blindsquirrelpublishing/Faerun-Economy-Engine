@@ -217,6 +217,37 @@
 			],
 			"isBackground": true,
 			"problemMatcher": []
+		},
+		{
+			"label": "Verify current map routing",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"tests/test_routegeometry.py",
+				"tests/test_mapassets.py::test_planar_cost_request_uses_edited_route_geometry",
+				"-q"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify shared map consumers",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"tests/test_transport_planner.py",
+				"tests/test_visitors.py",
+				"tests/test_routegeometry.py",
+				"tests/test_mapassets.py::test_single_waypoint_junction_conversion_and_routing",
+				"-q",
+				"--tb=short"
+			],
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Dict, Tuple
 
-MAP_HTML = """<!DOCTYPE html>
+MAP_HTML = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -22,7 +22,7 @@ MAP_HTML = """<!DOCTYPE html>
 <link rel="stylesheet" href="app.css">
 <link rel="stylesheet" href="map.css">
 </head>
-<body class="mapbody" data-map-view="overlay">
+<body class="mapbody" data-map-view="planar">
 
 <header class="topbar">
   <div class="brand">
@@ -45,6 +45,7 @@ MAP_HTML = """<!DOCTYPE html>
     <a class="navlink" href="mobile.html">Travelling companies</a>
     <a class="navlink" href="trade.html">Merchant guild &amp; POs</a>
     <a class="navlink" href="board.html">Request board</a>
+    <a class="navlink" href="lore.html">Lore</a>
     </nav>
   </div>
 </header>
@@ -63,9 +64,96 @@ MAP_HTML = """<!DOCTYPE html>
         </form>
         <fieldset class="mapview-switch" aria-label="Base map">
           <legend class="sr-only">Base map</legend>
-          <label><input type="radio" name="map-view" value="overlay" checked><span>Poster map</span></label>
+          <label><input type="radio" name="map-view" value="overlay"><span>Poster map</span></label>
+          <label><input type="radio" name="map-view" value="planar" checked><span>2D map</span></label>
           <label><input type="radio" name="map-view" value="terrain"><span>3D terrain</span></label>
         </fieldset>
+        <label>Poster backdrop <select id="underlay-source" aria-label="Poster backdrop">
+          <option value="default">Original poster</option>
+        </select></label>
+        <fieldset class="raster-layers" aria-label="Reference overlays">
+          <legend>Reference overlays</legend>
+          <label><input id="layer-elevation" type="checkbox" disabled> Elevation / sea depth</label>
+          <label>Opacity <input id="layer-elevation-alpha" type="range" min="0" max="100" value="35" aria-label="Elevation opacity" disabled></label>
+          <label><input id="layer-ground-cover" type="checkbox" disabled> Vegetation</label>
+          <label>Opacity <input id="layer-ground-cover-alpha" type="range" min="0" max="100" value="35" aria-label="Vegetation opacity" disabled></label>
+        </fieldset>
+        <div class="planar-controls">
+          <label>Radius <select id="planar-radius" aria-label="2D radius">
+            <option value="500">500 miles</option><option value="200" selected>200 miles</option>
+            <option value="100">100 miles</option><option value="50">50 miles</option>
+          </select></label>
+          <label>Grid <select id="planar-grid" aria-label="2D grid">
+            <option value="none" selected>None</option><option value="hex">Hex</option>
+            <option value="square">Square</option><option value="both">Hex + square</option>
+          </select></label>
+          <label>Grid size <select id="planar-cell" aria-label="Grid size in miles">
+            <option value="1">1 mile</option>
+            <option value="5">5 miles</option><option value="10" selected>10 miles</option>
+            <option value="25">25 miles</option><option value="50">50 miles</option>
+          </select></label>
+          <label>Land detail <select id="planar-land-detail" aria-label="Land detail in miles">
+            <option value="1" selected>1 mile</option><option value="5">5 miles</option>
+          </select></label>
+          <label title="Green: forest; magenta: mountains; blue: shorelines; dashed: reviewed regions"><input id="planar-boundaries" type="checkbox"> Terrain boundaries</label>
+          <label><input id="planar-poster" type="checkbox" checked> Poster overlay</label>
+          <label>Poster opacity <input id="planar-poster-alpha" type="range" min="0" max="100" value="100" aria-label="Poster opacity"></label>
+          <label><input id="planar-terrain" type="checkbox"> Inferred land type</label>
+          <label>Land opacity <input id="planar-terrain-alpha" type="range" min="0" max="100" value="50" aria-label="Land type opacity" disabled></label>
+          <div class="routefilter"><span>Leg types</span><details id="planar-leg-type">
+            <summary id="planar-leg-summary">All types</summary>
+            <div class="routefiltermenu" id="planar-leg-options"><label><input id="planar-leg-all" type="checkbox" checked> All types</label></div>
+          </details></div>
+          <button id="planar-center" type="button" title="Center on selected town" aria-label="Center on selected town">&#8982;</button>
+        </div>
+        <label title="Animate the planned route and its location markers. Your choice is saved in this browser."><input id="animate-routes" type="checkbox"> Animate routes</label>
+        <label title="Label every visible location, including small settlements and junctions. Labels may overlap."><input id="show-all-location-labels" type="checkbox"> Show all location labels</label>
+        <label>Junction labels <select id="junction-labels">
+          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
+        </select></label>
+        <label>Travelling company names <select id="company-labels">
+          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
+        </select></label>
+        <section class="leg-editor" aria-label="Map route leg editor">
+          <label><input id="leg-edit-enabled" type="checkbox"> Edit route legs</label>
+          <div id="leg-edit-tools" hidden>
+            <div class="leg-toolbar" role="group" aria-label="Route tools">
+              <button id="leg-new" type="button" title="New leg" aria-label="New leg">+</button>
+              <button id="leg-insert" type="button" title="Insert waypoint on a segment" aria-label="Insert waypoint" aria-pressed="false">&#8853;</button>
+              <button id="leg-add-point" type="button" title="Add waypoint after selected point (or at end)" aria-label="Add waypoint" aria-pressed="false">&#10133;</button>
+              <button id="leg-remove-point" type="button" title="Delete selected waypoint" aria-label="Delete waypoint">&#8854;</button>
+              <button id="leg-undo" type="button" title="Undo geometry change" aria-label="Undo geometry change">&#8630;</button>
+              <button id="leg-redo" type="button" title="Redo geometry change" aria-label="Redo geometry change">&#8631;</button>
+              <button id="leg-smooth" type="button" title="Insert daily travel boundaries along the leg, preserving existing waypoints">Daily travel units</button>
+              <button id="leg-curve" type="button" title="Smooth bends through existing waypoints; two-point legs remain straight">Smooth curves</button>
+              <button id="leg-coast" type="button" title="Replace sea leg geometry between its endpoints with a route targeting 15 miles offshore">Hug coast (15 mi)</button>
+              <button id="leg-straighten" type="button" title="Connect existing waypoints with straight segments">Straighten</button>
+              <button id="leg-split" type="button" title="Save as two legs sharing the selected interior waypoint">Split at point</button>
+            </div>
+            <label>Curvature <input id="leg-curvature" type="range" min="0" max="100" value="75" step="5" aria-label="Route curvature" title="Curve strength applied by Smooth curves or Hug coast"></label>
+            <label><input id="leg-snap" type="checkbox" checked> Snap to waypoints and locations</label>
+            <label>Name <input id="leg-name" type="text" maxlength="160" autocomplete="off"></label>
+            <label>Type <select id="leg-kind">
+              <option value="road">Road</option><option value="trail">Foot trail</option>
+              <option value="track">Track</option><option value="sea">Sea</option>
+              <option value="river">River</option><option value="barge">Barge</option>
+              <option value="ferry">Ferry</option><option value="portage">Portage</option>
+              <option value="tunnel">Tunnel</option><option value="teleport">Teleportation circle</option>
+              <option value="air">Gryphon flight</option><option value="skyship">Skyship</option>
+            </select></label>
+            <output id="leg-point-count"></output>
+            <output id="leg-day-rate"></output>
+            <button id="leg-junction" type="button" title="Convert the selected waypoint into an automatically named junction">Convert to junction</button>
+            <label>Origin <output id="leg-origin"></output></label>
+            <label>Destination <output id="leg-destination"></output></label>
+            <div class="leg-toolbar">
+              <button id="leg-save" type="button">Save leg</button>
+              <button id="leg-cancel" type="button">Cancel</button>
+              <button id="leg-delete" type="button">Delete leg</button>
+            </div>
+          </div>
+          <output id="leg-edit-status" role="status" aria-live="polite"></output>
+        </section>
         <label class="poster-only-control"><input id="poster-only" type="checkbox" disabled title="Available when the poster image has loaded"> Poster only</label>
         <label><input id="opt-route-icons" type="checkbox" checked> Leg icons</label>
       </div>
@@ -245,15 +333,328 @@ MAP_HTML = """<!DOCTYPE html>
 </html>
 """
 
-TERRAIN_HTML = (
-    MAP_HTML
-    .replace('data-map-view="overlay"', 'data-map-view="terrain"')
-  .replace('value="overlay" checked', 'value="overlay"')
-  .replace('value="terrain"><span>', 'value="terrain" checked><span>')
-)
+TERRAIN_HTML = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faerun World Map</title>
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="map.css">
+</head>
+<body class="mapbody" data-map-view="terrain">
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">&#9906;</span>
+    <div>
+      <h1>Faer&ucirc;n World Map</h1>
+      <p class="tagline">Surveyed settlements and markets aligned over the high-resolution map.</p>
+    </div>
+  </div>
+  <div class="worldbar">
+    <span id="world-date" class="pill" data-world-date>&#8230;</span>
+    <nav class="nav-links" aria-label="Main navigation">
+    <a class="navlink" href="index.html">Markets</a>
+    <a class="navlink" href="location.html">Locations</a>
+    <a class="navlink" href="business.html">Businesses</a>
+    <a class="navlink" href="product.html">Products</a>
+    <a class="navlink" href="route.html">Routes</a>
+    <span class="navlink navlink-current" aria-current="page">Map</span>
+    <a class="navlink" href="planner.html">Route planner</a>
+    <a class="navlink" href="mobile.html">Travelling companies</a>
+    <a class="navlink" href="trade.html">Merchant guild &amp; POs</a>
+    <a class="navlink" href="board.html">Request board</a>
+    <a class="navlink" href="lore.html">Lore</a>
+    </nav>
+  </div>
+</header>
+
+<div class="maplayout">
+  <div class="stage">
+    <canvas id="world-canvas"></canvas>
+
+    <div class="hud">
+      <div class="map-controls" aria-label="Map controls">
+        <form id="location-search-form" class="locationsearch" role="search">
+          <label class="sr-only" for="location-search">Find a location</label>
+          <input id="location-search" type="search" list="location-options" placeholder="Find location..." autocomplete="off">
+          <datalist id="location-options"></datalist>
+          <button type="submit" title="Find a location" aria-label="Find a location">&#128269;</button>
+        </form>
+        <fieldset class="mapview-switch" aria-label="Base map">
+          <legend class="sr-only">Base map</legend>
+          <label><input type="radio" name="map-view" value="overlay"><span>Poster map</span></label>
+          <label><input type="radio" name="map-view" value="planar"><span>2D map</span></label>
+          <label><input type="radio" name="map-view" value="terrain" checked><span>3D terrain</span></label>
+        </fieldset>
+        <label>Poster backdrop <select id="underlay-source" aria-label="Poster backdrop">
+          <option value="default">Original poster</option>
+        </select></label>
+        <fieldset class="raster-layers" aria-label="Reference overlays">
+          <legend>Reference overlays</legend>
+          <label><input id="layer-elevation" type="checkbox" disabled> Elevation / sea depth</label>
+          <label>Opacity <input id="layer-elevation-alpha" type="range" min="0" max="100" value="35" aria-label="Elevation opacity" disabled></label>
+          <label><input id="layer-ground-cover" type="checkbox" disabled> Vegetation</label>
+          <label>Opacity <input id="layer-ground-cover-alpha" type="range" min="0" max="100" value="35" aria-label="Vegetation opacity" disabled></label>
+        </fieldset>
+        <div class="planar-controls">
+          <label>Radius <select id="planar-radius" aria-label="2D radius">
+            <option value="500">500 miles</option><option value="200" selected>200 miles</option>
+            <option value="100">100 miles</option><option value="50">50 miles</option>
+          </select></label>
+          <label>Grid <select id="planar-grid" aria-label="2D grid">
+            <option value="none" selected>None</option><option value="hex">Hex</option>
+            <option value="square">Square</option><option value="both">Hex + square</option>
+          </select></label>
+          <label>Grid size <select id="planar-cell" aria-label="Grid size in miles">
+            <option value="1">1 mile</option>
+            <option value="5">5 miles</option><option value="10" selected>10 miles</option>
+            <option value="25">25 miles</option><option value="50">50 miles</option>
+          </select></label>
+          <label>Land detail <select id="planar-land-detail" aria-label="Land detail in miles">
+            <option value="1" selected>1 mile</option><option value="5">5 miles</option>
+          </select></label>
+          <label title="Green: forest; magenta: mountains; blue: shorelines; dashed: reviewed regions"><input id="planar-boundaries" type="checkbox"> Terrain boundaries</label>
+          <label><input id="planar-poster" type="checkbox" checked> Poster overlay</label>
+          <label>Poster opacity <input id="planar-poster-alpha" type="range" min="0" max="100" value="100" aria-label="Poster opacity"></label>
+          <label><input id="planar-terrain" type="checkbox"> Inferred land type</label>
+          <label>Land opacity <input id="planar-terrain-alpha" type="range" min="0" max="100" value="50" aria-label="Land type opacity" disabled></label>
+          <div class="routefilter"><span>Leg types</span><details id="planar-leg-type">
+            <summary id="planar-leg-summary">All types</summary>
+            <div class="routefiltermenu" id="planar-leg-options"><label><input id="planar-leg-all" type="checkbox" checked> All types</label></div>
+          </details></div>
+          <button id="planar-center" type="button" title="Center on selected town" aria-label="Center on selected town">&#8982;</button>
+        </div>
+        <label title="Animate the planned route and its location markers. Your choice is saved in this browser."><input id="animate-routes" type="checkbox"> Animate routes</label>
+        <label title="Label every visible location, including small settlements and junctions. Labels may overlap."><input id="show-all-location-labels" type="checkbox"> Show all location labels</label>
+        <label>Junction labels <select id="junction-labels">
+          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
+        </select></label>
+        <label>Travelling company names <select id="company-labels">
+          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
+        </select></label>
+        <section class="leg-editor" aria-label="Map route leg editor">
+          <label><input id="leg-edit-enabled" type="checkbox"> Edit route legs</label>
+          <div id="leg-edit-tools" hidden>
+            <div class="leg-toolbar" role="group" aria-label="Route tools">
+              <button id="leg-new" type="button" title="New leg" aria-label="New leg">+</button>
+              <button id="leg-insert" type="button" title="Insert waypoint on a segment" aria-label="Insert waypoint" aria-pressed="false">&#8853;</button>
+              <button id="leg-add-point" type="button" title="Add waypoint after selected point (or at end)" aria-label="Add waypoint" aria-pressed="false">&#10133;</button>
+              <button id="leg-remove-point" type="button" title="Delete selected waypoint" aria-label="Delete waypoint">&#8854;</button>
+              <button id="leg-undo" type="button" title="Undo geometry change" aria-label="Undo geometry change">&#8630;</button>
+              <button id="leg-redo" type="button" title="Redo geometry change" aria-label="Redo geometry change">&#8631;</button>
+              <button id="leg-smooth" type="button" title="Insert daily travel boundaries along the leg, preserving existing waypoints">Daily travel units</button>
+              <button id="leg-curve" type="button" title="Smooth bends through existing waypoints; two-point legs remain straight">Smooth curves</button>
+              <button id="leg-coast" type="button" title="Replace sea leg geometry between its endpoints with a route targeting 15 miles offshore">Hug coast (15 mi)</button>
+              <button id="leg-straighten" type="button" title="Connect existing waypoints with straight segments">Straighten</button>
+              <button id="leg-split" type="button" title="Save as two legs sharing the selected interior waypoint">Split at point</button>
+            </div>
+            <label>Curvature <input id="leg-curvature" type="range" min="0" max="100" value="75" step="5" aria-label="Route curvature" title="Curve strength applied by Smooth curves or Hug coast"></label>
+            <label><input id="leg-snap" type="checkbox" checked> Snap to waypoints and locations</label>
+            <label>Name <input id="leg-name" type="text" maxlength="160" autocomplete="off"></label>
+            <label>Type <select id="leg-kind">
+              <option value="road">Road</option><option value="trail">Foot trail</option>
+              <option value="track">Track</option><option value="sea">Sea</option>
+              <option value="river">River</option><option value="barge">Barge</option>
+              <option value="ferry">Ferry</option><option value="portage">Portage</option>
+              <option value="tunnel">Tunnel</option><option value="teleport">Teleportation circle</option>
+              <option value="air">Gryphon flight</option><option value="skyship">Skyship</option>
+            </select></label>
+            <output id="leg-point-count"></output>
+            <output id="leg-day-rate"></output>
+            <button id="leg-junction" type="button" title="Convert the selected waypoint into an automatically named junction">Convert to junction</button>
+            <label>Origin <output id="leg-origin"></output></label>
+            <label>Destination <output id="leg-destination"></output></label>
+            <div class="leg-toolbar">
+              <button id="leg-save" type="button">Save leg</button>
+              <button id="leg-cancel" type="button">Cancel</button>
+              <button id="leg-delete" type="button">Delete leg</button>
+            </div>
+          </div>
+          <output id="leg-edit-status" role="status" aria-live="polite"></output>
+        </section>
+        <label class="poster-only-control"><input id="poster-only" type="checkbox" disabled title="Available when the poster image has loaded"> Poster only</label>
+        <label><input id="opt-route-icons" type="checkbox" checked> Leg icons</label>
+      </div>
+      <details class="mapsettings" open ontoggle="this.open=true">
+      <summary>Map layers &amp; alignment</summary>
+      <div class="hudrow">
+        <label>Colour dots by
+          <select id="heat-commodity">
+            <option value="">Settlement type</option>
+          </select>
+        </label>
+        <label title="Broken lines are multimodal routes: cargo changes carrier along the way, so they cost more and carry more risk."><input type="checkbox" id="opt-routes" checked> Trade routes</label>
+        <div class="routefilter"><span>Leg types</span>
+          <details id="opt-route-types">
+            <summary id="route-type-summary">All types</summary>
+            <div class="routefiltermenu">
+              <label><input type="checkbox" id="opt-route-all" checked> All types</label>
+              <label><input type="checkbox" name="route-type" value="road"> &#8596; Road</label>
+              <label><input type="checkbox" name="route-type" value="trail"> &#8226; Foot trail</label>
+              <label><input type="checkbox" name="route-type" value="sea"> &#9973; Sea</label>
+              <label><input type="checkbox" name="route-type" value="river"> &#8779; River</label>
+              <label><input type="checkbox" name="route-type" value="barge"> &#9645; Barge</label>
+              <label><input type="checkbox" name="route-type" value="ferry"> &#8644; Ferry</label>
+              <label><input type="checkbox" name="route-type" value="portage"> &#8593; Portage</label>
+              <label><input type="checkbox" name="route-type" value="tunnel"> &#9673; Tunnel</label>
+              <label><input type="checkbox" name="route-type" value="teleport"> &#10022; Teleportation circle</label>
+              <label><input type="checkbox" name="route-type" value="air"> &#129413; Gryphon flight</label>
+              <label><input type="checkbox" name="route-type" value="skyship"> &#128752; Skyship</label>
+            </div>
+          </details>
+        </div>
+        <label><input type="checkbox" id="opt-labels" checked> Labels</label>
+        <label title="Show model-generated connections and roads without surveyed geometry"><input type="checkbox" id="opt-inferred-roads"> Inferred routes</label>
+        <label title="Small markets inferred from towns and sites in the surveyed poster. Each has commodity prices and trades through its nearest established hub."><input type="checkbox" id="opt-places" checked> Surveyed markets</label>
+        <label title="Show terrain cells within a circular flat-world boundary."><input type="checkbox" id="opt-round-world"> Round world</label>
+        <label title="Wrap the map onto a rotatable globe."><input type="checkbox" id="opt-globe"> Globe</label>
+        <label>Tiles
+          <select id="opt-tiles">
+            <option value="smooth">Smooth relief</option>
+            <option value="square">Square grid</option>
+            <option value="towers">Towers</option>
+            <option value="hex3">Hex grid &#8212; coarse</option>
+            <option value="hex2">Hex grid &#8212; medium</option>
+            <option value="hex1">Hex grid &#8212; fine</option>
+            <option value="hexicon3">Icon hexes &#8212; coarse</option>
+            <option value="hexicon2">Icon hexes &#8212; medium</option>
+            <option value="hexicon1">Icon hexes &#8212; fine</option>
+            <option value="hextower3">Hex towers &#8212; coarse</option>
+            <option value="hextower2">Hex towers &#8212; medium</option>
+            <option value="hextower1">Hex towers &#8212; fine</option>
+          </select>
+        </label>
+        <label>Relief
+          <input id="opt-exag" type="range" min="0" max="260" value="0" title="Vertical exaggeration">
+        </label>
+      </div>
+      <div class="hudrow" id="underlay-row" hidden>
+        <label title="Drape your own copy of a Faerun poster map over the terrain."><input type="checkbox" id="opt-underlay"> Poster map</label>
+        <label>Fade
+          <input id="opt-underlay-alpha" type="range" min="0" max="100" value="55" title="Overlay opacity">
+        </label>
+        <button type="button" id="underlay-align" class="ghost" title="Nudge the poster until its coastlines line up">Align&#8230;</button>
+      </div>
+      <div class="hudrow" id="underlay-align-row" hidden>
+        <label title="Slide the poster east or west, in miles">East
+          <input id="opt-underlay-x" type="range" min="-2500" max="2500" step="10" value="-400">
+        </label>
+        <label title="Slide the poster north or south, in miles">South
+          <input id="opt-underlay-y" type="range" min="-2000" max="2500" step="10" value="150">
+        </label>
+        <label title="Miles of world per poster pixel, x100">Scale
+          <input id="opt-underlay-scale" type="range" min="5" max="1200" step="1" value="286">
+        </label>
+        <label title="Extra north-south stretch, as a percentage">Stretch
+          <input id="opt-underlay-stretch" type="range" min="40" max="220" step="1" value="100">
+        </label>
+        <label title="Follow the relief instead of lying flat"><input type="checkbox" id="opt-underlay-drape" checked> Drape</label>
+        <button type="button" id="underlay-survey" class="ghost" title="Snap the poster back to the place the locations survey computes for it">Survey fit</button>
+        <button type="button" id="underlay-reset" class="ghost">Reset</button>
+      </div>
+      <div class="hudrow" id="underlay-readout-row" hidden>
+        <span id="underlay-readout" class="hudnote"></span>
+      </div>
+      <div class="hudrow" id="underlay-none" hidden>
+        <span id="underlay-none-text" class="hudnote"></span>
+      </div>
+      <div class="hudrow" id="calib-row" hidden>
+        <label title="Drag the markets onto their true positions on your poster."><input type="checkbox" id="opt-calib"> Realign markets</label>
+        <span id="calib-count" class="hudnote"></span>
+      </div>
+      <div class="hudrow" id="atlas-row" hidden>
+        <button type="button" id="atlas-apply" class="ghost" title="Place every market at its surveyed position on your poster">Align from survey</button>
+        <span id="atlas-note" class="hudnote"></span>
+      </div>
+      <div class="hudrow" id="calib-tools" hidden>
+        <button type="button" id="calib-undo" class="ghost" title="Drop the last control point">Undo</button>
+        <button type="button" id="calib-clear" class="ghost" title="Forget every control point and restore the shipped coordinates">Clear</button>
+        <button type="button" id="calib-save" class="ghost" title="Write the new coordinates into the gazetteer">Save</button>
+      </div>
+      <div class="hudrow" id="calib-help-row" hidden>
+        <span id="calib-help" class="hudnote"></span>
+      </div>
+      <div class="hudrow" id="terrain-edit-row">
+        <label title="Click a world-grid cell to correct its terrain type."><input type="checkbox" id="opt-terrain-edit"> Correct terrain</label>
+        <label>Set cell to
+          <select id="terrain-edit-type">
+            <option value="o">Ocean</option>
+            <option value="w">Inland water</option>
+            <option value="c">Coast</option>
+            <option value="p">Plains</option>
+            <option value="g">Steppe</option>
+            <option value="f">Forest</option>
+            <option value="T">Taiga</option>
+            <option value="t">Tundra</option>
+            <option value="i">Glacier</option>
+            <option value="h">Hills</option>
+            <option value="m">Mountains</option>
+            <option value="d">Desert</option>
+            <option value="j">Jungle</option>
+            <option value="s">Marsh</option>
+            <option value="">Automatic (remove correction)</option>
+          </select>
+        </label>
+        <span id="terrain-edit-help" class="hudnote"></span>
+      </div>
+      </details>
+      <div id="heat-legend" class="heatlegend" hidden></div>
+    </div>
+
+    <div class="viewcontrols" aria-label="3D map controls">
+      <strong>3D view</strong>
+      <button type="button" id="view-tilt" class="ghost">3D oblique</button>
+      <button type="button" id="view-top" class="ghost">Top down</button>
+      <button type="button" id="view-reset" class="ghost">Reset</button>
+    </div>
+
+    <button type="button" id="view-world" class="ghost worldviewcontrol" hidden
+            title="Leave local terrain detail and show the whole world">&larr; World view</button>
+
+    <div id="terrain-legend" class="terrainlegend"></div>
+    <div id="map-tip" class="maptip" hidden></div>
+    <div id="map-status" class="mapstatus">Surveying the Realms&#8230;</div>
+  </div>
+
+  <aside class="mappanel">
+    <section id="route-plan" class="routeplan" aria-live="polite">
+      <h2>Plan a route</h2>
+      <form id="route-plan-form">
+        <label class="sr-only" for="route-plan-origin">Origin</label>
+        <input id="route-plan-origin" type="search" list="location-options" placeholder="Origin" autocomplete="off">
+        <label class="sr-only" for="route-plan-destination">Destination</label>
+        <input id="route-plan-destination" type="search" list="location-options" placeholder="Destination" autocomplete="off">
+        <label><input type="checkbox" id="route-plan-cost"> Optimize for cost</label>
+        <button type="submit">Show route</button>
+      </form>
+      <div id="route-plan-result"></div>
+    </section>
+    <section id="route-selection" class="routeselection" hidden aria-live="polite"></section>
+    <div id="place-head" class="placehead">
+      <h2>Choose a settlement</h2>
+      <p class="muted">Drag to turn the world. Scroll to zoom. Shift-drag (or right-drag) to pan. Click a dot for its market; double-click to zoom in.</p>
+    </div>
+    <div id="place-stats" class="statgrid"></div>
+    <div id="place-notes" class="placenotes"></div>
+    <section id="supply-chain" class="supplychain" hidden aria-live="polite"></section>
+    <div class="panelctl">
+      <input id="goods-search" type="search" placeholder="Filter goods..." autocomplete="off">
+      <select id="goods-category"><option value="">All categories</option></select>
+    </div>
+    <div id="place-prices" class="pricewrap"></div>
+  </aside>
+</div>
+
+<script src="date.js"></script>
+<script src="map.js"></script>
+</body>
+</html>
+"""
 
 
-MAP_CSS = """
+MAP_CSS = r"""
 .mapbody { overflow: hidden; }
 
 .maplayout {
@@ -623,6 +1024,10 @@ body[data-poster-only="true"] .worldviewcontrol { display: none; }
 .mapview-switch span { display: block; padding: 6px 10px; border-radius: 4px; color: var(--cp-text-muted); white-space: nowrap; }
 .mapview-switch input:checked + span { background: var(--cp-accent); color: var(--cp-accent-fg); }
 .mapview-switch input:focus-visible + span { outline: 2px solid var(--cp-accent); outline-offset: 3px; }
+.raster-layers { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; min-width: 0; margin: 0; padding: 10px; border: 1px solid var(--cp-border); border-radius: 10px; }
+.raster-layers legend { color: var(--cp-text-muted); font-size: 12px; }
+.raster-layers label { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.raster-layers input[type="range"] { width: 100%; min-width: 0; }
 .mapbody .navlink { border-color: transparent; color: var(--cp-text-muted); }
 .mapbody .navlink:hover { background: var(--cp-accent-soft); color: var(--cp-accent); }
 .hud {
@@ -787,10 +1192,42 @@ body[data-map-view="terrain"] .terrainlegend { bottom: 78px; }
   .mapbody .worldbar, .map-controls, .mapbody .nav-links { justify-content: flex-start; justify-items: start; flex-basis: 100%; width: 100%; }
   .mapbody .locationsearch { max-width: none; }
 }
+
+.planar-controls { display: none; }
+.leg-editor { display: none; }
+body[data-map-view="planar"] .leg-editor { display: grid; gap: 8px; border-top: 1px solid var(--cp-border); padding-top: 12px; }
+#leg-edit-tools:not([hidden]) { display: grid; gap: 10px; }
+#leg-edit-tools label { display: grid; gap: 4px; }
+#leg-edit-tools input, #leg-edit-tools select { width: 100%; min-width: 0; box-sizing: border-box; }
+#leg-edit-tools input[type="checkbox"] { width: auto; justify-self: start; }
+.leg-toolbar { display: flex; flex-wrap: wrap; gap: 6px; }
+.leg-toolbar button { min-width: 36px; min-height: 36px; border-radius: 4px; }
+.leg-toolbar button[aria-pressed="true"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
+#leg-edit-status, #leg-point-count { font-size: 12px; overflow-wrap: anywhere; }
+body[data-map-view="planar"] .planar-controls { display: grid; gap: 10px; }
+.planar-controls label { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.planar-controls select { min-width: 0; max-width: 150px; }
+#planar-center { width: 36px; height: 36px; font-size: 22px; }
+body[data-map-view="planar"] .viewcontrols,
+body[data-map-view="planar"] .poster-only-control,
+body[data-map-view="planar"] .mapsettings,
+body[data-map-view="planar"] .terrainlegend { display: none; }
+body[data-map-view="planar"][data-land-overlay="true"] .terrainlegend { display: flex; bottom: 82px; max-height: 25vh; overflow-y: auto; }
+body[data-map-view="planar"] .stage { display: flex; padding-left: 320px; }
+body[data-map-view="planar"] #world-canvas { min-width: 0; flex: 1; width: 100%; touch-action: none; }
+@media (max-width: 1000px) {
+  body[data-map-view="planar"] .stage { display: flex; flex-direction: column; height: auto; padding-left: 0; }
+  body[data-map-view="planar"] .hud { order: -1; }
+  body[data-map-view="planar"] #world-canvas { flex: none; height: 65dvh; min-height: 360px; }
+  body[data-map-view="planar"] .mapview-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body[data-map-view="planar"] .mapview-switch span { padding: 8px 4px; text-align: center; }
+  body[data-map-view="planar"] .planar-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body[data-map-view="planar"] .planar-controls label { flex-wrap: wrap; }
+}
 """
 
 
-MAP_JS = """
+MAP_JS = r"""
 // ---------------------------------------------------------------------------
 // A hand-rolled 3D renderer on a 2D canvas.
 //
@@ -821,11 +1258,15 @@ var canvas = document.getElementById('world-canvas');
 var ctx = canvas.getContext('2d');
 var tipEl = document.getElementById('map-tip');
 var statusEl = document.getElementById('map-status');
-var MAP_VIEW = document.body.getAttribute('data-map-view') || 'overlay';
+var MAP_VIEW = document.body.getAttribute('data-map-view') || 'planar';
 var requestedView = new URLSearchParams(window.location.search).get('view');
-if (requestedView === 'overlay' || requestedView === 'terrain') { MAP_VIEW = requestedView; }
+if (requestedView === 'overlay' || requestedView === 'terrain' || requestedView === 'planar') { MAP_VIEW = requestedView; }
 document.body.setAttribute('data-map-view', MAP_VIEW);
 var mapViewChanged = false;
+var initialRouteTypes = new URLSearchParams(window.location.search).get('routeTypes');
+initialRouteTypes = initialRouteTypes === null
+  ? ['road', 'trail', 'sea', 'river', 'barge', 'ferry', 'portage', 'tunnel']
+  : initialRouteTypes.split(',').filter(Boolean);
 
 var state = {
   map: null,
@@ -838,10 +1279,15 @@ var state = {
   tz: 0.0,
   exag: 0,
   routes: true,
+  verifiedOnly: true,
   routeIcons: true,
-  routeTypes: [],
+  animateRoutes: null,
+  routeTypes: initialRouteTypes.slice(),
   inferredRoads: false,
   labels: true,
+  showAllLocationLabels: false,
+  junctionLabels: 'auto',
+  companyLabels: 'auto',
   roundWorld: false,
   selected: null,
   selectedRoute: -1,
@@ -863,6 +1309,16 @@ var state = {
   goodsCategory: '',
   step: 1,
   tiles: 'smooth',
+  planarRadius: 200,
+  planarLegTypes: initialRouteTypes.includes('trail') ? initialRouteTypes.concat('track') : initialRouteTypes.slice(),
+  planarGrid: 'none',
+  planarCell: 10,
+  planarLandDetail: 1,
+  planarBoundaries: false,
+  planarPoster: true,
+  planarPosterAlpha: 1,
+  planarTerrain: false,
+  planarTerrainAlpha: 0.5,
   hexStep: 2,
   globe: false,
   globeTilt: GLOBE_HOME_TILT,
@@ -873,6 +1329,10 @@ var state = {
   // and underMpp is how many miles one poster pixel covers.
   underInfo: null,
   under: null,
+  rasterLayers: {
+    elevation: {on: false, alpha: 0.35, image: null, loading: false},
+    'ground-cover': {on: false, alpha: 0.35, image: null, loading: false}
+  },
   underOn: false,
   posterOnly: false,
   underAlpha: 0.55,
@@ -919,6 +1379,10 @@ var underCtx = underCanvas.getContext('2d');
 var mesh = null;
 var pins = null;
 var routeLines = null;
+var baseRouteLines = [];
+var mapLegEdits = {revision: 0, legs: {}};
+var legEditor = {enabled: false, ready: false, draft: null, point: -1, insert: false,
+  creating: false, dirty: false, saving: false, undo: [], redo: [], drag: null};
 
 // Terrain palette: code -> [r, g, b]. The flat poster uses these as categorical
 // colors; the 3D page applies hillshade to the same base colors.
@@ -1014,6 +1478,14 @@ function drawTerrainIcon(code, x, y, size) {
 
 var LABEL_FONT = '12px "Segoe UI", Arial, Helvetica, sans-serif';
 var LABEL_FONT_BOLD = 'bold 12px "Segoe UI", Arial, Helvetica, sans-serif';
+
+function mapLabelScale() {
+  return MAP_VIEW === 'planar' ? 400 / state.planarRadius : 1;
+}
+
+function mapLabelFont(size, bold) {
+  return (bold ? 'bold ' : '') + (size * mapLabelScale()) + 'px "Segoe UI", Arial, Helvetica, sans-serif';
+}
 
 // Route colors follow map conventions and use a pale casing so they remain
 // legible over both the colored terrain and the poster.
@@ -1117,7 +1589,13 @@ function invalidate() { state.dirty = true; }
 // mesh construction
 // ---------------------------------------------------------------------------
 
+var planarTiles = new Map();
+var planarTilesLoading = 0;
+var planarTileEpoch = 0;
+
 function buildMesh(payload) {
+  planarTiles.clear();
+  planarTileEpoch++;
   var W = payload.grid[0];
   var H = payload.grid[1];
   var b = payload.bounds;
@@ -1279,30 +1757,6 @@ function buildPins(list) {
   });
 }
 
-var carrierTrackingStarted = false;
-function startCarrierTracking() {
-  if (carrierTrackingStarted) { return; }
-  carrierTrackingStarted = true;
-  var started = performance.now();
-  window.setInterval(function () {
-    var changed = false;
-    pins.filter(function (pin) { return pin.data.carrier; }).forEach(function (pin) {
-      var origin = pins.find(function (candidate) { return candidate.data.name === pin.data.origin; });
-      var destination = pins.find(function (candidate) { return candidate.data.name === pin.data.destination; });
-      if (!origin || !destination) { return; }
-      var progress = (Number(pin.data.progress || 0) + (performance.now() - started) / 180000) % 1;
-      var wx = origin.wx + (destination.wx - origin.wx) * progress;
-      var wy = origin.wy + (destination.wy - origin.wy) * progress;
-      var scene = toScene(wx, wy);
-      pin.data.progress = progress;
-      pin.wx = wx; pin.wy = wy; pin.sx = scene[0]; pin.sz = scene[1];
-      pin.h = sampleHeight(wx, wy);
-      changed = true;
-    });
-    if (changed) { invalidate(); }
-  }, 1000);
-}
-
 // Non-market survey labels retained for worlds that opt out of enrichment.
 var placeDots = [];
 
@@ -1310,6 +1764,7 @@ function buildPlaces(list) {
   placeDots = (list || []).map(function (p) {
     var s = toScene(p.x, p.y);
     return {
+      data: p,
       name: p.name,
       h: sampleHeight(p.x, p.y),
       sx: s[0],
@@ -1339,6 +1794,7 @@ function paintPlaces() {
   for (i = 0; i < placeDots.length; i++) {
     d = placeDots[i];
     d.vis = false;
+    if (!locationVisible(d.data)) { continue; }
     p = project(d.sx, d.h * exag + 0.003, d.sz);
     if (!p) { continue; }
     d.px = p[0]; d.py = p[1]; d.depth = p[2];
@@ -1353,7 +1809,7 @@ function paintPlaces() {
   ctx.fillStyle = '#ffffff';
   for (i = 0; i < vis.length; i++) {
     ctx.beginPath();
-    ctx.arc(vis[i].px, vis[i].py, 1.7, 0, Math.PI * 2);
+    ctx.arc(vis[i].px, vis[i].py, MAP_VIEW === 'planar' ? 5 * planarScale() : 1.7, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   }
@@ -1364,27 +1820,28 @@ function paintPlaces() {
   // named, zoomed in they separate and more of them earn a label. Market
   // labels are drawn after this and so always win the same space.
   if (!state.labels) { return; }
-  var budget = 80;
-  ctx.font = '9px ui-sans-serif, system-ui, sans-serif';
+  var budget = state.showAllLocationLabels ? Infinity : 80;
+  var labelScale = mapLabelScale();
+  ctx.font = mapLabelFont(9, false);
   ctx.textAlign = 'center';
   ctx.textBaseline = 'bottom';
   ctx.fillStyle = 'rgba(0, 0, 0, .7)';
   ctx.strokeStyle = 'rgba(255, 255, 255, .9)';
-  ctx.lineWidth = 2.5;
+  ctx.lineWidth = 2.5 * labelScale;
   var taken = [];
   // Nearest first, so the labels that survive are the ones closest to the eye.
   vis.sort(function (a, b) { return a.depth - b.depth; });
   for (i = 0; i < vis.length && taken.length < budget; i++) {
     d = vis[i];
     var clash = false;
-    for (var k = 0; k < taken.length; k++) {
-      if (Math.abs(taken[k][0] - d.px) < 58
-          && Math.abs(taken[k][1] - d.py) < 13) { clash = true; break; }
+    for (var k = 0; !state.showAllLocationLabels && k < taken.length; k++) {
+        if (Math.abs(taken[k][0] - d.px) < 58 * labelScale
+          && Math.abs(taken[k][1] - d.py) < 13 * labelScale) { clash = true; break; }
     }
     if (clash) { continue; }
     taken.push([d.px, d.py]);
-    ctx.strokeText(d.name, d.px, d.py - 3);
-    ctx.fillText(d.name, d.px, d.py - 3);
+    ctx.strokeText(d.name, d.px, d.py - 3 * labelScale);
+    ctx.fillText(d.name, d.px, d.py - 3 * labelScale);
   }
 }
 
@@ -1590,11 +2047,46 @@ function waterCoastDistance(column, row, radius) {
 }
 
 function waterRoute(startX, startY, endX, endY) {
+  return routedWaterPath(startX, startY, endX, endY, 0);
+}
+
+function coastDistanceField() {
+  if (mesh.coastDistances) { return mesh.coastDistances; }
+  var distances = new Float64Array(mesh.W * mesh.H);
+  var diagonal = Math.hypot(mesh.cellW, mesh.cellH);
+  for (var index = 0; index < distances.length; index++) {
+    distances[index] = isWaterCell(index % mesh.W, Math.floor(index / mesh.W)) ? Infinity : 0;
+  }
+  function relax(column, row, direction) {
+    var index = row * mesh.W + column;
+    var neighbours = [[column - direction, row, mesh.cellW],
+      [column, row - direction, mesh.cellH],
+      [column - direction, row - direction, diagonal],
+      [column + direction, row - direction, diagonal]];
+    neighbours.forEach(function (next) {
+      if (next[0] >= 0 && next[0] < mesh.W && next[1] >= 0 && next[1] < mesh.H) {
+        distances[index] = Math.min(distances[index], distances[next[1] * mesh.W + next[0]] + next[2]);
+      }
+    });
+  }
+  for (var row = 0; row < mesh.H; row++) {
+    for (var column = 0; column < mesh.W; column++) { relax(column, row, 1); }
+  }
+  for (var row = mesh.H - 1; row >= 0; row--) {
+    for (var column = mesh.W - 1; column >= 0; column--) { relax(column, row, -1); }
+  }
+  var shoreline = Math.min(mesh.cellW, mesh.cellH) / 2;
+  mesh.coastDistances = distances.map(function (distance) { return Math.max(0, distance - shoreline); });
+  return mesh.coastDistances;
+}
+
+function routedWaterPath(startX, startY, endX, endY, coastMiles) {
   var starts = waterCellsNear(startX, startY, 12);
   var ends = waterCellsNear(endX, endY, 12);
   starts = localWaterCells(startX, startY, starts);
   ends = localWaterCells(endX, endY, ends);
   if (!starts.length || !ends.length) { return null; }
+  var coast = coastMiles ? coastDistanceField() : null;
   var size = mesh.W * mesh.H;
   var parents = new Int32Array(size);
   parents.fill(-1);
@@ -1629,7 +2121,10 @@ function waterRoute(startX, startY, endX, endY) {
       if (!isWaterCell(next[0], next[1])) { continue; }
       var index = next[1] * mesh.W + next[0];
       var diagonal = next[0] !== column && next[1] !== row;
-      var stepCost = (diagonal ? 3 : 2) + waterCoastDistance(next[0], next[1], 4) * 3;
+      if (coastMiles && diagonal && !fractionalWaterSegmentIsClear([column, row], next)) { continue; }
+      var penalty = coast ? Math.min(100, Math.round(Math.abs(coast[index] - coastMiles) * 4))
+        : waterCoastDistance(next[0], next[1], 4) * 3;
+      var stepCost = (diagonal ? 3 : 2) + penalty;
       var candidateCost = currentCost + stepCost;
       if (costs[index] >= 0 && costs[index] <= candidateCost) { continue; }
       costs[index] = candidateCost;
@@ -1648,7 +2143,12 @@ function waterRoute(startX, startY, endX, endY) {
   cells.reverse();
   var simple = [cells[0]];
   for (var from = 0; from < cells.length - 1;) {
-    var to = Math.min(cells.length - 1, from + 8);
+    var to = coastMiles ? from + 1 : Math.min(cells.length - 1, from + 8);
+    if (coastMiles) {
+      var deltaColumn = cells[to][0] - cells[from][0], deltaRow = cells[to][1] - cells[from][1];
+      while (to + 1 < cells.length && cells[to + 1][0] - cells[to][0] === deltaColumn &&
+          cells[to + 1][1] - cells[to][1] === deltaRow) { to++; }
+    }
     while (to > from + 1 && !fractionalWaterSegmentIsClear(cells[from], cells[to])) { to--; }
     simple.push(cells[to]);
     from = to;
@@ -1713,11 +2213,11 @@ function routeTypeLabel(kind) {
 
 function routeTypeIcon(kind) {
   var icons = {
-    road: '\u2194', trail: '\u2022', sea: '\u26f5',
-    river: '\u224b', barge: '\u25ad', ferry: '\u21c4', portage: '\u2191',
-    tunnel: '\u25c9', air: '\\ud83e\\udd85', skyship: '\u2708'
+    road: '↔', trail: '•', sea: '⛵',
+    river: '≋', barge: '▭', ferry: '⇄', portage: '↑',
+    tunnel: '◉', air: '\ud83e\udd85', skyship: '✈'
   };
-  return icons[kind] || '\u25c6';
+  return icons[kind] || '◆';
 }
 
 function routeTime(days) {
@@ -1740,7 +2240,7 @@ function routeCarrierTable(details, routeIndex) {
     carriers.map(function (carrier) {
       var serviceControl = carrier.multileg ? '<button class="carrierselect" type="button" aria-pressed="' +
         (state.selectedCarrierService === carrier.service_id ? 'true' : 'false') +
-        '" onclick="selectRouteCarrier(' + routeIndex + ', \\'' + esc(carrier.service_id) + '\\')">' +
+        '" onclick="selectRouteCarrier(' + routeIndex + ', \'' + esc(carrier.service_id) + '\')">' +
         (state.selectedCarrierService === carrier.service_id ? 'All legs selected' : 'Select all legs') + '</button>' : '';
       return '<tr><td><b>' + esc(carrier.name) + '</b>' +
         (showModes ? '<span>' + esc(routeTypeLabel(carrier.mode)) + '</span>' : '') + serviceControl + '</td>' +
@@ -1753,6 +2253,7 @@ function routeCarrierTable(details, routeIndex) {
 }
 
 function routeMatchesFilter(line, allowPlannedInferred) {
+  if (MAP_VIEW === 'planar') { return planarLegVisible(line); }
   if (line.inferredRoad && !state.inferredRoads && !allowPlannedInferred) { return false; }
   if (!state.routeTypes.length) { return true; }
   var modes = line.details && line.details.modes ? line.details.modes : [line.kind];
@@ -1781,6 +2282,8 @@ function multilegService(line) {
 
 function routeDisplayColor(line) {
   if (line.details && line.details.unavailable) { return 'rgba(130, 130, 130, .48)'; }
+  if (line.kind === 'track') { return '#d52323'; }
+  if (line.kind === 'trail') { return '#ffcd44'; }
   var service = multilegService(line);
   if (service && service.service_class === 'ground') {
     return GROUND_MULTILEG_ROUTE_STYLE;
@@ -1791,8 +2294,9 @@ function routeDisplayColor(line) {
 
 function routeLineDash(line) {
   if (line.details && line.details.unavailable) { return [5, 7]; }
+  if (line.kind === 'track') { return [7, 14]; }
+  if (line.kind === 'trail') { return [0, 8]; }
   if (line.multi) { return [8, 5]; }
-  if (line.kind === 'trail') { return [7, 5]; }
   if (line.kind === 'portage' || line.kind === 'teleport') { return [2, 5]; }
   return [];
 }
@@ -1924,6 +2428,8 @@ function rebuildRouteGeometry() {
     }
     routeLines.push({
       xs: xs, zs: zs, hs: hs, kind: roadKind,
+      editId: 'road:' + JSON.stringify([road.id || road.name, road.a || '', road.b || '']),
+      sourcePoints: points,
       multi: false, traced: true,
       details: routeDetails(roadSpec, points, byId, road.name, roadKind)
     });
@@ -1971,6 +2477,8 @@ function rebuildRouteGeometry() {
     }
     routeLines.push({
       xs: xs, zs: zs, hs: hs, kind: routeKind,
+      editId: 'survey:' + JSON.stringify([route.id || route.name, route.from || '', route.to || '']),
+      sourcePoints: points,
       lifts: lifts, multi: !!route.multimodal, traced: true,
       details: routeDetails(tracedSpec, points, byId, route.name, routeKind)
     });
@@ -2010,6 +2518,7 @@ function rebuildRouteGeometry() {
       }
       routeLines.push({
         xs: waterXs, zs: waterZs, hs: waterHs, kind: r.kind,
+        editId: 'route:' + routeLegKey(r), sourcePoints: waterPoints,
         multi: !!r.multimodal, waterRouted: true, inferredRoad: !!r.inferred,
         details: routeDetails(r, waterPoints, byId, r.name, r.kind)
       });
@@ -2027,6 +2536,7 @@ function rebuildRouteGeometry() {
       }
       routeLines.push({
         xs: landXs, zs: landZs, hs: landHs, kind: r.kind,
+        editId: 'route:' + routeLegKey(r), sourcePoints: landPoints,
         multi: !!r.multimodal, landRouted: !airGoing, airRouted: airGoing,
         inferredRoad: !!r.inferred || (r.kind === 'road' && roadGeometrySpec.length > 0),
         details: routeDetails(r, landPoints, byId, r.name, r.kind)
@@ -2057,10 +2567,13 @@ function rebuildRouteGeometry() {
     }
     routeLines.push({
       xs: xs, zs: zs, hs: hs, kind: r.kind, lifts: lifts,
+      editId: 'route:' + routeLegKey(r), sourcePoints: [[a.wx, a.wy], [b.wx, b.wy]],
       multi: !!r.multimodal, inferredRoad: !!r.inferred,
       details: routeDetails(r, [[a.wx, a.wy], [b.wx, b.wy]], byId, r.name, r.kind)
     });
   });
+  baseRouteLines = routeLines.slice();
+  applyMapLegEdits();
 }
 
 // ---------------------------------------------------------------------------
@@ -2192,7 +2705,7 @@ function refreshCalibWarp() {
 // trust whatever the server sent, so a saved calibration never flickers back to
 // the shipped position while /api/calibration is still in flight.
 function calibratedXY(s) {
-  if (s.mobile) { return [s.x, s.y]; }
+  if (s.mobile || s.mapPositionEdited) { return [s.x, s.y]; }
   if (!calibWarp) { return [s.x, s.y]; }
   var bx = (s.bx === undefined || s.bx === null) ? s.x : s.bx;
   var by = (s.by === undefined || s.by === null) ? s.y : s.by;
@@ -2428,6 +2941,13 @@ function projectGlobe(x, y, z) {
 }
 
 function project(x, y, z) {
+  if (MAP_VIEW === 'planar') {
+    var scale = planarScale() * SCALE;
+    _pt[0] = cam.cx + (x - state.tx) * scale;
+    _pt[1] = cam.cy + (z - state.tz) * scale;
+    _pt[2] = 1;
+    return _pt;
+  }
   if (state.globe) { return projectGlobe(x, y, z); }
   var dx = x - cam.ex, dy = y - cam.ey, dz = z - cam.ez;
   var vz = dx * cam.fx + dy * cam.fy + dz * cam.fz;
@@ -2527,6 +3047,7 @@ function minDistance() {
 }
 
 function fitView() {
+  if (MAP_VIEW === 'planar') { return; }
   // The poster page is its image, not the larger terrain union behind it.
   // Fitting that exact calibrated footprint preserves the artwork's aspect.
   var b = state.roundWorld ? roundWorldBounds() : (posterBounds() || mesh.bounds);
@@ -3117,13 +3638,25 @@ function posterOnlyActive() { return MAP_VIEW === 'overlay' && state.posterOnly;
 function drawUnderlay() {
   var img = state.under;
   var posterOnly = posterOnlyActive();
-  if ((!state.underOn && !posterOnly) || !img || !img.width || !img.height) { return; }
-  if (!posterOnly && state.underAlpha <= 0.001) { return; }
+  if (!img || !img.width || !img.height) { return; }
+  if ((state.underOn || posterOnly) && (posterOnly || state.underAlpha > 0.001)) {
+    drawUnderlayLayer(img, posterOnly ? 1 : state.underAlpha, posterOnly);
+  }
+  if (!posterOnly && state.rasterLayers) {
+    Object.values(state.rasterLayers).forEach(function (layer) {
+      if (layer.on && layer.image && layer.alpha > 0) {
+        drawUnderlayLayer(layer.image, layer.alpha, false);
+      }
+    });
+  }
+}
+
+function drawUnderlayLayer(img, alpha, posterOnly) {
   if (!underCanvas.width || !underCanvas.height) { return; }
 
   var iw = img.width, ih = img.height;
-  var mppX = state.underMpp;
-  var mppY = state.underMpp * state.underStretch;
+  var mppX = state.underMpp * state.under.width / iw;
+  var mppY = state.underMpp * state.underStretch * state.under.height / ih;
   if (!(mppX > 0) || !(mppY > 0)) { return; }
 
   // Canvas 2D can only do affine transforms, but the poster lies on a plane
@@ -3208,7 +3741,7 @@ function drawUnderlay() {
 
   var prev = ctx.globalAlpha;
   var prevComposite = ctx.globalCompositeOperation;
-  ctx.globalAlpha = posterOnly ? 1 : state.underAlpha;
+  ctx.globalAlpha = alpha;
   // Multiply retains the terrain's fixed-light shading instead of replacing it
   // with a visually flat poster at higher fade values.
   ctx.globalCompositeOperation = 'multiply';
@@ -3314,6 +3847,7 @@ function drawRoutes() {
           && (line.details.a === selectedLocation || line.details.b === selectedLocation))));
       if (focusOn && !active) { continue; }
       var width = ROUTE_WIDTH[line.kind] || 2.1;
+      if (planFocus && active) { width *= 2; }
       ctx.setLineDash(routeLineDash(line));
       var curves = projectedRouteCurves(line);
       ctx.beginPath();
@@ -3340,6 +3874,10 @@ function drawRoutes() {
         ctx.strokeStyle = dimmed ? 'rgba(116, 116, 116, .52)' : routeDisplayColor(line);
         ctx.lineWidth = dimmed ? Math.max(1.4, width - 0.5) : width;
         ctx.stroke();
+        if (planFocus && active && routeAnimationActive()) {
+          ctx.save(); ctx.setLineDash([10, 18]); ctx.lineDashOffset = -performance.now() / 45;
+          ctx.lineWidth = width / 2; ctx.strokeStyle = '#ffffff'; ctx.stroke(); ctx.restore();
+        }
       }
     }
   }
@@ -3374,7 +3912,7 @@ function routeIconPoint(line, exag) {
 
 function drawRouteIcon(x, y, line, dimmed) {
   var complex = !!multilegService(line);
-  var glyph = complex ? '\u21dd' : routeTypeIcon(line.kind);
+  var glyph = complex ? '⇝' : routeTypeIcon(line.kind);
   var color = dimmed ? 'rgba(100, 100, 100, .82)' : routeDisplayColor(line);
   ctx.save();
   ctx.setLineDash([]);
@@ -3456,6 +3994,126 @@ function drawPortIcon(x, y, radius) {
   ctx.restore();
 }
 
+function plannedLocation(name) {
+  return !!(state.planRoute && !legEditor.enabled && (state.planRoute.legs || []).some(function (leg) {
+    return leg.from === name || leg.to === name;
+  }));
+}
+
+function routeAnimationsEnabled() {
+  return state.animateRoutes === null
+    ? !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : state.animateRoutes;
+}
+
+function routeAnimationActive() {
+  return !!(state.planRoute && !legEditor.enabled && routeAnimationsEnabled());
+}
+
+function wireRouteAnimation() {
+  var input = document.getElementById('animate-routes');
+  var key = 'faerun-map-animate-routes';
+  try {
+    var saved = window.localStorage.getItem(key);
+    if (saved !== null && saved !== 'true' && saved !== 'false') {
+      throw new Error('Invalid saved route animation preference');
+    }
+    state.animateRoutes = saved === null ? null : saved === 'true';
+  } catch (err) {
+    console.error('Route animation preference could not be restored.', err);
+    showStatus('Route animation preference could not be restored.', true);
+  }
+  input.checked = routeAnimationsEnabled();
+  input.addEventListener('change', function () {
+    state.animateRoutes = input.checked;
+    invalidate();
+    try {
+      window.localStorage.setItem(key, String(state.animateRoutes));
+    } catch (err) {
+      console.error('Route animation preference could not be saved.', err);
+      showStatus('Route animation preference could not be saved; this choice applies only to this page.', true);
+    }
+  });
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function () {
+    if (state.animateRoutes === null) {
+      input.checked = routeAnimationsEnabled();
+      invalidate();
+    }
+  });
+}
+
+function drawRoutePulse(x, y, radius) {
+  if (!routeAnimationActive()) { return; }
+  var phase = (performance.now() % 1600) / 1600;
+  ctx.save(); ctx.setLineDash([]);
+  ctx.globalAlpha *= 1 - phase;
+  ctx.strokeStyle = '#d62f39'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(x, y, radius + 3 + phase * 10, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+}
+
+function mapPinRadius(pin, selected, hovered) {
+  var emphasis = plannedLocation(pin.data.name) ? 2 : 1;
+  if (MAP_VIEW === 'planar') {
+    return (pin.data.mobile ? 2.5 : 3.75) * planarScale() * emphasis;
+  }
+  return pin.radius * (pin.data.mobile ? 1 : 0.75) * (selected ? 1.5 : (hovered ? 1.25 : 1)) * emphasis;
+}
+
+function caravanIconPosition(pin) {
+  var hostId = pin.data.status === 'encamped' && pin.data.host && pin.data.host.id;
+  var host = hostId && pins.find(function (candidate) { return candidate.data.id === hostId; });
+  var anchor = host && host.vis ? host : pin;
+  if (MAP_VIEW === 'planar' && !host) { return {x: pin.px, y: pin.py}; }
+  var radius = mapPinRadius(anchor, state.selected === anchor.data.id, state.hover === pins.indexOf(anchor));
+  var companions = host ? pins.filter(function (candidate) {
+    return candidate.vis && candidate.data.mobile && candidate.data.status === 'encamped' &&
+      candidate.data.host && candidate.data.host.id === hostId;
+  }).sort(function (left, right) { return left.data.id.localeCompare(right.data.id); }) : [pin];
+  var markerRadius = MAP_VIEW === 'planar' ? companions.reduce(function (largest, candidate) {
+    return Math.max(largest, mapPinRadius(candidate, false, false));
+  }, mapPinRadius(pin, false, false)) : 18;
+  var gap = MAP_VIEW === 'planar' ? 1.25 * planarScale() : 6;
+  var spacing = markerRadius * 2 + gap;
+  var distance = radius + markerRadius + gap;
+  var index = Math.max(0, companions.indexOf(pin));
+  // Use chord spacing to fit a chain around each ring without overlapping icons.
+  var capacity = Math.max(1, Math.floor(Math.PI / Math.asin(Math.min(1, spacing / (2 * distance)))));
+  while (index >= capacity) {
+    index -= capacity;
+    distance += spacing;
+    capacity = Math.max(1, Math.floor(Math.PI / Math.asin(spacing / (2 * distance))));
+  }
+  var angle = -Math.PI / 2 + index * 2 * Math.PI / capacity;
+  return {x: anchor.px + Math.cos(angle) * distance, y: anchor.py + Math.sin(angle) * distance};
+}
+
+function drawCaravanMarker(pin) {
+  var center = caravanIconPosition(pin);
+  var radius = mapPinRadius(pin, false, false);
+  ctx.save(); ctx.setLineDash([]);
+  ctx.beginPath(); ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffffff'; ctx.fill();
+  ctx.strokeStyle = '#000000'; ctx.lineWidth = 0.2 * planarScale(); ctx.stroke();
+  // The covered wagon's full bounds fit inside the circle at every zoom.
+  ctx.translate(center.x, center.y);
+  ctx.scale(radius / 18, radius / 18);
+  drawCaravanIcon(0, 0, '#8a4d23');
+  ctx.restore();
+}
+
+function drawCaravanIcon(x, y, color) {
+  ctx.save(); ctx.setLineDash([]); ctx.lineWidth = 2;
+  ctx.strokeStyle = '#ffffff'; ctx.fillStyle = color;
+  ctx.beginPath(); ctx.rect(x - 9, y - 6, 18, 10); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x - 9, y - 6);
+  ctx.quadraticCurveTo(x, y - 15, x + 9, y - 6); ctx.stroke();
+  [-5, 5].forEach(function (offset) {
+    ctx.beginPath(); ctx.arc(x + offset, y + 6, 3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  });
+  ctx.restore();
+}
+
 function drawPins() {
   var exag = state.exag;
   var order = [];
@@ -3463,6 +4121,7 @@ function drawPins() {
   for (var i = 0; i < pins.length; i++) {
     var pin = pins[i];
     pin.vis = false;
+    if (!locationVisible(pin.data)) { continue; }
     if (pin.data.surveyed && !state.places) { continue; }
     // Seated on the ground itself. Nudged up by a hair only so the dot is not
     // z-fought by the terrain quad it stands on.
@@ -3472,34 +4131,39 @@ function drawPins() {
     pin.vis = true;
     order.push(i);
   }
-  order.sort(function (a, b) { return pins[b].depth - pins[a].depth; });
+  order.sort(function (a, b) {
+    return Number(!!pins[a].data.mobile) - Number(!!pins[b].data.mobile) || pins[b].depth - pins[a].depth;
+  });
 
   for (var k = 0; k < order.length; k++) {
     var s = pins[order[k]];
     var selected = state.selected === s.data.id;
     var hovered = state.hover === order[k];
 
-    var r = s.radius * (selected ? 1.5 : (hovered ? 1.25 : 1));
-    if (state.heatById) {
+    var r = mapPinRadius(s, selected, hovered);
+    if (plannedLocation(s.data.name)) { drawRoutePulse(s.px, s.py, r); }
+    if (MAP_VIEW === 'planar' && s.data.mobile) {
+      drawCaravanMarker(s);
+      continue;
+    }
+    if (state.heatById && !(MAP_VIEW === 'planar' && s.data.mobile)) {
       drawPriceTower(s, r, selected);
       continue;
     }
     ctx.beginPath();
-    if (s.data.mobile) {
-      ctx.moveTo(s.px, s.py - r * 1.4);
-      ctx.lineTo(s.px + r * 1.4, s.py);
-      ctx.lineTo(s.px, s.py + r * 1.4);
-      ctx.lineTo(s.px - r * 1.4, s.py);
-      ctx.closePath();
+    if (s.data.mapOnly && MAP_VIEW !== 'planar') {
+      ctx.rect(s.px - r, s.py - r, r * 2, r * 2);
     } else {
       ctx.arc(s.px, s.py, r, 0, Math.PI * 2);
     }
-    ctx.fillStyle = pinFill(s, state.routeTypes.length > 0 && !routeConnected.has(s.data.id));
+    ctx.fillStyle = MAP_VIEW === 'planar' && s.data.mobile ? '#ffffff' :
+      pinFill(s, state.routeTypes.length > 0 && !routeConnected.has(s.data.id));
     ctx.fill();
-    ctx.lineWidth = selected ? 3 : 2;
-    ctx.strokeStyle = '#ffffff';
+    var scaledBorder = MAP_VIEW === 'planar';
+    ctx.lineWidth = scaledBorder ? 0.6 * planarScale() : (selected ? 4 : 3);
+    ctx.strokeStyle = scaledBorder ? '#000000' : '#ffffff';
     ctx.stroke();
-    if (selected) {
+    if (selected && !scaledBorder) {
       // A white ring alone would vanish against snow or glacier, so the
       // selected dot gets a second black ring just outside it.
       ctx.lineWidth = 1;
@@ -3509,7 +4173,14 @@ function drawPins() {
       ctx.stroke();
     }
 
-    if (s.data.port) { drawPortIcon(s.px, s.py, r); }
+    if (MAP_VIEW === 'planar') { drawLocationTypeIcon(s.data, s.px, s.py, r); }
+    if (locationIsPort(s.data) && (MAP_VIEW !== 'planar' || !['city', 'capital'].includes(locationType(s.data)))) {
+      drawPortIcon(s.px, s.py, r);
+    }
+    if (s.data.mobile) {
+      var caravan = caravanIconPosition(s);
+      drawCaravanIcon(caravan.x, caravan.y, '#8a4d23');
+    }
     if (s.data.gryphonPort) { drawGryphonIcon(s.px, s.py - r - 6, '#7a3b12'); }
 
     if (state.calibOn) {
@@ -3533,7 +4204,7 @@ function drawPins() {
       }
     }
   }
-  if (state.labels) { drawLabels(order); }
+  if (state.labels || state.companyLabels === 'show') { drawLabels(order); }
 }
 
 function priceTowerStyle(pin) {
@@ -3651,25 +4322,36 @@ function pinFill(pin, disconnected) {
 }
 
 function drawLabels(order) {
-  ctx.font = LABEL_FONT;
+  var labelScale = mapLabelScale();
+  ctx.font = mapLabelFont(12, false);
+  ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
   var taken = [];
   // Draw the nearest labels first so they win the space.
   for (var k = order.length - 1; k >= 0; k--) {
     var s = pins[order[k]];
     var d = s.data;
+    if (d.mobile && state.companyLabels === 'hide') { continue; }
+    var showCompany = d.mobile && state.companyLabels === 'show';
+    if (!state.labels && !showCompany) { continue; }
+    var showAll = state.showAllLocationLabels || showCompany;
     var important = state.selected === d.id || state.hover === order[k];
-    if (!important && d.population < 12000) { continue; }
+    if (!showAll && !important && d.population < 12000) { continue; }
     var text = d.name;
     // Set the font before measuring, so the collision box matches the weight
     // the label is actually drawn at.
-    ctx.font = important ? LABEL_FONT_BOLD : LABEL_FONT;
+    ctx.font = mapLabelFont(12, important);
     var w = ctx.measureText(text).width;
-    var lx = (state.heatById ? s.towerTipX : s.px) + s.radius + 5;
-    var ly = (state.heatById ? s.towerTipY : s.py) - 4;
-    var box = [lx - 2, ly - 8, lx + w + 2, ly + 8];
+    var marker = d.mobile ? caravanIconPosition(s) :
+      {x: state.heatById ? s.towerTipX : s.px, y: state.heatById ? s.towerTipY : s.py};
+    var lx = marker.x + mapPinRadius(s, state.selected === d.id, state.hover === order[k]) + 5 * labelScale;
+    var ly = marker.y - 4 * labelScale;
+    if (MAP_VIEW === 'planar' && d.mobile && d.status === 'encamped') {
+      ly = marker.y + mapPinRadius(s, false, false) + 10 * labelScale;
+    }
+    var box = [lx - 2 * labelScale, ly - 8 * labelScale, lx + w + 2 * labelScale, ly + 8 * labelScale];
     var clash = false;
-    for (var t = 0; t < taken.length; t++) {
+    for (var t = 0; !showAll && t < taken.length; t++) {
       var o = taken[t];
       if (box[0] < o[2] && box[2] > o[0] && box[1] < o[3] && box[3] > o[1]) {
         clash = true;
@@ -3682,7 +4364,7 @@ function drawLabels(order) {
     // black labels legible over dark forest and pale sea alike. The font has
     // to be set before the halo is stroked so the outline matches the glyphs
     // it is meant to be backing.
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 3 * labelScale;
     ctx.strokeStyle = 'rgba(255, 255, 255, .92)';
     ctx.strokeText(text, lx, ly);
     ctx.fillStyle = '#000000';
@@ -3690,8 +4372,1019 @@ function drawLabels(order) {
   }
 }
 
+function planarScale() {
+  return Math.max(1, Math.min(cam.cx, cam.cy) - 24) / state.planarRadius;
+}
+
+function planarPoint(worldX, worldY) {
+  var scale = planarScale();
+  return [cam.cx + (worldX - mesh.cx - state.tx * SCALE) * scale,
+          cam.cy + (worldY - mesh.cy - state.tz * SCALE) * scale];
+}
+
+function setPlanarRadius(radius) {
+  state.planarRadius = Number(radius);
+  document.getElementById('planar-radius').value = String(radius);
+  if (state.selected) { focusSettlement(state.selected); }
+  invalidate();
+}
+
+function stepPlanarRadius(direction) {
+  var radii = [50, 100, 200, 500];
+  var index = radii.indexOf(state.planarRadius);
+  setPlanarRadius(radii[clamp(index + direction, 0, radii.length - 1)]);
+}
+
+function drawPlanarGrid(left, top, right, bottom) {
+  var cell = state.planarCell;
+  var scale = planarScale();
+  if (cell * scale < 3) { return; }
+  ctx.lineWidth = 1;
+  if (state.planarGrid === 'square' || state.planarGrid === 'both') {
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(20, 55, 85, .48)';
+    for (var column = Math.floor(left / cell); column <= Math.ceil(right / cell); column++) {
+      var squareTop = planarPoint(column * cell, top);
+      var squareBottom = planarPoint(column * cell, bottom);
+      ctx.moveTo(squareTop[0], squareTop[1]); ctx.lineTo(squareBottom[0], squareBottom[1]);
+    }
+    for (var row = Math.floor(top / cell); row <= Math.ceil(bottom / cell); row++) {
+      var squareLeft = planarPoint(left, row * cell);
+      var squareRight = planarPoint(right, row * cell);
+      ctx.moveTo(squareLeft[0], squareLeft[1]); ctx.lineTo(squareRight[0], squareRight[1]);
+    }
+    ctx.stroke();
+  }
+  if (state.planarGrid === 'hex' || state.planarGrid === 'both') {
+    var side = cell / Math.sqrt(3);
+    var rowHeight = side * 1.5;
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(65, 30, 45, .55)';
+    for (var hexRow = Math.floor(top / rowHeight) - 1; hexRow <= Math.ceil(bottom / rowHeight) + 1; hexRow++) {
+      var offset = ((hexRow % 2) + 2) % 2 * cell / 2;
+      for (var hexColumn = Math.floor(left / cell) - 1; hexColumn <= Math.ceil(right / cell) + 1; hexColumn++) {
+        var center = planarPoint(hexColumn * cell + offset, hexRow * rowHeight);
+        for (var corner = 0; corner < 6; corner++) {
+          var angle = Math.PI / 3 * corner - Math.PI / 2;
+          var cornerX = center[0] + Math.cos(angle) * side * scale;
+          var cornerY = center[1] + Math.sin(angle) * side * scale;
+          if (!corner) { ctx.moveTo(cornerX, cornerY); } else { ctx.lineTo(cornerX, cornerY); }
+        }
+        ctx.closePath();
+      }
+    }
+    ctx.stroke();
+  }
+}
+
+function applyMapLegEdits() {
+  var originals = {};
+  baseRouteLines.forEach(function (line) { originals[line.editId] = line; });
+  routeLines = baseRouteLines.filter(function (line) { return !mapLegEdits.legs[line.editId]; });
+  routeLines = routeLines.map(function (line) {
+    var name = (mapLegEdits.names || {})[line.editId];
+    return name ? Object.assign({}, line, {details: Object.assign({}, line.details, {name: name})}) : line;
+  });
+  Object.keys(mapLegEdits.legs).forEach(function (identifier) {
+    var saved = mapLegEdits.legs[identifier];
+    if (saved.deleted) { return; }
+    var original = originals[identifier];
+    var geometry = saved.path || saved.points;
+    var distance = 0;
+    geometry.forEach(function (point, index) {
+      if (index) { distance += Math.hypot(point[0] - geometry[index - 1][0], point[1] - geometry[index - 1][1]); }
+    });
+    var line = Object.assign({}, original || {}, {editId: identifier, sourcePoints: geometry,
+      waypoints: saved.points, pointIndices: saved.pointIndices,
+      kind: saved.kind, traced: true, inferredRoad: false, lifts: null, multi: false,
+      xs: [], zs: [], hs: [], details: Object.assign({}, original ? original.details : {},
+        {name: saved.name, kind: saved.kind, modes: [saved.kind], distance: distance, carriers: []})});
+    geometry.forEach(function (point) {
+      var scene = toScene(point[0], point[1]);
+      line.xs.push(scene[0]); line.zs.push(scene[1]); line.hs.push(Math.max(0, sampleHeight(point[0], point[1])));
+    });
+    routeLines.push(line);
+  });
+  state.selectedRoute = -1;
+  invalidate();
+}
+
+function legMessage(message) { document.getElementById('leg-edit-status').textContent = message; }
+
+function planarLegEndpoints(points) {
+  function endpoint(point) {
+    var junction = Object.values(mapLegEdits.junctions || {}).find(function (item) {
+      return Math.hypot(item.point[0] - point[0], item.point[1] - point[1]) < 0.001;
+    });
+    if (junction) { return {point: junction.point, name: junction.name, distance: 0}; }
+    var closest = null, distance = Infinity;
+    (pins || []).forEach(function (pin) {
+      if (pin.data.mobile) { return; }
+      var miles = Math.hypot(pin.wx - point[0], pin.wy - point[1]);
+      if (miles < distance) { closest = pin; distance = miles; }
+    });
+    return {point: closest ? [closest.wx, closest.wy] : point,
+      name: closest ? closest.data.name : 'Unknown', distance: distance};
+  }
+  if (!points || points.length < 2) { return null; }
+  var ends = [endpoint(points[0]), endpoint(points[points.length - 1])];
+  ends.sort(function (left, right) {
+    return left.point[1] - right.point[1] || left.point[0] - right.point[0];
+  });
+  return {origin: ends[0], destination: ends[1]};
+}
+
+function legEndpointLabel(endpoint) {
+  return endpoint.name + (Number.isFinite(endpoint.distance) && endpoint.distance > 2.5
+    ? ' (nearest, ' + endpoint.distance.toFixed(1) + ' mi)' : '');
+}
+
+function namedRoadLeg(draft) {
+  if (draft.kind !== 'road') { return draft.name; }
+  var endpoints = planarLegEndpoints(draft.points);
+  if (!endpoints || endpoints.origin.name === 'Unknown' || endpoints.destination.name === 'Unknown') { return draft.name; }
+  var base = String(draft.name).replace(/: .* to .*$/, '').replace(/ [(]part [12][)]$/, '').trim();
+  return base + ': ' + endpoints.origin.name + ' to ' + endpoints.destination.name;
+}
+
+function syncLegEditor() {
+  var draft = legEditor.draft, busy = legEditor.saving;
+  var endpoints = draft && planarLegEndpoints(draft.points);
+  document.getElementById('leg-origin').textContent = endpoints ? legEndpointLabel(endpoints.origin) : '-';
+  document.getElementById('leg-destination').textContent = endpoints ? legEndpointLabel(endpoints.destination) : '-';
+  document.getElementById('leg-edit-tools').hidden = !legEditor.enabled;
+  document.getElementById('leg-edit-enabled').checked = legEditor.enabled;
+  document.getElementById('leg-edit-enabled').disabled = !legEditor.ready || busy || !!(locationEditor && locationEditor.enabled);
+  ['name', 'kind'].forEach(function (field) {
+    var control = document.getElementById('leg-' + field);
+    control.disabled = !draft || busy;
+    control.value = draft ? draft[field] : (field === 'kind' ? 'road' : '');
+  });
+  document.getElementById('leg-new').disabled = busy || !legEditor.ready;
+  document.getElementById('leg-save').disabled = busy || !draft || draft.points.length < 2 || !legEditor.dirty;
+  document.getElementById('leg-delete').disabled = busy || !draft || legEditor.creating;
+  document.getElementById('leg-cancel').disabled = busy || !draft;
+  document.getElementById('leg-insert').disabled = busy || !draft || legEditor.creating;
+  document.getElementById('leg-insert').setAttribute('aria-pressed', String(legEditor.insert));
+  document.getElementById('leg-add-point').disabled = busy || !draft;
+  document.getElementById('leg-add-point').setAttribute('aria-pressed', String(!!legEditor.add));
+  document.getElementById('leg-remove-point').disabled = busy || !draft || legEditor.point < 0 || draft.points.length <= 2;
+  document.getElementById('leg-undo').disabled = busy || !legEditor.undo.length;
+  document.getElementById('leg-redo').disabled = busy || !legEditor.redo.length;
+  var dailyMiles = draft ? legDailyMiles(draft.kind) : 0;
+  document.getElementById('leg-smooth').disabled = busy || !draft || draft.points.length < 2 || !dailyMiles;
+  document.getElementById('leg-curve').disabled = busy || !draft || draft.points.length < 2;
+  document.getElementById('leg-coast').disabled = busy || !draft || draft.points.length < 2 || draft.kind !== 'sea';
+  document.getElementById('leg-curvature').disabled = busy || !draft || draft.points.length < 2;
+  document.getElementById('leg-straighten').disabled = busy || !draft || !draft.path;
+  document.getElementById('leg-day-rate').textContent = draft
+    ? (dailyMiles ? dailyMiles + ' mi/day (' + (dailyMiles / 3).toFixed(1) + ' leagues)' : 'No daily travel rate') : '';
+  document.getElementById('leg-split').disabled = busy || !draft || legEditor.point <= 0 || legEditor.point >= draft.points.length - 1;
+  document.getElementById('leg-junction').disabled = busy || !draft || draft.points.length < 2 ||
+    !['road', 'trail', 'track'].includes(draft.kind) || legEditor.point < 0;
+  document.getElementById('leg-point-count').textContent = draft
+    ? draft.points.length + ' waypoints / ' + Math.max(0, draft.points.length - 1) + ' segments' +
+      (legEditor.point >= 0 ? ' / Point ' + (legEditor.point + 1) : '') + (legEditor.dirty ? ' / Unsaved' : '') : '';
+}
+
+async function discardLegDraft() {
+  if (legEditor.saving) { return false; }
+  if (legEditor.dirty) {
+    if (!window.confirm('Save route leg changes before continuing?')) { return false; }
+    await saveLegDraft(false);
+    if (legEditor.dirty) { return false; }
+  }
+  legEditor.draft = null; legEditor.point = -1; legEditor.insert = false;
+  legEditor.add = false; legEditor.snapTarget = null;
+  legEditor.creating = false; legEditor.dirty = false; legEditor.undo = []; legEditor.redo = [];
+  legEditor.drag = null;
+  syncLegEditor(); invalidate(); return true;
+}
+
+function rememberLeg() {
+  legEditor.undo.push(JSON.stringify(legEditor.draft));
+  if (legEditor.undo.length > 100) { legEditor.undo.shift(); }
+  legEditor.redo = []; legEditor.dirty = true;
+}
+
+function legHistory(undo) {
+  var source = undo ? legEditor.undo : legEditor.redo;
+  var target = undo ? legEditor.redo : legEditor.undo;
+  if (!source.length || legEditor.saving) { return; }
+  target.push(JSON.stringify(legEditor.draft));
+  legEditor.draft = JSON.parse(source.pop()); legEditor.point = -1; legEditor.dirty = true;
+  syncLegEditor(); invalidate();
+}
+
+function legWorldPoint(screenX, screenY) {
+  return [mesh.cx + state.tx * SCALE + (screenX - cam.cx) / planarScale(),
+          mesh.cy + state.tz * SCALE + (screenY - cam.cy) / planarScale()];
+}
+
+function nearestLegSegment(points, screenX, screenY) {
+  var best = {index: -1, distance: 12 * 12, point: null};
+  for (var index = 1; index < points.length; index++) {
+    var start = planarPoint(points[index - 1][0], points[index - 1][1]);
+    var end = planarPoint(points[index][0], points[index][1]);
+    var deltaX = end[0] - start[0], deltaY = end[1] - start[1];
+    var length = deltaX * deltaX + deltaY * deltaY;
+    var fraction = length ? clamp(((screenX - start[0]) * deltaX + (screenY - start[1]) * deltaY) / length, 0, 1) : 0;
+    var nearestX = start[0] + deltaX * fraction, nearestY = start[1] + deltaY * fraction;
+    var distance = Math.pow(nearestX - screenX, 2) + Math.pow(nearestY - screenY, 2);
+    if (distance < best.distance) { best = {index: index, distance: distance, point: legWorldPoint(nearestX, nearestY)}; }
+  }
+  return best;
+}
+
+function snappedLegPoint(screenX, screenY, bypass) {
+  var result = {point: legWorldPoint(screenX, screenY), label: ''};
+  var bestDistance = 14 * 14;
+  if (!bypass && document.getElementById('leg-snap').checked) {
+    function consider(point, label) {
+      var screen = planarPoint(point[0], point[1]);
+      var distance = Math.pow(screen[0] - screenX, 2) + Math.pow(screen[1] - screenY, 2);
+      if (distance <= bestDistance) {
+        bestDistance = distance; result = {point: point.slice(), label: label};
+      }
+    }
+    (routeLines || []).forEach(function (line) {
+      if (!planarLegVisible(line)) { return; }
+      if (legEditor.draft && line.editId === legEditor.draft.id) { return; }
+      (line.waypoints || line.sourcePoints || []).forEach(function (point, index) {
+        consider(point, (line.details.name || 'Leg') + ' / Point ' + (index + 1));
+      });
+    });
+    (pins || []).forEach(function (pin) {
+      if (!pin.data.mobile) { consider([pin.wx, pin.wy], pin.data.name); }
+    });
+    Object.values(mapLegEdits.junctions || {}).forEach(function (junction) {
+      consider(junction.point, junction.name);
+    });
+  }
+  legEditor.snapTarget = result.label ? result : null;
+  return result;
+}
+
+function addLegWaypoint(screenX, screenY, bypass) {
+  var target = snappedLegPoint(screenX, screenY, bypass);
+  var position = legEditor.point >= 0 ? legEditor.point + 1 : legEditor.draft.points.length;
+  rememberLeg();
+  insertLegWaypoint(legEditor.draft, position, target.point);
+  legEditor.point = position;
+  legMessage(target.label ? 'Snapped to ' + target.label : '');
+  syncLegEditor(); invalidate();
+}
+
+async function editLegAt(screenX, screenY) {
+  var nearest = null, distance = 144;
+  routeLines.forEach(function (line) {
+    if (!line.sourcePoints || !planarLegVisible(line)) { return; }
+    var hit = nearestLegSegment(line.sourcePoints, screenX, screenY);
+    if (hit.index >= 0 && hit.distance < distance) { nearest = line; distance = hit.distance; }
+  });
+  if (!nearest || !await discardLegDraft()) { return; }
+  legEditor.draft = {id: nearest.editId, name: nearest.details.name || 'Map leg', kind: nearest.kind,
+    points: (nearest.waypoints || nearest.sourcePoints).map(function (point) { return point.slice(); })};
+  if (nearest.pointIndices) {
+    legEditor.draft.path = nearest.sourcePoints.map(function (point) { return point.slice(); });
+    legEditor.draft.pointIndices = nearest.pointIndices.slice();
+  }
+  legMessage(''); syncLegEditor(); invalidate();
+}
+
+function junctionAt(screenX, screenY) {
+  return junctionLocations().find(function (location) {
+    var screen = planarPoint(location.x, location.y);
+    return Math.hypot(screenX - screen[0], screenY - screen[1]) <= 2.5 * planarScale() + 7;
+  });
+}
+
+function legPointerDown(event) {
+  if (MAP_VIEW !== 'planar' || !legEditor.enabled || event.shiftKey || event.button !== 0) { return false; }
+  if (legEditor.saving) { return true; }
+  var rect = canvas.getBoundingClientRect();
+  var screenX = event.clientX - rect.left, screenY = event.clientY - rect.top;
+  var draft = legEditor.draft;
+  if (!draft) {
+    var junction = junctionAt(screenX, screenY);
+    if (junction) { focusJunction(junction); return true; }
+  }
+  if (draft) {
+    var nearestPoint = -1, distance = 100;
+    draft.points.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      var delta = Math.pow(screen[0] - screenX, 2) + Math.pow(screen[1] - screenY, 2);
+      if (delta < distance) { nearestPoint = index; distance = delta; }
+    });
+    if (nearestPoint >= 0 && !legEditor.insert && !legEditor.add) {
+      legEditor.point = nearestPoint;
+      legEditor.drag = {pointer: event.pointerId, remembered: false};
+      canvas.setPointerCapture(event.pointerId); syncLegEditor(); invalidate(); return true;
+    }
+    if (legEditor.add || (legEditor.creating && !legEditor.insert)) {
+      addLegWaypoint(screenX, screenY, event.altKey); return true;
+    }
+    if (legEditor.insert) {
+      var segment = nearestLegSegment(draft.path || draft.points, screenX, screenY);
+      if (segment.index >= 0) {
+        var target = snappedLegPoint(screenX, screenY, event.altKey);
+        var position = draft.path ? draft.pointIndices.findIndex(function (index) { return index >= segment.index; }) : segment.index;
+        rememberLeg(); insertLegWaypoint(draft, position, target.label ? target.point : segment.point, segment.index);
+        legEditor.point = position; legEditor.insert = false;
+        legMessage(target.label ? 'Snapped to ' + target.label : '');
+        syncLegEditor(); invalidate();
+      }
+      return true;
+    }
+  }
+  editLegAt(screenX, screenY);
+  return true;
+}
+
+async function saveLegDraft(deleted) {
+  if (!legEditor.draft || legEditor.saving) { return; }
+  if (deleted && !window.confirm('Delete this map leg?')) { return; }
+  var body = Object.assign({}, legEditor.draft, {revision: mapLegEdits.revision, deleted: !!deleted});
+  if (!deleted) { body.name = namedRoadLeg(body); }
+  legEditor.saving = true; syncLegEditor(); legMessage('Saving...');
+  try {
+    mapLegEdits = await postJson('/api/map-route-leg', body);
+    applyMapLegEdits(); updateRouteSelection();
+    clearPlannedRoute();
+    legEditor.saving = false; legEditor.dirty = false;
+    if (deleted) { discardLegDraft(); }
+    else { legEditor.draft.name = body.name; legEditor.creating = false; legEditor.undo = []; legEditor.redo = []; }
+    legMessage(deleted ? 'Leg deleted' : 'Leg saved');
+  } catch (error) { legMessage(error.message); }
+  finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
+}
+
+async function setLegEditing(enabled) {
+  if (!enabled && !await discardLegDraft()) { syncLegEditor(); return; }
+  legEditor.enabled = enabled; syncLegEditor(); invalidate();
+}
+
+function legDailyMiles(kind) {
+  var rates = state.map && state.map.travelMilesPerDay;
+  var rate = Number(rates && rates[kind]);
+  return Number.isFinite(rate) && rate > 0 ? rate : 0;
+}
+
+function dailyTravelPath(points, segmentMiles) {
+  if (!Number.isFinite(segmentMiles) || segmentMiles <= 0) { throw new Error('No daily travel rate for this leg type.'); }
+  if (!points.length) { return []; }
+  var travelled = 0, nextStop = segmentMiles;
+  var result = [points[0].slice()];
+  for (var index = 1; index < points.length; index++) {
+    var start = points[index - 1], end = points[index];
+    var distance = Math.hypot(end[0] - start[0], end[1] - start[1]);
+    var endDistance = travelled + distance;
+    for (; nextStop < endDistance - 1e-8; nextStop += segmentMiles) {
+      if (result.length >= 9999) { throw new Error('Subdivision exceeds the 10000-waypoint limit.'); }
+      var miles = nextStop - travelled;
+      result.push([start[0] + (end[0] - start[0]) * miles / distance,
+                   start[1] + (end[1] - start[1]) * miles / distance]);
+    }
+    if (distance > 0) {
+      if (result.length >= 10000) { throw new Error('Subdivision exceeds the 10000-waypoint limit.'); }
+      result.push(end.slice());
+    }
+    if (Math.abs(nextStop - endDistance) < 1e-8) { nextStop += segmentMiles; }
+    travelled = endDistance;
+  }
+  return result;
+}
+
+function dailyTravelGeometry(points, segmentMiles, junctions) {
+  var path = dailyTravelPath(points, segmentMiles), handles = [], indices = [], distance = 0;
+  path.forEach(function (point, index) {
+    if (index) { distance += Math.hypot(point[0] - path[index - 1][0], point[1] - path[index - 1][1]); }
+    var daily = Math.abs(distance - Math.round(distance / segmentMiles) * segmentMiles) < 1e-7;
+    var junction = (junctions || []).some(function (anchor) { return Math.hypot(point[0] - anchor[0], point[1] - anchor[1]) < 0.001; });
+    if (!index || index === path.length - 1 || daily || junction) { handles.push(point.slice()); indices.push(index); }
+  });
+  return {points: handles, path: path, pointIndices: indices};
+}
+
+function curvedLegGeometry(points, amount, waterOnly) {
+  if (points.length < 2) { throw new Error('Select a leg with at least two waypoints.'); }
+  var path = [points[0].slice()], indices = [0];
+  amount = Math.max(0, Math.min(1, Number(amount) || 0));
+  function waterCell(point) {
+    return [(point[0] - mesh.bounds[0]) / mesh.cellW - 0.5,
+      (point[1] - mesh.bounds[1]) / mesh.cellH - 0.5];
+  }
+  for (var index = 1; index < points.length; index++) {
+    var start = points[index - 1], end = points[index];
+    var previous = points[Math.max(0, index - 2)], next = points[Math.min(points.length - 1, index + 1)];
+    var length = Math.hypot(end[0] - start[0], end[1] - start[1]);
+    var beforeLength = Math.hypot(end[0] - previous[0], end[1] - previous[1]) || 1;
+    var afterLength = Math.hypot(next[0] - start[0], next[1] - start[1]) || 1;
+    var steps = Math.max(8, Math.ceil(length / 2));
+    if (path.length + steps > 10000) { throw new Error('Curve exceeds the 10000-vertex limit.'); }
+    var segment = [start.slice()];
+    for (var sample = 1; sample < steps; sample++) {
+      var progress = sample / steps, inverse = 1 - progress;
+      var firstWeight = 3 * inverse * inverse * progress;
+      var secondWeight = 3 * inverse * progress * progress;
+      segment.push([0, 1].map(function (axis) {
+        var first = start[axis] + (end[axis] - previous[axis]) / beforeLength * length * amount / 3;
+        var second = end[axis] - (next[axis] - start[axis]) / afterLength * length * amount / 3;
+        return inverse * inverse * inverse * start[axis] + firstWeight * first +
+          secondWeight * second + progress * progress * progress * end[axis];
+      }));
+    }
+    segment.push(end.slice());
+    var clear = !waterOnly || segment.slice(1).every(function (point, offset) {
+      return fractionalWaterSegmentIsClear(waterCell(segment[offset]), waterCell(point));
+    });
+    if (clear) { path.push.apply(path, segment.slice(1)); }
+    else { path.push(end.slice()); }
+    indices.push(path.length - 1);
+  }
+  return {points: points.map(function (point) { return point.slice(); }), path: path, pointIndices: indices};
+}
+
+function coastalLegGeometry(points, amount) {
+  var first = points[0], last = points[points.length - 1];
+  var route = routedWaterPath(first[0], first[1], last[0], last[1], 15);
+  if (!route || !route.length) { throw new Error('No connected water route found. Draft unchanged.'); }
+  if (Math.hypot(route[0][0] - first[0], route[0][1] - first[1]) > 15 ||
+      Math.hypot(route[route.length - 1][0] - last[0], route[route.length - 1][1] - last[1]) > 15) {
+    throw new Error('Sea leg endpoints must be within 15 miles of mapped water. Draft unchanged.');
+  }
+  if (Math.hypot(route[0][0] - first[0], route[0][1] - first[1]) > 1e-8) { route.unshift(first.slice()); }
+  else { route[0] = first.slice(); }
+  if (Math.hypot(route[route.length - 1][0] - last[0], route[route.length - 1][1] - last[1]) > 1e-8) { route.push(last.slice()); }
+  else { route[route.length - 1] = last.slice(); }
+  return curvedLegGeometry(route, amount, true);
+}
+
+function reshapeLeg(coastal) {
+  var draft = legEditor.draft;
+  if (!draft || draft.points.length < 2 || legEditor.saving || (coastal && draft.kind !== 'sea')) { return; }
+  try {
+    var amount = Number(document.getElementById('leg-curvature').value) / 100;
+    var geometry = coastal ? coastalLegGeometry(draft.points, amount)
+      : curvedLegGeometry(draft.points, amount, draft.kind === 'sea');
+    rememberLeg(); Object.assign(draft, geometry); legEditor.point = -1;
+    legEditor.snapTarget = null; syncLegEditor(); invalidate();
+    legMessage(coastal ? 'Coastal draft targets approximately 15 miles offshore; ports and narrow channels may be closer. Save leg to keep changes.'
+      : 'Curved draft ready. Waypoints preserved. Save leg to keep changes.');
+  } catch (error) { legMessage(error.message); }
+}
+
+function insertLegWaypoint(draft, position, point, pathIndex) {
+  if (draft.path) {
+    if (pathIndex === undefined) { pathIndex = position >= draft.points.length ? draft.path.length : draft.pointIndices[position - 1] + 1; }
+    draft.path.splice(pathIndex, 0, point.slice());
+    draft.pointIndices = draft.pointIndices.map(function (index) { return index >= pathIndex ? index + 1 : index; });
+    draft.pointIndices.splice(position, 0, pathIndex);
+  }
+  draft.points.splice(position, 0, point);
+}
+
+function moveLegWaypoint(draft, index, point) {
+  draft.points[index] = point;
+  if (draft.path) { draft.path[draft.pointIndices[index]] = point.slice(); }
+}
+
+function removeLegWaypoint(draft, index) {
+  if (draft.path) {
+    if (index === 0) {
+      var cut = draft.pointIndices[1]; draft.path = draft.path.slice(cut);
+      draft.pointIndices = draft.pointIndices.map(function (value) { return value - cut; });
+    } else if (index === draft.points.length - 1) { draft.path = draft.path.slice(0, draft.pointIndices[index - 1] + 1); }
+    draft.pointIndices.splice(index, 1);
+  }
+  draft.points.splice(index, 1);
+}
+
+function suggestedJunctionName(identifiers, point) {
+  var roads = identifiers.map(function (identifier) { return mapLegEdits.legs[identifier]; })
+    .filter(function (leg) { return leg && !leg.deleted; });
+  function throughRoad(leg) {
+    return leg.points.slice(1, -1).some(function (waypoint) {
+      return Math.hypot(point[0] - waypoint[0], point[1] - waypoint[1]) < 0.001;
+    }) ? 1 : 0;
+  }
+  roads.sort(function (left, right) { return throughRoad(right) - throughRoad(left); });
+  var names = [];
+  roads.forEach(function (leg) {
+    var name = leg.name.replace(/ [(]part [12][)]$/, '').replace(/: .* to .*$/, '').trim();
+    if (name && !names.some(function (existing) { return existing.toLowerCase() === name.toLowerCase(); })) { names.push(name); }
+  });
+  return names.join('/') + ' Junction';
+}
+
+function straightenLeg() {
+  var draft = legEditor.draft;
+  if (!draft || !draft.path || legEditor.saving) { return; }
+  rememberLeg();
+  delete draft.path;
+  delete draft.pointIndices;
+  legEditor.snapTarget = null;
+  syncLegEditor(); invalidate();
+}
+
+function syncPlanarLegFilter() {
+  var selected = state.planarLegTypes;
+  document.getElementById('planar-leg-all').checked = !selected.length;
+  var labels = [];
+  document.querySelectorAll('input[name="planar-leg-type"]').forEach(function (input) {
+    input.checked = selected.includes(input.value);
+    if (input.checked) { labels.push(input.parentElement.textContent.trim()); }
+  });
+  document.getElementById('planar-leg-summary').textContent = labels.join(', ') || 'All types';
+}
+
+function wireLegEditor() {
+  syncLegEditor();
+  document.getElementById('leg-split').addEventListener('click', async function () {
+    var draft = legEditor.draft;
+    if (!draft || legEditor.saving || legEditor.point <= 0 || legEditor.point >= draft.points.length - 1) { return; }
+    if (!window.confirm('Save this draft as two separate legs at the selected waypoint? This replaces the original leg.')) { return; }
+    legEditor.saving = true; syncLegEditor();
+    try {
+      mapLegEdits = await postJson('/api/map-route-leg', Object.assign({}, draft, {
+        revision: mapLegEdits.revision, split_index: legEditor.point
+      }));
+      applyMapLegEdits(); updateRouteSelection(); clearPlannedRoute();
+      legEditor.saving = false; legEditor.dirty = false; discardLegDraft();
+      legMessage('Saved two legs. Select either leg to edit or rename it.');
+    } catch (error) { legMessage(error.message); }
+    finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
+  });
+  document.getElementById('leg-junction').addEventListener('click', async function () {
+    if (!legEditor.draft || legEditor.point < 0 || legEditor.saving ||
+        !['road', 'trail', 'track'].includes(legEditor.draft.kind)) { return; }
+    if (legEditor.dirty || !mapLegEdits.legs[legEditor.draft.id]) {
+      await saveLegDraft(false);
+      if (legEditor.dirty || !mapLegEdits.legs[legEditor.draft.id]) { return; }
+    }
+    var point = legEditor.draft.points[legEditor.point];
+    var shared = Object.keys(mapLegEdits.legs).filter(function (identifier) {
+      var leg = mapLegEdits.legs[identifier];
+      return !leg.deleted && ['road', 'trail', 'track'].includes(leg.kind) && leg.points.some(function (waypoint) {
+        return Math.hypot(point[0] - waypoint[0], point[1] - waypoint[1]) < 0.001;
+      });
+    });
+    if (!shared.length) { legMessage('Save a road or trail waypoint before converting it.'); return; }
+    legEditor.saving = true; syncLegEditor();
+    try {
+      var existingId = Object.keys(mapLegEdits.junctions || {}).find(function (identifier) {
+        var junction = mapLegEdits.junctions[identifier];
+        return Math.hypot(point[0] - junction.point[0], point[1] - junction.point[1]) < 0.001;
+      });
+      mapLegEdits = await postJson('/api/map-junction', {id: existingId, point: point, legs: shared, revision: mapLegEdits.revision});
+      applyMapLegEdits();
+      if (mapLegEdits.legs[legEditor.draft.id]) { legEditor.draft.name = mapLegEdits.legs[legEditor.draft.id].name; }
+      syncJunctionLocations();
+      clearPlannedRoute(); legMessage('Junction saved');
+    } catch (error) { legMessage(error.message); }
+    finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
+  });
+  var legFilter = document.getElementById('planar-leg-type');
+  Array.from(document.getElementById('leg-kind').options).forEach(function (option) {
+    var label = document.createElement('label');
+    var input = document.createElement('input');
+    input.type = 'checkbox'; input.name = 'planar-leg-type'; input.value = option.value;
+    label.appendChild(input); label.appendChild(document.createTextNode(' ' + option.textContent));
+    document.getElementById('planar-leg-options').appendChild(label);
+  });
+  syncPlanarLegFilter();
+  legFilter.addEventListener('change', async function (event) {
+    if (legEditor.draft && !await discardLegDraft()) { syncPlanarLegFilter(); return; }
+    state.planarLegTypes = event.target.id === 'planar-leg-all' ? [] :
+      Array.from(document.querySelectorAll('input[name="planar-leg-type"]:checked')).map(function (input) { return input.value; });
+    syncPlanarLegFilter();
+    state.selectedRoute = -1; legEditor.snapTarget = null;
+    clearPlannedRoute(); updateRouteSelection(); invalidate();
+  });
+  getJson('/api/map-route-legs').then(function (payload) {
+    mapLegEdits = payload; legEditor.ready = true;
+    syncJunctionLocations();
+    if (baseRouteLines.length) { applyMapLegEdits(); }
+    syncLegEditor(); invalidate();
+  }).catch(function (error) { legMessage('Route edits unavailable: ' + error.message); });
+  document.getElementById('leg-edit-enabled').addEventListener('change', function (event) {
+    setLegEditing(event.target.checked);
+  });
+  document.getElementById('leg-straighten').addEventListener('click', straightenLeg);
+  document.getElementById('leg-curve').addEventListener('click', function () { reshapeLeg(false); });
+  document.getElementById('leg-coast').addEventListener('click', function () { reshapeLeg(true); });
+  document.getElementById('leg-smooth').addEventListener('click', function () {
+    if (!legEditor.draft || legEditor.saving) { return; }
+    try {
+      var dailyMiles = legDailyMiles(legEditor.draft.kind);
+      var junctions = Object.values(mapLegEdits.junctions || {}).map(function (junction) { return junction.point; });
+      var geometry = dailyTravelGeometry(legEditor.draft.path || legEditor.draft.points, dailyMiles, junctions);
+      rememberLeg(); Object.assign(legEditor.draft, geometry); legEditor.point = -1;
+      legEditor.snapTarget = null; syncLegEditor(); invalidate();
+      legMessage('Replaced old points with daily stops every ' + dailyMiles + ' miles. Original path, endpoints and junctions preserved. Save leg to keep changes.');
+    } catch (error) { legMessage(error.message); }
+  });
+  document.getElementById('leg-new').addEventListener('click', async function () {
+    if (!await discardLegDraft()) { return; }
+    legEditor.draft = {id: 'custom:' + crypto.randomUUID(), name: 'New leg', kind: 'road', points: []};
+    legEditor.creating = true; legEditor.dirty = true;
+    legMessage(''); syncLegEditor(); invalidate(); document.getElementById('leg-name').focus();
+  });
+  ['name', 'kind'].forEach(function (field) {
+    document.getElementById('leg-' + field).addEventListener(field === 'name' ? 'input' : 'change', function (event) {
+      if (!legEditor.draft || legEditor.saving) { return; }
+      rememberLeg(); legEditor.draft[field] = event.target.value; syncLegEditor(); invalidate();
+    });
+  });
+  document.getElementById('leg-insert').addEventListener('click', function () {
+    legEditor.insert = !legEditor.insert; legEditor.add = false; syncLegEditor();
+  });
+  document.getElementById('leg-add-point').addEventListener('click', function () {
+    legEditor.add = !legEditor.add; legEditor.insert = false; syncLegEditor();
+  });
+  document.getElementById('leg-snap').addEventListener('change', function () {
+    legEditor.snapTarget = null; legMessage(''); invalidate();
+  });
+  document.getElementById('leg-remove-point').addEventListener('click', function () {
+    if (!legEditor.draft || legEditor.point < 0 || legEditor.draft.points.length <= 2) { return; }
+    rememberLeg(); removeLegWaypoint(legEditor.draft, legEditor.point); legEditor.point = -1;
+    syncLegEditor(); invalidate();
+  });
+  document.getElementById('leg-undo').addEventListener('click', function () { legHistory(true); });
+  document.getElementById('leg-redo').addEventListener('click', function () { legHistory(false); });
+  document.getElementById('leg-save').addEventListener('click', function () { saveLegDraft(false); });
+  document.getElementById('leg-delete').addEventListener('click', function () { saveLegDraft(true); });
+  document.getElementById('leg-cancel').addEventListener('click', async function () { if (await discardLegDraft()) { legMessage(''); } });
+  window.addEventListener('beforeunload', function (event) {
+    if (legEditor.dirty || legEditor.saving) { event.preventDefault(); event.returnValue = ''; }
+  });
+}
+
+function planarLegVisible(line) {
+  return !state.planarLegTypes.length || state.planarLegTypes.includes(line.kind);
+}
+
+function strokePlanarLeg(color, width, dash, widthScale) {
+  var zoom = 200 / state.planarRadius;
+  var strokeScale = zoom * (widthScale == null ? 1 : widthScale);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.setLineDash(dash.map(function (length) { return length * zoom; }));
+  ctx.lineWidth = (width + 4) * strokeScale; ctx.strokeStyle = '#202b30'; ctx.stroke();
+  ctx.lineWidth = (width + 2) * strokeScale; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+  ctx.lineWidth = width * strokeScale; ctx.strokeStyle = color; ctx.stroke();
+}
+
+function drawPlanarLegs() {
+  ctx.save();
+  var draft = legEditor.enabled && legEditor.draft;
+  ctx.save();
+  if (draft || (!legEditor.enabled && state.planRoute && state.planRoute.mapRoads)) { ctx.globalAlpha *= 0.2; }
+  routeLines.forEach(function (line) {
+    if (!line.sourcePoints || !planarLegVisible(line)) { return; }
+    if (legEditor.enabled && legEditor.draft && line.editId === legEditor.draft.id) { return; }
+    ctx.beginPath();
+    line.sourcePoints.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
+    });
+    strokePlanarLeg(routeDisplayColor(line), state.selectedRoute >= 0 && routeLines[state.selectedRoute] === line ? 6 : 4, routeLineDash(line), line.kind === 'trail' ? 0.5 : 1);
+    if (legEditor.enabled) {
+      ctx.setLineDash([]); ctx.lineWidth = 1; ctx.fillStyle = '#ffffff';
+      (line.waypoints || line.sourcePoints).forEach(function (point) {
+        var screen = planarPoint(point[0], point[1]);
+        if (screen[0] < 0 || screen[1] < 0 || screen[0] > cam.cx * 2 || screen[1] > cam.cy * 2) { return; }
+        ctx.beginPath(); ctx.arc(screen[0], screen[1], 3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      });
+    }
+    if (state.routeIcons && !legEditor.enabled) {
+      var middle = line.sourcePoints[Math.floor(line.sourcePoints.length / 2)];
+      var icon = planarPoint(middle[0], middle[1]);
+      if (icon[0] >= 0 && icon[0] <= cam.cx * 2 && icon[1] >= 0 && icon[1] <= cam.cy * 2) {
+        drawRouteIcon(icon[0], icon[1], line, false);
+      }
+    }
+  });
+  ctx.restore();
+  if (draft) {
+    ctx.setLineDash([]); ctx.strokeStyle = '#007c91'; ctx.lineWidth = 3;
+    ctx.beginPath();
+    (draft.path || draft.points).forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
+    });
+    strokePlanarLeg('#007c91', 5, []);
+    ctx.strokeStyle = '#007c91'; ctx.lineWidth = 3;
+    ctx.font = '12px sans-serif'; ctx.textBaseline = 'bottom'; ctx.textAlign = 'left';
+    draft.points.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      if (screen[0] < -10 || screen[1] < -10 || screen[0] > cam.cx * 2 + 10 || screen[1] > cam.cy * 2 + 10) { return; }
+      ctx.beginPath(); ctx.arc(screen[0], screen[1], 6, 0, Math.PI * 2);
+      ctx.fillStyle = index === legEditor.point ? '#ffcd44' : '#ffffff'; ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3; ctx.strokeText(String(index + 1), screen[0] + 9, screen[1] - 6);
+      ctx.fillStyle = '#12343c'; ctx.fillText(String(index + 1), screen[0] + 9, screen[1] - 6);
+      ctx.strokeStyle = '#007c91'; ctx.lineWidth = 3;
+    });
+  }
+  if (legEditor.enabled && legEditor.snapTarget) {
+    var snap = planarPoint(legEditor.snapTarget.point[0], legEditor.snapTarget.point[1]);
+    ctx.beginPath(); ctx.arc(snap[0], snap[1], 11, 0, Math.PI * 2);
+    ctx.setLineDash([]); ctx.strokeStyle = '#00834d'; ctx.lineWidth = 3; ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawMapJunctions() {
+  var labelScale = mapLabelScale();
+  ctx.save(); ctx.setLineDash([]); ctx.font = mapLabelFont(12, true); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  Object.entries(mapLegEdits.junctions || {}).forEach(function (entry) {
+    var identifier = entry[0], junction = entry[1];
+    var point = planarPoint(junction.point[0], junction.point[1]);
+    if (point[0] < -100 || point[0] > cam.cx * 2 + 100 || point[1] < -20 || point[1] > cam.cy * 2 + 20) { return; }
+    ctx.fillStyle = '#ffcd44'; ctx.strokeStyle = '#163a45'; ctx.lineWidth = 3;
+    var radius = 2.5 * planarScale() * (plannedLocation(junction.name) ? 2 : 1);
+    if (plannedLocation(junction.name)) { drawRoutePulse(point[0], point[1], radius); }
+    ctx.beginPath(); ctx.arc(point[0], point[1], radius, 0, Math.PI * 2);
+    ctx.fill(); ctx.stroke();
+    if (state.junctionLabels === 'hide') { return; }
+    if (state.junctionLabels !== 'show' && !state.showAllLocationLabels &&
+        state.selected !== 'junction:' + identifier) { return; }
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 4 * labelScale;
+    ctx.strokeText(junction.name, point[0] + 10 * labelScale, point[1] - 10 * labelScale);
+    ctx.fillStyle = '#163a45'; ctx.fillText(junction.name, point[0] + 10 * labelScale, point[1] - 10 * labelScale);
+  });
+  ctx.restore();
+}
+
+function planarDistanceRuler(scale, availableWidth) {
+  var target = Math.min(160, Math.max(1, availableWidth - 48));
+  var maximum = target / scale;
+  var magnitude = Math.pow(10, Math.floor(Math.log10(maximum)));
+  var units = maximum / magnitude;
+  var miles = (units >= 5 ? 5 : units >= 2 ? 2 : 1) * magnitude;
+  return {pixels: miles * scale, miles: miles};
+}
+
+function drawPlanarRuler() {
+  var ruler = planarDistanceRuler(planarScale(), cam.cx * 2);
+  var left = 24, bottom = cam.cy * 2 - 24;
+  ctx.save(); ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(255,255,255,0.94)';
+  ctx.fillRect(left - 10, bottom - 34, ruler.pixels + 20, 46);
+  ctx.strokeStyle = '#163a45'; ctx.lineWidth = 2;
+  var segmentWidth = ruler.pixels / 4;
+  for (var segment = 0; segment < 4; segment++) {
+    ctx.fillStyle = segment % 2 === 0 ? '#163a45' : '#ffffff';
+    ctx.fillRect(left + segment * segmentWidth, bottom - 6, segmentWidth, 6);
+  }
+  ctx.strokeRect(left, bottom - 6, ruler.pixels, 6);
+  ctx.beginPath();
+  for (var tick = 0; tick <= 4; tick++) {
+    var tickX = left + tick * segmentWidth;
+    ctx.moveTo(tickX, bottom); ctx.lineTo(tickX, bottom - 9);
+  }
+  ctx.stroke();
+  ctx.font = '12px sans-serif'; ctx.textBaseline = 'bottom'; ctx.fillStyle = '#163a45';
+  ctx.textAlign = 'left'; ctx.fillText('0', left, bottom - 10);
+  ctx.textAlign = 'center'; ctx.fillText(Number((ruler.miles / 2).toPrecision(6)), left + ruler.pixels / 2, bottom - 10);
+  ctx.textAlign = 'right'; ctx.fillText(Number(ruler.miles.toPrecision(6)) + ' mi', left + ruler.pixels, bottom - 10);
+  ctx.restore();
+}
+
+function drawPlanarItinerary() {
+  if (!state.planRoute || !state.planRoute.mapRoads || legEditor.enabled) { return; }
+  ctx.save(); ctx.setLineDash([]); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  var width = Math.max(4, 8 * 200 / state.planarRadius);
+  state.planRoute.legs.forEach(function (leg) {
+    if (!leg.points || leg.points.length < 2) { return; }
+    ctx.beginPath();
+    leg.points.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
+    });
+    ctx.setLineDash([]);
+    ctx.lineWidth = width + 5; ctx.strokeStyle = '#202b30'; ctx.stroke();
+    ctx.lineWidth = width + 3; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+    ctx.lineWidth = width; ctx.strokeStyle = '#d62f39'; ctx.stroke();
+    if (routeAnimationActive()) {
+      ctx.setLineDash([10, 18]); ctx.lineDashOffset = -performance.now() / 45;
+      ctx.lineWidth = width / 2; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+    }
+  });
+  ctx.restore();
+}
+
+function drawPlanarFineTerrain(left, top, right, bottom) {
+  var origin = state.map.settlements.find(function (place) { return place.id === 'waterdeep'; });
+  if (!origin) { return; }
+  var scale = planarScale();
+  var epoch = planarTileEpoch;
+  var firstColumn = Math.floor((left - origin.x) / 200);
+  var lastColumn = Math.floor((right - origin.x) / 200);
+  var firstRow = Math.floor((origin.y - bottom) / 200);
+  var lastRow = Math.floor((origin.y - top) / 200);
+  function requestTile(column, row, key) {
+    planarTilesLoading++;
+    planarTiles.set(key, {loading: true});
+    getJson('/api/planar-terrain?column=' + column + '&row=' + row).then(function (tile) {
+      if (epoch !== planarTileEpoch) { return; }
+      if (tile.grid[0] && tile.grid[1]) {
+        var surface = document.createElement('canvas');
+        surface.width = tile.grid[0]; surface.height = tile.grid[1];
+        var context = surface.getContext('2d');
+        var pixels = context.createImageData(surface.width, surface.height);
+        for (var index = 0; index < tile.terrain.length; index++) {
+          var color = PALETTE[tile.terrain[index]];
+          if (!color) { continue; }
+          pixels.data[index * 4] = color[0];
+          pixels.data[index * 4 + 1] = color[1];
+          pixels.data[index * 4 + 2] = color[2];
+          pixels.data[index * 4 + 3] = 255;
+        }
+        context.putImageData(pixels, 0, 0);
+        tile.surface = surface;
+      }
+      planarTiles.set(key, tile);
+      if (planarTiles.size > 96) { planarTiles.delete(planarTiles.keys().next().value); }
+    }).catch(function (err) {
+      if (epoch !== planarTileEpoch) { return; }
+      planarTiles.set(key, {failed: true});
+      showStatus('One-mile terrain unavailable: ' + err.message, true);
+    }).finally(function () { planarTilesLoading--; invalidate(); });
+  }
+  ctx.save();
+  ctx.imageSmoothingEnabled = false;
+  for (var row = firstRow; row <= lastRow; row++) {
+    for (var column = firstColumn; column <= lastColumn; column++) {
+      var key = column + ',' + row;
+      var tile = planarTiles.get(key);
+      if (!tile && planarTilesLoading < 4) { requestTile(column, row, key); }
+      if (!tile || !tile.surface) { continue; }
+      var point = planarPoint(origin.x + tile.column, origin.y - tile.row - 1);
+      ctx.drawImage(tile.surface, point[0], point[1], tile.grid[0] * scale, tile.grid[1] * scale);
+    }
+  }
+  ctx.restore();
+}
+
+function drawPlanarBoundaries(firstColumn, lastColumn, firstRow, lastRow) {
+  if (!state.planarBoundaries) { return; }
+  var origin = state.map.settlements.find(function (place) { return place.id === 'waterdeep'; });
+  var source = origin && state.map.sourceBoundaries;
+  var sourceBounds = source ? [origin.x + source.bounds[0], origin.y - source.bounds[3],
+    origin.x + source.bounds[1], origin.y - source.bounds[2]] : null;
+  function group(code) {
+    if (code === 'o' || code === 'w') { return 'water'; }
+    if (code === 'f' || code === 'j' || code === 'T') { return 'forest'; }
+    return code === 'm' ? 'mountain' : '';
+  }
+  var paths = {water: [], forest: [], mountain: []};
+  function edge(first, second, startX, startY, endX, endY) {
+    if (first === second) { return; }
+    var kind = first === 'water' || second === 'water' ? 'water' :
+      first === 'mountain' || second === 'mountain' ? 'mountain' : 'forest';
+    if (!first && !second) { return; }
+    if (sourceBounds) {
+      var middleX = (startX + endX) / 2, middleY = (startY + endY) / 2;
+      if (middleX >= sourceBounds[0] && middleX <= sourceBounds[2] &&
+          middleY >= sourceBounds[1] && middleY <= sourceBounds[3]) { return; }
+    }
+    paths[kind].push([startX, startY, endX, endY]);
+  }
+  var bounds = mesh.bounds;
+  for (var row = firstRow; row < lastRow; row++) {
+    for (var column = firstColumn; column < lastColumn; column++) {
+      var index = row * mesh.W + column;
+      var current = group(terrainCodeAt(index));
+      var west = bounds[0] + column * mesh.cellW;
+      var north = bounds[1] + row * mesh.cellH;
+      if (column + 1 < mesh.W) {
+        edge(current, group(terrainCodeAt(index + 1)), west + mesh.cellW, north, west + mesh.cellW, north + mesh.cellH);
+      }
+      if (row + 1 < mesh.H) {
+        edge(current, group(terrainCodeAt(index + mesh.W)), west, north + mesh.cellH, west + mesh.cellW, north + mesh.cellH);
+      }
+    }
+  }
+  if (source) {
+    Object.keys(paths).forEach(function (kind) {
+      (source.segments[kind] || []).forEach(function (line) {
+        paths[kind].push([origin.x + line[0], origin.y - line[1], origin.x + line[2], origin.y - line[3]]);
+      });
+    });
+  }
+  ctx.save();
+  ctx.globalAlpha = 1;
+  var colors = {water: '#007bbd', forest: '#146d32', mountain: '#a31879'};
+  Object.keys(paths).forEach(function (kind) {
+    ctx.beginPath();
+    paths[kind].forEach(function (line) {
+      var start = planarPoint(line[0], line[1]), end = planarPoint(line[2], line[3]);
+      ctx.moveTo(start[0], start[1]); ctx.lineTo(end[0], end[1]);
+    });
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3.5; ctx.stroke();
+    ctx.strokeStyle = colors[kind]; ctx.lineWidth = 1.7; ctx.stroke();
+  });
+  if (origin) {
+    (state.map.boundaryRegions || []).forEach(function (region) {
+      if (source && (source.supersedes || []).indexOf(region.id) >= 0) { return; }
+      ctx.beginPath();
+      region.polygon.forEach(function (point, index) {
+        var screen = planarPoint(origin.x + point[0], origin.y - point[1]);
+        if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
+      });
+      ctx.closePath();
+      ctx.setLineDash([7, 4]);
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 5; ctx.stroke();
+      ctx.strokeStyle = region.terrain === 'M' ? colors.mountain : region.terrain === 'H' ? '#995015' : colors.forest;
+      ctx.lineWidth = 2.5; ctx.stroke();
+      ctx.setLineDash([]);
+      var label = planarPoint(origin.x + region.bounds[0], origin.y - region.bounds[3]);
+      ctx.font = '12px sans-serif'; ctx.lineWidth = 3; ctx.strokeStyle = '#ffffff';
+      ctx.strokeText(region.name, label[0], label[1] - 5);
+      ctx.fillStyle = '#162a20'; ctx.fillText(region.name, label[0], label[1] - 5);
+    });
+  }
+  ctx.restore();
+}
+
+function drawPlanar() {
+  drawSky();
+  var scale = planarScale();
+  ctx.save();
+  if (state.under && state.under.width && state.under.height) {
+    var posterCorner = planarPoint(state.underX, state.underY);
+    ctx.beginPath();
+    ctx.rect(posterCorner[0], posterCorner[1],
+      state.under.width * state.underMpp * scale,
+      state.under.height * state.underMpp * state.underStretch * scale);
+    ctx.clip();
+  }
+  var centerX = mesh.cx + state.tx * SCALE;
+  var centerY = mesh.cy + state.tz * SCALE;
+  var left = centerX - cam.cx / scale, right = centerX + cam.cx / scale;
+  var top = centerY - cam.cy / scale, bottom = centerY + cam.cy / scale;
+  var bounds = mesh.bounds;
+  var firstColumn = Math.max(0, Math.floor((left - bounds[0]) / mesh.cellW));
+  var lastColumn = Math.min(mesh.W, Math.ceil((right - bounds[0]) / mesh.cellW));
+  var firstRow = Math.max(0, Math.floor((top - bounds[1]) / mesh.cellH));
+  var lastRow = Math.min(mesh.H, Math.ceil((bottom - bounds[1]) / mesh.cellH));
+  function paintLandTypes() {
+    for (var row = firstRow; row < lastRow; row++) {
+      for (var column = firstColumn; column < lastColumn; column++) {
+        var point = planarPoint(bounds[0] + column * mesh.cellW, bounds[1] + row * mesh.cellH);
+        var color = PALETTE[terrainCodeAt(row * mesh.W + column)];
+        ctx.fillStyle = 'rgb(' + color.join(',') + ')';
+        ctx.fillRect(point[0], point[1], mesh.cellW * scale, mesh.cellH * scale);
+      }
+    }
+    if (state.planarLandDetail === 1) { drawPlanarFineTerrain(left, top, right, bottom); }
+  }
+  paintLandTypes();
+  if (state.planarPoster && state.under) {
+    var poster = planarPoint(state.underX, state.underY);
+    ctx.save();
+    ctx.globalAlpha = state.planarPosterAlpha;
+    ctx.drawImage(state.under, poster[0], poster[1],
+      state.under.width * state.underMpp * scale,
+      state.under.height * state.underMpp * state.underStretch * scale);
+    ctx.restore();
+  }
+  if (state.under && state.rasterLayers) {
+    Object.values(state.rasterLayers).forEach(function (layer) {
+      if (!layer.on || !layer.image || layer.alpha <= 0) { return; }
+      var corner = planarPoint(state.underX, state.underY);
+      ctx.save();
+      ctx.globalAlpha = layer.alpha;
+      ctx.drawImage(layer.image, corner[0], corner[1],
+        state.under.width * state.underMpp * scale,
+        state.under.height * state.underMpp * state.underStretch * scale);
+      ctx.restore();
+    });
+  }
+  if (state.planarTerrain && state.planarTerrainAlpha > 0) {
+    ctx.save();
+    ctx.globalAlpha = state.planarTerrainAlpha;
+    paintLandTypes();
+    ctx.restore();
+  }
+  drawPlanarGrid(left, top, right, bottom);
+  drawPlanarBoundaries(firstColumn, lastColumn, firstRow, lastRow);
+  if (legEditor.enabled) {
+    drawPlaces(); drawPins(); drawMapJunctions();
+  }
+  if (state.routes || legEditor.enabled) { drawPlanarLegs(); }
+  drawPlanarItinerary();
+  if (!legEditor.enabled) {
+    drawPlaces(); drawPins(); drawMapJunctions();
+  }
+  drawLocationDraft();
+  ctx.restore();
+  drawPlanarRuler();
+}
+
 function draw() {
   if (!mesh) { return; }
+  if (MAP_VIEW === 'planar') { drawPlanar(); return; }
   updateCamera();
   updateViewWindow();
   drawSky();
@@ -3762,7 +5455,7 @@ function draw() {
 var renderBroken = false;
 
 function frame() {
-  if (state.dirty && !renderBroken) {
+  if ((state.dirty || routeAnimationActive()) && !renderBroken) {
     state.dirty = false;
     // A throw inside draw() would otherwise be swallowed by the animation
     // callback and leave a blank canvas with no explanation. Report it once
@@ -3799,7 +5492,339 @@ function endInteract() {
   }, 140);
 }
 
+var locationEditor = {enabled: false, draft: null, placing: false, busy: false};
+var PLACE_TYPES = {location: 'Location', city: 'City', village: 'Village', vale: 'Vale',
+  town: 'Town', hamlet: 'Hamlet', fortress: 'Fortress',
+  ruin: 'Ruins', site: 'Site', capital: 'Capital',
+  temple: 'Temple', bridge: 'Bridge', crypt: 'Crypt', cave: 'Cave', mine: 'Mine',
+  shrine: 'Shrine', landmark: 'Landmark', inn: 'Inn', campsite: 'Campsite',
+  caravan_stop: 'Caravan Stop', trading_post: 'Trading Post'};
+var LOCATION_LEGEND_ROWS = {city: 2493, port: 2536, fortress: 2580, ruin: 2623,
+  site: 2667, capital: 2710, port_capital: 2754, temple: 2798, bridge: 2842};
+var locationLegendIcons = {};
+var locationLegendImage = null;
+
+function locationType(item) {
+  if (item.placeType === 'port') { return 'city'; }
+  if (item.placeType === 'port_capital') { return 'capital'; }
+  return item.placeType || (item.mapOnly ? 'location' : 'city');
+}
+
+function locationIsPort(item) {
+  return typeof item.isPort === 'boolean' ? item.isPort :
+    !!item.port || item.placeType === 'port' || item.placeType === 'port_capital';
+}
+
+function locationIconType(item) {
+  var kind = locationType(item);
+  return locationIsPort(item) && kind === 'city' ? 'port' :
+    locationIsPort(item) && kind === 'capital' ? 'port_capital' : kind;
+}
+
+function drawLocationTypeIcon(item, x, y, radius) {
+  var kind = locationIconType(item), row = LOCATION_LEGEND_ROWS[kind];
+  var image = state.under;
+  if (row == null || !image || !image.width || !image.height) { return; }
+  if (locationLegendImage !== image) { locationLegendIcons = {}; locationLegendImage = image; }
+  var icon = locationLegendIcons[kind];
+  if (!icon) {
+    icon = document.createElement('canvas'); icon.width = 60; icon.height = 32;
+    var context = icon.getContext('2d', {willReadFrequently: true});
+    context.drawImage(image, 4265 * image.width / 4763, row * image.height / 3185,
+      60 * image.width / 4763, 32 * image.height / 3185, 0, 0, 60, 32);
+    var pixels = context.getImageData(0, 0, 60, 32);
+    var minX = 60, minY = 32, maxX = -1, maxY = -1;
+    for (var index = 0; index < pixels.data.length; index += 4) {
+      var darkness = Math.max(pixels.data[index], pixels.data[index + 1], pixels.data[index + 2]);
+      pixels.data[index + 3] = Math.max(0, Math.min(255, (190 - darkness) * 3));
+      pixels.data[index] = pixels.data[index + 1] = pixels.data[index + 2] = 0;
+      if (pixels.data[index + 3] > 100) {
+        var pixelX = (index / 4) % 60, pixelY = Math.floor(index / 240);
+        minX = Math.min(minX, pixelX); maxX = Math.max(maxX, pixelX);
+        minY = Math.min(minY, pixelY); maxY = Math.max(maxY, pixelY);
+      }
+    }
+    context.putImageData(pixels, 0, 0);
+    icon.inkBounds = maxX >= minX ? [minX, minY, maxX - minX + 1, maxY - minY + 1] : null;
+    locationLegendIcons[kind] = icon;
+  }
+  var bounds = icon.inkBounds;
+  if (!bounds) { return; }
+  var size = radius * 1.4 / Math.max(bounds[2], bounds[3]);
+  var width = bounds[2] * size, height = bounds[3] * size;
+  ctx.save(); ctx.beginPath(); ctx.arc(x, y, radius * 0.82, 0, Math.PI * 2); ctx.clip();
+  ctx.drawImage(icon, bounds[0], bounds[1], bounds[2], bounds[3], x - width / 2, y - height / 2, width, height);
+  ctx.restore();
+}
+
+function nearestRoadsidePoint(screenX, screenY) {
+  var best = null, distance = 18;
+  routeLines.forEach(function (line) {
+    if (!['road', 'track', 'trail'].includes(line.kind) || !planarLegVisible(line)) { return; }
+    var saved = mapLegEdits.legs[line.editId];
+    if (!saved || saved.deleted) { return; }
+    var points = saved.path || saved.points;
+    for (var index = 1; index < points.length; index++) {
+      var start = planarPoint(points[index - 1][0], points[index - 1][1]);
+      var end = planarPoint(points[index][0], points[index][1]);
+      var deltaX = end[0] - start[0], deltaY = end[1] - start[1];
+      var length = deltaX * deltaX + deltaY * deltaY;
+      var fraction = length ? Math.max(0, Math.min(1,
+        ((screenX - start[0]) * deltaX + (screenY - start[1]) * deltaY) / length)) : 0;
+      var candidate = Math.hypot(screenX - start[0] - fraction * deltaX, screenY - start[1] - fraction * deltaY);
+      if (candidate < distance) {
+        distance = candidate;
+        best = {roadLegId: line.editId, roadName: saved.name,
+          x: points[index - 1][0] + fraction * (points[index][0] - points[index - 1][0]),
+          y: points[index - 1][1] + fraction * (points[index][1] - points[index - 1][1])};
+      }
+    }
+  });
+  return best;
+}
+
+function drawLocationDraft() {
+  var draft = locationEditor.draft;
+  if (!locationEditor.enabled || !draft || !Number.isFinite(draft.x) || !Number.isFinite(draft.y)) { return; }
+  var point = planarPoint(draft.x, draft.y);
+  ctx.save(); ctx.setLineDash([4, 3]); ctx.strokeStyle = '#007c91'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(point[0], point[1], 12, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+}
+
+function editableLocations() {
+  if (!state.map) { return []; }
+  return (state.map.settlements || []).concat(state.map.places || []).filter(function (item) { return !item.mobile; });
+}
+
+function locationVisible(item) {
+  return !state.verifiedOnly || !!item.mobile || item.verified === true;
+}
+
+function syncLocationEditor() {
+  var draft = locationEditor.draft;
+  document.getElementById('location-edit-tools').hidden = !locationEditor.enabled;
+  document.getElementById('location-edit-enabled').checked = locationEditor.enabled;
+  ['new', 'waypoint', 'pick', 'name', 'x', 'y', 'acres', 'move', 'save', 'delete', 'cancel', 'type', 'port', 'portal', 'gryphon', 'verified', 'inhabited', 'notes', 'road'].forEach(function (name) {
+    document.getElementById('location-edit-' + name).disabled = locationEditor.busy ||
+      (!draft && !['new', 'waypoint', 'pick'].includes(name));
+  });
+  var custom = draft && (!draft.id || draft.mapOnly);
+  ['inhabited', 'notes', 'road'].forEach(function (name) {
+    document.getElementById('location-edit-' + name).disabled = locationEditor.busy || !custom;
+  });
+  document.getElementById('location-edit-type').value = draft ? locationType(draft) : 'location';
+  document.getElementById('location-edit-verified').checked = !!(draft && draft.verified);
+  document.getElementById('location-edit-port').checked = !!draft && locationIsPort(draft);
+  document.getElementById('location-edit-portal').checked = !!(draft && draft.portalGate);
+  document.getElementById('location-edit-gryphon').checked = !!(draft && draft.gryphonPort);
+  document.getElementById('location-edit-inhabited').checked = !!(draft && draft.inhabited);
+  document.getElementById('location-edit-notes').value = draft && draft.notes || '';
+  document.getElementById('location-edit-acres').value = draft && draft.landAcres != null ? draft.landAcres : '';
+  document.getElementById('location-edit-road').checked = !!(draft && (draft.attachRoad || draft.roadLegId));
+  if (draft && (draft.attachRoad || draft.roadLegId)) {
+    document.getElementById('location-edit-x').disabled = true;
+    document.getElementById('location-edit-y').disabled = true;
+    document.getElementById('location-edit-save').disabled = locationEditor.busy || !draft.roadLegId;
+  }
+  document.getElementById('location-edit-road-name').textContent = draft && draft.roadName || '';
+  document.getElementById('location-edit-name').readOnly = !!(draft && draft.id && !draft.mapOnly);
+  document.getElementById('location-edit-delete').disabled = locationEditor.busy || !draft || !draft.id;
+  ['name', 'x', 'y'].forEach(function (name) {
+    document.getElementById('location-edit-' + name).value = draft ? draft[name] : '';
+  });
+  document.getElementById('location-edit-move').setAttribute('aria-pressed', String(locationEditor.placing));
+  document.getElementById('leg-edit-enabled').disabled = locationEditor.enabled || !legEditor.ready || legEditor.saving;
+  document.getElementById('location-edit-enabled').disabled = locationEditor.busy;
+}
+
+function refreshLocationOptions() {
+  var select = document.getElementById('location-edit-pick');
+  select.replaceChildren(new Option('Choose location', ''));
+  editableLocations().sort(function (left, right) { return left.name.localeCompare(right.name); }).forEach(function (item) {
+    select.add(new Option(item.name, item.id));
+  });
+  var options = document.getElementById('location-options');
+  options.replaceChildren();
+  (state.map.settlements || []).forEach(function (item) { options.appendChild(new Option(item.name, item.name)); });
+  syncJunctionLocations();
+}
+
+function locationEditorClick(screenX, screenY) {
+  if (!locationEditor.enabled || locationEditor.busy) { return; }
+  if (locationEditor.placing && locationEditor.draft) {
+    if (locationEditor.draft.attachRoad || locationEditor.draft.roadLegId) {
+      var roadside = nearestRoadsidePoint(screenX, screenY);
+      if (!roadside) {
+        document.getElementById('location-edit-status').textContent = 'Choose a point on a visible saved road, track or trail.';
+        return;
+      }
+      Object.assign(locationEditor.draft, roadside);
+      document.getElementById('location-edit-status').textContent = '';
+    } else {
+      var point = legWorldPoint(screenX, screenY);
+      locationEditor.draft.x = Number(point[0].toFixed(4));
+      locationEditor.draft.y = Number(point[1].toFixed(4));
+    }
+    locationEditor.placing = false;
+  } else {
+    var nearest = null, distance = 16;
+    editableLocations().forEach(function (item) {
+      if (!locationVisible(item)) { return; }
+      var world = calibratedXY(item), screen = planarPoint(world[0], world[1]);
+      var candidate = Math.hypot(screenX - screen[0], screenY - screen[1]);
+      if (candidate < distance) { nearest = item; distance = candidate; }
+    });
+    if (nearest) {
+      var position = calibratedXY(nearest);
+      locationEditor.draft = Object.assign({}, nearest, {x: position[0], y: position[1]});
+      document.getElementById('location-edit-pick').value = nearest.id;
+    }
+  }
+  syncLocationEditor(); invalidate();
+}
+
+async function saveLocationDraft(deleted) {
+  var draft = locationEditor.draft;
+  if (!draft || locationEditor.busy) { return; }
+  if (deleted && !window.confirm('Delete ' + draft.name + ' from the map? Catalog records and route legs are retained.')) { return; }
+  var status = document.getElementById('location-edit-status');
+  locationEditor.busy = true; syncLocationEditor(); status.textContent = 'Saving...';
+  try {
+    var result = await postJson('/api/map-location', {id: draft.id, name: draft.name,
+      placeType: locationType(draft), isPort: locationIsPort(draft), verified: !!draft.verified, inhabited: draft.inhabited, notes: draft.notes, roadLegId: draft.roadLegId || null,
+      portalGate: !!draft.portalGate, gryphonPort: !!draft.gryphonPort,
+      landAcres: draft.landAcres,
+      x: draft.x, y: draft.y, deleted: deleted, revision: state.map.locationRevision});
+    Object.assign(state.map, {settlements: result.settlements, places: result.places, locationRevision: result.locationRevision});
+    buildPins(result.settlements); buildPlaces(result.places); refreshLocationOptions();
+    clearPlannedRoute();
+    state.selected = null; state.market = null; state.hover = -1;
+    document.getElementById('place-head').textContent = '';
+    ['place-stats', 'place-notes', 'place-prices'].forEach(function (id) { document.getElementById(id).textContent = ''; });
+    locationEditor.draft = null; locationEditor.placing = false;
+    status.textContent = deleted ? 'Location deleted from map.' : 'Location saved.';
+  } catch (error) { status.textContent = error.message; }
+  finally { locationEditor.busy = false; syncLocationEditor(); invalidate(); }
+}
+
+function wireLocationEditor() {
+  var filterLabel = document.createElement('label');
+  filterLabel.innerHTML = '<input type="checkbox" id="locations-verified-only" checked> Verified locations only';
+  document.querySelector('.map-controls').appendChild(filterLabel);
+  document.getElementById('locations-verified-only').addEventListener('change', function (event) {
+    state.verifiedOnly = event.target.checked;
+    state.hover = -1; invalidate();
+  });
+  if (MAP_VIEW !== 'planar') { return; }
+  var panel = document.createElement('section');
+  panel.setAttribute('aria-label', 'Map location editor');
+  panel.innerHTML = '<label><input type="checkbox" id="location-edit-enabled"> Edit locations</label>' +
+    '<div id="location-edit-tools" hidden><label>Location <select id="location-edit-pick"></select></label>' +
+    '<button type="button" id="location-edit-new" title="Add location" aria-label="Add location">+</button>' +
+    '<button type="button" id="location-edit-waypoint" title="Add roadside waypoint" aria-label="Add roadside waypoint">&#8853;</button>' +
+    '<label>Name <input id="location-edit-name" maxlength="160"></label>' +
+    '<label>Place type <select id="location-edit-type">' + Object.keys(PLACE_TYPES).map(function (kind) {
+      return '<option value="' + kind + '">' + PLACE_TYPES[kind] + '</option>';
+    }).join('') + '</select></label>' +
+    '<label><input type="checkbox" id="location-edit-verified"> Verified</label>' +
+    '<label><input type="checkbox" id="location-edit-port"> Port</label>' +
+    '<label><input type="checkbox" id="location-edit-portal"> Portal gate</label>' +
+    '<label><input type="checkbox" id="location-edit-gryphon"> Gryphon port</label>' +
+    '<label><input type="checkbox" id="location-edit-inhabited"> Inhabited</label>' +
+    '<label>Notes <textarea id="location-edit-notes" maxlength="2000" rows="2"></textarea></label>' +
+    '<label><input type="checkbox" id="location-edit-road"> On road</label><span id="location-edit-road-name"></span>' +
+    '<label>East (mi) <input id="location-edit-x" type="number" step="any"></label>' +
+    '<label>South (mi) <input id="location-edit-y" type="number" step="any"></label>' +
+    '<label>Land area (acres) <input id="location-edit-acres" type="number" min="0.000001" step="any" placeholder="Unknown"></label>' +
+    '<button type="button" id="location-edit-move" title="Place location at next map click" aria-label="Move location" aria-pressed="false">&#10021;</button>' +
+    '<button type="button" id="location-edit-save">Save location</button>' +
+    '<button type="button" id="location-edit-delete">Delete location</button>' +
+    '<button type="button" id="location-edit-cancel">Cancel</button></div>' +
+    '<p id="location-edit-status" role="status"></p>';
+  document.querySelector('.map-controls').appendChild(panel);
+  panel.style.maxWidth = '100%';
+  panel.querySelectorAll('input:not([type="checkbox"]), select, textarea').forEach(function (input) {
+    input.style.maxWidth = '100%'; input.style.boxSizing = 'border-box';
+  });
+  document.getElementById('location-edit-enabled').addEventListener('change', async function (event) {
+    if (!state.map || !mesh) { event.target.checked = false; return; }
+    if (event.target.checked) {
+      await setLegEditing(false);
+      if (legEditor.enabled) { event.target.checked = false; return; }
+      setCalibMode(false);
+    }
+    locationEditor.enabled = event.target.checked;
+    locationEditor.draft = null; locationEditor.placing = false;
+    refreshLocationOptions(); syncLocationEditor(); invalidate();
+  });
+  document.getElementById('location-edit-pick').addEventListener('change', function (event) {
+    var item = editableLocations().find(function (item) { return item.id === event.target.value; });
+    var position = item && calibratedXY(item);
+    locationEditor.draft = item ? Object.assign({}, item, {x: position[0], y: position[1]}) : null;
+    locationEditor.placing = false; syncLocationEditor(); invalidate();
+  });
+  document.getElementById('location-edit-new').addEventListener('click', function () {
+    locationEditor.draft = {name: '', x: mesh.cx + state.tx * SCALE, y: mesh.cy + state.tz * SCALE,
+      mapOnly: true, placeType: 'location', isPort: false, verified: true, inhabited: false, notes: ''};
+    locationEditor.placing = true; syncLocationEditor(); invalidate(); document.getElementById('location-edit-name').focus();
+  });
+  document.getElementById('location-edit-waypoint').addEventListener('click', function () {
+    document.getElementById('location-edit-new').click();
+    Object.assign(locationEditor.draft, {placeType: 'inn', inhabited: true, attachRoad: true});
+    syncLocationEditor();
+  });
+  document.getElementById('location-edit-type').addEventListener('change', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.placeType = event.target.value; }
+  });
+  document.getElementById('location-edit-inhabited').addEventListener('change', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.inhabited = event.target.checked; }
+  });
+  document.getElementById('location-edit-verified').addEventListener('change', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.verified = event.target.checked; }
+  });
+  document.getElementById('location-edit-port').addEventListener('change', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.isPort = event.target.checked; }
+  });
+  document.getElementById('location-edit-portal').addEventListener('change', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.portalGate = event.target.checked; }
+  });
+  document.getElementById('location-edit-gryphon').addEventListener('change', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.gryphonPort = event.target.checked; }
+  });
+  document.getElementById('location-edit-notes').addEventListener('input', function (event) {
+    if (locationEditor.draft) { locationEditor.draft.notes = event.target.value; }
+  });
+  document.getElementById('location-edit-acres').addEventListener('input', function (event) {
+    if (locationEditor.draft) {
+      locationEditor.draft.landAcres = event.target.value === '' ? null : event.target.valueAsNumber;
+      invalidate();
+    }
+  });
+  document.getElementById('location-edit-road').addEventListener('change', function (event) {
+    if (!locationEditor.draft) { return; }
+    locationEditor.draft.attachRoad = event.target.checked;
+    locationEditor.draft.roadLegId = null; locationEditor.draft.roadName = '';
+    locationEditor.placing = event.target.checked; syncLocationEditor(); invalidate();
+  });
+  ['name', 'x', 'y'].forEach(function (field) {
+    document.getElementById('location-edit-' + field).addEventListener('input', function (event) {
+      if (locationEditor.draft) { locationEditor.draft[field] = field === 'name' ? event.target.value : event.target.valueAsNumber; }
+      invalidate();
+    });
+  });
+  document.getElementById('location-edit-move').addEventListener('click', function () {
+    locationEditor.placing = !locationEditor.placing; syncLocationEditor();
+  });
+  document.getElementById('location-edit-save').addEventListener('click', function () { saveLocationDraft(false); });
+  document.getElementById('location-edit-delete').addEventListener('click', function () { saveLocationDraft(true); });
+  document.getElementById('location-edit-cancel').addEventListener('click', function () {
+    locationEditor.draft = null; locationEditor.placing = false; syncLocationEditor(); invalidate();
+  });
+  syncLocationEditor();
+}
+
 canvas.addEventListener('pointerdown', function (ev) {
+  if (legPointerDown(ev)) { return; }
   canvas.setPointerCapture(ev.pointerId);
   drag = {
     x: ev.clientX,
@@ -3812,6 +5837,17 @@ canvas.addEventListener('pointerdown', function (ev) {
 
 canvas.addEventListener('pointermove', function (ev) {
   var rect = canvas.getBoundingClientRect();
+  if (legEditor.drag && legEditor.drag.pointer === ev.pointerId) {
+    if (!legEditor.drag.remembered) { rememberLeg(); legEditor.drag.remembered = true; }
+    var target = snappedLegPoint(ev.clientX - rect.left, ev.clientY - rect.top, ev.altKey);
+    moveLegWaypoint(legEditor.draft, legEditor.point, target.point);
+    legMessage(target.label ? 'Snapped to ' + target.label : '');
+    syncLegEditor(); invalidate(); return;
+  }
+  if (MAP_VIEW === 'planar' && legEditor.enabled && legEditor.draft && !drag) {
+    snappedLegPoint(ev.clientX - rect.left, ev.clientY - rect.top, ev.altKey);
+    invalidate();
+  }
   if (!drag) {
     var hit = pick(ev.clientX - rect.left, ev.clientY - rect.top);
     if (hit !== state.hover) {
@@ -3829,7 +5865,10 @@ canvas.addEventListener('pointermove', function (ev) {
   drag.y = ev.clientY;
   drag.moved += Math.abs(dx) + Math.abs(dy);
   beginInteract();
-  if (state.globe) {
+  if (MAP_VIEW === 'planar') {
+    state.tx -= dx / (planarScale() * SCALE);
+    state.tz += dy / (planarScale() * SCALE);
+  } else if (state.globe) {
     state.yaw -= dx * 0.006;
     state.globeTilt = clamp(state.globeTilt + dy * 0.005, -1.25, 1.25);
   } else if (drag.pan) {
@@ -3852,12 +5891,20 @@ canvas.addEventListener('pointermove', function (ev) {
 });
 
 function endDrag(ev) {
+  if (legEditor.drag) { legEditor.drag = null; syncLegEditor(); return; }
   if (!drag) { return; }
   canvas.classList.remove('dragging');
   var rect = canvas.getBoundingClientRect();
   if (drag.moved < 5 && !drag.pan) {
     var mx = ev.clientX - rect.left;
     var my = ev.clientY - rect.top;
+    if (MAP_VIEW === 'planar' && locationEditor.enabled) {
+      locationEditorClick(mx, my); drag = null; endInteract(); return;
+    }
+    if (MAP_VIEW === 'planar' && !legEditor.enabled && !state.calibOn && !state.terrainEditOn) {
+      var junction = junctionAt(mx, my);
+      if (junction) { focusJunction(junction); drag = null; endInteract(); return; }
+    }
     var hit = pick(mx, my);
     if (state.terrainEditOn) {
       saveTerrainCell(mx, my);
@@ -3883,7 +5930,7 @@ function endDrag(ev) {
       var doubleClick = nearbyRepeat && prior.id === id;
       recentMarketClick = { id: id, x: mx, y: my, at: performance.now() };
       selectSettlement(id);
-      if (!pins[hit].data.mobile) {
+      if (!pins[hit].data.mobile && !pins[hit].data.mapOnly) {
         if (doubleClick) { loadTerrainDetail(id); }
       }
     }
@@ -3894,6 +5941,7 @@ function endDrag(ev) {
 
 canvas.addEventListener('pointerup', endDrag);
 canvas.addEventListener('pointercancel', function () {
+  legEditor.drag = null;
   drag = null;
   canvas.classList.remove('dragging');
   endInteract();
@@ -3902,6 +5950,10 @@ canvas.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
 
 canvas.addEventListener('wheel', function (ev) {
   ev.preventDefault();
+  if (MAP_VIEW === 'planar') {
+    if (ev.deltaY) { stepPlanarRadius(ev.deltaY > 0 ? 1 : -1); }
+    return;
+  }
   beginInteract();
   var factor = Math.exp(ev.deltaY * 0.0012);
   if (state.globe) {
@@ -3922,6 +5974,17 @@ canvas.addEventListener('pointerleave', function () {
 window.addEventListener('keydown', function (ev) {
   var tag = (ev.target && ev.target.tagName) || '';
   if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') { return; }
+  if (MAP_VIEW === 'planar') {
+    var pan = state.planarRadius / (5 * SCALE);
+    if (ev.key === 'ArrowLeft') { state.tx -= pan; }
+    else if (ev.key === 'ArrowRight') { state.tx += pan; }
+    else if (ev.key === 'ArrowUp') { state.tz -= pan; }
+    else if (ev.key === 'ArrowDown') { state.tz += pan; }
+    else if (ev.key === '+' || ev.key === '=') { stepPlanarRadius(-1); }
+    else if (ev.key === '-' || ev.key === '_') { stepPlanarRadius(1); }
+    else { return; }
+    ev.preventDefault(); invalidate(); return;
+  }
   var handled = true;
   if (ev.key === 'ArrowLeft') { state.yaw -= 0.08; }
   else if (ev.key === 'ArrowRight') { state.yaw += 0.08; }
@@ -3954,10 +6017,22 @@ function pick(mx, my) {
   if (posterOnlyActive()) { return -1; }
   if (!pins) { return -1; }
   var best = -1;
-  var bestDist = 18 * 18;
+  var bestDist = MAP_VIEW === 'planar' ? Infinity : 18 * 18;
   for (var i = 0; i < pins.length; i++) {
     var p = pins[i];
     if (!p.vis) { continue; }
+    if (p.data.mobile) {
+      var caravan = caravanIconPosition(p);
+      if (MAP_VIEW === 'planar') {
+        var markerDistance = (mx - caravan.x) ** 2 + (my - caravan.y) ** 2;
+        var markerReach = mapPinRadius(p, false, false) + 7;
+        if (markerDistance < markerReach * markerReach && markerDistance < bestDist) {
+          bestDist = markerDistance; best = i;
+        }
+        continue;
+      }
+      if (Math.abs(mx - caravan.x) <= 13 && Math.abs(my - caravan.y) <= 15) { return i; }
+    }
     var dx = p.px - mx;
     var dy = p.py - my;
     var d = dx * dx + dy * dy;
@@ -3980,8 +6055,9 @@ function pick(mx, my) {
     }
     // Slop is a little wider than it was, because the dots are smaller than
     // the old pin heads and there is no stem left to aim at.
-    var reach = (p.radius + 9) * (p.radius + 9);
-    if (d < reach && d < bestDist) { bestDist = d; best = i; }
+    var radius = mapPinRadius(p, state.selected === p.data.id, state.hover === i);
+    var reach = (radius + 9) * (radius + 9);
+    if (d < reach && (d < bestDist || (d === bestDist && p.data.mobile))) { bestDist = d; best = i; }
   }
   return best;
 }
@@ -4001,6 +6077,11 @@ function pickRoute(mx, my) {
   for (var r = 0; r < routeLines.length; r++) {
     var line = routeLines[r];
     if (!routeMatchesFilter(line)) { continue; }
+    if (MAP_VIEW === 'planar' && line.sourcePoints) {
+      var hit = nearestLegSegment(line.sourcePoints, mx, my);
+      if (hit.index >= 0 && hit.distance < bestDistance) { bestDistance = hit.distance; best = r; }
+      continue;
+    }
     projectedRouteCurves(line).forEach(function (segments) {
       segments.forEach(function (segment) {
         var prior = segment[0];
@@ -4082,6 +6163,8 @@ function updateRouteSelection() {
   var last = legs[legs.length - 1];
   var start = first ? (first.reverse ? first.line.details.end : first.line.details.start) : details.start;
   var end = last ? (last.reverse ? last.line.details.start : last.line.details.end) : details.end;
+  var mapEndpoints = MAP_VIEW === 'planar' && group.length === 1 ? planarLegEndpoints(line.sourcePoints) : null;
+  if (mapEndpoints) { start = mapEndpoints.origin.name; end = mapEndpoints.destination.name; }
   var distance = group.reduce(function (total, routeLine) { return total + routeLine.details.distance; }, 0);
   var days = group.reduce(function (total, routeLine) { return total + routeLine.details.days; }, 0);
   var dailyHops = group.reduce(function (total, routeLine) {
@@ -4097,6 +6180,7 @@ function updateRouteSelection() {
   var itinerary = legs.length ? '<ol class="routelegs">' + legs.map(function (leg) {
     var legStart = leg.reverse ? leg.line.details.end : leg.line.details.start;
     var legEnd = leg.reverse ? leg.line.details.start : leg.line.details.end;
+    if (mapEndpoints) { legStart = start; legEnd = end; }
     return '<li><b>' + esc(legStart) + ' &rarr; ' + esc(legEnd) + '</b> <small>' +
       Math.round(leg.line.details.distance).toLocaleString() + ' mi &middot; ' +
       (leg.line.kind === 'air' ? Number(leg.line.details.days).toFixed(1) + ' days' : routeTime(leg.line.details.days)) + '</small><details class="routecarriers"' +
@@ -4146,14 +6230,15 @@ function supplyRouteMatches(line) {
 }
 
 function planRouteMatches(line) {
-  return !!(line.details && state.planRouteKeys[
+  return !!(state.planRouteKeys[line.editId] || (line.details && state.planRouteKeys[
     supplyRouteKey(line.details.start, line.details.end)
-  ]);
+  ]));
 }
 
 function collectPlanRoute(data) {
   (data.legs || []).forEach(function (leg) {
     state.planRouteKeys[supplyRouteKey(leg.from, leg.to)] = true;
+    if (leg.id) { state.planRouteKeys[leg.id] = true; }
   });
 }
 
@@ -4164,6 +6249,21 @@ function collectPlanPath(names) {
 }
 
 function fitPlanRoute(originName, destinationName) {
+  if (MAP_VIEW === 'planar' && state.planRoute && state.planRoute.mapRoads) {
+    var points = state.planRoute.legs.reduce(function (all, leg) { return all.concat(leg.points); }, []);
+    if (!points.length) { return; }
+    var west = Infinity, east = -Infinity, north = Infinity, south = -Infinity;
+    points.forEach(function (point) {
+      west = Math.min(west, point[0]); east = Math.max(east, point[0]);
+      north = Math.min(north, point[1]); south = Math.max(south, point[1]);
+    });
+    var center = toScene((west + east) / 2, (north + south) / 2);
+    state.tx = center[0]; state.tz = center[1];
+    var radius = Math.hypot(east - west, south - north) / 2;
+    state.planarRadius = [50, 100, 200, 500].find(function (value) { return value >= radius; }) || 500;
+    document.getElementById('planar-radius').value = String(state.planarRadius);
+    return;
+  }
   var originId = state.nameToId[originName];
   var destId = state.nameToId[destinationName];
   var originPin = pins.find(function (item) { return item.data.id === originId; });
@@ -4189,7 +6289,7 @@ function renderPlannedRoute(data) {
     return '<ol class="flight-day-list"><li><b>Gryphon daily schedule</b> &middot; max 80 mi before landing</li>' + rows.join('') + '</ol>';
   }
   var legs = (data.legs || []).map(function (leg, index) {
-    return '<li><b>' + (index + 1) + '. ' + esc(leg.from) + ' \u2192 ' + esc(leg.to) +
+    return '<li><b>' + (index + 1) + '. ' + esc(leg.from) + ' → ' + esc(leg.to) +
       '</b><small>' + esc(leg.via || 'local track') + ' &middot; ' + esc(leg.mode_label || leg.mode || '') +
       ' &middot; ' + Math.round(leg.miles).toLocaleString() + ' mi &middot; ' + routeTime(leg.days) +
       ' &middot; hazard ' + Number(leg.hazard || 0).toFixed(2) + 'x</small>' + dailyFlightSchedule(leg) + '</li>';
@@ -4197,7 +6297,7 @@ function renderPlannedRoute(data) {
   var plannerUrl = 'planner.html?origin=' + encodeURIComponent(data.origin) +
     '&destination=' + encodeURIComponent(data.destination) +
     '&include_inferred=' + (state.inferredRoads ? '1' : '0');
-  panel.innerHTML = '<p>' + esc(data.path.join(' \u2192 ')) + '</p>' +
+  panel.innerHTML = '<p>' + esc(data.path.join(' → ')) + '</p>' +
     (legs ? '<ol class="planned-route-legs">' + legs + '</ol>' : '') +
     '<p class="muted">' + Math.round(data.distance).toLocaleString() + ' mi &middot; ' +
     routeTime(data.days) + ' &middot; ' + esc(data.modes.map(routeTypeLabel).join(', ')) + '</p>' +
@@ -4212,15 +6312,33 @@ function clearPlannedRoute() {
   invalidate();
 }
 
-function showPlanPath(names) {
+async function showPlanPath(names) {
   var panel = document.getElementById('route-plan-result');
   if (!names || names.length < 2) { return; }
+  var requestToken = ++state.planRequest;
   state.planRoute = null;
   state.planRouteKeys = {};
-  collectPlanPath(names);
-  panel.innerHTML = '<p>' + esc(names.join(' \u2192 ')) + '</p>' +
-    '<button type="button" id="route-plan-clear" class="ghost">Clear</button>';
-  fitPlanRoute(names[0], names[names.length - 1]);
+  panel.textContent = 'Loading mapped itinerary...';
+  try {
+    var legs = [], distance = 0, days = 0;
+    for (var index = 1; index < names.length; index++) {
+      var segment = await getJson('/api/route?origin=' + encodeURIComponent(names[index - 1]) +
+        '&destination=' + encodeURIComponent(names[index]) + '&optimise=days');
+      if (requestToken !== state.planRequest) { return; }
+      if (!segment.reachable) { throw new Error('This itinerary no longer connects on the saved map.'); }
+      legs = legs.concat(segment.legs); distance += segment.distance; days += segment.days;
+    }
+    var data = {origin: names[0], destination: names[names.length - 1], reachable: true,
+      mapRoads: legs.every(function (leg) { return leg.points && leg.points.length; }),
+      legs: legs, distance: distance, days: days,
+      modes: Array.from(new Set(legs.flatMap(function (leg) { return leg.modes || [leg.mode]; }))),
+      path: [names[0]].concat(legs.map(function (leg) { return leg.to; }))};
+    state.planRoute = data;
+    collectPlanRoute(data); renderPlannedRoute(data); fitPlanRoute(data.origin, data.destination);
+  } catch (error) {
+    if (requestToken !== state.planRequest) { return; }
+    panel.textContent = error.message;
+  }
   invalidate();
 }
 
@@ -4256,6 +6374,70 @@ function publishedMapPath(origin, destination) {
   return path.length > 1 ? path : null;
 }
 
+function junctionRoadPlan(origin, destination) {
+  var graph = {}, junctions = Object.values(mapLegEdits.junctions || {});
+  function endpoint(point) {
+    var best = null, distance = 2.5;
+    (pins || []).forEach(function (pin) {
+      if (pin.data.mobile) { return; }
+      var candidate = Math.hypot(point[0] - pin.wx, point[1] - pin.wy);
+      if (candidate <= distance) { distance = candidate; best = pin.data.name; }
+    });
+    return best;
+  }
+  routeLines.forEach(function (line) {
+    if (!['road', 'trail', 'track', 'ferry'].includes(line.kind) || !planarLegVisible(line)) { return; }
+    var points = line.sourcePoints || [], anchors = [], distance = 0;
+    points.forEach(function (point, index) {
+      if (index) { distance += Math.hypot(point[0] - points[index - 1][0], point[1] - points[index - 1][1]); }
+      var junction = junctions.find(function (item) {
+        return item.legs.includes(line.editId) && Math.hypot(point[0] - item.point[0], point[1] - item.point[1]) < 0.001;
+      });
+      var name = junction ? junction.name : ((index === 0 || index === points.length - 1)
+        ? (endpoint(point) || 'Road waypoint (' + point[0].toFixed(6) + ', ' + point[1].toFixed(6) + ')') : null);
+      if (name) { anchors.push({name: name, distance: distance, index: index}); }
+    });
+    for (var index = 1; index < anchors.length; index++) {
+      var start = anchors[index - 1], end = anchors[index];
+      if (start.name === end.name) { continue; }
+      var miles = end.distance - start.distance;
+      var pointsSlice = points.slice(start.index, end.index + 1);
+      (graph[start.name] || (graph[start.name] = [])).push({from: start.name, to: end.name, miles: miles,
+        via: line.details.name, mode: line.kind, points: pointsSlice, id: line.editId});
+      (graph[end.name] || (graph[end.name] = [])).push({from: end.name, to: start.name, miles: miles,
+        via: line.details.name, mode: line.kind, points: pointsSlice.slice().reverse(), id: line.editId});
+    }
+  });
+  var distance = {}, previous = {}, open = [origin]; distance[origin] = 0;
+  while (open.length) {
+    open.sort(function (left, right) { return distance[left] - distance[right]; });
+    var current = open.shift();
+    if (current === destination) { break; }
+    (graph[current] || []).forEach(function (edge) {
+      var next = distance[current] + edge.miles;
+      if (distance[edge.to] === undefined || next < distance[edge.to]) {
+        distance[edge.to] = next; previous[edge.to] = edge;
+        if (!open.includes(edge.to)) { open.push(edge.to); }
+      }
+    });
+  }
+  if (distance[destination] === undefined) { return null; }
+  var legs = [], cursor = destination;
+  while (cursor !== origin) { var edge = previous[cursor]; legs.unshift(edge); cursor = edge.from; }
+  var itinerary = [];
+  legs.forEach(function (leg) {
+    var last = itinerary[itinerary.length - 1];
+    if (last && last.to === leg.from && last.id === leg.id && last.via === leg.via && last.mode === leg.mode &&
+        junctions.some(function (junction) { return junction.name === leg.from; })) {
+      last.to = leg.to;
+      last.miles += leg.miles;
+      last.points = last.points.concat(leg.points.slice(1));
+    } else { itinerary.push(Object.assign({}, leg, {points: leg.points.slice()})); }
+  });
+  return {origin: origin, destination: destination, reachable: true, mapRoads: true,
+    distance: distance[destination], legs: itinerary, path: [origin].concat(itinerary.map(function (leg) { return leg.to; }))};
+}
+
 async function showPlannedRoute(origin, destination, optimise) {
   var panel = document.getElementById('route-plan-result');
   if (!origin || !destination) { return; }
@@ -4268,7 +6450,7 @@ async function showPlannedRoute(origin, destination, optimise) {
   invalidate();
   panel.innerHTML = '<p class="muted">Planning route&#8230;</p>';
   try {
-    var selectedTypes = state.routeTypes.join(',');
+    var selectedTypes = (MAP_VIEW === 'planar' ? state.planarLegTypes : state.routeTypes).join(',');
     var data = await getJson('/api/route?origin=' + encodeURIComponent(origin) +
       '&destination=' + encodeURIComponent(destination) +
       '&optimise=' + encodeURIComponent(optimise || 'days') +
@@ -4372,6 +6554,7 @@ function updateTip(hit, mx, my) {
 // ---------------------------------------------------------------------------
 
 function loadTerrainDetail(id) {
+  if (MAP_VIEW === 'planar') { focusSettlement(id); return; }
   var request = ++state.detailRequest;
   getJson('/api/terrain-detail?settlement=' + encodeURIComponent(id))
     .then(function (detail) {
@@ -4404,6 +6587,10 @@ function loadTerrainDetail(id) {
 
 async function selectSettlement(id) {
   state.selected = id;
+  if (MAP_VIEW === 'planar') {
+    var focusPin = pins && pins.find(function (item) { return item.data.id === id; });
+    if (focusPin) { state.tx = focusPin.sx; state.tz = focusPin.sz; }
+  }
   state.selectedRoute = -1;
   state.selectedCarrierService = '';
   state.supplyChain = null;
@@ -4413,11 +6600,23 @@ async function selectSettlement(id) {
   invalidate();
   var link = document.getElementById('history-link');
   if (link) {
+    link.hidden = false;
     link.href = 'location.html?settlement=' + encodeURIComponent(id);
   }
   var head = document.getElementById('place-head');
   head.innerHTML = '<h2>Loading&#8230;</h2>';
   var selectedPin = pins.find(function (item) { return item.data.id === id; });
+  if (selectedPin && selectedPin.data.mapOnly) {
+    state.market = null;
+    var site = selectedPin.data;
+    head.innerHTML = '<h2>' + esc(site.name) + '</h2><p class="sub">' +
+      esc(PLACE_TYPES[site.placeType] || 'Location') + ' &middot; ' + (site.inhabited ? 'Inhabited' : 'Uninhabited') + '</p>' +
+      (site.roadName ? '<p>' + esc(site.roadName) + '</p>' : '') +
+      (site.notes ? '<p style="white-space:pre-wrap">' + esc(site.notes) + '</p>' : '');
+    if (link) { link.hidden = true; }
+    ['place-stats', 'place-notes', 'place-prices'].forEach(function (id) { document.getElementById(id).textContent = ''; });
+    return;
+  }
   if (selectedPin && selectedPin.data.mobile) {
     if (selectedPin.data.carrier) {
       var carrier = selectedPin.data;
@@ -4436,6 +6635,9 @@ async function selectSettlement(id) {
       var positionText = position.status === 'encamped'
         ? 'Encamped at ' + position.host.name
         : 'Travelling from ' + position.origin.name + ' to ' + position.destination.name;
+      if (position.position_source === 'route_unavailable') {
+        positionText += ' (mapped route unavailable; marker remains at last known origin)';
+      }
       head.innerHTML = '<h2>' + esc(mobile.name) + '</h2><p class="sub">Travelling company &middot; ' +
         Number(mobile.population).toLocaleString() + ' people</p><p class="muted">' +
         esc(positionText) + '</p><p class="muted">' + esc(mobile.description) + '</p>' +
@@ -4447,7 +6649,9 @@ async function selectSettlement(id) {
     return;
   }
   try {
-    state.market = await getJson('/api/market?settlement=' + encodeURIComponent(id));
+    var market = await getJson('/api/market?settlement=' + encodeURIComponent(id));
+    if (state.selected !== id) { return; }
+    state.market = market;
     renderPanel();
   } catch (err) {
     head.innerHTML = '<h2>Market unavailable</h2><p class="muted">' + esc(err.message) + '</p>';
@@ -4455,11 +6659,12 @@ async function selectSettlement(id) {
 }
 
 function focusSettlement(id) {
+  var junction = junctionLocations().find(function (location) { return location.id === id; });
+  if (junction) { return focusJunction(junction); }
   if (state.detailId && state.map) {
     state.detailRequest++;
     buildMesh(state.map);
     buildPins(state.map.settlements);
-    startCarrierTracking();
     buildPlaces(state.map.places || []);
     rebuildRouteGeometry();
     state.detailId = '';
@@ -4482,10 +6687,127 @@ function focusSettlement(id) {
   return true;
 }
 
+function junctionLocations() {
+  return Object.keys(mapLegEdits.junctions || {}).map(function (identifier) {
+    var junction = mapLegEdits.junctions[identifier];
+    return {id: 'junction:' + identifier, name: junction.name, x: junction.point[0], y: junction.point[1], junction: true};
+  });
+}
+
+function syncJunctionLocations() {
+  var options = document.getElementById('location-options');
+  options.querySelectorAll('[data-junction]').forEach(function (option) { option.remove(); });
+  junctionLocations().forEach(function (location) {
+    var option = document.createElement('option'); option.value = location.name;
+    option.setAttribute('data-junction', location.id); options.appendChild(option);
+  });
+}
+
+async function renameJunction(identifier, name) {
+  var junction = mapLegEdits.junctions[identifier];
+  if (!junction || legEditor.saving) { throw new Error('Junction is unavailable or another save is in progress.'); }
+  if (legEditor.dirty) { throw new Error('Save or cancel your route leg changes before renaming a junction.'); }
+  var oldName = junction.name;
+  legEditor.saving = true; syncLegEditor();
+  try {
+    mapLegEdits = await postJson('/api/map-junction', {
+      id: identifier, name: name.trim(), point: junction.point, legs: junction.legs, revision: mapLegEdits.revision
+    });
+    var newName = mapLegEdits.junctions[identifier].name;
+    applyMapLegEdits(); syncJunctionLocations(); clearPlannedRoute();
+    ['route-plan-origin', 'route-plan-destination'].forEach(function (id) {
+      var input = document.getElementById(id);
+      if (input.value === oldName) { input.value = newName; }
+    });
+    if (legEditor.draft && mapLegEdits.legs[legEditor.draft.id]) {
+      legEditor.draft.name = mapLegEdits.legs[legEditor.draft.id].name;
+    }
+    if (state.selected === 'junction:' + identifier) {
+      focusJunction(junctionLocations().find(function (location) { return location.id === state.selected; }));
+    }
+  } finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
+}
+
+async function deleteJunction(identifier) {
+  var junction = (mapLegEdits.junctions || {})[identifier];
+  if (!junction || legEditor.saving) { throw new Error('Junction is unavailable or another save is in progress.'); }
+  if (legEditor.dirty || locationEditor.draft || locationEditor.busy) {
+    throw new Error('Save or cancel your map edits before deleting a junction.');
+  }
+  if (!window.confirm('Delete junction "' + junction.name + '"? Connected roads and waypoints will be kept.')) { return; }
+  legEditor.saving = true; syncLegEditor();
+  try {
+    mapLegEdits = await postJson('/api/map-junction', {
+      id: identifier, deleted: true, revision: mapLegEdits.revision
+    });
+    applyMapLegEdits(); syncJunctionLocations(); clearPlannedRoute();
+    ['route-plan-origin', 'route-plan-destination'].forEach(function (id) {
+      var input = document.getElementById(id);
+      if (input.value === junction.name) { input.value = ''; }
+    });
+    if (state.selected === 'junction:' + identifier) {
+      state.selected = null;
+      document.getElementById('place-head').textContent = 'Junction deleted. Roads and waypoints were kept.';
+      ['place-stats', 'place-notes', 'place-prices'].forEach(function (id) {
+        document.getElementById(id).textContent = '';
+      });
+    }
+    updateRouteSelection();
+  } finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
+}
+
+function focusJunction(location) {
+  if (!mesh) { return false; }
+  var scene = toScene(location.x, location.y);
+  state.tx = scene[0]; state.tz = scene[1]; state.selected = location.id;
+  state.market = null; state.selectedRoute = -1; state.selectedCarrierService = '';
+  state.supplyChain = null; state.supplyRouteKeys = {};
+  document.getElementById('supply-chain').hidden = true;
+  document.getElementById('place-head').innerHTML = '<h2>' + esc(location.name) + '</h2><p class="sub">Road junction</p>';
+  var renameForm = document.createElement('form');
+  var renameLabel = document.createElement('label');
+  renameLabel.textContent = 'Junction name';
+  var renameInput = document.createElement('input');
+  renameInput.type = 'text'; renameInput.value = location.name; renameInput.required = true;
+  renameInput.maxLength = 160; renameInput.style.width = '100%'; renameInput.style.boxSizing = 'border-box';
+  renameLabel.appendChild(renameInput); renameForm.appendChild(renameLabel);
+  var renameButton = document.createElement('button');
+  renameButton.type = 'submit'; renameButton.textContent = 'Rename junction'; renameForm.appendChild(renameButton);
+  var deleteButton = document.createElement('button');
+  deleteButton.type = 'button'; deleteButton.textContent = 'Delete junction'; renameForm.appendChild(deleteButton);
+  var renameStatus = document.createElement('p'); renameStatus.setAttribute('role', 'status');
+  renameForm.appendChild(renameStatus);
+  deleteButton.addEventListener('click', async function () {
+    deleteButton.disabled = true; renameButton.disabled = true; renameStatus.textContent = '';
+    try { await deleteJunction(location.id.slice(9)); }
+    catch (error) { renameStatus.textContent = error.message; }
+    finally { deleteButton.disabled = false; renameButton.disabled = false; }
+  });
+  renameForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (!renameInput.value.trim()) { renameStatus.textContent = 'Enter a junction name.'; return; }
+    renameButton.disabled = true; renameStatus.textContent = 'Saving...';
+    try {
+      await renameJunction(location.id.slice(9), renameInput.value);
+    } catch (error) { renameStatus.textContent = error.message; }
+    finally { renameButton.disabled = false; }
+  });
+  document.getElementById('place-head').appendChild(renameForm);
+  ['place-stats', 'place-notes', 'place-prices'].forEach(function (id) { document.getElementById(id).innerHTML = ''; });
+  var junction = mapLegEdits.junctions[location.id.slice(9)];
+  document.getElementById('place-notes').innerHTML = '<ul>' + junction.legs.map(function (identifier) {
+    var leg = mapLegEdits.legs[identifier];
+    return leg && !leg.deleted ? '<li>' + esc(leg.name) + '</li>' : '';
+  }).join('') + '</ul>';
+  var historyLink = document.getElementById('history-link');
+  if (historyLink) { historyLink.hidden = true; }
+  updateRouteSelection(); invalidate(); return true;
+}
+
 function findLocation(query) {
   var needle = String(query || '').trim().toLowerCase();
   if (!needle || !state.map) { return null; }
-  var settlements = state.map.settlements || [];
+  var settlements = (state.map.settlements || []).concat(junctionLocations());
   return settlements.find(function (item) {
     return item.name.toLowerCase() === needle;
   }) || settlements.find(function (item) {
@@ -4682,12 +7004,91 @@ function buildTerrainLegend() {
 // alignment is always a hand-nudged guess made before that existed, and letting
 // it win would hide the real placement behind the very error it was fighting.
 var UNDERLAY_KEY = 'faerun.underlay.v2';
+var UNDERLAY_SOURCE_KEY = 'faerun.underlay.source';
+var underlayRequest = 0;
+var RASTER_LAYERS_KEY = 'faerun.reference-layers.v1';
+var rasterLayersRestored = false;
+
+function saveRasterLayers() {
+  var preferences = {};
+  Object.keys(state.rasterLayers).forEach(function (source) {
+    var layer = state.rasterLayers[source];
+    preferences[source] = {on: layer.on, alpha: layer.alpha};
+  });
+  try { window.localStorage.setItem(RASTER_LAYERS_KEY, JSON.stringify(preferences)); }
+  catch (err) { showStatus('Reference overlay preferences could not be saved.', true); }
+}
+
+function syncRasterLayerControls() {
+  var options = state.underInfo ? state.underInfo.options || [] : [];
+  Object.keys(state.rasterLayers).forEach(function (source) {
+    var layer = state.rasterLayers[source];
+    var toggle = underlayEl('layer-' + source);
+    toggle.disabled = !state.under || !options.some(function (option) { return option.id === source; });
+    toggle.checked = layer.on;
+    toggle.title = toggle.disabled ? 'This local reference image is unavailable.' : '';
+    var opacity = underlayEl('layer-' + source + '-alpha');
+    opacity.disabled = toggle.disabled || !layer.on;
+    opacity.value = String(Math.round(layer.alpha * 100));
+  });
+}
+
+async function loadRasterLayer(source) {
+  var layer = state.rasterLayers[source];
+  if (layer.image || layer.loading) { return; }
+  layer.loading = true;
+  try {
+    var info = await getJson('/api/underlay?source=' + encodeURIComponent(source));
+    if (!info.available) { throw new Error('The local reference image is unavailable.'); }
+    layer.image = await new Promise(function (resolve, reject) {
+      var image = new Image();
+      image.onload = function () { resolve(image); };
+      image.onerror = function () { reject(new Error('The reference image could not be decoded: ' + info.name)); };
+      image.src = info.url;
+    });
+  } catch (err) {
+    layer.on = false;
+    saveRasterLayers();
+    showStatus('Could not load ' + source + ': ' + err.message, true);
+  } finally {
+    layer.loading = false;
+    syncRasterLayerControls();
+    invalidate();
+  }
+}
+
+function restoreRasterLayers() {
+  if (!rasterLayersRestored) {
+    rasterLayersRestored = true;
+    try {
+      var saved = JSON.parse(window.localStorage.getItem(RASTER_LAYERS_KEY) || '{}');
+      Object.keys(state.rasterLayers).forEach(function (source) {
+        var value = saved && saved[source];
+        if (!value) { return; }
+        var layer = state.rasterLayers[source];
+        layer.on = value.on === true;
+        if (typeof value.alpha === 'number' && isFinite(value.alpha)) {
+          layer.alpha = Math.max(0, Math.min(1, value.alpha));
+        }
+      });
+    } catch (err) { showStatus('Reference overlay preferences could not be restored.', true); }
+  }
+  syncRasterLayerControls();
+  Object.keys(state.rasterLayers).forEach(function (source) {
+    if (state.rasterLayers[source].on) { loadRasterLayer(source); }
+  });
+}
+
+function underlayStorageKey() {
+  var source = state.underInfo && state.underInfo.source;
+  return source && source !== 'default' ? UNDERLAY_KEY + '.' + source : UNDERLAY_KEY;
+}
 
 function underlayEl(id) { return document.getElementById(id); }
 
 function saveUnderlay() {
   try {
-    window.localStorage.setItem(UNDERLAY_KEY, JSON.stringify({
+    window.localStorage.setItem(underlayStorageKey(), JSON.stringify({
       on: state.underOn,
       alpha: state.underAlpha,
       x: state.underX,
@@ -4705,7 +7106,7 @@ function saveUnderlay() {
 
 function loadSavedUnderlay() {
   try {
-    var raw = window.localStorage.getItem(UNDERLAY_KEY);
+    var raw = window.localStorage.getItem(underlayStorageKey());
     if (!raw) { return null; }
     var v = JSON.parse(raw);
     return v && typeof v === 'object' ? v : null;
@@ -4807,8 +7208,12 @@ function updateUnderlayReadout() {
   }
 }
 
-function setMapView(view) {
-  if (view !== 'overlay' && view !== 'terrain') { return; }
+async function setMapView(view) {
+  if (view !== 'overlay' && view !== 'terrain' && view !== 'planar') { return; }
+  if (MAP_VIEW === 'planar' && view !== 'planar' && !await discardLegDraft()) {
+    document.querySelectorAll('input[name="map-view"]').forEach(function (input) { input.checked = input.value === MAP_VIEW; });
+    return;
+  }
   MAP_VIEW = view;
   mapViewChanged = true;
   document.body.setAttribute('data-map-view', view);
@@ -4829,6 +7234,18 @@ function setMapView(view) {
   window.history.replaceState(null, '', url);
   syncUnderlayControls();
   resize();
+  if (view === 'planar') {
+    state.globe = false;
+    state.roundWorld = false;
+    state.terrainEditOn = false;
+    state.calibOn = false;
+    ['opt-globe', 'opt-round-world', 'opt-terrain-edit', 'opt-calib'].forEach(function (id) {
+      document.getElementById(id).checked = false;
+    });
+    canvas.classList.remove('calibrating', 'terrain-editing');
+    var target = state.selected || (findLocation('Waterdeep') || {}).id;
+    if (target) { focusSettlement(target); }
+  }
   invalidate();
 }
 
@@ -4859,16 +7276,33 @@ function applyUnderlayImage(img) {
   invalidate();
 }
 
-async function loadUnderlay() {
+async function loadUnderlay(source) {
+  var request = ++underlayRequest;
+  if (!source) {
+    try { source = window.localStorage.getItem(UNDERLAY_SOURCE_KEY); } catch (err) {}
+  }
+  source = ['topographical', 'elevation', 'ground-cover'].indexOf(source) >= 0 ? source : 'default';
   var info;
   try {
-    info = await getJson('/api/underlay');
+    info = await getJson('/api/underlay?source=' + encodeURIComponent(source));
   } catch (err) {
-    // An older server started before this feature existed has no such route.
+    if (request === underlayRequest) {
+      underlayEl('underlay-source').value = (state.underInfo && state.underInfo.source) || 'default';
+      showStatus('The poster backdrop could not be loaded.', true);
+    }
     return;
   }
-  state.underInfo = info;
+  if (request !== underlayRequest) { return; }
+  var options = info.options || [{id: 'default', label: 'Original poster'}];
+  var select = underlayEl('underlay-source');
+  select.innerHTML = options.map(function (option) {
+    return '<option value="' + esc(option.id) + '">' + esc(option.label) + '</option>';
+  }).join('');
+  select.value = source;
   if (!info.available) {
+    if (options.length && options[0].id !== source) {
+      return loadUnderlay(options[0].id);
+    }
     var none = underlayEl('underlay-none');
     var text = underlayEl('underlay-none-text');
     if (none && text) {
@@ -4883,14 +7317,41 @@ async function loadUnderlay() {
     return;
   }
   var img = new Image();
-  img.onload = function () { applyUnderlayImage(img); };
+  img.onload = function () {
+    if (request !== underlayRequest) { return; }
+    state.underInfo = info;
+    underlayEl('underlay-none').hidden = true;
+    try { window.localStorage.setItem(UNDERLAY_SOURCE_KEY, source); } catch (err) {}
+    applyUnderlayImage(img);
+    restoreRasterLayers();
+  };
   img.onerror = function () {
+    if (request !== underlayRequest) { return; }
+    select.value = (state.underInfo && state.underInfo.source) || 'default';
     showStatus('The poster map at ' + info.path + ' could not be decoded.', true);
   };
   img.src = info.url;
 }
 
 function wireUnderlay() {
+  Object.keys(state.rasterLayers).forEach(function (source) {
+    underlayEl('layer-' + source).addEventListener('change', function (ev) {
+      state.rasterLayers[source].on = ev.target.checked;
+      saveRasterLayers();
+      syncRasterLayerControls();
+      if (ev.target.checked) { loadRasterLayer(source); }
+      invalidate();
+    });
+    underlayEl('layer-' + source + '-alpha').addEventListener('input', function (ev) {
+      state.rasterLayers[source].alpha = Number(ev.target.value) / 100;
+      saveRasterLayers();
+      invalidate();
+    });
+  });
+  underlayEl('underlay-source').addEventListener('change', function (ev) {
+    if (state.under) { saveUnderlay(); }
+    loadUnderlay(ev.target.value);
+  });
   underlayEl('opt-underlay').addEventListener('change', function (ev) {
     state.underOn = ev.target.checked;
     saveUnderlay();
@@ -5143,7 +7604,74 @@ async function loadCalibration() {
   applyCalibration();
 }
 
+function wireLocationLabels() {
+  var all = document.getElementById('show-all-location-labels');
+  var labels = document.getElementById('opt-labels');
+  var key = 'faerun-map-show-all-location-labels';
+  try {
+    var saved = window.localStorage.getItem(key);
+    if (saved !== null && saved !== 'true' && saved !== 'false') {
+      throw new Error('Invalid saved location label preference');
+    }
+    state.showAllLocationLabels = saved === 'true';
+  } catch (err) {
+    console.error('Location label preference could not be restored.', err);
+    showStatus('Location label preference could not be restored.', true);
+  }
+  if (state.showAllLocationLabels) { state.labels = true; }
+  all.checked = state.showAllLocationLabels;
+  labels.checked = state.labels;
+  function save() {
+    invalidate();
+    try {
+      window.localStorage.setItem(key, String(state.showAllLocationLabels));
+    } catch (err) {
+      console.error('Location label preference could not be saved.', err);
+      showStatus('Location label preference could not be saved; this choice applies only to this page.', true);
+    }
+  }
+  all.addEventListener('change', function () {
+    state.showAllLocationLabels = all.checked;
+    if (all.checked) { state.labels = true; labels.checked = true; }
+    save();
+  });
+  labels.addEventListener('change', function () {
+    state.labels = labels.checked;
+    if (!labels.checked) { state.showAllLocationLabels = false; all.checked = false; }
+    save();
+  });
+}
+
+function wireMarkerLabels(id, property, label) {
+  var input = document.getElementById(id);
+  var key = 'faerun-map-' + id;
+  try {
+    var saved = window.localStorage.getItem(key);
+    if (saved !== null && !['auto', 'show', 'hide'].includes(saved)) {
+      throw new Error('Invalid saved ' + label.toLowerCase() + ' label preference');
+    }
+    state[property] = saved === null ? 'auto' : saved;
+  } catch (err) {
+    console.error(label + ' label preference could not be restored.', err);
+    showStatus(label + ' label preference could not be restored.', true);
+  }
+  input.value = state[property];
+  input.addEventListener('change', function () {
+    state[property] = input.value;
+    invalidate();
+    try {
+      window.localStorage.setItem(key, state[property]);
+    } catch (err) {
+      console.error(label + ' label preference could not be saved.', err);
+      showStatus(label + ' label preference could not be saved; this choice applies only to this page.', true);
+    }
+  });
+}
+
 function wireControls() {
+  wireLocationLabels();
+  wireMarkerLabels('junction-labels', 'junctionLabels', 'Junction');
+  wireMarkerLabels('company-labels', 'companyLabels', 'Travelling company');
   document.getElementById('opt-round-world').checked = state.roundWorld;
   document.getElementById('opt-globe').checked = state.globe;
   wireUnderlay();
@@ -5190,10 +7718,6 @@ function wireControls() {
   }
   routeAll.addEventListener('change', updateRouteTypes);
   routeTypeInputs.forEach(function (input) { input.addEventListener('change', updateRouteTypes); });
-  document.getElementById('opt-labels').addEventListener('change', function (ev) {
-    state.labels = ev.target.checked;
-    invalidate();
-  });
   document.getElementById('opt-round-world').addEventListener('change', function (ev) {
     state.roundWorld = ev.target.checked;
     if (state.roundWorld) {
@@ -5355,9 +7879,84 @@ function wireControls() {
   });
 }
 
+var mapRefreshBusy = false;
+function mapHasDraft() {
+  return legEditor.dirty || legEditor.saving || !!locationEditor.draft || locationEditor.busy || state.calibDirty;
+}
+
+async function refreshSharedMap() {
+  if (!state.map || mapRefreshBusy || mapHasDraft()) { return; }
+  mapRefreshBusy = true;
+  try {
+    var stamp = await getJson('/api/map-revision');
+    if (stamp.version === state.map.mapVersion || mapHasDraft()) { return; }
+    var data = await getJson('/api/map');
+    var edits = await getJson('/api/map-route-legs');
+    var after = await getJson('/api/map-revision');
+    if (mapHasDraft() || after.version !== data.mapVersion || after.version !== stamp.version) { return; }
+    state.map = data; mapLegEdits = edits;
+    buildMesh(data); buildPins(data.settlements); buildPlaces(data.places || []);
+    buildRoutes(data.routes || [], data.roadGeometries || [], data.seaAirGeometries || []);
+    if (MAP_VIEW === 'planar') { refreshLocationOptions(); }
+    clearPlannedRoute();
+    if (legEditor.draft) { await discardLegDraft(); }
+    if (state.selected && pins.some(function (pin) { return pin.data.id === state.selected; })) {
+      selectSettlement(state.selected);
+    } else {
+      state.selected = null; state.market = null;
+      ['place-head', 'place-stats', 'place-notes', 'place-prices'].forEach(function (id) {
+        document.getElementById(id).textContent = '';
+      });
+    }
+    invalidate();
+  } catch (error) { showStatus('Map refresh unavailable: ' + error.message, true); }
+  finally { mapRefreshBusy = false; }
+}
+
 async function start() {
   buildTerrainLegend();
   wireControls();
+  wireRouteAnimation();
+  wireLegEditor();
+  wireLocationEditor();
+  window.setInterval(function () { if (!document.hidden) { refreshSharedMap(); } }, 5000);
+  window.addEventListener('focus', refreshSharedMap);
+  document.getElementById('planar-radius').addEventListener('change', function (event) {
+    setPlanarRadius(event.target.value);
+  });
+  document.getElementById('planar-grid').addEventListener('change', function (event) {
+    state.planarGrid = event.target.value; invalidate();
+  });
+  document.getElementById('planar-cell').addEventListener('change', function (event) {
+    state.planarCell = Number(event.target.value); invalidate();
+  });
+  document.getElementById('planar-land-detail').addEventListener('change', function (event) {
+    state.planarLandDetail = Number(event.target.value); invalidate();
+  });
+  document.getElementById('planar-boundaries').addEventListener('change', function (event) {
+    state.planarBoundaries = event.target.checked; invalidate();
+  });
+  document.getElementById('planar-poster').addEventListener('change', function (event) {
+    state.planarPoster = event.target.checked;
+    document.getElementById('planar-poster-alpha').disabled = !state.planarPoster;
+    invalidate();
+  });
+  document.getElementById('planar-poster-alpha').addEventListener('input', function (event) {
+    state.planarPosterAlpha = Number(event.target.value) / 100; invalidate();
+  });
+  document.getElementById('planar-terrain').addEventListener('change', function (event) {
+    state.planarTerrain = event.target.checked;
+    document.body.setAttribute('data-land-overlay', String(state.planarTerrain));
+    document.getElementById('planar-terrain-alpha').disabled = !state.planarTerrain;
+    invalidate();
+  });
+  document.getElementById('planar-terrain-alpha').addEventListener('input', function (event) {
+    state.planarTerrainAlpha = Number(event.target.value) / 100; invalidate();
+  });
+  document.getElementById('planar-center').addEventListener('click', function () {
+    var target = state.selected || (findLocation('Waterdeep') || {}).id;
+    if (target) { focusSettlement(target); }
+  });
   document.getElementById('poster-only').addEventListener('change', function (event) {
     state.posterOnly = event.target.checked;
     document.body.setAttribute('data-poster-only', String(posterOnlyActive()));
@@ -5421,11 +8020,12 @@ async function start() {
 
     resize();
     fitView();
+    if (MAP_VIEW === 'planar') { setMapView('planar'); }
     showStatus('');
     invalidate();
     window.requestAnimationFrame(frame);
     var planParams = new URLSearchParams(window.location.search);
-    var savedRouteTypes = (planParams.get('routeTypes') || '').split(',').filter(Boolean);
+    var savedRouteTypes = state.routeTypes;
     if (savedRouteTypes.length) {
       document.querySelectorAll('input[name="route-type"]').forEach(function (input) {
         input.checked = savedRouteTypes.indexOf(input.value) >= 0;

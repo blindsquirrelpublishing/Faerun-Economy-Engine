@@ -2,7 +2,7 @@
 
 from copy import deepcopy
 
-from .data.lore import LORE
+from .data.lore import LORE, LORE_SOURCE_POLICY
 from .models import Settlement
 
 
@@ -25,6 +25,7 @@ def location_lore(settlement: Settlement) -> dict:
             "era_note": "No web-researched lore has been verified for this location yet.",
         }
     entry["settlement_id"] = settlement.id
+    entry["source_policy"] = deepcopy(LORE_SOURCE_POLICY)
     entry["model_context"] = context
     entry["existing_note"] = settlement.description
     return entry

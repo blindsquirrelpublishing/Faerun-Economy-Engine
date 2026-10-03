@@ -10,7 +10,7 @@ from faerun.data.populations import WATERDEEP_POPULATION
 from faerun.data.settlements import SETTLEMENTS
 from faerun.economy import market_report
 from faerun.models import S
-from faerun.population import population_report
+from faerun.population import land_area_report, population_report
 from faerun.requirements import final_requirements, settlement_profile
 from faerun.world import World
 
@@ -18,6 +18,63 @@ from faerun.world import World
 @pytest.fixture
 def waterdeep():
     return replace(next(s for s in SETTLEMENTS if s.id == "waterdeep"))
+
+
+def test_land_area_separates_footprint_farmland_and_support(waterdeep):
+    settlement = replace(waterdeep, population=10_000)
+    report = land_area_report(settlement)
+    assert report["settlement_footprint_sq_miles"] == 1
+    assert report["required_agricultural_acres"] == 20_000
+    assert report["required_agricultural_sq_miles"] == 31.25
+    assert report["surrounding_support_sq_miles"] == 62.5
+    assert report["combined_sq_miles"] == 63.5
+    assert report["equivalent_outer_radius_miles"] == pytest.approx((63.5 / 3.141592653589793) ** 0.5)
+    assert report["equivalent_support_ring_width_miles"] == pytest.approx(
+        report["equivalent_outer_radius_miles"] - report["equivalent_settlement_radius_miles"]
+    )
+    assert population_report(settlement)["land_area"] == report
+    assert settlement.to_dict()["population_model"]["land_area"] == report
+    json.dumps(report, allow_nan=False)
+
+
+def test_land_area_supports_density_import_and_land_assumptions(waterdeep):
+    settlement = replace(waterdeep, population=10_000)
+    report = land_area_report(
+        settlement, settlement_density_per_sq_mile=2_000,
+        agricultural_acres_per_person=4, local_food_share=0.25,
+        usable_farmland_share=0.8,
+    )
+    assert report["settlement_footprint_sq_miles"] == 5
+    assert report["required_agricultural_acres"] == 10_000
+    assert report["surrounding_support_sq_miles"] == 19.53125
+    assert report["combined_sq_miles"] == 24.53125
+    assert waterdeep.population == 200_000
+    imported = land_area_report(settlement, local_food_share=0)
+    assert imported["required_agricultural_acres"] == 0
+    assert imported["surrounding_support_sq_miles"] == 0
+    assert imported["equivalent_support_ring_width_miles"] == 0
+    empty = land_area_report(replace(settlement, population=0))
+    assert empty["combined_sq_miles"] == empty["equivalent_outer_radius_miles"] == 0
+
+
+@pytest.mark.parametrize("field", [
+    "settlement_density_per_sq_mile", "agricultural_acres_per_person",
+    "local_food_share", "usable_farmland_share",
+])
+@pytest.mark.parametrize("value", [-1, True, "2", None, float("nan"), float("inf")])
+def test_land_area_rejects_invalid_assumptions(waterdeep, field, value):
+    with pytest.raises(ValueError, match=field):
+        land_area_report(waterdeep, **{field: value})
+
+
+@pytest.mark.parametrize("field,value", [
+    ("settlement_density_per_sq_mile", 0), ("agricultural_acres_per_person", 0),
+    ("usable_farmland_share", 0), ("usable_farmland_share", 1.1),
+    ("local_food_share", 1.1),
+])
+def test_land_area_rejects_out_of_range_assumptions(waterdeep, field, value):
+    with pytest.raises(ValueError, match=field):
+        land_area_report(waterdeep, **{field: value})
 
 
 def test_selected_population_has_honest_evidence_and_no_invented_precision(waterdeep):
@@ -59,6 +116,8 @@ def test_comparison_and_overrides_report_actual_input_without_mutating_default(w
 def test_invalid_resident_counts_are_rejected(waterdeep, value):
     with pytest.raises(ValueError, match="Resident population"):
         population_report(replace(waterdeep, population=value))
+    with pytest.raises(ValueError, match="Resident population"):
+        land_area_report(replace(waterdeep, population=value))
 
 
 @pytest.mark.parametrize("field", ["residents", "comparison_residents", "reference_year"])
@@ -101,6 +160,20 @@ def test_population_api_is_lightweight_and_historical_dates_do_not_fake_censuses
     report = web.GET_ROUTES["/api/population"](world, {"settlement": ["Waterdeep"]})
     assert report["date"] == "16 Eleint 1492 DR"
     assert report["resident_population"] == 200_000
+    assert report["land_area"] == land_area_report(waterdeep)
+    custom = web.api_population(world, {
+        "settlement": ["Waterdeep"], "local_food_share": ["0.25"],
+        "settlement_density_per_sq_mile": ["20000"],
+        "agricultural_acres_per_person": ["3"], "usable_farmland_share": ["0.75"],
+    })
+    assert custom["land_area"] == land_area_report(
+        waterdeep, local_food_share=0.25, settlement_density_per_sq_mile=20_000,
+        agricultural_acres_per_person=3, usable_farmland_share=0.75,
+    )
+    assert web.api_population(world, {"settlement": ["Waterdeep"]}) == report
+    for invalid in ("nan", "inf", "-1", "1.1", "invalid"):
+        with pytest.raises(web.ApiError, match="local_food_share"):
+            web.api_population(world, {"settlement": ["Waterdeep"], "local_food_share": [invalid]})
     assert world.revision == revision
     historical = World(settlements=[waterdeep], date=HarptosDate(1372, 1, 1))
     old_date = web.api_population(historical, {"settlement": ["waterdeep"]})

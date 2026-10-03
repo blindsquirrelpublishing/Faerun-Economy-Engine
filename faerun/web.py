@@ -60,12 +60,14 @@ from .mapassets import MAP_ASSETS
 from .mobile import mobile_location_summary
 from .mobile_economy import mobile_economic_report
 from .mobileassets import MOBILE_ASSETS
-from .mapdata import map_payload, save_terrain_override, terrain_detail
+from .mapdata import map_payload, save_terrain_override, terrain_detail, planar_terrain_tile
+from .locationedits import apply_location_edits, save_location_edit
+from .routegeometry import load_route_edits, save_route_leg, save_road_junction
 from .underlay import set_override, underlay_bytes, underlay_info
 from .webassets import ASSETS
-from .world import World, get_world
+from .world import MODES, World, get_world
 from .models import price_terms
-from .population import population_report
+from .population import land_area_report, population_report
 from .census import waterdeep_housing_report
 from .mapsurvey import map_survey_report
 from .settlement_analysis import DAGGERFORD_PREVIEW, settlement_analysis_report
@@ -77,6 +79,8 @@ from .marketboardapi import GET_BOARD_ROUTES, POST_BOARD_ROUTES
 from .marketboardassets import BOARD_ASSETS
 from .eventsassets import EVENTS_ASSETS
 from .waterdeepassets import WATERDEEP_ASSETS
+from .loreassets import LORE_ASSETS
+from .loredesk import read_desk, post_desk
 
 # Static files are served from a single flat lookup keyed by bare filename.
 STATIC: Dict[str, Tuple[str, str]] = dict(ASSETS)
@@ -90,6 +94,7 @@ STATIC.update(EVENTS_ASSETS)
 STATIC.update(WATERDEEP_ASSETS)
 STATIC.update(DAGGERFORD_ASSETS)
 STATIC.update(MOBILE_ASSETS)
+STATIC.update(LORE_ASSETS)
 
 BINARY_STATIC: Dict[str, Tuple[Path, str]] = {
     "daggerford-map.jpg": (DAGGERFORD_PREVIEW, "image/jpeg"),
@@ -380,7 +385,16 @@ def api_progress(world: World, params) -> Dict[str, Any]:
 
 
 def api_population(world: World, params) -> Dict[str, Any]:
-    report = population_report(world.find_settlement(_required(params, "settlement")))
+    settlement = world.find_settlement(_required(params, "settlement"))
+    report = population_report(settlement)
+    defaults = report["land_area"]["inputs"]
+    if any(name in params for name in defaults):
+        try:
+            report["land_area"] = land_area_report(
+                settlement, **{name: _float(params, name, value) for name, value in defaults.items()},
+            )
+        except ValueError as exc:
+            raise ApiError(str(exc)) from exc
     return {"date": str(world.date), **report}
 
 
@@ -815,13 +829,54 @@ def api_special_order(world: World, params) -> Dict[str, Any]:
     )
 
 
+def api_map_revision(world: World, params) -> Dict[str, Any]:
+    from .locationedits import location_edits_path
+    from .routegeometry import route_edits_path
+    from .atlas import project_root
+
+    paths = [location_edits_path(), route_edits_path(), project_root() / "maps" / "terrain-overrides.json",
+             project_root() / "maps" / "terrain-1-mile.json",
+             project_root() / "maps" / "high-forest-regions.json",
+             project_root() / "maps" / "high-forest-source-boundaries.json",
+             project_root() / "maps" / "goldenfields-regions.json"]
+    versions = []
+    for path in paths:
+        info = path.stat() if path.exists() else None
+        versions.append([info.st_mtime_ns, info.st_size] if info else None)
+    return {"version": json.dumps(versions)}
+
+
+def map_boundary_regions():
+    from .atlas import project_root
+
+    regions = []
+    for name in ("high-forest-regions.json", "goldenfields-regions.json"):
+        path = project_root() / "maps" / name
+        if path.is_file():
+            regions.extend(json.loads(path.read_text(encoding="utf-8"))["regions"])
+    return regions
+
+
+def map_source_boundaries():
+    from .atlas import project_root
+
+    path = project_root() / "maps" / "high-forest-source-boundaries.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
 def api_map(world: World, params) -> Dict[str, Any]:
     """Terrain heightfield, settlement pins and trade routes for the 3D map.
 
     The raster is built once and cached in `mapdata`, so only the first
     request pays for it.
     """
-    return map_payload(world)
+    return {**apply_location_edits(map_payload(world)), "sourceBoundaries": map_source_boundaries(), "boundaryRegions": map_boundary_regions(), "mapVersion": api_map_revision(world, {})["version"], "travelMilesPerDay": {
+        kind: values[1] for kind, values in MODES.items() if kind != "teleport"
+    }}
+
+
+def api_planar_terrain(world: World, params) -> Dict[str, Any]:
+    return planar_terrain_tile(int(_required(params, "column")), int(_required(params, "row")))
 
 
 def api_terrain_detail(world: World, params) -> Dict[str, Any]:
@@ -870,7 +925,7 @@ def api_underlay(world: World, params) -> Dict[str, Any]:
     the image in place is picked up without restarting the server (unlike the
     page assets, which are frozen at import).
     """
-    info = underlay_info()
+    info = underlay_info(params.get("source", ["default"])[0])
     # If the poster has been surveyed we know exactly where it belongs in world
     # miles, so the browser can lay it down instead of asking for it to be
     # nudged into place by hand.
@@ -959,6 +1014,7 @@ def api_atlas(world: World, params) -> Dict[str, Any]:
 
 
 GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
+    "/api/lore-desk": read_desk,
     **GET_TRADE_ROUTES,
     **GET_BOARD_ROUTES,
     "/api/bootstrap": api_bootstrap,
@@ -970,6 +1026,7 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     "/api/atlas": api_atlas,
     "/api/map": api_map,
     "/api/terrain-detail": api_terrain_detail,
+    "/api/planar-terrain": api_planar_terrain,
     "/api/timeline": api_timeline,
     "/api/location": api_location,
     "/api/chronicle": api_chronicle,
@@ -1160,19 +1217,56 @@ def post_rebuild(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
     return payload
 
 
+def post_map_route_leg(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        result = save_route_leg(body)
+        world.sync_route_edits()
+        return result
+    except (OSError, ValueError) as exc:
+        raise ApiError(str(exc)) from exc
+
+
+GET_ROUTES["/api/map-route-legs"] = lambda world, params: load_route_edits()
+GET_ROUTES["/api/map-revision"] = api_map_revision
+
+
+def post_map_junction(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        result = save_road_junction(body)
+        world.sync_route_edits()
+        return result
+    except (OSError, ValueError) as exc:
+        raise ApiError(str(exc)) from exc
+
+
+def post_map_location(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        payload = map_payload(world)
+        result = save_location_edit(body, {"settlements": payload["settlements"], "places": payload.get("places", [])})
+        if world is not None:
+            world.sync_route_edits()
+        return result
+    except (OSError, ValueError) as exc:
+        raise ApiError(str(exc)) from exc
+
+
 POST_ROUTES: Dict[str, Callable[[World, Dict[str, Any]], Dict[str, Any]]] = {
+    "/api/lore-desk": post_desk,
     **POST_TRADE_ROUTES,
     **POST_BOARD_ROUTES,
     "/api/world": post_world,
     "/api/calibrate": post_calibrate,
     "/api/terrain-cell": post_terrain_cell,
+    "/api/map-route-leg": post_map_route_leg,
+    "/api/map-junction": post_map_junction,
+    "/api/map-location": post_map_location,
     "/api/atlas/apply": post_atlas_apply,
     "/api/event": post_event,
     "/api/events/clear": post_clear_events,
     "/api/rebuild": post_rebuild,
 }
 
-UNLOCKED_GET_ROUTES = {"/api/bootstrap", "/api/progress", "/api/map", "/api/underlay"}
+UNLOCKED_GET_ROUTES = {"/api/bootstrap", "/api/progress", "/api/map", "/api/underlay", "/api/map-route-legs"}
 
 
 # ---------------------------------------------------------------------------
@@ -1272,17 +1366,17 @@ class Handler(BaseHTTPRequestHandler):
         body, ctype = asset
         self._send_bytes(body.encode("utf-8"), ctype)
 
-    def _send_underlay(self) -> None:
+    def _send_underlay(self, source: str = "default") -> None:
         """Stream the user's own poster map straight off their disk.
 
         Nothing is copied into the project and nothing is redistributed: the
         bytes are read from wherever the file already lives and handed to the
         one browser that asked for them.
         """
-        found = underlay_bytes()
+        found = underlay_bytes(source)
         if found is None:
             self._send_json(
-                {"error": "no underlay image found", **underlay_info()}, 404
+            {"error": "no underlay image found", **underlay_info(source)}, 404
             )
             return
         self._send_bytes(found["raw"], found["mime"])
@@ -1336,7 +1430,7 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path == "/underlay.img":
             try:
-                self._send_underlay()
+                self._send_underlay(parse_qs(parsed.query).get("source", ["default"])[0])
             except CONNECTION_LOST:
                 pass
             except Exception as exc:  # noqa: BLE001 - deliberate catch-all
@@ -1348,7 +1442,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         params = parse_qs(parsed.query)
         try:
-            if parsed.path in GET_TRADE_ROUTES or parsed.path in GET_BOARD_ROUTES:
+            if parsed.path in GET_TRADE_ROUTES or parsed.path in GET_BOARD_ROUTES or parsed.path == "/api/lore-desk":
                 self._guard_trade_request()
             if parsed.path in UNLOCKED_GET_ROUTES:
                 payload = route(get_world(), params)
@@ -1374,7 +1468,8 @@ class Handler(BaseHTTPRequestHandler):
         if route is None:
             self._send_json({"error": "no such endpoint"}, 404)
             return
-        if parsed.path in POST_TRADE_ROUTES or parsed.path in POST_BOARD_ROUTES:
+        if (parsed.path in POST_TRADE_ROUTES or parsed.path in POST_BOARD_ROUTES
+                or parsed.path in {"/api/map-route-leg", "/api/map-junction", "/api/map-location", "/api/lore-desk"}):
             try:
                 self._guard_trade_request(mutation=True)
             except (ApiError, ValueError) as exc:

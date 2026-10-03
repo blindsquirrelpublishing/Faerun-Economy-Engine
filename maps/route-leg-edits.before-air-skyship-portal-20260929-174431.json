@@ -1,0 +1,2300 @@
+{
+  "format": "faerun-route-leg-edits-v1",
+  "revision": 375,
+  "legs": {
+    "route:The Delimbiyr Route|loudwater|secomber": {
+      "deleted": true
+    },
+    "route:The Sand Road|loudwater|secomber": {
+      "deleted": true
+    },
+    "route:caravan track|loudwater|secomber": {
+      "deleted": true
+    },
+    "route:Delimbiyr trail from Trade Way to Llorkh|loudwater|secomber": {
+      "deleted": true
+    },
+    "road:[\"delimbiyr-trail\",\"daggerford\",\"llorkh\"]": {
+      "deleted": true
+    },
+    "route:The Genie's Road|daggerford|waterdeep": {
+      "deleted": true
+    },
+    "road:[\"waterdeep-daggerford\",\"waterdeep\",\"daggerford\"]": {
+      "deleted": true
+    },
+    "route:caravan track|daggerford|waterdeep": {
+      "deleted": true
+    },
+    "route:Trade Way: Waterdeep to Daggerford|daggerford|waterdeep": {
+      "deleted": false,
+      "name": "Trade Way: Waterdeep to Daggerford",
+      "kind": "road",
+      "points": [
+        [
+          703.7,
+          1266.2
+        ],
+        [
+          685.0449625895548,
+          1258.3984972239766
+        ],
+        [
+          675.4497612847224,
+          1248.1415521530878
+        ],
+        [
+          667.3149833898282,
+          1242.4039769397448
+        ],
+        [
+          647.7025072810459,
+          1228.5710169932097
+        ],
+        [
+          628.7657285820488,
+          1213.9845791259665
+        ],
+        [
+          611.0761630493143,
+          1200.0
+        ],
+        [
+          600.0,
+          1200.0
+        ]
+      ]
+    },
+    "route:The Delimbiyr Route|secomber|waterdeep": {
+      "deleted": true
+    },
+    "route:The Sand Road|secomber|waterdeep": {
+      "deleted": true
+    },
+    "road:[\"long-road\",\"mirabar\",\"waterdeep\"]": {
+      "deleted": true
+    },
+    "route:The Long Road|amphail|red_larch": {
+      "deleted": true
+    },
+    "route:The Long Road|amphail|waterdeep": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|amphail|goldenfields": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|amphail|waterdeep": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|goldenfields|red_larch": {
+      "deleted": true
+    },
+    "route:caravan track|daggerford|secomber": {
+      "deleted": true
+    },
+    "route:Delimbiyr trail from Trade Way to Llorkh|daggerford|secomber": {
+      "deleted": true
+    },
+    "custom:101a9248-852c-404b-ae64-6c24d6fda0ac": {
+      "deleted": false,
+      "name": "Delimbiyr trail from Trade Way to Llorkh (part 1)",
+      "kind": "trail",
+      "points": [
+        [
+          675.8003048780482,
+          1248.3993902439022
+        ],
+        [
+          694.7904193101166,
+          1248.0141681966072
+        ],
+        [
+          713.5728162318829,
+          1245.8638011217881
+        ],
+        [
+          731.6768915390522,
+          1240.0981738989838
+        ],
+        [
+          749.7615078742805,
+          1234.2734374966344
+        ],
+        [
+          767.5152511224258,
+          1227.5311367355955
+        ],
+        [
+          785.0278701322691,
+          1220.1618618525952
+        ],
+        [
+          802.3906765992656,
+          1212.4728862538454
+        ],
+        [
+          820.2672889239603,
+          1206.0366087040734
+        ],
+        [
+          838.1164485263045,
+          1199.529636631648
+        ],
+        [
+          848.0,
+          1194.4
+        ]
+      ],
+      "path": [
+        [
+          675.8003048780482,
+          1248.3993902439022
+        ],
+        [
+          689.8628048780488,
+          1248.3231707317073
+        ],
+        [
+          694.7904193101166,
+          1248.0141681966072
+        ],
+        [
+          709.7702548786745,
+          1247.074807532359
+        ],
+        [
+          713.5728162318829,
+          1245.8638011217881
+        ],
+        [
+          731.6768915390522,
+          1240.0981738989838
+        ],
+        [
+          746.7288264904992,
+          1235.3045655848616
+        ],
+        [
+          749.7615078742805,
+          1234.2734374966344
+        ],
+        [
+          757.6086956521741,
+          1231.6053511705693
+        ],
+        [
+          767.5152511224258,
+          1227.5311367355955
+        ],
+        [
+          767.5252491929402,
+          1227.527024884273
+        ],
+        [
+          777.7591973244149,
+          1223.2441471571915
+        ],
+        [
+          785.0278701322691,
+          1220.1618618525952
+        ],
+        [
+          790.9698996655532,
+          1217.6421404682278
+        ],
+        [
+          801.5781601728019,
+          1212.705678286795
+        ],
+        [
+          802.3906765992656,
+          1212.4728862538454
+        ],
+        [
+          802.3911306650637,
+          1212.4727561605982
+        ],
+        [
+          817.7257525083626,
+          1206.939799331104
+        ],
+        [
+          820.2672889239603,
+          1206.0366087040734
+        ],
+        [
+          827.8428093645499,
+          1203.3444816053516
+        ],
+        [
+          837.9667681582722,
+          1199.6073218545093
+        ],
+        [
+          838.1164485263045,
+          1199.529636631648
+        ],
+        [
+          848,
+          1194.4
+        ]
+      ],
+      "pointIndices": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        12,
+        15,
+        18,
+        21,
+        22
+      ]
+    },
+    "custom:13a49321-8c42-48e4-8832-a85b3568a88b": {
+      "deleted": false,
+      "name": "Delimbiyr trail from Trade Way to Llorkh (part 2)",
+      "kind": "trail",
+      "points": [
+        [
+          847.974,
+          1194.4188
+        ],
+        [
+          855.379991472849,
+          1192.2124099370653
+        ],
+        [
+          865.6083063675186,
+          1189.1651943918002
+        ],
+        [
+          873.4055130090561,
+          1186.241240785824
+        ],
+        [
+          888.207167803231,
+          1180.6906181206139
+        ],
+        [
+          890.9704420790788,
+          1179.0931006245903
+        ],
+        [
+          903.2730754270392,
+          1171.9806427001954
+        ],
+        [
+          907.097504837725,
+          1169.0976132872356
+        ],
+        [
+          918.5744080624338,
+          1160.44579990193
+        ],
+        [
+          922.7946980627039,
+          1158.5480424135174
+        ],
+        [
+          940.1233157393422,
+          1150.7558020798972
+        ],
+        [
+          947.6412,
+          1147.3752
+        ],
+        [
+          958.3151173606359,
+          1146.0408348252954
+        ],
+        [
+          960.3984,
+          1145.7804
+        ],
+        [
+          976.8963862131847,
+          1149.446925698549
+        ],
+        [
+          981.9264000000001,
+          1150.5648
+        ],
+        [
+          995.4055338394488,
+          1153.7365012876464
+        ],
+        [
+          995.4816000000001,
+          1153.7544
+        ],
+        [
+          1013.8752299753219,
+          1149.3146899467943
+        ],
+        [
+          1018.6043999999999,
+          1148.1732
+        ],
+        [
+          1032.609720771989,
+          1146.2627738391473
+        ],
+        [
+          1036.146,
+          1145.7804
+        ],
+        [
+          1044.12,
+          1138.6044
+        ],
+        [
+          1048.1719588219812,
+          1136.2160716351498
+        ],
+        [
+          1057.7,
+          1130.6
+        ]
+      ]
+    },
+    "route:Gryphon flight|baldur_s_gate|waterdeep": {
+      "deleted": false,
+      "name": "Gryphon flight",
+      "kind": "air",
+      "points": [
+        [
+          872.7,
+          1578.7
+        ],
+        [
+          831.270903010031,
+          1506.354515050167
+        ],
+        [
+          794.3143812709013,
+          1445.6521739130433
+        ],
+        [
+          759.6989966555175,
+          1368.3946488294314
+        ],
+        [
+          713.3779264214036,
+          1308.19397993311
+        ],
+        [
+          672.2408026755844,
+          1263.7123745819397
+        ],
+        [
+          631.2709030100331,
+          1230.4347826086955
+        ],
+        [
+          600.0,
+          1200.0
+        ]
+      ]
+    },
+    "route:The Dessarin|red_larch|waterdeep": {
+      "deleted": true
+    },
+    "route:The Dessarin|red_larch|yartar": {
+      "deleted": true
+    },
+    "route:The Bread Road|goldenfields|waterdeep": {
+      "deleted": true
+    },
+    "custom:012d1b6c-ae2d-4537-8789-40d39ad43d7f": {
+      "deleted": false,
+      "name": "The Bread Road (part 1)",
+      "kind": "river",
+      "points": [
+        [
+          691.7,
+          1007.8
+        ],
+        [
+          695.3470890250751,
+          1015.9228223241017
+        ],
+        [
+          686.1071411863775,
+          1022.3907653443114
+        ],
+        [
+          697.3,
+          1073.2
+        ]
+      ]
+    },
+    "custom:83eb4ad9-a44f-4976-a914-cd19323ef077": {
+      "deleted": false,
+      "name": "The Bread Road (part 2)",
+      "kind": "river",
+      "points": [
+        [
+          697.3,
+          1073.2
+        ],
+        [
+          702.6511186611137,
+          1091.3295284431138
+        ],
+        [
+          701.5731427769449,
+          1101.4934535226419
+        ],
+        [
+          702.4970761601785,
+          1110.1173812043883
+        ],
+        [
+          701.1110883701335,
+          1146.153107603153
+        ],
+        [
+          667.5393475743813,
+          1176.0288736491862
+        ],
+        [
+          600.0,
+          1200.0
+        ]
+      ]
+    },
+    "route:caravan track|secomber|waterdeep": {
+      "deleted": true
+    },
+    "route:caravan track|goldenfields|yartar": {
+      "deleted": true
+    },
+    "route:caravan track|daggerford|goldenfields": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|daggerford": {
+      "deleted": true
+    },
+    "route:caravan track|goldenfields|waterdeep": {
+      "deleted": true
+    },
+    "road:[\"mirar-road\",\"luskan\",\"mirabar\"]": {
+      "deleted": true
+    },
+    "road:[\"silverymoon-sundabar\",\"silverymoon\",\"sundabar\"]": {
+      "deleted": true
+    },
+    "road:[\"bridge-scornubel\",\"soubar\",\"triel\"]": {
+      "deleted": true
+    },
+    "road:[\"bridge-scornubel\",\"triel\",\"scornubel\"]": {
+      "deleted": true
+    },
+    "road:[\"nashkel-crimmor\",\"nashkel\",\"crimmor\"]": {
+      "deleted": true
+    },
+    "road:[\"red-larch-secomber\",\"red_larch\",\"goldenfields\"]": {
+      "deleted": true
+    },
+    "road:[\"red-larch-secomber\",\"goldenfields\",\"secomber\"]": {
+      "deleted": true
+    },
+    "road:[\"triel-hills-edge\",\"triel\",\"hill_s_edge\"]": {
+      "deleted": true
+    },
+    "road:[\"riatavin-saradush\",\"riatavin\",\"saradush\"]": {
+      "deleted": true
+    },
+    "road:[\"chessenta-coastal-road\",\"airspur\",\"cimbar\"]": {
+      "deleted": true
+    },
+    "road:[\"elturel-berdusk-trail\",\"elturel\",\"berdusk\"]": {
+      "deleted": true
+    },
+    "road:[\"zhentil-phlan\",\"zhentil_keep\",\"phlan\"]": {
+      "deleted": true
+    },
+    "road:[\"phlan-melvaunt\",\"phlan\",\"melvaunt\"]": {
+      "deleted": true
+    },
+    "route:caravan track|bryn_shander|targos": {
+      "deleted": true
+    },
+    "route:caravan track|bryn_shander|termalaine": {
+      "deleted": true
+    },
+    "route:caravan track|bryn_shander|good_mead": {
+      "deleted": true
+    },
+    "route:caravan track|bryn_shander|lonelywood": {
+      "deleted": true
+    },
+    "route:caravan track|bryn_shander|easthaven": {
+      "deleted": true
+    },
+    "route:caravan track|targos|termalaine": {
+      "deleted": true
+    },
+    "route:caravan track|lonelywood|targos": {
+      "deleted": true
+    },
+    "route:caravan track|good_mead|targos": {
+      "deleted": true
+    },
+    "route:caravan track|easthaven|targos": {
+      "deleted": true
+    },
+    "route:caravan track|easthaven|good_mead": {
+      "deleted": true
+    },
+    "route:caravan track|easthaven|termalaine": {
+      "deleted": true
+    },
+    "route:caravan track|easthaven|lonelywood": {
+      "deleted": true
+    },
+    "route:caravan track|lonelywood|termalaine": {
+      "deleted": true
+    },
+    "route:caravan track|good_mead|termalaine": {
+      "deleted": true
+    },
+    "route:caravan track|luskan|port_llast": {
+      "deleted": true
+    },
+    "route:caravan track|luskan|neverwinter": {
+      "deleted": true
+    },
+    "route:caravan track|leilon|luskan": {
+      "deleted": true
+    },
+    "route:caravan track|longsaddle|luskan": {
+      "deleted": true
+    },
+    "route:caravan track|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:caravan track|leilon|neverwinter": {
+      "deleted": true
+    },
+    "route:caravan track|neverwinter|phandalin": {
+      "deleted": true
+    },
+    "route:caravan track|leilon|port_llast": {
+      "deleted": true
+    },
+    "route:caravan track|longsaddle|port_llast": {
+      "deleted": true
+    },
+    "route:caravan track|leilon|phandalin": {
+      "deleted": true
+    },
+    "route:caravan track|leilon|longsaddle": {
+      "deleted": true
+    },
+    "route:caravan track|phandalin|triboar": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|phandalin": {
+      "deleted": true
+    },
+    "route:caravan track|phandalin|red_larch": {
+      "deleted": true
+    },
+    "route:caravan track|longsaddle|phandalin": {
+      "deleted": true
+    },
+    "route:caravan track|longsaddle|mirabar": {
+      "deleted": true
+    },
+    "route:caravan track|jalanthar|mirabar": {
+      "deleted": true
+    },
+    "route:caravan track|mirabar|nesme": {
+      "deleted": true
+    },
+    "route:caravan track|longsaddle|triboar": {
+      "deleted": true
+    },
+    "route:caravan track|longsaddle|yartar": {
+      "deleted": true
+    },
+    "route:caravan track|red_larch|triboar": {
+      "deleted": true
+    },
+    "route:caravan track|triboar|yartar": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|triboar": {
+      "deleted": true
+    },
+    "route:caravan track|goldenfields|triboar": {
+      "deleted": true
+    },
+    "route:caravan track|red_larch|yartar": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|yartar": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|red_larch": {
+      "deleted": true
+    },
+    "route:caravan track|red_larch|waterdeep": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|goldenfields": {
+      "deleted": true
+    },
+    "route:caravan track|amphail|waterdeep": {
+      "deleted": true
+    },
+    "route:caravan track|baldur_s_gate|beregost": {
+      "deleted": true
+    },
+    "route:caravan track|baldur_s_gate|candlekeep": {
+      "deleted": true
+    },
+    "route:caravan track|baldur_s_gate|boareskyr_bridge": {
+      "deleted": true
+    },
+    "route:caravan track|beregost|candlekeep": {
+      "deleted": true
+    },
+    "route:caravan track|beregost|nashkel": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|beregost": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|nashkel": {
+      "deleted": true
+    },
+    "route:caravan track|nashkel|purskul": {
+      "deleted": true
+    },
+    "route:caravan track|candlekeep|nashkel": {
+      "deleted": true
+    },
+    "route:caravan track|esmeltaran|nashkel": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|candlekeep": {
+      "deleted": true
+    },
+    "route:caravan track|elturel|triel": {
+      "deleted": true
+    },
+    "route:caravan track|elturel|scornubel": {
+      "deleted": true
+    },
+    "route:caravan track|elturel|soubar": {
+      "deleted": true
+    },
+    "route:caravan track|boareskyr_bridge|elturel": {
+      "deleted": true
+    },
+    "route:caravan track|hill_s_edge|scornubel": {
+      "deleted": true
+    },
+    "route:caravan track|berdusk|scornubel": {
+      "deleted": true
+    },
+    "route:caravan track|iriaebor|scornubel": {
+      "deleted": true
+    },
+    "route:caravan track|boareskyr_bridge|scornubel": {
+      "deleted": true
+    },
+    "route:caravan track|scornubel|soubar": {
+      "deleted": true
+    },
+    "route:caravan track|berdusk|iriaebor": {
+      "deleted": true
+    },
+    "route:caravan track|berdusk|triel": {
+      "deleted": true
+    },
+    "route:caravan track|berdusk|hill_s_edge": {
+      "deleted": true
+    },
+    "route:caravan track|iriaebor|proskur": {
+      "deleted": true
+    },
+    "route:caravan track|hill_s_edge|iriaebor": {
+      "deleted": true
+    },
+    "route:caravan track|boareskyr_bridge|soubar": {
+      "deleted": true
+    },
+    "route:caravan track|boareskyr_bridge|triel": {
+      "deleted": true
+    },
+    "route:caravan track|everlund|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|deadsnows|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|mithral_hall|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|nesme|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_adbar|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_felbarr|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|jalanthar|silverymoon": {
+      "deleted": true
+    },
+    "route:caravan track|everlund|nesme": {
+      "deleted": true
+    },
+    "route:caravan track|deadsnows|everlund": {
+      "deleted": true
+    },
+    "route:caravan track|everlund|sundabar": {
+      "deleted": true
+    },
+    "route:caravan track|everlund|mithral_hall": {
+      "deleted": true
+    },
+    "route:caravan track|everlund|jalanthar": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_felbarr|sundabar": {
+      "deleted": true
+    },
+    "route:caravan track|deadsnows|sundabar": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_adbar|sundabar": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_adbar|citadel_felbarr": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_adbar|deadsnows": {
+      "deleted": true
+    },
+    "route:caravan track|citadel_felbarr|deadsnows": {
+      "deleted": true
+    },
+    "route:caravan track|jalanthar|mithral_hall": {
+      "deleted": true
+    },
+    "route:caravan track|mithral_hall|nesme": {
+      "deleted": true
+    },
+    "route:caravan track|jalanthar|nesme": {
+      "deleted": true
+    },
+    "route:caravan track|evereska|parnast": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|crimmor": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|purskul": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|murann": {
+      "deleted": true
+    },
+    "route:caravan track|athkatla|esmeltaran": {
+      "deleted": true
+    },
+    "route:caravan track|crimmor|purskul": {
+      "deleted": true
+    },
+    "route:caravan track|crimmor|murann": {
+      "deleted": true
+    },
+    "route:caravan track|crimmor|esmeltaran": {
+      "deleted": true
+    },
+    "route:caravan track|murann|purskul": {
+      "deleted": true
+    },
+    "route:caravan track|esmeltaran|murann": {
+      "deleted": true
+    },
+    "route:caravan track|esmeltaran|purskul": {
+      "deleted": true
+    },
+    "route:caravan track|myratma|zazesspur": {
+      "deleted": true
+    },
+    "route:caravan track|memnon|zazesspur": {
+      "deleted": true
+    },
+    "route:caravan track|darromar|zazesspur": {
+      "deleted": true
+    },
+    "route:caravan track|darromar|saradush": {
+      "deleted": true
+    },
+    "route:caravan track|darromar|myratma": {
+      "deleted": true
+    },
+    "route:caravan track|memnon|myratma": {
+      "deleted": true
+    },
+    "route:caravan track|calimport|memnon": {
+      "deleted": true
+    },
+    "route:caravan track|almraiven|suldolphor": {
+      "deleted": true
+    },
+    "route:caravan track|arrabar|ormpetarr": {
+      "deleted": true
+    },
+    "route:caravan track|alaghon|hlath": {
+      "deleted": true
+    },
+    "route:caravan track|airspur|hlath": {
+      "deleted": true
+    },
+    "route:caravan track|urmlaspyr|westgate": {
+      "deleted": true
+    },
+    "route:caravan track|teziir|westgate": {
+      "deleted": true
+    },
+    "route:caravan track|westgate|wheloon": {
+      "deleted": true
+    },
+    "route:caravan track|marsember|westgate": {
+      "deleted": true
+    },
+    "route:caravan track|marsember|teziir": {
+      "deleted": true
+    },
+    "route:caravan track|elversult|teziir": {
+      "deleted": true
+    },
+    "route:caravan track|suzail|teziir": {
+      "deleted": true
+    },
+    "route:caravan track|elversult|proskur": {
+      "deleted": true
+    },
+    "route:caravan track|elversult|suzail": {
+      "deleted": true
+    },
+    "route:caravan track|elversult|marsember": {
+      "deleted": true
+    },
+    "route:caravan track|proskur|suzail": {
+      "deleted": true
+    },
+    "route:caravan track|marsember|proskur": {
+      "deleted": true
+    },
+    "route:caravan track|marsember|suzail": {
+      "deleted": true
+    },
+    "route:caravan track|arabel|suzail": {
+      "deleted": true
+    },
+    "route:caravan track|arabel|marsember": {
+      "deleted": true
+    },
+    "route:caravan track|marsember|tilverton": {
+      "deleted": true
+    },
+    "route:caravan track|arabel|tilverton": {
+      "deleted": true
+    },
+    "route:caravan track|arabel|wheloon": {
+      "deleted": true
+    },
+    "route:caravan track|archenbridge|wheloon": {
+      "deleted": true
+    },
+    "route:caravan track|urmlaspyr|wheloon": {
+      "deleted": true
+    },
+    "route:caravan track|highmoon|wheloon": {
+      "deleted": true
+    },
+    "route:caravan track|saerloon|wheloon": {
+      "deleted": true
+    },
+    "route:caravan track|highmoon|tilverton": {
+      "deleted": true
+    },
+    "route:caravan track|shadowdale|tilverton": {
+      "deleted": true
+    },
+    "route:caravan track|ashabenford|shadowdale": {
+      "deleted": true
+    },
+    "route:caravan track|myth_drannor|shadowdale": {
+      "deleted": true
+    },
+    "route:caravan track|essembra|shadowdale": {
+      "deleted": true
+    },
+    "route:caravan track|ashabenford|essembra": {
+      "deleted": true
+    },
+    "route:caravan track|essembra|myth_drannor": {
+      "deleted": true
+    },
+    "route:caravan track|essembra|harrowdale_town": {
+      "deleted": true
+    },
+    "route:caravan track|essembra|hillsfar": {
+      "deleted": true
+    },
+    "route:caravan track|ashabenford|myth_drannor": {
+      "deleted": true
+    },
+    "route:caravan track|ashabenford|highmoon": {
+      "deleted": true
+    },
+    "route:caravan track|archenbridge|highmoon": {
+      "deleted": true
+    },
+    "route:caravan track|highmoon|saerloon": {
+      "deleted": true
+    },
+    "route:caravan track|archenbridge|saerloon": {
+      "deleted": true
+    },
+    "route:caravan track|archenbridge|selgaunt": {
+      "deleted": true
+    },
+    "route:caravan track|archenbridge|urmlaspyr": {
+      "deleted": true
+    },
+    "route:caravan track|harrowdale_town|hillsfar": {
+      "deleted": true
+    },
+    "route:caravan track|harrowdale_town|ordulin": {
+      "deleted": true
+    },
+    "route:caravan track|harrowdale_town|yhaunn": {
+      "deleted": true
+    },
+    "route:caravan track|hillsfar|myth_drannor": {
+      "deleted": true
+    },
+    "route:caravan track|myth_drannor|zhentil_keep": {
+      "deleted": true
+    },
+    "route:caravan track|saerloon|selgaunt": {
+      "deleted": true
+    },
+    "route:caravan track|ordulin|selgaunt": {
+      "deleted": true
+    },
+    "route:caravan track|selgaunt|yhaunn": {
+      "deleted": true
+    },
+    "route:caravan track|saerloon|urmlaspyr": {
+      "deleted": true
+    },
+    "route:caravan track|ordulin|saerloon": {
+      "deleted": true
+    },
+    "route:caravan track|ordulin|yhaunn": {
+      "deleted": true
+    },
+    "route:caravan track|tantras|yhaunn": {
+      "deleted": true
+    },
+    "route:caravan track|ravens_bluff|yhaunn": {
+      "deleted": true
+    },
+    "route:caravan track|procampur|tsurlagol": {
+      "deleted": true
+    },
+    "route:caravan track|procampur|ravens_bluff": {
+      "deleted": true
+    },
+    "route:caravan track|procampur|tantras": {
+      "deleted": true
+    },
+    "route:caravan track|lyrabar|procampur": {
+      "deleted": true
+    },
+    "route:caravan track|ravens_bluff|tantras": {
+      "deleted": true
+    },
+    "route:caravan track|ravens_bluff|tsurlagol": {
+      "deleted": true
+    },
+    "route:caravan track|lyrabar|ravens_bluff": {
+      "deleted": true
+    },
+    "route:caravan track|lyrabar|tsurlagol": {
+      "deleted": true
+    },
+    "route:caravan track|tantras|tsurlagol": {
+      "deleted": true
+    },
+    "route:caravan track|phlan|thentia": {
+      "deleted": true
+    },
+    "route:caravan track|hillsfar|phlan": {
+      "deleted": true
+    },
+    "route:caravan track|mulmaster|phlan": {
+      "deleted": true
+    },
+    "route:caravan track|melvaunt|thentia": {
+      "deleted": true
+    },
+    "route:caravan track|hillsfar|melvaunt": {
+      "deleted": true
+    },
+    "route:caravan track|melvaunt|zhentil_keep": {
+      "deleted": true
+    },
+    "route:caravan track|melvaunt|mulmaster": {
+      "deleted": true
+    },
+    "route:caravan track|elmwood|melvaunt": {
+      "deleted": true
+    },
+    "route:caravan track|elmwood|thentia": {
+      "deleted": true
+    },
+    "route:caravan track|hillsfar|thentia": {
+      "deleted": true
+    },
+    "route:caravan track|mulmaster|thentia": {
+      "deleted": true
+    },
+    "route:caravan track|elmwood|mulmaster": {
+      "deleted": true
+    },
+    "route:caravan track|hillsfar|zhentil_keep": {
+      "deleted": true
+    },
+    "route:caravan track|elmwood|hillsfar": {
+      "deleted": true
+    },
+    "route:caravan track|phsant|telflamm": {
+      "deleted": true
+    },
+    "route:caravan track|bezantur|eltabbar": {
+      "deleted": true
+    },
+    "route:caravan track|messemprar|skuld": {
+      "deleted": true
+    },
+    "route:caravan track|cimbar|luthcheq": {
+      "deleted": true
+    },
+    "route:caravan track|airspur|luthcheq": {
+      "deleted": true
+    },
+    "route:caravan track|llorkh|loudwater": {
+      "deleted": true
+    },
+    "route:caravan track|llorkh|parnast": {
+      "deleted": true
+    },
+    "route:Red Larch and Goldenfields branch toward Secomber|goldenfields|stone_bridge": {
+      "deleted": true
+    },
+    "route:Red Larch and Goldenfields branch toward Secomber|amphail|stone_bridge": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|red_larch|stone_bridge": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|stone_bridge|triboar": {
+      "deleted": true
+    },
+    "route:Evermoor Way: Triboar to Everlund|stone_bridge|yartar": {
+      "deleted": true
+    },
+    "route:Evermoor Way: Triboar to Everlund|stone_bridge|triboar": {
+      "deleted": true
+    },
+    "route:Red Larch and Goldenfields branch toward Secomber|goldenfields|secomber": {
+      "deleted": false,
+      "name": "Red Larch Trail: Red Larch to Secomber Trail",
+      "kind": "trail",
+      "points": [
+        [
+          646.2456,
+          1101.1296
+        ],
+        [
+          658.6752245766293,
+          1115.4998621021348
+        ],
+        [
+          669.8814259851707,
+          1130.7636982262657
+        ],
+        [
+          679.4391077101743,
+          1147.183492994444
+        ],
+        [
+          696.0917161384547,
+          1154.470000163749
+        ],
+        [
+          714.3541949923747,
+          1157.9302817747355
+        ],
+        [
+          732.5834320042038,
+          1152.5735180160323
+        ],
+        [
+          750.6398247768665,
+          1156.8340977459413
+        ],
+        [
+          768.6648067442477,
+          1162.8424273869964
+        ],
+        [
+          786.3348585481881,
+          1169.8006152350931
+        ],
+        [
+          802.9037960708164,
+          1179.0406857111602
+        ],
+        [
+          820.6417522476839,
+          1185.6303829616154
+        ],
+        [
+          838.7349335066566,
+          1191.4301063972596
+        ],
+        [
+          848.0,
+          1194.4
+        ]
+      ],
+      "path": [
+        [
+          646.2456,
+          1101.1296
+        ],
+        [
+          658.6752245766293,
+          1115.4998621021348
+        ],
+        [
+          665.075391209768,
+          1122.8992868754679
+        ],
+        [
+          669.8814259851707,
+          1130.7636982262657
+        ],
+        [
+          671.8513461358533,
+          1133.9872001602264
+        ],
+        [
+          679.4391077101743,
+          1147.183492994444
+        ],
+        [
+          681.1791845995515,
+          1150.2097562687127
+        ],
+        [
+          696.0917161384547,
+          1154.470000163749
+        ],
+        [
+          711.3224988369902,
+          1158.8211627305334
+        ],
+        [
+          714.3541949923747,
+          1157.9302817747355
+        ],
+        [
+          732.5834320042038,
+          1152.5735180160323
+        ],
+        [
+          735.3867655314376,
+          1151.7497427020958
+        ],
+        [
+          750.6398247768665,
+          1156.8340977459413
+        ],
+        [
+          768.6648067442477,
+          1162.8424273869964
+        ],
+        [
+          773.2704610310634,
+          1164.3776460750375
+        ],
+        [
+          786.3348585481881,
+          1169.8006152350931
+        ],
+        [
+          789.5943172249257,
+          1171.1536010011228
+        ],
+        [
+          802.9037960708164,
+          1179.0406857111602
+        ],
+        [
+          806.2261999438629,
+          1181.0095141747754
+        ],
+        [
+          820.6417522476839,
+          1185.6303829616154
+        ],
+        [
+          838.7349335066566,
+          1191.4301063972596
+        ],
+        [
+          848,
+          1194.4
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        9,
+        10,
+        12,
+        13,
+        15,
+        17,
+        19,
+        20,
+        21
+      ]
+    },
+    "custom:59b6d5a2-efc2-4426-bf05-7694d5e8f8e0": {
+      "deleted": false,
+      "name": "Goldenfields Trail",
+      "kind": "trail",
+      "points": [
+        [
+          663.8,
+          1136.2
+        ],
+        [
+          669.8814259851707,
+          1130.7636982262657
+        ]
+      ]
+    },
+    "route:Red Larch and Goldenfields branch toward Secomber|amphail|triboar": {
+      "deleted": true
+    },
+    "route:The Clanhold Road|mithral_hall|waterdeep": {
+      "deleted": true
+    },
+    "route:The High Road|luskan|port_llast": {
+      "deleted": true
+    },
+    "route:High Road: Luskan to Waterdeep|luskan|port_llast": {
+      "deleted": true
+    },
+    "route:The High Road|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:High Road: Luskan to Waterdeep|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:The Sword Coast Run|luskan|port_llast": {
+      "deleted": false,
+      "name": "The Sword Coast Run",
+      "kind": "sea",
+      "points": [
+        [
+          373.6,
+          905.0
+        ],
+        [
+          371.62134831460673,
+          908.0220820189274
+        ],
+        [
+          371.62134831460673,
+          948.0473186119874
+        ],
+        [
+          381.6218476903871,
+          973.0630914826498
+        ],
+        [
+          415.99327224457215,
+          1025.4707309014775
+        ],
+        [
+          426.1571973241006,
+          1026.3947227615074
+        ],
+        [
+          439.7,
+          1012.6
+        ]
+      ]
+    },
+    "route:The Sword Coast Run|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:The Frostbound Road|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:The Frostbound Road|luskan|port_llast": {
+      "deleted": true
+    },
+    "route:The Hunters' Coast|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:Sea of Swords coasting run|neverwinter|port_llast": {
+      "deleted": true
+    },
+    "route:Sea of Swords coasting run|neverwinter|ruathym": {
+      "deleted": true
+    },
+    "route:The Hunters' Coast|luskan|port_llast": {
+      "deleted": true
+    },
+    "route:Sea of Swords coasting run|luskan|port_llast": {
+      "deleted": true
+    },
+    "route:Sea of Swords coasting run|port_llast|ruathym": {
+      "deleted": true
+    },
+    "survey:[\"named-route-049-leg-1\",\"Luskan\",\"Neverwinter\"]": {
+      "deleted": true
+    },
+    "route:Sea of Swords coasting run|ruathym|waterdeep": {
+      "deleted": true
+    },
+    "survey:[\"named-route-049-leg-2\",\"Neverwinter\",\"Waterdeep\"]": {
+      "deleted": true
+    },
+    "route:Luskan to Mirabar|luskan|mirabar": {
+      "deleted": false,
+      "name": "Luskan to Mirabar: Mirabar to Luskan",
+      "kind": "road",
+      "points": [
+        [
+          373.6,
+          905.0
+        ],
+        [
+          389.1500320051082,
+          886.7189577802546
+        ],
+        [
+          405.9676129399368,
+          869.8678851688102
+        ],
+        [
+          425.9823886427198,
+          856.6236881917455
+        ],
+        [
+          449.5650057307261,
+          845.9081373386041
+        ],
+        [
+          469.2768466972306,
+          835.4362295915981
+        ],
+        [
+          489.29669956961084,
+          822.8083262186565
+        ],
+        [
+          506.1858929350443,
+          803.8973205024494
+        ],
+        [
+          527.6745483101515,
+          793.2091171843106
+        ],
+        [
+          548.2,
+          783.0
+        ]
+      ],
+      "path": [
+        [
+          373.6,
+          905
+        ],
+        [
+          389.1500320051082,
+          886.7189577802546
+        ],
+        [
+          400.28538138566626,
+          873.6279369970996
+        ],
+        [
+          405.9676129399368,
+          869.8678851688102
+        ],
+        [
+          425.9823886427198,
+          856.6236881917455
+        ],
+        [
+          449.5650057307261,
+          845.9081373386041
+        ],
+        [
+          469.2768466972306,
+          835.4362295915981
+        ],
+        [
+          489.29669956961084,
+          822.8083262186565
+        ],
+        [
+          504.08056933008993,
+          804.944483591411
+        ],
+        [
+          506.1858929350443,
+          803.8973205024494
+        ],
+        [
+          527.6745483101515,
+          793.2091171843106
+        ],
+        [
+          548.2,
+          783
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11
+      ]
+    },
+    "route:The Long Road|longsaddle|mirabar": {
+      "deleted": false,
+      "name": "The Long Road: Mirabar to Longsaddle",
+      "kind": "road",
+      "points": [
+        [
+          574.5,
+          931.3
+        ],
+        [
+          567.3084,
+          908.1732
+        ],
+        [
+          560.1324,
+          891.4284
+        ],
+        [
+          549.9722235217067,
+          864.6960010642778
+        ],
+        [
+          546.2762268431887,
+          838.208205171688
+        ],
+        [
+          560.7521285553893,
+          813.5684076183571
+        ],
+        [
+          553.0555787788046,
+          790.5307528516563
+        ],
+        [
+          548.2,
+          783.0
+        ]
+      ],
+      "path": [
+        [
+          574.5,
+          931.3
+        ],
+        [
+          567.3084,
+          908.1732
+        ],
+        [
+          560.1324,
+          891.4284
+        ],
+        [
+          549.9722235217067,
+          864.6960010642778
+        ],
+        [
+          546.2762268431887,
+          838.208205171688
+        ],
+        [
+          555.5161746818864,
+          823.7323326978856
+        ],
+        [
+          560.7521285553893,
+          813.5684076183571
+        ],
+        [
+          557.9801529752995,
+          798.1685140461266
+        ],
+        [
+          553.0555787788046,
+          790.5307528516563
+        ],
+        [
+          548.2,
+          783
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        9
+      ]
+    },
+    "route:Long Road: Mirabar to Waterdeep|longsaddle|mirabar": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|longsaddle|yartar": {
+      "deleted": true
+    },
+    "custom:427ebbb1-8f20-4f40-ad7b-4037275aecd0": {
+      "deleted": false,
+      "name": "Long Road: Mirabar to Longsaddle",
+      "kind": "road",
+      "points": [
+        [
+          548.2,
+          783.0
+        ],
+        [
+          556.146,
+          792.558
+        ],
+        [
+          561.7272,
+          810.0996
+        ],
+        [
+          556.944,
+          819.6672000000001
+        ],
+        [
+          548.97,
+          827.6412
+        ],
+        [
+          547.3752,
+          845.9796
+        ],
+        [
+          551.3616,
+          868.3055999999999
+        ],
+        [
+          560.1324,
+          891.4284
+        ],
+        [
+          567.3084,
+          908.1732
+        ],
+        [
+          574.4856,
+          931.296
+        ]
+      ]
+    },
+    "custom:7f2f6cb5-ada3-4492-93a7-7ddffb019380": {
+      "deleted": true
+    },
+    "route:The Long Road|longsaddle|triboar": {
+      "deleted": true
+    },
+    "custom:38d82dd1-fd15-43f8-9d4a-3e342aa4e1aa": {
+      "deleted": false,
+      "name": "Long Road: Mirabar to Waterdeep (part 2) (part 1)",
+      "kind": "road",
+      "points": [
+        [
+          574.4856,
+          931.296
+        ],
+        [
+          587.2428,
+          958.4052
+        ],
+        [
+          600.0,
+          981.528
+        ],
+        [
+          616.7436,
+          1003.854
+        ],
+        [
+          630.2988,
+          1022.1924
+        ],
+        [
+          637.4748,
+          1036.5444
+        ],
+        [
+          641.5,
+          1050.1
+        ]
+      ]
+    },
+    "custom:c322d3c5-29d3-4c1c-b9c9-38eb42d96a0d": {
+      "deleted": true
+    },
+    "route:The Long Road|red_larch|triboar": {
+      "deleted": false,
+      "name": "The Long Road: Triboar to Red Larch",
+      "kind": "road",
+      "points": [
+        [
+          646.2,
+          1101.1
+        ],
+        [
+          643.9975680238925,
+          1077.2012700464936
+        ],
+        [
+          642.0634999532188,
+          1061.814410729322
+        ],
+        [
+          641.5,
+          1050.1
+        ]
+      ],
+      "path": [
+        [
+          646.2,
+          1101.1
+        ],
+        [
+          643.9975680238925,
+          1077.2012700464936
+        ],
+        [
+          642.0634999532188,
+          1061.814410729322
+        ],
+        [
+          641.5,
+          1050.1
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "route:Gryphon flight|silverymoon|waterdeep": {
+      "deleted": false,
+      "name": "Gryphon flight",
+      "kind": "air",
+      "points": [
+        [
+          859.1,
+          830.0
+        ],
+        [
+          816.8887531583038,
+          895.7062438265447
+        ],
+        [
+          747.0906331867517,
+          927.8354740713877
+        ],
+        [
+          671.6312394741768,
+          967.5671679102725
+        ],
+        [
+          602.0237942084583,
+          1034.7106202633788
+        ],
+        [
+          601.2063720905188,
+          1121.0486974987423
+        ],
+        [
+          600.0,
+          1200.0
+        ]
+      ]
+    },
+    "route:Gryphon flight|amphail|waterdeep": {
+      "deleted": true
+    },
+    "route:Evermoor Way: Triboar to Everlund|grandfather_tree|yartar": {
+      "deleted": true
+    },
+    "route:Evermoor Way: Triboar to Everlund|everlund|grandfather_tree": {
+      "deleted": true
+    },
+    "route:The Evermoor Way|triboar|yartar": {
+      "deleted": true
+    },
+    "route:Long Road: Mirabar to Waterdeep|triboar|yartar": {
+      "deleted": true
+    },
+    "route:The Evermoor Way|nesme|yartar": {
+      "deleted": true
+    },
+    "road:[\"evermoor-way\",\"triboar\",\"everlund\"]": {
+      "deleted": true
+    },
+    "custom:d4952c56-7623-4105-9a82-16dcaeb62514": {
+      "deleted": false,
+      "name": "Evermoor Way: Triboar to Everlund (part 1)",
+      "kind": "road",
+      "points": [
+        [
+          641.5,
+          1050.1
+        ],
+        [
+          659.0028,
+          1030.9632
+        ],
+        [
+          676.5444,
+          1020.5976
+        ],
+        [
+          691.6944,
+          1007.8404
+        ]
+      ]
+    },
+    "custom:312957f8-862e-49e2-ba91-a4760a1c056c": {
+      "deleted": false,
+      "name": "Evermoor Way: Triboar to Everlund (part 2)",
+      "kind": "road",
+      "points": [
+        [
+          691.6944,
+          1007.8404
+        ],
+        [
+          710.0328,
+          995.0832
+        ],
+        [
+          724.3848,
+          988.704
+        ],
+        [
+          746.7108000000001,
+          985.5144
+        ],
+        [
+          765.8472,
+          983.9208
+        ],
+        [
+          778.6043999999999,
+          975.15
+        ],
+        [
+          796.944,
+          952.824
+        ],
+        [
+          814.4856,
+          944.0532
+        ],
+        [
+          836.8104,
+          935.2824
+        ],
+        [
+          855.9468,
+          930.498
+        ],
+        [
+          859.1364,
+          912.1596
+        ],
+        [
+          860.7312,
+          899.4024
+        ],
+        [
+          867.9072,
+          887.442
+        ],
+        [
+          867.1,
+          877.9
+        ]
+      ]
+    },
+    "route:The Mithral Road|mithral_hall|nesme": {
+      "deleted": true
+    },
+    "route:local market trail|griffon_s_nest|nesme": {
+      "deleted": true
+    },
+    "route:fen portage|mithral_hall|nesme": {
+      "deleted": true
+    },
+    "route:fen portage|jalanthar|nesme": {
+      "deleted": true
+    },
+    "route:The Mithral Road|nesme|silverymoon": {
+      "deleted": true
+    },
+    "route:fen portage|nesme|silverymoon": {
+      "deleted": true
+    },
+    "route:The Evermoor Way|everlund|nesme": {
+      "deleted": true
+    },
+    "route:fen portage|everlund|nesme": {
+      "deleted": true
+    },
+    "route:The Clanhold Road|mithral_hall|silverymoon": {
+      "deleted": true
+    },
+    "route:The Herbalists' Trail|everlund|silverymoon": {
+      "deleted": true
+    },
+    "route:Evermoor Way: Triboar to Everlund|everlund|silverymoon": {
+      "deleted": true
+    },
+    "route:Everlund through Silverymoon to Sundabar|everlund|silverymoon": {
+      "deleted": true
+    },
+    "route:The Herbalists' Trail|harrowdale_town|silverymoon": {
+      "deleted": true
+    },
+    "route:The North Ride|everlund|sundabar": {
+      "deleted": true
+    },
+    "route:The Herbalists' Trail|everlund|sundabar": {
+      "deleted": true
+    },
+    "route:Everlund through Silverymoon to Sundabar|deadsnows|silverymoon": {
+      "deleted": true
+    },
+    "route:The Silver Way|citadel_felbarr|silverymoon": {
+      "deleted": true
+    },
+    "route:The Clanhold Road|citadel_adbar|silverymoon": {
+      "deleted": true
+    },
+    "route:Everlund through Silverymoon to Sundabar|citadel_felbarr|sundabar": {
+      "deleted": true
+    },
+    "route:local market trail|hellgate_keep|sundabar": {
+      "deleted": true
+    },
+    "custom:b4cb69e1-b1de-4769-8bcb-b632f31159d3": {
+      "deleted": false,
+      "name": "New leg: Sundabar to Silverymoon",
+      "kind": "road",
+      "points": [
+        [
+          860.7312,
+          831.6276
+        ],
+        [
+          877.681614310439,
+          817.5723504163543
+        ],
+        [
+          903.5534156296756,
+          810.7964027998685
+        ],
+        [
+          931.5811979556486,
+          807.1004353597486
+        ],
+        [
+          959.300982994945,
+          803.712457896706
+        ],
+        [
+          980.8607930623103,
+          804.9444470434127
+        ],
+        [
+          1002.7504448046027,
+          807.8256230835686
+        ],
+        [
+          1003.5,
+          807.7
+        ]
+      ],
+      "path": [
+        [
+          860.7312,
+          831.6276
+        ],
+        [
+          877.681614310439,
+          817.5723504163543
+        ],
+        [
+          903.5534156296756,
+          810.7964027998685
+        ],
+        [
+          931.5811979556486,
+          807.1004353597486
+        ],
+        [
+          959.300982994945,
+          803.712457896706
+        ],
+        [
+          980.8607930623103,
+          804.9444470434127
+        ],
+        [
+          1002.7504448046027,
+          807.8256230835686
+        ],
+        [
+          1003.5,
+          807.7
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "road:[\"sundabar-ascore\",\"sundabar\",\"ascore\"]": {
+      "deleted": false,
+      "name": "Sundabar to Ascore: Ascore to Sundabar",
+      "kind": "road",
+      "points": [
+        [
+          1003.5,
+          807.7
+        ],
+        [
+          1028.1732,
+          799.7339999999999
+        ],
+        [
+          1051.296,
+          786.9767999999999
+        ],
+        [
+          1073.568064067175,
+          773.5286945639964
+        ],
+        [
+          1097.5416,
+          764.6508
+        ],
+        [
+          1109.808232648869,
+          761.9675101660291
+        ],
+        [
+          1123.056,
+          759.0696
+        ],
+        [
+          1149.3684,
+          755.0832
+        ],
+        [
+          1170.8976,
+          751.0968
+        ],
+        [
+          1185.2,
+          746.3
+        ]
+      ]
+    },
+    "custom:35ee41d4-0fdd-474a-be7e-ed8b62cdb239": {
+      "deleted": false,
+      "name": "New leg: Citadel Adbar to Ascore",
+      "kind": "road",
+      "points": [
+        [
+          1075.2,
+          685.7
+        ],
+        [
+          1088.9679430202063,
+          708.2332113117509
+        ],
+        [
+          1102.2118263473023,
+          729.4850387116386
+        ],
+        [
+          1108.0638040325568,
+          746.1169214305756
+        ],
+        [
+          1109.808232648869,
+          761.9675101660291
+        ]
+      ],
+      "path": [
+        [
+          1075.2,
+          685.7
+        ],
+        [
+          1088.9679430202063,
+          708.2332113117509
+        ],
+        [
+          1102.2118263473023,
+          729.4850387116386
+        ],
+        [
+          1108.0638040325568,
+          746.1169214305756
+        ],
+        [
+          1109.808232648869,
+          761.9675101660291
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "route:Sundabar to Ascore|ascore|hlaungadath": {
+      "deleted": false,
+      "name": "Sundabar to Ascore: Hlaungadath to Ascore",
+      "kind": "road",
+      "points": [
+        [
+          1185.2,
+          746.3
+        ],
+        [
+          1208.2086023578993,
+          739.473271827876
+        ],
+        [
+          1230.7,
+          732.8
+        ]
+      ],
+      "path": [
+        [
+          1185.2,
+          746.3
+        ],
+        [
+          1208.2086023578993,
+          739.473271827876
+        ],
+        [
+          1230.7,
+          732.8
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        2
+      ]
+    },
+    "route:The Silver Way|citadel_adbar|citadel_felbarr": {
+      "deleted": true
+    },
+    "route:Everlund through Silverymoon to Sundabar|citadel_felbarr|deadsnows": {
+      "deleted": true
+    },
+    "route:The High Road|leilon|neverwinter": {
+      "deleted": true
+    },
+    "route:The High Road|leilon|waterdeep": {
+      "deleted": true
+    },
+    "route:High Road: Luskan to Waterdeep|leilon|waterdeep": {
+      "deleted": true
+    },
+    "route:High Road: Luskan to Waterdeep|leilon|neverwinter": {
+      "deleted": true
+    },
+    "custom:cb7e0238-6d54-4e44-9721-d3578e632bec": {
+      "deleted": false,
+      "name": "New leg: Red Larch to Waterdeep",
+      "kind": "road",
+      "points": [
+        [
+          646.2456,
+          1101.1296
+        ],
+        [
+          639.0932149373098,
+          1126.9598900343829
+        ],
+        [
+          629.0832665723209,
+          1147.7497068850564
+        ],
+        [
+          615.7403978628589,
+          1166.3479459049074
+        ],
+        [
+          605.5719971504786,
+          1188.0873945398766
+        ],
+        [
+          600.0,
+          1200.0
+        ]
+      ],
+      "path": [
+        [
+          646.2456,
+          1101.1296
+        ],
+        [
+          639.0932149373098,
+          1126.9598900343829
+        ],
+        [
+          629.0832665723209,
+          1147.7497068850564
+        ],
+        [
+          615.7403978628589,
+          1166.3479459049074
+        ],
+        [
+          605.5719971504786,
+          1188.0873945398766
+        ],
+        [
+          600,
+          1200
+        ]
+      ],
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "route:The Delimbiyr Route|llorkh|loudwater": {
+      "deleted": true
+    },
+    "route:The Sand Road|llorkh|loudwater": {
+      "deleted": true
+    },
+    "route:Delimbiyr trail from Trade Way to Llorkh|llorkh|loudwater": {
+      "deleted": true
+    },
+    "route:The Delimbiyr Route|llorkh|parnast": {
+      "deleted": true
+    }
+  },
+  "junctions": {
+    "a6d74025-4a28-4dfb-a704-41bca567d952": {
+      "name": "Secomber Junction",
+      "point": [
+        675.4497612847224,
+        1248.1415521530878
+      ],
+      "legs": [
+        "route:Trade Way: Waterdeep to Daggerford|daggerford|waterdeep",
+        "route:The Delimbiyr Route|secomber|waterdeep"
+      ]
+    },
+    "8844e44c-0161-4b49-b211-92fd2a0e2bf2": {
+      "name": "Red Larch Trail/New leg Junction",
+      "point": [
+        669.8814259851707,
+        1130.7636982262657
+      ],
+      "legs": [
+        "route:Red Larch and Goldenfields branch toward Secomber|goldenfields|secomber",
+        "custom:59b6d5a2-efc2-4426-bf05-7694d5e8f8e0"
+      ]
+    },
+    "cadc3e30-1a80-4a81-8a31-e9335155b50d": {
+      "name": "Sundabar to Ascore/New leg Junction",
+      "point": [
+        1109.808232648869,
+        761.9675101660291
+      ],
+      "legs": [
+        "road:[\"sundabar-ascore\",\"sundabar\",\"ascore\"]",
+        "custom:35ee41d4-0fdd-474a-be7e-ed8b62cdb239"
+      ]
+    }
+  }
+}

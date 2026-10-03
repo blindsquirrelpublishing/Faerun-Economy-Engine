@@ -1,0 +1,301 @@
+{
+  "revision": 41,
+  "locations": {
+    "waterdeep": {
+      "name": "Waterdeep",
+      "x": 600.0,
+      "y": 1200.0,
+      "landAcres": 12800,
+      "landAreaEstimate": {
+        "status": "scenario_estimate",
+        "recorded_on": "2026-10-01",
+        "resident_population": 200000,
+        "inputs": {
+          "settlement_density_per_sq_mile": 10000,
+          "agricultural_acres_per_person": 2,
+          "local_food_share": 1,
+          "usable_farmland_share": 0.5
+        },
+        "settlement_footprint_sq_miles": 20,
+        "required_agricultural_acres": 400000,
+        "required_agricultural_sq_miles": 625,
+        "surrounding_support_sq_miles": 1250,
+        "combined_sq_miles": 1270,
+        "scope": "Saved resident-based estimate, not a surveyed boundary. Surrounding support includes farmland and excludes the settlement footprint. No terrain allocation or food-production changes."
+      }
+    },
+    "laviguer": {
+      "name": "Laviguer",
+      "x": 2308.342,
+      "y": 1142.333,
+      "mapPositionEdited": true
+    },
+    "sarshel": {
+      "name": "Sarshel",
+      "x": 2498.5809,
+      "y": 1224.0222,
+      "mapPositionEdited": true
+    },
+    "almorel": {
+      "name": "Almorel",
+      "x": 3601.8249,
+      "y": 1170.4615,
+      "mapPositionEdited": true
+    },
+    "zindalankh": {
+      "name": "Zindalankh",
+      "x": 3730.2874,
+      "y": 1782.5546,
+      "mapPositionEdited": true
+    },
+    "amphail": {
+      "name": "Amphail",
+      "x": 648.5289,
+      "y": 1161.7169,
+      "mapPositionEdited": true
+    },
+    "nimbral": {
+      "name": "Nimbral",
+      "x": 515.6292,
+      "y": 3290.894,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "lantan": {
+      "deleted": true
+    },
+    "port_llast": {
+      "name": "Port Llast",
+      "x": 416.4,
+      "y": 957.5,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "leilon": {
+      "name": "Leilon",
+      "x": 458.9087,
+      "y": 1069.216,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "town",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false
+    },
+    "jalanthar": {
+      "name": "Jalanthar",
+      "x": 723.8,
+      "y": 811.7,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "menzoberranzan": {
+      "name": "Menzoberranzan",
+      "x": 760.3,
+      "y": 828.3,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "blingdenstone": {
+      "name": "Blingdenstone",
+      "x": 746.9,
+      "y": 816.5,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "gracklstugh": {
+      "name": "Gracklstugh",
+      "x": 761.3,
+      "y": 834,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "deadsnows": {
+      "name": "Deadsnows",
+      "x": 936.5,
+      "y": 745,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "easthaven": {
+      "name": "Easthaven",
+      "x": 148,
+      "y": 375.7,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "good_mead": {
+      "name": "Good Mead",
+      "x": 139.3,
+      "y": 390.8,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "bryn_shander": {
+      "name": "Bryn Shander",
+      "x": 115.6,
+      "y": 374.7,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "targos": {
+      "name": "Targos",
+      "x": 95.7,
+      "y": 372.2,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "termalaine": {
+      "name": "Termalaine",
+      "x": 99.5,
+      "y": 362.4,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "lonelywood": {
+      "name": "Lonelywood",
+      "x": 102.2,
+      "y": 348,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "ruathym": {
+      "name": "Ruathym",
+      "x": 84.1,
+      "y": 819.6,
+      "mapPositionEdited": true,
+      "verified": false,
+      "placeType": "location"
+    },
+    "chethel": {
+      "name": "Chethel",
+      "x": 3225.3504,
+      "y": 2690.726,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "location"
+    },
+    "krenalir": {
+      "name": "Krenalir",
+      "x": 3292.7039,
+      "y": 2683.9005,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "location"
+    },
+    "cathyr": {
+      "name": "Cathyr",
+      "x": 3002.4914,
+      "y": 2912.0396,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "location"
+    },
+    "grandfather_tree": {
+      "name": "Grandfather Tree",
+      "x": 887,
+      "y": 971.2,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "temple"
+    },
+    "location:6e8efbbd-651a-4b4f-877c-fb638f18f1ca": {
+      "name": "Beliard",
+      "x": 716.0945,
+      "y": 1077.5766,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "location",
+      "isPort": false,
+      "inhabited": false,
+      "notes": ""
+    },
+    "myth_drannor": {
+      "name": "Myth Drannor",
+      "x": 1872.362,
+      "y": 1118.938,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "city",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false
+    },
+    "location:e1fd2a26-4e84-4123-9409-70d711c9e5af": {
+      "name": "Tower Ithfel",
+      "x": 2356.3781,
+      "y": 1141.4315,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "site",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false,
+      "inhabited": false,
+      "notes": ""
+    },
+    "location:a2ceaef1-b57a-4233-8f19-3e4328564177": {
+      "name": "The Shimmerglade",
+      "x": 2356.8932,
+      "y": 1077.2976,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "site",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false,
+      "inhabited": false,
+      "notes": ""
+    },
+    "griffon_s_nest": {
+      "name": "Griffon's Nest",
+      "x": 645.4,
+      "y": 858.7,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "hamlet",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false
+    },
+    "location:36849212-f99d-4c0a-ac8d-013902f0fb3f": {
+      "name": "Tordraken",
+      "x": 804.9083,
+      "y": 2033.5399,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "ruin",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false,
+      "inhabited": false,
+      "notes": ""
+    },
+    "location:e4c17739-9d18-4788-93c9-f21f3821f93e": {
+      "name": "Trademeet",
+      "x": 1022.5096,
+      "y": 2015.6955,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "caravan_stop",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false,
+      "inhabited": false,
+      "notes": ""
+    }
+  }
+}

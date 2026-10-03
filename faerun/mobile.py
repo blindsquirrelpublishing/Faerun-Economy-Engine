@@ -3,10 +3,32 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import math
 from typing import Any, Dict, List, Optional, Sequence
 
 from .calendar import HarptosDate
 from .models import slugify
+
+
+def route_position(world, origin, destination, progress):
+    route = world.route(origin.id, destination.id, include_inferred=False,
+                        route_types={"road", "track", "trail", "ferry"})
+    segments = []
+    if route.get("reachable") and route.get("mapRoads"):
+        for leg in route["legs"]:
+            points = leg.get("points") or []
+            segments.extend((start, end, math.dist(start, end))
+                            for start, end in zip(points, points[1:]) if start != end)
+    if not segments:
+        return origin.x, origin.y, False
+    remaining = min(1.0, max(0.0, progress)) * sum(segment[2] for segment in segments)
+    for start, end, distance in segments:
+        if remaining <= distance:
+            fraction = remaining / distance
+            return (start[0] + fraction * (end[0] - start[0]),
+                    start[1] + fraction * (end[1] - start[1]), True)
+        remaining -= distance
+    return segments[-1][1][0], segments[-1][1][1], True
 
 
 @dataclass(frozen=True)
@@ -79,26 +101,35 @@ class MobileLocation:
             active = previous[-1] if previous else entries[0]
 
         origin = world.find_settlement(active.origin)
+        from .locationedits import load_location_edits
+
+        origin_edit = load_location_edits()["locations"].get(origin.id, {})
+        origin_x = origin_edit.get("x", origin.x)
+        origin_y = origin_edit.get("y", origin.y)
+        position_source = "camp"
         destination = (
             world.find_settlement(active.destination)
             if active.destination else None
         )
         if active.kind == "camp" or destination is None:
             progress = 0.0
-            x, y = origin.x, origin.y
+            x, y = origin_x, origin_y
             status = "encamped"
             host = origin
         else:
             first = active.start.absolute_day()
             span = max(1, active.end.absolute_day() - first)
             progress = min(1.0, max(0.0, (current.absolute_day() - first) / span))
-            x = origin.x + (destination.x - origin.x) * progress
-            y = origin.y + (destination.y - origin.y) * progress
+            x, y, mapped = route_position(world, origin, destination, progress)
+            position_source = "mapped_route" if mapped else "route_unavailable"
+            if not mapped:
+                x, y = origin_x, origin_y
             status = "travelling"
             host = None
 
         return {
             "status": status,
+            "position_source": position_source,
             "x": round(x, 3),
             "y": round(y, 3),
             "origin": {"id": origin.id, "name": origin.name},

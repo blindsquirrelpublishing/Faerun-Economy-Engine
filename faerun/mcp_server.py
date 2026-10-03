@@ -201,7 +201,7 @@ def get_settlement(settlement: str) -> Dict[str, Any]:
         return _fail(exc)
     data = s.to_dict()
     data["neighbours"] = [
-        {"to": world().settlements[e.dst].name, "mode": e.kind,
+        {"to": world().route_node(e.dst).name, "mode": e.kind,
          "modes": list(e.modes), "mode_label": describe_modes(e.kind),
          "multimodal": e.multimodal,
          "miles": round(e.distance, 1), "days": round(e.days, 1),
@@ -607,7 +607,7 @@ def list_named_routes() -> Dict[str, Any]:
             "mode_label": describe_modes(kind),
             "multimodal": len(parse_modes(kind)) > 1,
             "quality": quality,
-            "stops": [w.settlements[sid].name if sid in w.settlements else sid
+            "stops": [w.route_node(sid).name if sid in getattr(w, "route_nodes", w.settlements) else sid
                       for sid in stops],
         })
     return {"count": len(routes), "routes": routes}

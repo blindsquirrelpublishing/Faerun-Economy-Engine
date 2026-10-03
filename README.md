@@ -30,6 +30,67 @@ imported from Goldenfields - 1,024 miles, 51 days
 
 ---
 
+## Location wiki
+
+The [location wiki](wiki/README.md) collects dated lore, named places and people,
+engine assumptions, and unresolved evidence in one project-local reference.
+Start with [Phandalin](wiki/locations/phandalin.md). Forgotten Realms Wiki is the
+preferred secondary canon reference for information the engine does not provide.
+Reviewed summaries and source provenance are included in location-detail API and
+MCP responses under `lore`. Sourced lore and simulation outputs stay separate;
+there is no live scraping or automatic overwrite of economic inputs. See the
+[canon source policy](wiki/README.md#canon-source-policy).
+
+## Lore desk
+
+Open `/lore.html` on the running app, or choose **Lore** from the market or map
+navigation. The desk shows reviewed research and persistent conversations with
+research requests, questions, and map/economy proposals. Replies and closed/reopened
+threads are saved locally in `.local/lore-desk.sqlite3`, excluded from Git.
+
+This is an asynchronous inbox, not an embedded live model. After submitting a
+request, invoke the **Lore** agent in VS Code and ask it to process the Lore desk.
+The agent reads queued threads and publishes sourced replies through
+`faerun.loredesk.publish_reply`; the page refreshes every 15 seconds. No API key is
+required, and submitting a proposal does not change the map or simulation.
+The inbox is shared by users of this local application, not a private account mailbox.
+
+## Settlement footprint and supporting farmland
+
+Every population report includes a `land_area` scenario estimate, also available
+in settlement, market and requirement-profile `population_model` output and the
+existing `get_population_report` MCP tool. These estimates do not change food
+production, prices, population, saved location data or map boundaries.
+
+`GET /api/population?settlement=Waterdeep` accepts optional scenario inputs:
+
+| Parameter | Default | Meaning |
+| --- | --- | --- |
+| `settlement_density_per_sq_mile` | 10000 | Residents per square mile, including streets and public spaces |
+| `agricultural_acres_per_person` | 2 | Land allowance including yields, diet, fallow and livestock |
+| `local_food_share` | 1 | Fraction of resident food supplied locally, from 0 to 1 |
+| `usable_farmland_share` | 0.5 | Agricultural fraction of surrounding countryside, greater than 0 and at most 1 |
+
+These are illustrative assumptions, not measured or canonical densities. Override
+them for villages, dispersed settlements, imports or unusual food systems.
+For example, `/api/population?settlement=Waterdeep&local_food_share=0.25`
+models 25% local food supply for that request only; it does not infer actual imports.
+Python callers can use `faerun.population.land_area_report(settlement, **inputs)`.
+
+Settlement footprint is population divided by density. Required agricultural acres
+are population times acres per person times local food share; divide by 640 for
+square miles, then by usable farmland share for surrounding support area.
+Combined area is footprint plus surrounding support area, **not** an additional
+sum of farmland: farmland is already contained in the support area.
+
+With 10,000 residents and defaults, results are **1 sq mi footprint**, **20,000
+agricultural acres (31.25 sq mi)**, **62.5 sq mi surrounding countryside**, and
+**63.5 sq mi combined**. Equivalent circular radii and support-ring width are
+reported only as area comparisons. Terrain, routes, competing settlements and
+available land are not allocated; support areas may overlap. Visitors and extra
+rural households are excluded. Surface farmland assumptions need replacement for
+Underdark or other exceptional locations.
+
 ## Waterdeep population scenario
 
 Waterdeep now uses **200,000 city-proper residents** as the user-selected
@@ -1464,14 +1525,179 @@ please do not put it on the open internet.
 
 ---
 
-## Poster and 3D terrain maps
+## Poster, 2D and 3D terrain maps
 
-The same server serves two focused views:
+In **2D map**, enable **Inferred land type** to overlay the terrain classifications
+on the poster. **Land opacity** adjusts the blend; the color legend appears while
+the overlay is enabled. Grid lines, routes, and location dots stay above the
+overlay. These colors use the current rendered terrain grid, not a new survey.
+
+### Editing map locations
+
+Travelling companies appear as a dot with a covered-wagon icon. Encamped companies
+follow their host's edited map position. The first company sits above its host;
+additional companies chain clockwise around the location marker in stable company
+ID order, wrapping into outer rings when a ring fills. Spacing keeps company
+icons clear of each other and the host, including when a planned route enlarges
+the markers. Labels and click targets follow the company icons.
+During an itinerary journey, their dated
+progress is measured along available mapped road, track, trail, and ferry geometry,
+not a straight line between towns. If no mapped route is available, the marker
+stays at the last known origin and the profile reports that limitation. This is
+an itinerary-based position, not live tracking. Carrier markers no longer animate
+artificial laps merely because the map is open.
+
+Custom locations can be classified as crypts, caves, mines, ruins, shrines,
+landmarks, inns, campsites, **Caravan Stops**, or **Trading Posts**.
+Caravan Stop and Trading Post are separate choices in the **Place type**
+selector. Set **Inhabited** independently and add **Notes**;
+neither setting creates an economic market. Custom sites use square markers.
+
+Use **Add roadside waypoint** (the circled plus) to start an inn, then click a
+visible saved road, track, or trail to snap the marker onto it. Change the place
+type if needed, then **Save location**. **On road** can also attach an existing
+custom marker; clear it to detach. Roadside markers retain the road reference
+without splitting or changing the road. They are map landmarks, not additional
+economic routing nodes; road edits do not automatically relocate these markers.
+
+In the **2D map**, enable **Edit locations**. Use **+** to add a named marker,
+or select an existing location from the list or by clicking its dot. The move
+button places the selected marker at the next map click; east/south coordinates
+can also be entered directly. **Save location** persists the draft; **Cancel**
+discards it. **Delete location** asks for confirmation before removing the marker.
+
+Edits are stored in `maps/location-edits.json` and survive reloads. Moving one
+marker does not recalibrate neighboring locations. These are map-marker edits:
+new markers are not economic markets, deleting a marker retains its underlying
+catalog records, and moving a marker does not move connected route geometry or
+change economic routing coordinates. Junctions remain managed separately:
+select one with **Find a location**, or click its dot in the 2D map with
+location editing off (cancel any selected route-leg draft first).
+Its panel offers **Rename junction** and **Delete junction**. Deletion asks
+for confirmation and removes only the named junction record, preserving
+connected roads, their names, and every waypoint. Save or cancel unsaved map
+edits before deleting. Location editing and route-leg editing cannot be
+active together.
+
+
+The same server serves three focused views:
 
 - <http://127.0.0.1:8765/map.html> is a top-down surveyed poster overlay.
+- <http://127.0.0.1:8765/map.html?view=planar> is a north-up 2D town map.
 - <http://127.0.0.1:8765/terrain.html> is an oblique, poster-free 3D relief map.
 
-The commodity board and location page link to both views.
+Select **2D map**, then search for or click a town. Radius presets are 500,
+200, 100 and 50 miles; the dashed circle marks the selected radius. Drag to
+pan and use the center control to return to the selected town. Scrolling or
+the plus/minus keys steps between presets; arrow keys pan.
+Choose hex, square, both or no grid, with 5, 10, 25 or 50 mile cells.
+Square size is its side length; hex size is the distance between opposite
+parallel edges. Grids stay anchored in world miles while panning and zooming.
+The **Poster overlay** toggle uses the existing local poster and calibration;
+without a poster, the view displays terrain colors instead.
+
+**Animate routes** controls moving dashes on the planned route and pulsing
+location markers in all three map views. It defaults to your device's
+reduced-motion preference; checking or clearing it explicitly overrides that
+preference. Your choice is saved per browser and site address, including across
+reloads (localhost and a LAN address have separate preferences). Animation
+requires a planned route and pauses while editing route legs.
+
+**Show all location labels** labels every visible location, including small
+settlements, surveyed sites, and junctions, in all map views. It bypasses
+population cutoffs, overlap suppression, and the survey-label limit; labels can
+overlap in dense areas. Location visibility filters still apply, so clear
+**Verified locations only** to include unverified locations. The toggle defaults
+off and is saved per browser and site address. Turning it off restores the
+usual label filtering. Turning off **Labels** also clears this toggle.
+
+**Junction labels** independently controls junction names without hiding their
+markers. **Automatic** (the default) names the selected junction, or every
+junction when **Show all location labels** is enabled. **Show all** always names
+all visible junctions; **Hide all** hides every junction name, even the selected
+one and even when all location labels are enabled. This choice is saved per
+browser and site address.
+
+**Travelling company names** has the same independent **Automatic**, **Show all**,
+and **Hide all** choices. Automatic uses the normal location-label rules;
+Show all labels every visible company regardless of population, overlap, or the
+general **Labels** setting. Hide all suppresses company names even when selected
+or when **Show all location labels** is enabled. Company markers remain visible
+and clickable. The choice is saved per browser and site address.
+
+In **2D map**, enable **Edit route legs** to select a leg and see its numbered
+waypoints and connecting segments. Drag a waypoint to align it with the poster.
+Use **Insert waypoint** and click a segment to split it; **Delete waypoint**
+removes the selected point. At least two points must remain. Shift-drag or
+right-drag pans while editing; the radius control still zooms.
+
+**Add waypoint** places points after the selected waypoint, or at the end if
+none is selected. Placement and dragging snap to nearby waypoints on other
+legs and stationary location centers. A green ring marks the snap target.
+Hold Alt or disable **Snap to waypoints and locations** for free placement.
+Snapping saves matching coordinates, not a live link: moving the other leg
+later does not automatically move this waypoint.
+
+The 2D map scales place-name fonts, label halos, and route strokes with zoom.
+The bottom-left distance ruler replaces the radius circle. Stationary location
+dots have a 10-mile equivalent diameter; junction dots have a 5-mile equivalent
+diameter at every zoom. These are display sizes, not actual land footprints;
+saved acreage remains available as metadata. Junction names follow the
+**Junction labels** setting described above. Route legs retain dark outer edges
+and white casing.
+**Leg types** filters visible legs, editable
+segments, and waypoint snap targets; **All types** restores all legs.
+
+Choose **New leg**, enter a name and type, and click the map to place its
+waypoints. **Save leg** persists the draft; **Cancel** discards it.
+**Delete leg** removes a selected existing leg after confirmation.
+The leg details show origin and destination from the nearest stationary
+locations to its endpoints. The northernmost location is the origin; at equal
+latitude, the westernmost is the origin. Unsnapped endpoints more than 2.5
+miles away show the nearest-location distance in the editor. Details update
+as waypoints move and are derived again after loading saved geometry.
+Saving a road formats its name as `{Name}: Origin to Destination`. Existing
+endpoint suffixes are replaced rather than duplicated; junction names are
+valid endpoints. For example: `Secomber Road: Secomber to Secomber Junction`.
+
+Geometry changes support undo and redo before saving. Available types include road,
+trail, track, sea, river, barge, ferry, portage, tunnel, teleport, air and skyship.
+
+**Daily travel units** inserts daily boundaries using the leg type's base
+travel speed: road/caravan 24 miles (8 leagues), gryphon flight 80 miles,
+sea vessel 72 miles, river 40, ferry 30, barge 28, skyship 200, trail 19,
+track 18, tunnel 12 and portage 10 miles per day. Teleport legs have no daily
+subdivision. These are baseline rates, not weather- or cargo-adjusted estimates.
+Distance accumulates along the whole leg across bends. Original bends and
+junction waypoints remain, so a day's travel can span several geometry
+segments; the final day may be shorter. Undo is available before saving.
+
+Select an interior waypoint and choose **Split at point** to save two separate
+legs. Insert a waypoint first to split within a segment. After confirmation,
+the original leg is replaced atomically by two parts of the same type, sharing
+the split point. Existing junction connections are preserved. Splitting is an
+immediate save, not an undoable draft operation.
+
+Junctions are named, searchable map locations, not markets. They have five-mile
+location dots, a connected-road detail panel and can be route endpoints.
+To create one, save two or more road legs sharing a snapped waypoint, select
+that point and choose **Name junction**. The default combines connecting road
+names, with a through road first, for example **Trade Way/Secomber Road Junction**.
+Endpoint suffixes and duplicate road names are omitted; the name can be changed before saving.
+
+When saved map edits exist, routing, shipment planning and economic freight
+use the edited network, including ferry crossings and named junctions. Deleted
+roads are not restored as shortcuts. Undeleted air, skyship and portal links
+are retained. Junctions are routing nodes, not additional economic markets.
+Distances follow the saved polyline; carrier costs and travel times use the
+existing mode/quality assumptions. Carrier schedules are not rewritten.
+
+Edits are stored separately in `maps/route-leg-edits.json`, leaving source
+surveys unchanged. Running engines pick up saved edits before routing and
+invalidate economic caches when the network changes. Custom simulation worlds
+with explicitly supplied settlements keep their own networks. Saving requires
+a local browser; stale concurrent saves are
+rejected rather than overwriting another editor's work.
 
 Traced transport geometry is stored locally in `maps/road-geometries.json` and
 `maps/sea-air-routes.json`. Sea legs use the export's
@@ -1582,12 +1808,58 @@ The full resolution order, first hit wins:
    or `Desktop`. The first folder with matches wins; within it, the newest
    matching world poster wins.
 
-City maps and unrelated images are excluded from automatic selection, even
+City maps, the known elevation/ground-cover/topographical reference images,
+and unrelated images are excluded from automatic poster selection, even
 inside `maps\`. In this workspace, the world background is `maps\Faerun Hires.jpg`;
 the Waterdeep atlas independently uses `maps\waterdeep-map-hires.jpg`. Adding or
 updating a city map cannot replace the world background. Explicit overrides,
 the environment variable, and the reserved `underlay.*` filename still take
 precedence when you intentionally select a differently named image.
+
+**Reference overlays** offers independent **Elevation / sea depth** and
+**Vegetation** toggles, each with an opacity slider. Both can be enabled over
+the poster in the poster, 2D, and 3D views; preferences survive reloads.
+They start off, load only when enabled, and require the corresponding local
+`Faerun elevation and sea-depth map.png` and
+`Flat-color Faerun ground cover map.png` images. They share the base image's
+world footprint and alignment, regardless of pixel resolution. This assumes
+the same geographic extent: differently cropped source maps need registration
+before their features can be compared accurately. The stack is base image,
+elevation, vegetation, then inferred land types (if enabled in 2D), grids,
+routes, and locations. **Poster only** intentionally hides reference overlays.
+The existing **Poster backdrop** selector remains available to change the base.
+
+The separate-source terrain cleanup interprets green elevation as
+lowland, yellow as upland, orange/red as mountains, and white as the highest
+mountain peaks, not missing data. The treeline begins at the red band:
+only red and white peaks are treeless mountains, even where the ground-cover
+image shows forest. The red band includes dark-red shadows and pale-red
+summit highlights. Near-white means all RGB channels are at least 240.
+Red hues extend through 15 degrees; orange elevations remain below the
+treeline and retain forest wherever the ground-cover source supports it.
+Orange elevations without forest support remain mountains.
+The derived forest boundaries exclude these bands while retaining wooded
+lowlands and yellow uplands. The original reference overlays are unchanged.
+Water, wetlands, ice/glaciers, and unknown cells remain unchanged, and these
+color bands do not provide measured heights.
+
+Use the whole-sheet pass to update land types everywhere, including ranges
+such as the Storm Horns, rather than only the High Forest:
+
+```powershell
+.\.venv\Scripts\python.exe tools\clean_terrain_interiors.py --separate-sources --whole
+.\.venv\Scripts\python.exe tools\clean_terrain_interiors.py --separate-sources --whole --apply --audit-file maps\terrain-whole-elevation-treeline-audit.json
+.\.venv\Scripts\python.exe tools\clean_terrain_interiors.py --rebuild-boundaries
+```
+
+The first command previews changes. `--whole` reads the entire one-mile survey
+extent, recognizes disconnected forest areas, and applies yellow uplands and
+treeless mountain bands regardless of vegetation. Without `--whole`, the
+separate-source pass retains its bounded High Forest behavior. Applying changes
+writes rollback values and source hashes to a new audit file (changed rows
+for whole-sheet passes, individual cells for regional passes); existing audits
+are never overwritten. Rebuilding boundaries refreshes the special High Forest
+outlines; elsewhere boundaries follow the updated terrain grid.
 
 The startup banner tells you which file it settled on, and the map page says so
 too. If nothing is found, the overlay controls stay hidden and a note appears

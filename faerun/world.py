@@ -409,6 +409,20 @@ MULTILEG_CARRIER_SERVICES = {
         "service_id": "sword-coast-overland-exchange",
         "service_class": "ground",
     },
+    # A route may list several services; each replaces the generic vessel it names.
+    # Red Cask Hulls (red-cask-wine-run) carries only its own wine, so it is not offered here.
+    "Hlondeth to Arrabar Sea Lane": [
+        {
+            "carrier": "Merchant caravel",
+            "name": "Greenscale Reach Packets",
+            "service_id": "hlondeth-arrabar-packet",
+        },
+        {
+            "carrier": "Coasting cog",
+            "name": "Arrabar Watermen's Lighterage",
+            "service_id": "arrabar-watermens-lighterage",
+        },
+    ],
 }
 
 
@@ -423,6 +437,9 @@ class Edge:
     kind: str
     name: str = ""
     inferred: bool = False
+    mapped: bool = False
+    map_leg_id: str = ""
+    points: list = field(default_factory=list)
 
     @property
     def modes(self) -> Tuple[str, ...]:
@@ -440,7 +457,7 @@ class Edge:
 
     @property
     def effective_distance(self) -> float:
-        return self.distance * (2.0 if "sea" in self.modes else 1.0)
+        return self.distance * (2.0 if "sea" in self.modes and not self.mapped else 1.0)
 
     @property
     def speed(self) -> float:
@@ -463,7 +480,9 @@ class Edge:
     def carrier_options(self) -> List[Dict[str, object]]:
         """Available carriers with full-load prices for this particular leg."""
         quality = max(0.4, min(1.35, self.quality))
-        service = MULTILEG_CARRIER_SERVICES.get(self.name)
+        services = MULTILEG_CARRIER_SERVICES.get(self.name) or []
+        if isinstance(services, dict):
+            services = [services]
         options: List[Dict[str, object]] = []
         for mode in self.modes:
             freight_factor, base_speed, _hazard = MODES[mode]
@@ -481,14 +500,17 @@ class Edge:
                     "speed_miles_per_day": round(speed, 1),
                     "days": round(self.effective_distance / max(1.0, speed), 2),
                 }
-                if service and service["carrier"] == name:
-                    option.update({
+                matches = [service for service in services if service["carrier"] == name]
+                if not matches:
+                    options.append(option)
+                for service in matches:
+                    options.append({
+                        **option,
                         "name": service["name"],
                         "service_id": service["service_id"],
                         "service_class": service.get("service_class", "water"),
                         "multileg": True,
                     })
-                options.append(option)
         return options
 
 
@@ -532,6 +554,7 @@ class World:
         return self.revision - getattr(self, "_date_revisions", 0)
 
     def economy_state_key(self, month: Optional[int] = None) -> tuple:
+        self.sync_route_edits()
         def freeze(value):
             if isinstance(value, dict):
                 return tuple(sorted((key, freeze(item)) for key, item in value.items()))
@@ -562,7 +585,8 @@ class World:
         config: Optional[EconomyConfig] = None,
         trade_store=None,
     ) -> None:
-        source = list(settlements or SETTLEMENTS)
+        from copy import deepcopy
+        source = deepcopy(list(settlements or SETTLEMENTS))
         if not settlements:
             source.extend(_surveyed_markets(source))
         self.settlements: Dict[str, Settlement] = {
@@ -602,6 +626,92 @@ class World:
         self._edges: Dict[str, List[Edge]] = {}
         self._named: List[Tuple[str, List[str], float, str]] = []
         self._build_graph()
+        self._use_route_edits = settlements is None
+        self._use_location_edits = settlements is None
+        self._original_edges = self._edges
+        self.route_nodes = {**self.settlements, **getattr(self, "map_locations", {})}
+        self.sync_route_edits()
+
+    def sync_route_edits(self):
+        if not getattr(self, "_use_route_edits", False) or getattr(self, "_syncing_locations", False):
+            return
+        self.sync_location_edits()
+        from .routegeometry import route_edits_path, load_route_edits, build_edited_network
+        path = route_edits_path()
+        stamp = (path.stat().st_mtime_ns, path.stat().st_size) if path.exists() else None
+        if stamp == getattr(self, "_route_edits_stamp", None):
+            return
+        if stamp is None:
+            self._edges = self._original_edges
+            self.route_nodes = {**self.settlements, **getattr(self, "map_locations", {})}
+        else:
+            graph, nodes = build_edited_network(self.settlements, self._original_edges, load_route_edits(),
+                                                getattr(self, "map_locations", {}))
+            self._edges, self.route_nodes = graph, nodes
+        self._route_edits_stamp = stamp
+        self.revision += 1
+
+    def sync_location_edits(self):
+        if not getattr(self, "_use_location_edits", False) or getattr(self, "_syncing_locations", False):
+            return
+        from copy import deepcopy
+        from types import SimpleNamespace
+        from .locationedits import location_edits_path, load_location_edits
+
+        path = location_edits_path()
+        stamp = (path.stat().st_mtime_ns, path.stat().st_size) if path.exists() else None
+        if stamp == getattr(self, "_location_edits_stamp", None):
+            return
+        self._syncing_locations = True
+        try:
+            if not hasattr(self, "_location_base_settlements"):
+                self._location_base_settlements = deepcopy(self.settlements)
+            settlements = deepcopy(self._location_base_settlements)
+            edits = load_location_edits()
+            places = {}
+            for identifier, edit in edits["locations"].items():
+                if edit.get("deleted"):
+                    settlements.pop(identifier, None)
+                elif identifier in settlements:
+                    settlements[identifier].x = edit["x"]
+                    settlements[identifier].y = edit["y"]
+                elif identifier.startswith(("location:", "place:")):
+                    places[identifier] = SimpleNamespace(id=identifier, name=edit["name"],
+                        x=edit["x"], y=edit["y"], security=0.5, region="", zone="", traits=[], port=None,
+                        map_only=True, road_leg_id=edit.get("roadLegId"), metadata=edit)
+            self.settlements = settlements
+            self.map_locations = places
+            self.location_revision = edits["revision"]
+            self._location_edits_stamp = stamp
+            self._route_edits_stamp = None
+            self.rebuild()
+        finally:
+            self._syncing_locations = False
+
+    def route_node(self, identifier):
+        return getattr(self, "route_nodes", self.settlements)[identifier]
+
+    def find_route_node(self, key):
+        self.sync_route_edits()
+        for identifier, node in getattr(self, "route_nodes", {}).items():
+            if identifier == key or node.name.casefold() == str(key).casefold():
+                return node
+        return self.find_settlement(key)
+
+    def simplify_route(self, legs):
+        from dataclasses import replace
+        result = []
+        for edge in legs:
+            last = result[-1] if result else None
+            if (last and edge.src.startswith("junction:") and last.dst == edge.src
+                    and edge.map_leg_id and edge.map_leg_id == last.map_leg_id
+                    and (edge.kind, edge.name, edge.quality) == (last.kind, last.name, last.quality)
+                    and self.edge_risk(edge) == self.edge_risk(last)):
+                result[-1] = replace(last, dst=edge.dst, distance=last.distance + edge.distance,
+                                     points=last.points + edge.points[1:])
+            else:
+                result.append(edge)
+        return result
 
     # -- lookup ------------------------------------------------------------
     def find_settlement(self, key: str) -> Settlement:
@@ -611,6 +721,7 @@ class World:
         return s
 
     def lookup_settlement(self, key: str) -> Optional[Settlement]:
+        self.sync_route_edits()
         if isinstance(key, Settlement):
             return key
         slug = slugify(key)
@@ -1010,6 +1121,7 @@ class World:
                 del remaining[market_id]
 
     def edges_from(self, settlement_id: str) -> List[Edge]:
+        self.sync_route_edits()
         return self._edges.get(settlement_id, [])
 
     def _compute_gryphon_ports(self) -> set:
@@ -1108,12 +1220,16 @@ class World:
 
     @property
     def named_routes(self) -> List[Tuple[str, List[str], float, str]]:
+        self.sync_route_edits()
+        if getattr(self, "_route_edits_stamp", None):
+            return [(edge.name, [edge.src, edge.dst], edge.quality, edge.kind)
+                    for edges in self._edges.values() for edge in edges if edge.src < edge.dst]
         return self._named
 
     # -- risk ---------------------------------------------------------------
     def edge_risk(self, edge: Edge) -> float:
         """Freight risk premium for a leg, including event-driven danger."""
-        a, b = self.settlements[edge.src], self.settlements[edge.dst]
+        a, b = self.route_node(edge.src), self.route_node(edge.dst)
         security = (a.security + b.security) / 2.0
         risk = edge.hazard(security) * 0.6
         # Every relaxation in Dijkstra lands here, so use the per-settlement
@@ -1202,12 +1318,17 @@ class World:
         self._events_active = []
         self._events_by_settlement = {}
         self._build_graph()
+        self._original_edges = self._edges
+        self._route_edits_stamp = None
+        self.route_nodes = {**self.settlements, **getattr(self, "map_locations", {})}
+        self.sync_route_edits()
         self.revision += 1
 
     # -- pathfinding --------------------------------------------------------
     def _dijkstra(self, start: str, weight, allow_inferred: bool = True,
                   route_types: Optional[set[str]] = None):
         """Generic single-source shortest path. `weight(edge) -> float`."""
+        self.sync_route_edits()
         dist = {start: 0.0}
         prev: Dict[str, Optional[Edge]] = {start: None}
         queue = [(0.0, start)]
@@ -1233,6 +1354,7 @@ class World:
         return dist, prev
 
     def _weighted_freight_graph(self, pounds, perishable, base_price):
+        self.sync_route_edits()
         stamp = (getattr(self, "revision", 0), self.date.absolute_month() if hasattr(self, "date") else None,
                  pounds, perishable, base_price)
         if getattr(self, "_freight_graph_stamp", None) != stamp:
@@ -1255,6 +1377,7 @@ class World:
         settlement id.  Distance and time are accumulated along the winning
         path so callers never need a second search.
         """
+        self.sync_route_edits()
         if max_days is not None:
             return self._fresh_freight(sources, pounds, perishable, base_price, max_days)
         if (len(sources) == 1 and perishable == 0 and math.isfinite(base_price)
@@ -1347,8 +1470,9 @@ class World:
               include_inferred: bool = True,
               route_types: Optional[Iterable[str]] = None) -> Dict:
         """Best path between two markets, optimising 'days' or 'cost'."""
-        a = self.find_settlement(start)
-        b = self.find_settlement(end)
+        self.sync_route_edits()
+        a = self.find_route_node(start)
+        b = self.find_route_node(end)
         if optimise == "cost":
             weight = lambda e: e.freight_units(self.edge_risk(e)) * FREIGHT_RATE * 100
         else:
@@ -1391,6 +1515,7 @@ class World:
             legs.append(edge)
             node = edge.src
         legs.reverse()
+        legs = self.simplify_route(legs)
         total_days = sum(e.days for e in legs)
         total_distance = sum(e.effective_distance for e in legs)
         hazard = 0.0
@@ -1400,6 +1525,7 @@ class World:
             "origin": a.name,
             "destination": b.name,
             "reachable": True,
+            "mapRoads": any(edge.mapped for edge in legs),
             "distance": round(total_distance, 1),
             "days": round(total_days, 1),
             "caravan_days": round(total_distance / 24.0, 1),
@@ -1413,8 +1539,8 @@ class World:
             ),
             "legs": [
                 {
-                    "from": self.settlements[e.src].name,
-                    "to": self.settlements[e.dst].name,
+                    "from": self.route_node(e.src).name,
+                    "to": self.route_node(e.dst).name,
                     "via": e.name or "local track",
                     "mode": e.kind,
                     "modes": list(e.modes),
@@ -1423,10 +1549,13 @@ class World:
                     "miles": round(e.distance, 1),
                     "days": round(e.days, 1),
                     "hazard": round(self.edge_risk(e), 2),
+                    "id": e.map_leg_id,
+                    "points": e.points or [[self.route_node(e.src).x, self.route_node(e.src).y],
+                                           [self.route_node(e.dst).x, self.route_node(e.dst).y]],
                 }
                 for e in legs
             ],
-            "path": [a.name] + [self.settlements[e.dst].name for e in legs],
+            "path": [a.name] + [self.route_node(e.dst).name for e in legs],
         }
 
     def travel_days(self, start: str, end: str) -> Optional[float]:
@@ -1463,6 +1592,7 @@ def get_world() -> World:
         _WORLD = _new_world()
     else:
         _WORLD.sync_real_date()
+    _WORLD.sync_route_edits()
     return _WORLD
 
 

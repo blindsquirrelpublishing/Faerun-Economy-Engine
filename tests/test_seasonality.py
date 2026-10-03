@@ -219,6 +219,25 @@ def test_manufactured_goods_are_not_assigned_annual_harvest_shutdowns():
     assert monthly_rates(COMMODITIES_BY_ID["potion_healing"], settlement)[0] == 1
 
 
+def test_green_coffee_is_persisted_and_keeps_better_than_roasted():
+    from faerun.data_store import load_commodities
+
+    stored = {commodity.id: commodity for commodity in load_commodities()}
+    green = COMMODITIES_BY_ID["coffee_green"]
+    roasted = COMMODITIES_BY_ID["coffee"]
+    assert stored[green.id].base_price == green.base_price == 2.0
+    assert green.base_price < roasted.base_price
+    assert green.requires == ["jungle"]
+    assert green.unit == "pound" and green.weight == 1.0
+    assert green.perishable == roasted.perishable / 10
+    assert green.storage_days > roasted.storage_days
+    assert green.storage_loss < roasted.storage_loss
+    assert green.regional_production_profiles == roasted.regional_production_profiles
+    assert monthly_rates(green, SETTLEMENTS_BY_ID["port_nyanzaru"]) == monthly_rates(
+        roasted, SETTLEMENTS_BY_ID["port_nyanzaru"]
+    )
+
+
 def test_final_consumption_curves_are_limited_and_independent_of_supply():
     winter, summer = HarptosDate(1492, 1, 1), HarptosDate(1492, 7, 1)
     for commodity_id in ("coal", "charcoal", "clothing_common", "furs", "candles", "lamp_oil"):

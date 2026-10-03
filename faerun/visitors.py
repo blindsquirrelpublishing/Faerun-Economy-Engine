@@ -95,6 +95,7 @@ def plan_visitors(world: World, beds: Dict[str, float]) -> Dict:
                    for sid, s in world.settlements.items() for segment in VISITOR_SEGMENTS}
     if any(not math.isfinite(value) or value < 0 for value in attractions.values()):
         raise ValueError("Visitor destination attractiveness must be finite and non-negative")
+    world.sync_route_edits()
     weights = {id(edge): edge.days * (1 + world.edge_risk(edge))
                for edges in world._edges.values() for edge in edges}
     if any(not math.isfinite(value) or value < 0 for value in weights.values()):
@@ -105,7 +106,7 @@ def plan_visitors(world: World, beds: Dict[str, float]) -> Dict:
             continue
         distances, _ = world._dijkstra(origin_id, lambda edge: weights[id(edge)])
         reachable = [(sid, days) for sid, days in distances.items()
-                     if sid != origin_id and 0 <= days <= horizon
+                     if sid in world.settlements and sid != origin_id and 0 <= days <= horizon
                      and world.settlements[sid].population > 0]
         origin_flows = []
         for segment in VISITOR_SEGMENTS:

@@ -135,6 +135,9 @@ def find_underlay() -> Optional[Path]:
             p for p in entries
             if p.suffix.lower() in MIME_TYPES
             and NAME_HINT.search(p.name)
+            and p.name.casefold() not in {
+                details[1].casefold() for details in BACKDROPS.values()
+            }
         ]
         if not matches:
             continue
@@ -146,10 +149,28 @@ def find_underlay() -> Optional[Path]:
     return None
 
 
-def underlay_bytes() -> Optional[Dict[str, Any]]:
+BACKDROPS = {
+    "topographical": ("Topographical", "Fareun Topographical.png"),
+    "elevation": ("Elevation and sea depth", "Faerun elevation and sea-depth map.png"),
+    "ground-cover": ("Vegetation / ground cover", "Flat-color Faerun ground cover map.png"),
+}
+
+
+def _selected_underlay(source: str) -> Optional[Path]:
+    if source == "default":
+        return find_underlay()
+    if source in BACKDROPS:
+        for folder in _search_dirs():
+            hit = _usable(folder / BACKDROPS[source][1])
+            if hit is not None:
+                return hit
+    return None
+
+
+def underlay_bytes(source: str = "default") -> Optional[Dict[str, Any]]:
     """Read the underlay, memoised on path/mtime/size. None when absent."""
     global _cache
-    path = find_underlay()
+    path = _selected_underlay(source)
     if path is None:
         _cache = None
         return None
@@ -175,16 +196,25 @@ def underlay_bytes() -> Optional[Dict[str, Any]]:
     return _cache
 
 
-def underlay_info() -> Dict[str, Any]:
+def underlay_info(source: str = "default") -> Dict[str, Any]:
     """A small JSON-safe description for the browser.
 
     The pixel size is deliberately *not* reported: working it out would mean
     parsing JPEG/PNG/WebP headers by hand, and the browser already knows it for
     free from `naturalWidth` once the image loads.
     """
-    path = find_underlay()
+    path = _selected_underlay(source)
+    options = [
+        {"id": candidate, "label": label}
+        for candidate, label in [("default", "Original poster")] + [
+            (identifier, details[0]) for identifier, details in BACKDROPS.items()
+        ]
+        if _selected_underlay(candidate) is not None
+    ]
     if path is None:
         return {
+            "source": source,
+            "options": options,
             "available": False,
             "url": "",
             "name": "",
@@ -199,8 +229,10 @@ def underlay_info() -> Dict[str, Any]:
     except OSError:
         size = 0
     return {
+        "source": source,
+        "options": options,
         "available": True,
-        "url": "/underlay.img",
+        "url": "/underlay.img" if source == "default" else "/underlay.img?source=" + source,
         "name": path.name,
         "path": str(path),
         "mime": MIME_TYPES.get(path.suffix.lower(), "application/octet-stream"),

@@ -8,6 +8,7 @@ a throwaway file it creates. The point of the feature is that the engine can
 from __future__ import annotations
 
 import os
+from types import SimpleNamespace
 
 import pytest
 
@@ -20,7 +21,7 @@ from faerun.underlay import (
     underlay_bytes,
     underlay_info,
 )
-from faerun.web import GET_ROUTES, api_underlay
+from faerun.web import GET_ROUTES, Handler, api_underlay
 from faerun.world import get_world
 
 # A PNG signature followed by filler. Nothing here decodes the image - the
@@ -179,6 +180,27 @@ def test_newest_matching_world_map_still_wins(monkeypatch, tmp_path):
     assert underlay_info()["name"] == "Faerun Hires.jpg"
 
 
+def test_newer_reference_maps_do_not_replace_original_poster(tmp_path):
+    poster = tmp_path / "Faerun Hires.jpg"
+    poster.write_bytes(TINY_PNG)
+    os.utime(poster, (1000, 1000))
+    for _, filename in underlay.BACKDROPS.values():
+        reference = tmp_path / filename
+        reference.write_bytes(TINY_PNG + b"reference")
+        os.utime(reference, (2000, 2000))
+    assert underlay_info()["name"] == poster.name
+    assert underlay_bytes()["raw"] == TINY_PNG
+    assert len(underlay_info()["options"]) == 4
+
+
+def test_reference_images_alone_are_not_an_original_poster(tmp_path):
+    for _, filename in underlay.BACKDROPS.values():
+        (tmp_path / filename).write_bytes(TINY_PNG)
+    assert underlay_info()["available"] is False
+    assert underlay_bytes() is None
+    assert len(underlay_info()["options"]) == 3
+
+
 def test_a_non_image_extension_is_ignored(tmp_path):
     (tmp_path / "Faerun Map.txt").write_text("not an image", encoding="utf-8")
     assert underlay_info()["available"] is False
@@ -191,6 +213,80 @@ def test_the_bytes_are_re_read_when_the_file_changes(tmp_path):
     assert first == TINY_PNG
     poster.write_bytes(TINY_PNG + b"\x00" * 64)
     assert len(underlay_bytes()["raw"]) == len(TINY_PNG) + 64
+
+
+def test_topographical_is_an_optional_backdrop(tmp_path):
+    (tmp_path / "underlay.jpg").write_bytes(TINY_PNG)
+    (tmp_path / "Fareun Topographical.png").write_bytes(TINY_PNG + b"topographical")
+    assert underlay_info()["name"] == "underlay.jpg"
+    info = underlay_info("topographical")
+    assert info["available"] is True
+    assert info["mime"] == "image/png"
+    assert info["url"] == "/underlay.img?source=topographical"
+    assert [option["id"] for option in info["options"]] == ["default", "topographical"]
+    assert underlay_bytes("topographical")["raw"] == TINY_PNG + b"topographical"
+    assert underlay_bytes()["raw"] == TINY_PNG
+
+
+def test_backdrop_selection_does_not_accept_paths(tmp_path):
+    poster = tmp_path / "private.png"
+    poster.write_bytes(TINY_PNG)
+    assert underlay_bytes(str(poster)) is None
+    assert underlay_info("../private.png")["available"] is False
+
+
+@pytest.mark.parametrize("source,filename", [
+    ("elevation", "Faerun elevation and sea-depth map.png"),
+    ("ground-cover", "Flat-color Faerun ground cover map.png"),
+])
+def test_additional_backdrops_are_selectable(tmp_path, source, filename):
+    (tmp_path / filename).write_bytes(TINY_PNG)
+    info = underlay_info(source)
+    assert info["available"] is True
+    assert info["name"] == filename
+    assert info["url"] == "/underlay.img?source=" + source
+    assert info["mime"] == "image/png"
+    assert source in [option["id"] for option in info["options"]]
+    assert underlay_bytes(source)["raw"] == TINY_PNG
+    assert "'" + source + "'" in MAP_ASSETS["map.js"][0]
+    (tmp_path / filename).unlink()
+    assert underlay_info(source)["available"] is False
+    assert underlay_bytes(source) is None
+
+
+def test_missing_topographical_backdrop_is_unavailable(tmp_path):
+    (tmp_path / "underlay.jpg").write_bytes(TINY_PNG)
+    assert underlay_info("topographical")["available"] is False
+    assert underlay_info()["options"] == [{"id": "default", "label": "Original poster"}]
+
+
+def test_topographical_api_and_image_handler(tmp_path, monkeypatch):
+    from faerun import atlas
+
+    (tmp_path / "Fareun Topographical.png").write_bytes(TINY_PNG)
+    placement = {"available": True, "widthMiles": 3800, "heightMiles": 2540}
+    monkeypatch.setattr(atlas, "underlay_placement", lambda settlements: placement)
+    info = api_underlay(SimpleNamespace(settlements={}), {"source": ["topographical"]})
+    assert info["source"] == "topographical"
+    assert info["survey"] == placement
+    responses = []
+    handler = SimpleNamespace(
+        _send_bytes=lambda raw, mime: responses.append((raw, mime)),
+        _send_json=lambda body, status: responses.append((body, status)),
+    )
+    Handler._send_underlay(handler, "topographical")
+    assert responses.pop() == (TINY_PNG, "image/png")
+    Handler._send_underlay(handler, "../private.png")
+    assert responses.pop()[1] == 404
+
+
+def test_backdrop_selector_is_present_in_both_map_views():
+    for name in ("map.html", "terrain.html"):
+        assert MAP_ASSETS[name][0].count('id="underlay-source"') == 1
+    javascript = MAP_ASSETS["map.js"][0]
+    assert "faerun.underlay.source" in javascript
+    assert "UNDERLAY_KEY + '.' + source" in javascript
+    assert "request !== underlayRequest" in javascript
 
 
 def test_the_api_route_is_registered_and_answers(tmp_path):
