@@ -529,7 +529,8 @@ def cmd_serve(args: argparse.Namespace, world: World) -> None:
         page = "location.html?category=" + quote(category)
     serve(host=args.host, port=args.port, open_browser=not args.no_browser,
           verbose=getattr(args, "verbose", False),
-          page=page)
+          page=page, read_only_port=args.read_only_port,
+          read_only_host=args.read_only_host)
 
 
 def cmd_map(args: argparse.Namespace, world: World) -> None:
@@ -928,6 +929,13 @@ def build_parser() -> argparse.ArgumentParser:
     w.add_argument("--underlay", default="", metavar="PATH",
                    help="your own poster map image to overlay on the world map")
     w.set_defaults(func=cmd_map, page="map.html")
+    for server_parser in (v, loc, w):
+        server_parser.add_argument(
+            "--read-only-port", type=int, nargs="?", const=8884,
+            help="also serve a read-only view (default: 8884; 0 picks a free port)")
+        server_parser.add_argument(
+            "--read-only-host",
+            help="read-only bind address (defaults to --host; use 0.0.0.0 for LAN)")
     return p
 
 

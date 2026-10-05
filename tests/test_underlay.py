@@ -201,6 +201,28 @@ def test_reference_images_alone_are_not_an_original_poster(tmp_path):
     assert len(underlay_info()["options"]) == 3
 
 
+@pytest.mark.parametrize("filename", ["Faerun Political Map.png", "FAERUN POLITICAL MAP.PNG"])
+def test_newer_political_map_does_not_replace_hires_poster(tmp_path, filename):
+    poster = tmp_path / "Faerun Hires.jpg"
+    poster.write_bytes(TINY_PNG)
+    os.utime(poster, (1000, 1000))
+    political = tmp_path / filename
+    political.write_bytes(TINY_PNG + b"political")
+    os.utime(political, (2000, 2000))
+    assert underlay_info()["name"] == poster.name
+    assert underlay_bytes()["raw"] == TINY_PNG
+
+
+def test_political_map_requires_explicit_selection_when_no_poster_exists(tmp_path):
+    political = tmp_path / "Faerun Political Map.png"
+    political.write_bytes(TINY_PNG + b"political")
+    assert underlay_info()["available"] is False
+    assert underlay_bytes() is None
+    set_override(str(political))
+    assert underlay_info()["name"] == political.name
+    assert underlay_bytes()["raw"] == TINY_PNG + b"political"
+
+
 def test_a_non_image_extension_is_ignored(tmp_path):
     (tmp_path / "Faerun Map.txt").write_text("not an image", encoding="utf-8")
     assert underlay_info()["available"] is False
@@ -293,6 +315,49 @@ def test_the_api_route_is_registered_and_answers(tmp_path):
     assert GET_ROUTES["/api/underlay"] is api_underlay
     payload = api_underlay(get_world(), {})
     assert set(payload) >= {"available", "url", "name", "searched", "env_var"}
+
+
+def test_saved_survey_alignment_uses_loaded_poster_dimensions():
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js is required for map behavior checks")
+    javascript = MAP_ASSETS["map.js"][0]
+
+    def source(name):
+        start = javascript.index("function " + name + "(")
+        return javascript[start:javascript.index("\n}", start) + 2]
+
+    script = """
+const assert = require('node:assert/strict');
+const state = {underInfo:{survey:{available:true,widthMiles:3797.7,
+    heightMiles:2539.5,x:46.6,y:656.2}}};
+const document = {getElementById:()=>({disabled:true})};
+const MAP_VIEW = 'planar';
+let saved = {on:true,alpha:0.7,x:46.6,y:656.2,mpp:2.475,
+    stretch:1,drape:false,from:'survey'};
+const loadSavedUnderlay = ()=>saved;
+const syncUnderlayControls = ()=>{};
+const invalidate = ()=>{};
+"""
+    script += "\n".join(source(name) for name in ("surveyUnderlayFit", "applyUnderlayImage"))
+    script += """
+applyUnderlayImage({width:4763,height:3185});
+assert.equal(state.underMpp,3797.7/4763);
+assert(Math.abs(state.underMpp*state.underStretch*3185-2539.5)<1e-8);
+assert.equal(state.underAlpha,0.7);
+assert.equal(state.underOn,true);
+assert.equal(state.underDrape,false);
+saved = {...saved,from:'manual',mpp:1.2,stretch:0.9,x:200,y:300};
+applyUnderlayImage({width:4763,height:3185});
+assert.equal(state.underMpp,1.2);
+assert.equal(state.underStretch,0.9);
+assert.equal(state.underX,200);
+assert.equal(state.underY,300);
+"""
+    subprocess.run([node, "-e", script], check=True, encoding="utf-8")
 
 
 def test_the_map_page_carries_the_overlay_controls():

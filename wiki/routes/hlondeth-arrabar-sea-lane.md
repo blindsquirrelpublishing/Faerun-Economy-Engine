@@ -141,37 +141,42 @@ reported as metadata. The existing Sword Coast carriers follow the same pattern.
 
 ## Discrepancies and Open Questions
 
-- **1492 DR applicability.** The Arrabar article states the city was destroyed
-  during the Spellplague. The Vilhon Reach article states the Reach splintered
-  into small lakes after the Spellplague and returned to its former terrain after
-  the 1480s DR. Arrabar's condition in 1492 DR, and whether its harbor was
-  operating, are unresolved. Underlying citations for both statements were not
-  recorded.
-- **Hlondeth engine record.** The engine places Hlondeth in region Chondath with
-  1,680 residents (small town), no industries, and a description saying its
-  profile is inferred from Arrabar. The reviewed lore describes an independent
-  city-state since 614 DR. Population was not established by the reviewed
-  article. Preserved for review, not changed.
-- **Hlondeth port field.** Hlondeth carries the `port` trait but its `port`
-  field is null, while Arrabar's is "Sea of Fallen Stars". Check whether any
-  engine logic reads the field rather than the trait.
-- **`caravan_days`.** Reports 2.8 under both the portage and sea modes, which
-  matches road pace (68.3 / 24). It appears to ignore leg mode. Likely an engine
-  issue rather than a route issue; check what consumes the field.
-- **Lane hazard.** Uses the default sea factor. Any adjustment for sheltered
-  water or coastal monsters needs sourcing first.
-- **Hlondeth trade balance.** On 2026-10-03 (2 Marpenoth 1492 DR) the engine
-  reported goods imports of about 78,350 gp per day against about 41 gp of
-  exports for a town of 1,680, plus about 13,370 gp per day of unassigned inbound
-  freight. Arrabar reported about 361,640 gp per day unassigned. Likely a side
-  effect of Hlondeth's profile being inferred from Arrabar; preserved for review.
-- **Carrier capacity.** Engine "Carriers and warehouses" counts (4 establishments
-  and 25 workers in Hlondeth; 158 and 1,260 in Arrabar) are population-based
-  estimates of local handling and storage. The engine states they are not route
-  capacity.
-- **Route storage.** The project file that stores this custom route was not
-  inspected in this review. The carrier binding depends on the route name; renaming
-  the lane breaks it until `MULTILEG_CARRIER_SERVICES` is updated to match.
+### Resolved 2026-10-03
+
+- **Hlondeth engine record.** Hlondeth was not in the settlement data; the
+  engine generated it as a surveyed market that copies the nearest established
+  city (Arrabar) at one twenty-fifth of its population, which gave 1,680
+  residents, the Chondath region, copied traits and no industries. It is now a
+  full record: see [Hlondeth](../locations/hlondeth.md).
+- **Hlondeth port field.** Surveyed markets only get a port from
+  `SURVEYED_MARKET_PORTS` in `world.py`, and Hlondeth was not listed, so the
+  engine treated it as inland and never generated coasting runs to it. That is
+  why this hand-drawn lane was its only sea link. The new record sets `port` to
+  Sea of Fallen Stars. A generated Hlondeth to Arrabar coasting run is blocked in
+  `BLOCKED_COASTING_LEGS` so it cannot duplicate this lane and its carriers.
+- **1492 DR applicability.** The [Arrabar](../locations/arrabar.md) article says
+  that after the Second Sundering the land was healed and by the late 15th
+  century DR Arrabar was a port stop on the Reach and the Golden Road, citing
+  *Foreign Affairs* (DDAL-DRW04, 2020), p. 5. The lane can operate. Hlondeth's
+  1492 status is still undocumented; see its page.
+- **`caravan_days`.** Working as designed: `World.route()` always reports total
+  distance at 24 miles a day, and the CLI labels it "by ox-cart". It is an
+  overland comparison, not this leg's time.
+- **Hlondeth trade balance.** Caused by the surveyed-market copy, which had no
+  industries of its own. Re-measure after the engine restarts with the new record.
+- **Carrier capacity.** The "Carriers and warehouses" counts are local handling
+  estimates, as the engine states.
+- **Route storage.** Hand-drawn legs live in `maps/route-leg-edits.json`. The
+  carrier binding depends on the route name; renaming the lane breaks it until
+  `MULTILEG_CARRIER_SERVICES` is updated to match.
+
+### Open
+
+- **Lane hazard.** Uses the default sea factor. The Hlondeth article records
+  pirates given safe harbor in 145 DR, too early to justify a 1492 adjustment.
+- **Hlondeth gryphon eyrie.** The new record qualifies Hlondeth for an automatic
+  gryphon port with flights to nearby Reach markets, which can compete with this
+  lane for light cargo. See the Hlondeth page for the lore tension.
 
 ## Change History
 
@@ -182,6 +187,7 @@ reported as metadata. The existing Sword Coast carriers follow the same pattern.
 | 2026-10-03 | Renamed "Hlondeth to Arrabar Sea Lane" | No change to metrics |
 | 2026-10-03 | Three invented carrier businesses created | Carrier fields empty; no change to route metrics checked |
 | 2026-10-03 | Carrier fields filled; two services bound to the lane in `world.py` | Isolated check of `carrier_options()` lists Greenscale and the Lighterage; MCP server restart pending |
+| 2026-10-03 | Hlondeth rebuilt as a full settlement (60,000 residents, port); Arrabar set to 61,012; generated coasting run blocked | Code changes take effect after an engine restart |
 
 ## Sources
 

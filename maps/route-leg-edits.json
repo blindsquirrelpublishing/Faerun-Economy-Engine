@@ -1,6 +1,6 @@
 {
   "format": "faerun-route-leg-edits-v1",
-  "revision": 2002,
+  "revision": 2008,
   "legs": {
     "route:The Delimbiyr Route|loudwater|secomber": {
       "deleted": true
@@ -8780,7 +8780,7 @@
     },
     "custom:d8f47c91-bfc1-43d8-920f-878204f5fe48": {
       "deleted": false,
-      "name": "Alagh\u00f4n to Hlondeth Road",
+      "name": "Alagh\u00f4n to Hlondeth Road: Alagh\u00f4n to Hlondeth",
       "kind": "road",
       "points": [
         [
@@ -8796,8 +8796,8 @@
           1718.404967119448
         ],
         [
-          2152.0429926692536,
-          1740.5050102414832
+          2155.29524390811,
+          1737.6047677176339
         ],
         [
           2138.567356619232,
@@ -8854,8 +8854,8 @@
           1718.404967119448
         ],
         [
-          2152.0429926692536,
-          1740.5050102414832
+          2155.29524390811,
+          1737.6047677176339
         ],
         [
           2138.567356619232,
@@ -75498,6 +75498,40 @@
         6,
         7
       ]
+    },
+    "custom:23bb0e8d-4f04-48fe-81d3-0ec0be661b2a": {
+      "deleted": false,
+      "name": "Gildenglade Road",
+      "kind": "track",
+      "points": [
+        [
+          2155.29524390811,
+          1737.6047677176339
+        ],
+        [
+          2179.6762,
+          1756.2714
+        ]
+      ]
+    },
+    "custom:2b15ccbd-4ae3-48d2-80bf-dd893d0f467d": {
+      "deleted": false,
+      "name": "Nonthal Road",
+      "kind": "track",
+      "points": [
+        [
+          2171.9869340232854,
+          1718.404967119448
+        ],
+        [
+          2169.676191202799,
+          1712.2714285714285
+        ],
+        [
+          2165.2,
+          1708.7
+        ]
+      ]
     }
   },
   "junctions": {
@@ -75726,7 +75760,8 @@
         1718.404967119448
       ],
       "legs": [
-        "custom:d8f47c91-bfc1-43d8-920f-878204f5fe48"
+        "custom:d8f47c91-bfc1-43d8-920f-878204f5fe48",
+        "custom:2b15ccbd-4ae3-48d2-80bf-dd893d0f467d"
       ]
     },
     "29edb1a5-5b06-469f-b455-5736257a7fc9": {
@@ -76200,6 +76235,17 @@
       "legs": [
         "custom:6c4e46b5-5ea6-4b42-a797-64ddefa9ebf9",
         "custom:fd78a6d9-19ba-4225-9b7a-e4179f41ce9e"
+      ]
+    },
+    "dafed37f-52cf-4f9d-b5a3-61dfcab8feae": {
+      "name": "Alagh\u00f4n to Hlondeth Road Junction",
+      "point": [
+        2155.29524390811,
+        1737.6047677176339
+      ],
+      "legs": [
+        "custom:d8f47c91-bfc1-43d8-920f-878204f5fe48",
+        "custom:23bb0e8d-4f04-48fe-81d3-0ec0be661b2a"
       ]
     }
   },

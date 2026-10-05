@@ -38,8 +38,8 @@ SURVEYED_SEA_LANES = [
          "port_nyanzaru"], 1.05),
     ("Chult-Tashalar Coastal Run",
         ["port_nyanzaru", "tashluta", "almraiven", "suldolphor"], 1.05),
-    ("Calimshan-Lantan Coastal Run",
-        ["suldolphor", "urbreth", "lantan", "calimport"], 1.05),
+    ("Tashalar-Calimshan Coastal Run",
+        ["suldolphor", "urbreth", "calimport"], 1.05),
 ]
 SURVEYED_FERRY_ROUTES = [
     ("Port Ghaast Ferry", "port_ghaast", "khalab", 0.75),
@@ -63,6 +63,9 @@ MAX_COASTING_LEG_MILES = 650.0
 BLOCKED_COASTING_LEGS = {
     frozenset(("tashluta", "thindar")),
     frozenset(("urmlaspyr", "westgate")),
+    # Served by the hand-drawn "Hlondeth to Arrabar Sea Lane", which carries the
+    # bound carrier services; a generated coasting run would duplicate it.
+    frozenset(("arrabar", "hlondeth")),
 }
 
 #: explicit override -- a settlement tagged this way keeps gryphon eyries,
@@ -386,10 +389,10 @@ MULTILEG_CARRIER_SERVICES = {
         "name": "Sword Coast Coasters",
         "service_id": "chult-tashalar-coastal-run",
     },
-    "Calimshan-Lantan Coastal Run": {
+    "Tashalar-Calimshan Coastal Run": {
         "carrier": "Coasting cog",
         "name": "Sword Coast Coasters",
-        "service_id": "calimshan-lantan-coastal-run",
+        "service_id": "tashalar-calimshan-coastal-run",
     },
     "The Trade Way": {
         "carrier": "Horse freight wagon",

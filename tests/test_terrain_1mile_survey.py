@@ -93,12 +93,10 @@ def test_lettering_did_not_turn_the_trackless_sea_into_land(survey):
     assert cells.count("S") / len(cells) > 0.99
 
 
-def test_anauroch_desert_and_chult_treeline(survey):
+def test_anauroch_reads_as_desert_and_chult_as_wooded(survey):
     assert commonest(window(survey, (620, 780), (300, 420))) == "D"
-    # The elevation source places this wooded interior above the treeline.
-    chult = window(survey, (200, 400), (-1800, -1650))
-    assert commonest(chult, ignore="S") == "M"
-    assert "F" in chult
+    # Chult is drawn as the dark green wash, which is the forest reading.
+    assert commonest(window(survey, (200, 400), (-1800, -1650)), ignore="S") == "F"
 
 
 def test_grassland_is_told_apart_from_forest(survey):
@@ -301,7 +299,7 @@ def test_separate_cover_and_elevation_sources_do_not_invent_mountains():
     result, footprint = separated_source_codes(codes, cover, elevation)
     assert footprint.all()
     assert result[0, 0] == "F"
-    assert result[4, 4] == "F"
+    assert result[4, 4] == "M"
     assert result[13, 13] == "H"
     assert result[17, 17] == "M"
     assert list(result[10, 10:13]) == ["W", "S", "T"]
@@ -323,189 +321,6 @@ def test_separate_sources_only_adjust_the_connected_high_forest():
     assert result[2, 2] == "M"
     assert result[17, 17] == "M"
     assert footprint.sum() == 36
-
-
-@pytest.mark.parametrize("peak_color", [
-    (240, 40, 30), (255, 255, 255), (252, 244, 242), (240, 240, 240),
-    (130, 30, 30), (248, 236, 234), (251, 228, 230), (230, 180, 175),
-])
-def test_above_treeline_peaks_are_mountains_without_forest_cover(peak_color):
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools.clean_terrain_interiors import separated_source_codes
-
-    codes = np.full((21, 21), "P")
-    cover = np.full((21, 21, 3), (100, 152, 143), dtype=np.int16)
-    cover[8:14, 8:14] = (62, 132, 66)
-    elevation = np.full((21, 21, 3), (95, 190, 40), dtype=np.int16)
-    elevation[2, 2:8] = peak_color
-    codes[2, 2:8] = list("FGPDHM")
-    elevation[10, 10] = peak_color
-    codes[3, 2:7] = list("WSITU")
-    elevation[3, 2:7] = peak_color
-    elevation[4, 2] = (130, 130, 130)
-    elevation[4, 3] = (210, 190, 40)
-
-    result, footprint = separated_source_codes(codes, cover, elevation)
-
-    assert not footprint[2, 2:8].any()
-    assert list(result[2, 2:8]) == list("MMMMMM")
-    assert result[10, 10] == "M"
-    assert list(result[3, 2:7]) == list("WSITU")
-    assert list(result[4, 2:4]) == ["P", "P"]
-    assert result[0, 0] == "P"
-    assert list(codes[2, 2:8]) == list("FGPDHM")
-
-
-@pytest.mark.parametrize("dtype", ["uint8", "int16"])
-def test_treeline_uses_elevation_bands_not_unmeasured_heights(dtype):
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools.clean_terrain_interiors import above_treeline
-
-    elevation = np.array([[
-        (95, 190, 40), (210, 190, 40), (130, 130, 130), (239, 239, 239),
-        (220, 110, 30), (240, 40, 30), (255, 255, 255), (240, 240, 240),
-        (180, 250, 70),
-        (252, 242, 140), (130, 30, 30), (248, 236, 234), (251, 228, 230),
-    ]], dtype=dtype)
-    assert above_treeline(elevation).tolist() == [[False] * 5 + [True] * 3 + [False] * 2 + [True] * 3]
-
-
-def test_whole_source_proposal_reaches_stormhorns_and_disconnected_forests(monkeypatch):
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools import clean_terrain_interiors as cleanup
-
-    bounds = (880, 884, -248, -244)
-    payload = dict(zip(("column_min", "column_max", "row_min", "row_max"), bounds))
-    payload["rows"] = {str(row): "PPPPP" for row in range(-248, -243)}
-    payload["rows"]["-246"] = "PPPWP"
-    cover = np.full((5, 5, 3), (210, 232, 141), dtype=np.int16)
-    cover[0, 1] = cover[4, 3] = (62, 132, 66)
-    elevation = np.full((5, 5, 3), (95, 190, 40), dtype=np.int16)
-    elevation[0, 0] = elevation[2, 3] = (255, 255, 255)
-    elevation[4, 4] = (220, 110, 30)
-    elevation[2, 2] = (210, 190, 40)
-
-    def sample(source, sampled_bounds):
-        assert sampled_bounds == bounds
-        codes = np.array([list(source["rows"][str(row)]) for row in range(-244, -249, -1)])
-        return codes, [cover, elevation]
-
-    monkeypatch.setattr(cleanup, "sample_separate_sources", sample)
-    changes, summaries = cleanup.propose_separate_sources(payload, whole=True)
-    updated = cleanup.apply_changes(payload, changes, consistency=True)
-
-    assert len(changes) == 5
-    assert updated["rows"]["-244"] == "MFPPP"
-    assert updated["rows"]["-246"] == "PPHWP"
-    assert updated["rows"]["-248"] == "PPPFM"
-    assert summaries[0]["region"] == "Whole Faerun"
-    assert summaries[0]["forest_source_cells"] == 2
-    assert not cleanup.propose_separate_sources(updated, whole=True)[0]
-    assert payload["rows"]["-244"] == "PPPPP"
-
-
-@pytest.mark.parametrize("whole", [False, True])
-@pytest.mark.parametrize("dtype", ["uint8", "int16"])
-def test_orange_forest_returns_but_red_and_white_remain_treeless(whole, dtype):
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools.clean_terrain_interiors import above_treeline, separated_source_codes
-
-    codes = np.full((5, 5), "M")
-    cover = np.full((5, 5, 3), (62, 132, 66), dtype=dtype)
-    elevation = np.full((5, 5, 3), (220, 110, 30), dtype=dtype)
-    elevation[0, 0] = (240, 90, 40)  # Exactly 15 degrees.
-    elevation[0, 1] = (240, 91, 40)
-    elevation[0, 2] = (255, 255, 255)
-    cover[4, 4] = (210, 232, 141)
-    assert above_treeline(elevation)[0].tolist() == [True, False, True, False, False]
-
-    result, _ = separated_source_codes(codes, cover, elevation, whole=whole)
-    assert list(result[0]) == list("MFMFF")
-    assert result[2, 2] == "F"
-    assert result[4, 4] == "M"
-    assert np.array_equal(separated_source_codes(result, cover, elevation, whole=whole)[0], result)
-    assert np.all(codes == "M")
-
-
-def test_whole_source_classification_preserves_water_ice_wetlands_and_unknown():
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools.clean_terrain_interiors import separated_source_codes
-
-    codes = np.array([list("SWITUFGPDHM")] * 3)
-    cover = np.full((*codes.shape, 3), (62, 132, 66), dtype=np.uint8)
-    elevation = np.empty((*codes.shape, 3), dtype=np.uint8)
-    elevation[0] = (255, 255, 255)
-    elevation[1] = (220, 110, 30)
-    elevation[2] = (210, 190, 40)
-
-    updated, _ = separated_source_codes(codes, cover, elevation, whole=True)
-
-    assert ["".join(row) for row in updated] == [
-        "SWITUMMMMMM", "SWITUFFFFFF", "SWITUHHHHHH",
-    ]
-
-
-def test_saved_whole_survey_observes_source_treeline(survey):
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools import clean_terrain_interiors as cleanup
-
-    if not all((cleanup.ROOT / "maps" / name).is_file() for name in cleanup.SEPARATE_SOURCES):
-        pytest.skip("separate source artwork is not installed")
-    codes, images = cleanup.sample_separate_sources(survey, cleanup.separate_source_bounds(survey, whole=True))
-    high = cleanup.above_treeline(images[1])
-    land = np.isin(codes, list("FGPDHM"))
-
-    assert np.all(codes[high & land] == "M")
-    updated, _ = cleanup.separated_source_codes(codes, *images, whole=True)
-    assert np.array_equal(updated, codes)
-
-    stormhorns, sources = cleanup.sample_separate_sources(survey, (760, 1010, -370, -120))
-    peaks = sources[1].min(axis=2) >= 240
-    peaks &= np.isin(stormhorns, list("FGPDHM"))
-    assert peaks.any()
-    assert np.all(stormhorns[peaks] == "M")
-
-
-def test_source_forest_boundaries_exclude_above_treeline_cover(tmp_path, monkeypatch):
-    import json
-
-    np = pytest.importorskip("numpy")
-    pytest.importorskip("PIL")
-    from tools import clean_terrain_interiors as cleanup
-
-    codes = np.full((21, 21), "F")
-    cover = np.full((21, 21, 3), (62, 132, 66), dtype=np.int16)
-    elevation = np.full((21, 21, 3), (95, 190, 40), dtype=np.int16)
-    elevation[3:7, 3:7] = (240, 40, 30)
-    elevation[12:16, 12:16] = (255, 255, 255)
-    elevation[8:11, 8:11] = (210, 190, 40)
-    elevation[16:19, 3:7] = (220, 110, 30)
-    updated, footprint = cleanup.separated_source_codes(codes, cover, elevation)
-    monkeypatch.setattr(cleanup, "sample_separate_sources", lambda payload: (updated, [cover, elevation]))
-    monkeypatch.setattr(cleanup, "ROOT", tmp_path)
-    (tmp_path / "maps").mkdir()
-    for name in (*cleanup.SEPARATE_SOURCES, "terrain-1-mile.json"):
-        (tmp_path / "maps" / name).write_bytes(b"test source")
-    destination = tmp_path / "boundaries.json"
-
-    cleanup.rebuild_source_boundaries({}, destination)
-
-    boundaries = json.loads(destination.read_text())
-    forest = footprint.copy()
-    forest[3:7, 3:7] = False
-    forest[12:16, 12:16] = False
-    assert boundaries["segments"]["forest"] == cleanup.boundary_segments(forest, 140, 350)
-    assert boundaries["segments"]["mountain"] == cleanup.boundary_segments(~forest, 140, 350)
-    assert updated[9, 9] == "H"
-    assert forest[9, 9]
-    assert np.all(updated[16:19, 3:7] == "F")
-    assert forest[16:19, 3:7].all()
 
 
 def test_source_boundaries_have_correct_orientation_without_crop_edges():

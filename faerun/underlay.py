@@ -17,7 +17,8 @@ Resolution order, first hit wins:
    `maps/`, the project root, the working directory, `~/Downloads`,
    `~/Pictures` and `~/Desktop`.
 
-`maps/` is searched first, but city maps and unrelated images are not candidates.
+`maps/` is searched first, but city maps, known reference images (including the
+political map), and unrelated images are not candidates.
 Rule 4 exists because that is where a downloaded poster actually lands, and
 asking someone to move or rename a 30 MB scan before the feature works is a
 poor trade for a few lines of globbing. The match is deliberately loose - the
@@ -137,7 +138,7 @@ def find_underlay() -> Optional[Path]:
             and NAME_HINT.search(p.name)
             and p.name.casefold() not in {
                 details[1].casefold() for details in BACKDROPS.values()
-            }
+            } | {"faerun political map.png"}
         ]
         if not matches:
             continue

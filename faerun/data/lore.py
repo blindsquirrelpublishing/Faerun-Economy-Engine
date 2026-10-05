@@ -97,4 +97,89 @@ LORE = {
         }],
         "era_note": "The source combines multiple editions and historical periods. This geographic overview is not a verification of every detail in 1492 DR; no direct Volo attribution is claimed.",
     },
+    "hlondeth": {
+        "status": "researched",
+        "paragraphs": [
+            "Hlondeth, the City of Serpents, is a walled city-state on the Churning Bay of the Vilhon Reach's northern shore, opposite Sespech, with the volcanic Mount Ugruth close by. Its territory reaches about 50 miles from the city and holds roughly a dozen villages and numerous vineyards. That describes territory, not modeled farmland or separate village markets.",
+            "The city is built largely of emerald-hued marble from nearby quarries, and the wiki calls it one of the busiest ports in the Reach, carrying goods into southern Turmish and trading with the Shining Plains. Listed exports include green marble, basalt, statuary, mosaic tiles, tough textiles, aloe-based liniments, seafood and wines; listed imports include Sespechian wine, perfume, herbs, spices, poisons, timber, weapons and slaves. Several trade items come from a 2022 Ed Greenwood social-media post rather than a sourcebook. None of this establishes volumes or prices.",
+            "House Extaminos, a family of yuan-ti blood, rules the city, which won independence from Chondath in 614 DR; Dediana Extaminos is matriarch in the early 1370s DR. The only population given, 453,600 in 1372 DR, covers the city and its environs, not the city alone. Residents are described as fearing birds of prey and giant birds, which sits awkwardly with any modeled gryphon eyrie but does not by itself rule one out.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Hlondeth",
+            "url": "https://forgottenrealms.fandom.com/wiki/Hlondeth",
+            "accessed": "2026-10-03",
+            "kind": "secondary",
+        }],
+        "era_note": "Mixed-edition article; most detail dates from 1357 to 1373 DR (The Vilhon Reach, 1996; Forgotten Realms Campaign Setting 3rd edition, 2001; Serpent Kingdoms, 2004). It has no history after 1373 DR, so ruler, population and trade are not verified for 1492 DR. The 453,600 figure covers city and environs; the engine's 60,000 residents is a user-selected planning scenario. Underlying publications were not independently consulted.",
+    },
+    "arrabar": {
+        "status": "researched",
+        "paragraphs": [
+            "Arrabar, capital of Chondath, is a sprawling port metropolis on the south-eastern shore of the Vilhon Reach, laid out in Port, Warehouse, Merchants and Living districts around the Governor District and the gold-domed Generon palace. Canals honeycomb the Port District and run to a turning basin. Only a few Reach harbors, Arrabar's and Hlath's among them, were deep enough for deep-draft ships.",
+            "The city stands at the end of the Golden Road and the Emerald Way, and its people worked in trade, crafting, fishing and mercenary companies. Lumber is listed as an export; Mulhorandi ale, Tashalaran coffee, Tethyrian tea and peppers appear among imports. Sea trade with Cormyr is traced back to 389 DR. These describe the city's trade character, not volumes.",
+            "The wiki gives 5,000 residents in 1357 DR and 61,012 in 1372 DR, the latter citing the third-edition campaign setting; Lord Eles Wianar ruled around 1372 DR. The Spellplague of 1385 DR ruined Chondath and seemingly destroyed Arrabar, and the Chondath article adds that most of the country was exchanged with Shyr of Abeir in 1386 DR. After the Second Sundering the land was healed, and by the late 15th century DR Arrabar was back on the map as a port stop for travelers across the Reach and the Golden Road.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Arrabar",
+            "url": "https://forgottenrealms.fandom.com/wiki/Arrabar",
+            "accessed": "2026-10-03",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Chondath",
+            "url": "https://forgottenrealms.fandom.com/wiki/Chondath",
+            "accessed": "2026-10-03",
+            "kind": "secondary",
+        }],
+        "era_note": "Most detail is late 14th century (1357 to 1373 DR). The late-15th-century restoration rests on one source cited by the wiki, the Adventurers League adventure Foreign Affairs (2020), which confirms an operating port but gives no population, ruler or industry; those are not verified for 1492 DR. The engine's 61,012 residents adopts the 1372 DR count as a planning scenario. Underlying publications were not independently consulted.",
+    },
+    "amphail": {
+        "status": "researched",
+        "paragraphs": [
+            "Amphail is a village on the Long Road between Waterdeep and Red Larch, about three days' ride north of Waterdeep. It sits on the western edge of the Dessarin Valley, where a 5th-edition source lists it among the valley's villages. It is named for Amphail the Just, an early warlord of Waterdeep who held estates there. It keeps no standing militia and relies on Waterdhavian guards who patrol from Rassalantar.",
+            "Its main trade is growing food for Waterdeep, and it is known for its horses, including Amphail grays and glossy black chargers. Wealthy landowners do most of the breeding; the Roaringhorn family of Waterdeep is the largest breeder, with the Amcathra, Ilzimmer, Jhansczil and Tarm families and several individual breeders. The Eagleshield family make tack and treat sick animals, and the Stag-Horned Flagon brews a dark barley beer and a spicy purple mushroom wine. These describe the village's trade character, not output volumes or prices.",
+            "A 3rd-edition source gives 850 inhabitants, 600 in the village and 250 on outlying farms, with Chauntea as the main deity. Briiathor Alougarr was Lord Warder in 1372 DR and Dauner Ilzimmer held the post in 1485 DR. The Stag-Horned Flagon, the village tavern, is still operating around 1490 DR under Arleosa Starhenge. Other named inns, a festhall, a smithy and a dozen shops come mostly from 2nd-edition material and are not confirmed as operating in 1492 DR.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Amphail (village)",
+            "url": "https://forgottenrealms.fandom.com/wiki/Amphail_(village)",
+            "accessed": "2026-10-04",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Dessarin Valley",
+            "url": "https://forgottenrealms.fandom.com/wiki/Dessarin_Valley",
+            "accessed": "2026-10-04",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Stag-Horned Flagon",
+            "url": "https://forgottenrealms.fandom.com/wiki/Stag-Horned_Flagon",
+            "accessed": "2026-10-04",
+            "kind": "secondary",
+        }],
+        "era_note": "Trade, breeders and businesses come from Volo's Guide to the North (1993) and The North (1996), and the 850 population from the Environs of Waterdeep web enhancement (2006), all late 14th century DR. Only the 1485 DR Lord Warder, Dauner Ilzimmer, the Dessarin Valley placement (Princes of the Apocalypse, 2015, p. 31, via the Dessarin Valley article) and the Stag-Horned Flagon's circa 1490 DR owner (Storm King's Thunder, p. 72) come from 5th-edition sources. The leader, population and businesses are not verified for 1492 DR. The engine's 850 residents adopts the circa 1372 DR count (village plus farms) as a planning scenario. Underlying publications were not independently consulted.",
+    },
+    "goldenfields": {
+        "status": "researched",
+        "paragraphs": [
+            "Goldenfields, the Granary of the North, is a walled abbey-farm of Chauntea on raised ground in the Dessarin Valley, on the western side of the River Dessarin south of Bargewright Inn. It was founded around 1355 DR by Tolgar Anuvien, a Chauntean cleric and retired adventurer from Waterdeep, and grew from about 20 to nearly 30 square miles by 1370 DR. A mortared stone wall about 60 feet high on the outside encloses it, with towers and barracks every mile or two.",
+            "It is the North's foremost grower of food. Its farms grow grain including rice, maize, barley and hops; it has apple and orange orchards and herb and vegetable gardens, and keeps oxen and cattle in paddocks with smaller pens of sheep, pigs, turkeys and chickens. Much of Waterdeep's food and that of nearby settlements comes from Goldenfields, which a 3rd-edition source says gives it without seeking payment, in Chauntea's honour. The Goldengulp Brewery, with about 60 workers, brews the namesake beer served at the inn, Northfurrow's End. These describe the abbey's trade character, not output volumes or prices.",
+            "Sources give over 5,000 residents around 1366 DR, 7,988 in 1372 DR and about 5,000 in 1491 DR. Ellardin Darovik is abbot in 1491 DR, the Emerald Enclave has gained influence alongside the Chauntean clergy, and a castellan appointed by the Lords of Waterdeep holds a largely ceremonial command. In the late 15th century DR, after the War of the Silver Marches, the hill giant chief Guh and allied goblinoids attacked the abbey.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Goldenfields",
+            "url": "https://forgottenrealms.fandom.com/wiki/Goldenfields",
+            "accessed": "2026-10-05",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Goldengulp Brewery",
+            "url": "https://forgottenrealms.fandom.com/wiki/Goldengulp_Brewery",
+            "accessed": "2026-10-05",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Ellardin Darovik",
+            "url": "https://forgottenrealms.fandom.com/wiki/Ellardin_Darovik",
+            "accessed": "2026-10-05",
+            "kind": "secondary",
+        }],
+        "era_note": "Founding, early size and the 5,000 (circa 1366 DR) figure come from Volo's Guide to the North (1993); the 7,988 figure and the free gift of food from the Forgotten Realms Campaign Setting (2001), both 14th century DR. Crops, livestock, the brewery, the abbot and the giant attack come from Storm King's Thunder (2016), set in the late 1480s or early 1490s DR, and the 1491 DR population of about 5,000 from Princes of the Apocalypse (2015), p. 33. None is verified for 1492 DR itself, and the state of the abbey after Guh's attack is unknown. A plague around 1395 DR is uncited on the wiki and is left out. The engine's 3,000 residents is a gazetteer estimate, not a sourced figure. Underlying publications were not independently consulted.",
+    },
 }

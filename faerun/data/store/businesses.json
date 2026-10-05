@@ -371,21 +371,21 @@
   },
   {
     "id": "carrier_calimshan_lantan_freight",
-    "name": "Calimshan-Lantan Freight Line",
+    "name": "Tashalar-Calimshan Freight Line",
     "headquarters": "calimport",
     "locations": [
       "calimport",
       "urbreth",
-      "lantan"
+      "suldolphor"
     ],
     "specialties": [
       "long-haul coastal freight",
-      "island cargo",
+      "southern ports",
       "secure consignments"
     ],
     "offers": {},
     "price_modifier": 1.0,
-    "description": "A long-haul coastal carrier linking Calimshan, the Inner Sea, and Lantan with secure consignments.",
+    "description": "A long-haul coastal carrier linking Calimport, Urbreth and Suldolphor with secure consignments.",
     "ability_scores": {
       "CAP": 16,
       "OPS": 12,
@@ -404,11 +404,11 @@
     "inventory": {
       "calimport": {},
       "urbreth": {},
-      "lantan": {}
+      "suldolphor": {}
     },
     "services": [
       "long-haul coastal freight",
-      "island cargo",
+      "southern ports",
       "secure consignments"
     ],
     "roles": {
@@ -464,24 +464,24 @@
         "city": "Urbreth",
         "zip": "UR-PW-0009"
       },
-      "lantan": {
-        "street": "Gearwright Quay, 5",
-        "district": "Harbor District",
-        "city": "Lantan",
-        "zip": "LA-HD-0005"
+      "suldolphor": {
+        "street": "Market Road, 19",
+        "district": "Trade Quarter",
+        "city": "Suldolphor",
+        "zip": "FA-00-019"
       }
     },
     "location_mode": "rolling",
     "itinerary": [
       {
-        "route": "Calimshan-Lantan Coastal Run",
+        "route": "Tashalar-Calimshan Coastal Run",
         "origin": "calimport",
-        "destination": "lantan",
+        "destination": "suldolphor",
         "status": "rolling",
         "progress": 0.67
       }
     ],
-    "carrier_service_id": "calimshan-lantan-coastal-run",
+    "carrier_service_id": "tashalar-calimshan-coastal-run",
     "carrier_modes": [
       "sea"
     ],
@@ -3739,5 +3739,160 @@
     },
     "capacity_lb": 60000,
     "capacity_ft3": 1500.0
+  },
+  {
+    "id": "stag_horned_flagon",
+    "name": "The Stag-Horned Flagon",
+    "headquarters": "amphail",
+    "locations": [
+      "amphail"
+    ],
+    "specialties": [
+      "slaker (dark barley beer)",
+      "purple mushroom wine",
+      "tavern"
+    ],
+    "offers": {
+      "ale": "fine",
+      "wine_common": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Tavern on Amphail's town square, the Malanderways, brewing its own dark barley beer (slaker) and a spicy purple mushroom wine. Run by Krivvin Shamblestar circa 1370 DR and by Arleosa Starhenge circa 1490 DR (Storm King's Thunder, p. 72, via the Forgotten Realms Wiki). Mushroom wine has no commodity yet; ale stands in for slaker.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "amphail": {
+        "ale": 14,
+        "wine_common": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "amphail": {
+        "street": "High Road, 855",
+        "district": "Trade Quarter",
+        "city": "Amphail",
+        "zip": "FA-32-855"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "goldengulp_brewery",
+    "name": "Goldengulp Brewery",
+    "headquarters": "goldenfields",
+    "locations": [
+      "goldenfields"
+    ],
+    "specialties": [
+      "Goldengulp beer",
+      "brewery"
+    ],
+    "offers": {
+      "ale": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Brewery in a two-storey estate near the centre of Goldenfields, close to the longhouses, brewing its namesake beer, Goldengulp, which Northfurrow's End serves. About 60 people worked there in the late 15th century DR (Storm King's Thunder, pp. 45, 47 and 48, via the Forgotten Realms Wiki). Ale stands in for Goldengulp; the 60 workers are recorded as lore, not added as engine staff.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "goldenfields": {
+        "ale": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "goldenfields": {
+        "street": "High Road, 541",
+        "district": "Trade Quarter",
+        "city": "Goldenfields",
+        "zip": "FA-64-541"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
   }
 ]

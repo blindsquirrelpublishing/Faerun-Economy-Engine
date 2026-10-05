@@ -106,14 +106,6 @@ MAP_HTML = r"""<!DOCTYPE html>
           </details></div>
           <button id="planar-center" type="button" title="Center on selected town" aria-label="Center on selected town">&#8982;</button>
         </div>
-        <label title="Animate the planned route and its location markers. Your choice is saved in this browser."><input id="animate-routes" type="checkbox"> Animate routes</label>
-        <label title="Label every visible location, including small settlements and junctions. Labels may overlap."><input id="show-all-location-labels" type="checkbox"> Show all location labels</label>
-        <label>Junction labels <select id="junction-labels">
-          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
-        </select></label>
-        <label>Travelling company names <select id="company-labels">
-          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
-        </select></label>
         <section class="leg-editor" aria-label="Map route leg editor">
           <label><input id="leg-edit-enabled" type="checkbox"> Edit route legs</label>
           <div id="leg-edit-tools" hidden>
@@ -426,14 +418,6 @@ TERRAIN_HTML = r"""<!DOCTYPE html>
           </details></div>
           <button id="planar-center" type="button" title="Center on selected town" aria-label="Center on selected town">&#8982;</button>
         </div>
-        <label title="Animate the planned route and its location markers. Your choice is saved in this browser."><input id="animate-routes" type="checkbox"> Animate routes</label>
-        <label title="Label every visible location, including small settlements and junctions. Labels may overlap."><input id="show-all-location-labels" type="checkbox"> Show all location labels</label>
-        <label>Junction labels <select id="junction-labels">
-          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
-        </select></label>
-        <label>Travelling company names <select id="company-labels">
-          <option value="auto" selected>Automatic</option><option value="show">Show all</option><option value="hide">Hide all</option>
-        </select></label>
         <section class="leg-editor" aria-label="Map route leg editor">
           <label><input id="leg-edit-enabled" type="checkbox"> Edit route legs</label>
           <div id="leg-edit-tools" hidden>
@@ -1281,13 +1265,9 @@ var state = {
   routes: true,
   verifiedOnly: true,
   routeIcons: true,
-  animateRoutes: null,
   routeTypes: initialRouteTypes.slice(),
   inferredRoads: false,
   labels: true,
-  showAllLocationLabels: false,
-  junctionLabels: 'auto',
-  companyLabels: 'auto',
   roundWorld: false,
   selected: null,
   selectedRoute: -1,
@@ -1820,7 +1800,7 @@ function paintPlaces() {
   // named, zoomed in they separate and more of them earn a label. Market
   // labels are drawn after this and so always win the same space.
   if (!state.labels) { return; }
-  var budget = state.showAllLocationLabels ? Infinity : 80;
+  var budget = 80;
   var labelScale = mapLabelScale();
   ctx.font = mapLabelFont(9, false);
   ctx.textAlign = 'center';
@@ -1834,7 +1814,7 @@ function paintPlaces() {
   for (i = 0; i < vis.length && taken.length < budget; i++) {
     d = vis[i];
     var clash = false;
-    for (var k = 0; !state.showAllLocationLabels && k < taken.length; k++) {
+    for (var k = 0; k < taken.length; k++) {
         if (Math.abs(taken[k][0] - d.px) < 58 * labelScale
           && Math.abs(taken[k][1] - d.py) < 13 * labelScale) { clash = true; break; }
     }
@@ -4000,46 +3980,9 @@ function plannedLocation(name) {
   }));
 }
 
-function routeAnimationsEnabled() {
-  return state.animateRoutes === null
-    ? !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    : state.animateRoutes;
-}
-
 function routeAnimationActive() {
-  return !!(state.planRoute && !legEditor.enabled && routeAnimationsEnabled());
-}
-
-function wireRouteAnimation() {
-  var input = document.getElementById('animate-routes');
-  var key = 'faerun-map-animate-routes';
-  try {
-    var saved = window.localStorage.getItem(key);
-    if (saved !== null && saved !== 'true' && saved !== 'false') {
-      throw new Error('Invalid saved route animation preference');
-    }
-    state.animateRoutes = saved === null ? null : saved === 'true';
-  } catch (err) {
-    console.error('Route animation preference could not be restored.', err);
-    showStatus('Route animation preference could not be restored.', true);
-  }
-  input.checked = routeAnimationsEnabled();
-  input.addEventListener('change', function () {
-    state.animateRoutes = input.checked;
-    invalidate();
-    try {
-      window.localStorage.setItem(key, String(state.animateRoutes));
-    } catch (err) {
-      console.error('Route animation preference could not be saved.', err);
-      showStatus('Route animation preference could not be saved; this choice applies only to this page.', true);
-    }
-  });
-  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function () {
-    if (state.animateRoutes === null) {
-      input.checked = routeAnimationsEnabled();
-      invalidate();
-    }
-  });
+  return !!(state.planRoute && !legEditor.enabled &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 }
 
 function drawRoutePulse(x, y, radius) {
@@ -4067,25 +4010,18 @@ function caravanIconPosition(pin) {
   if (MAP_VIEW === 'planar' && !host) { return {x: pin.px, y: pin.py}; }
   var radius = mapPinRadius(anchor, state.selected === anchor.data.id, state.hover === pins.indexOf(anchor));
   var companions = host ? pins.filter(function (candidate) {
-    return candidate.vis && candidate.data.mobile && candidate.data.status === 'encamped' &&
+    return candidate.data.mobile && candidate.data.status === 'encamped' &&
       candidate.data.host && candidate.data.host.id === hostId;
   }).sort(function (left, right) { return left.data.id.localeCompare(right.data.id); }) : [pin];
-  var markerRadius = MAP_VIEW === 'planar' ? companions.reduce(function (largest, candidate) {
-    return Math.max(largest, mapPinRadius(candidate, false, false));
-  }, mapPinRadius(pin, false, false)) : 18;
-  var gap = MAP_VIEW === 'planar' ? 1.25 * planarScale() : 6;
-  var spacing = markerRadius * 2 + gap;
-  var distance = radius + markerRadius + gap;
-  var index = Math.max(0, companions.indexOf(pin));
-  // Use chord spacing to fit a chain around each ring without overlapping icons.
-  var capacity = Math.max(1, Math.floor(Math.PI / Math.asin(Math.min(1, spacing / (2 * distance)))));
-  while (index >= capacity) {
-    index -= capacity;
-    distance += spacing;
-    capacity = Math.max(1, Math.floor(Math.PI / Math.asin(spacing / (2 * distance))));
+  if (MAP_VIEW === 'planar') {
+    var index = Math.max(0, companions.indexOf(pin));
+    var angle = 3 * Math.PI / 4 + index * 2 * Math.PI / Math.max(8, companions.length);
+    var distance = 7.5 * planarScale();
+    return {x: anchor.px + Math.cos(angle) * distance, y: anchor.py + Math.sin(angle) * distance};
   }
-  var angle = -Math.PI / 2 + index * 2 * Math.PI / capacity;
-  return {x: anchor.px + Math.cos(angle) * distance, y: anchor.py + Math.sin(angle) * distance};
+  var markerRadius = MAP_VIEW === 'planar' ? mapPinRadius(pin, false, false) : 0;
+  return {x: anchor.px - radius - markerRadius - 6,
+    y: anchor.py + markerRadius + 6 + Math.max(0, companions.indexOf(pin)) * (markerRadius * 2 + 6)};
 }
 
 function drawCaravanMarker(pin) {
@@ -4204,7 +4140,7 @@ function drawPins() {
       }
     }
   }
-  if (state.labels || state.companyLabels === 'show') { drawLabels(order); }
+  if (state.labels) { drawLabels(order); }
 }
 
 function priceTowerStyle(pin) {
@@ -4331,18 +4267,14 @@ function drawLabels(order) {
   for (var k = order.length - 1; k >= 0; k--) {
     var s = pins[order[k]];
     var d = s.data;
-    if (d.mobile && state.companyLabels === 'hide') { continue; }
-    var showCompany = d.mobile && state.companyLabels === 'show';
-    if (!state.labels && !showCompany) { continue; }
-    var showAll = state.showAllLocationLabels || showCompany;
     var important = state.selected === d.id || state.hover === order[k];
-    if (!showAll && !important && d.population < 12000) { continue; }
+    if (!important && d.population < 12000) { continue; }
     var text = d.name;
     // Set the font before measuring, so the collision box matches the weight
     // the label is actually drawn at.
     ctx.font = mapLabelFont(12, important);
     var w = ctx.measureText(text).width;
-    var marker = d.mobile ? caravanIconPosition(s) :
+    var marker = MAP_VIEW === 'planar' && d.mobile ? caravanIconPosition(s) :
       {x: state.heatById ? s.towerTipX : s.px, y: state.heatById ? s.towerTipY : s.py};
     var lx = marker.x + mapPinRadius(s, state.selected === d.id, state.hover === order[k]) + 5 * labelScale;
     var ly = marker.y - 4 * labelScale;
@@ -4351,7 +4283,7 @@ function drawLabels(order) {
     }
     var box = [lx - 2 * labelScale, ly - 8 * labelScale, lx + w + 2 * labelScale, ly + 8 * labelScale];
     var clash = false;
-    for (var t = 0; !showAll && t < taken.length; t++) {
+    for (var t = 0; t < taken.length; t++) {
       var o = taken[t];
       if (box[0] < o[2] && box[2] > o[0] && box[1] < o[3] && box[3] > o[1]) {
         clash = true;
@@ -4652,23 +4584,12 @@ async function editLegAt(screenX, screenY) {
   legMessage(''); syncLegEditor(); invalidate();
 }
 
-function junctionAt(screenX, screenY) {
-  return junctionLocations().find(function (location) {
-    var screen = planarPoint(location.x, location.y);
-    return Math.hypot(screenX - screen[0], screenY - screen[1]) <= 2.5 * planarScale() + 7;
-  });
-}
-
 function legPointerDown(event) {
   if (MAP_VIEW !== 'planar' || !legEditor.enabled || event.shiftKey || event.button !== 0) { return false; }
   if (legEditor.saving) { return true; }
   var rect = canvas.getBoundingClientRect();
   var screenX = event.clientX - rect.left, screenY = event.clientY - rect.top;
   var draft = legEditor.draft;
-  if (!draft) {
-    var junction = junctionAt(screenX, screenY);
-    if (junction) { focusJunction(junction); return true; }
-  }
   if (draft) {
     var nearestPoint = -1, distance = 100;
     draft.points.forEach(function (point, index) {
@@ -5105,9 +5026,7 @@ function drawMapJunctions() {
     if (plannedLocation(junction.name)) { drawRoutePulse(point[0], point[1], radius); }
     ctx.beginPath(); ctx.arc(point[0], point[1], radius, 0, Math.PI * 2);
     ctx.fill(); ctx.stroke();
-    if (state.junctionLabels === 'hide') { return; }
-    if (state.junctionLabels !== 'show' && !state.showAllLocationLabels &&
-        state.selected !== 'junction:' + identifier) { return; }
+    if (state.selected !== 'junction:' + identifier) { return; }
     ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 4 * labelScale;
     ctx.strokeText(junction.name, point[0] + 10 * labelScale, point[1] - 10 * labelScale);
     ctx.fillStyle = '#163a45'; ctx.fillText(junction.name, point[0] + 10 * labelScale, point[1] - 10 * labelScale);
@@ -5497,8 +5416,7 @@ var PLACE_TYPES = {location: 'Location', city: 'City', village: 'Village', vale:
   town: 'Town', hamlet: 'Hamlet', fortress: 'Fortress',
   ruin: 'Ruins', site: 'Site', capital: 'Capital',
   temple: 'Temple', bridge: 'Bridge', crypt: 'Crypt', cave: 'Cave', mine: 'Mine',
-  shrine: 'Shrine', landmark: 'Landmark', inn: 'Inn', campsite: 'Campsite',
-  caravan_stop: 'Caravan Stop', trading_post: 'Trading Post'};
+  shrine: 'Shrine', landmark: 'Landmark', inn: 'Inn', campsite: 'Campsite'};
 var LOCATION_LEGEND_ROWS = {city: 2493, port: 2536, fortress: 2580, ruin: 2623,
   site: 2667, capital: 2710, port_capital: 2754, temple: 2798, bridge: 2842};
 var locationLegendIcons = {};
@@ -5902,7 +5820,10 @@ function endDrag(ev) {
       locationEditorClick(mx, my); drag = null; endInteract(); return;
     }
     if (MAP_VIEW === 'planar' && !legEditor.enabled && !state.calibOn && !state.terrainEditOn) {
-      var junction = junctionAt(mx, my);
+      var junction = junctionLocations().find(function (location) {
+        var screen = planarPoint(location.x, location.y);
+        return Math.hypot(mx - screen[0], my - screen[1]) <= 2.5 * planarScale() + 7;
+      });
       if (junction) { focusJunction(junction); drag = null; endInteract(); return; }
     }
     var hit = pick(mx, my);
@@ -6728,34 +6649,6 @@ async function renameJunction(identifier, name) {
   } finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
 }
 
-async function deleteJunction(identifier) {
-  var junction = (mapLegEdits.junctions || {})[identifier];
-  if (!junction || legEditor.saving) { throw new Error('Junction is unavailable or another save is in progress.'); }
-  if (legEditor.dirty || locationEditor.draft || locationEditor.busy) {
-    throw new Error('Save or cancel your map edits before deleting a junction.');
-  }
-  if (!window.confirm('Delete junction "' + junction.name + '"? Connected roads and waypoints will be kept.')) { return; }
-  legEditor.saving = true; syncLegEditor();
-  try {
-    mapLegEdits = await postJson('/api/map-junction', {
-      id: identifier, deleted: true, revision: mapLegEdits.revision
-    });
-    applyMapLegEdits(); syncJunctionLocations(); clearPlannedRoute();
-    ['route-plan-origin', 'route-plan-destination'].forEach(function (id) {
-      var input = document.getElementById(id);
-      if (input.value === junction.name) { input.value = ''; }
-    });
-    if (state.selected === 'junction:' + identifier) {
-      state.selected = null;
-      document.getElementById('place-head').textContent = 'Junction deleted. Roads and waypoints were kept.';
-      ['place-stats', 'place-notes', 'place-prices'].forEach(function (id) {
-        document.getElementById(id).textContent = '';
-      });
-    }
-    updateRouteSelection();
-  } finally { legEditor.saving = false; syncLegEditor(); invalidate(); }
-}
-
 function focusJunction(location) {
   if (!mesh) { return false; }
   var scene = toScene(location.x, location.y);
@@ -6773,16 +6666,8 @@ function focusJunction(location) {
   renameLabel.appendChild(renameInput); renameForm.appendChild(renameLabel);
   var renameButton = document.createElement('button');
   renameButton.type = 'submit'; renameButton.textContent = 'Rename junction'; renameForm.appendChild(renameButton);
-  var deleteButton = document.createElement('button');
-  deleteButton.type = 'button'; deleteButton.textContent = 'Delete junction'; renameForm.appendChild(deleteButton);
   var renameStatus = document.createElement('p'); renameStatus.setAttribute('role', 'status');
   renameForm.appendChild(renameStatus);
-  deleteButton.addEventListener('click', async function () {
-    deleteButton.disabled = true; renameButton.disabled = true; renameStatus.textContent = '';
-    try { await deleteJunction(location.id.slice(9)); }
-    catch (error) { renameStatus.textContent = error.message; }
-    finally { deleteButton.disabled = false; renameButton.disabled = false; }
-  });
   renameForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     if (!renameInput.value.trim()) { renameStatus.textContent = 'Enter a junction name.'; return; }
@@ -7262,6 +7147,7 @@ function applyUnderlayImage(img) {
     state.underStretch = Number(saved.stretch) || 1;
     state.underDrape = saved.drape !== false;
     state.underFrom = saved.from === 'survey' ? 'survey' : 'manual';
+    if (state.underFrom === 'survey') { surveyUnderlayFit(); }
   } else {
     autoUnderlayFit();
   }
@@ -7604,74 +7490,7 @@ async function loadCalibration() {
   applyCalibration();
 }
 
-function wireLocationLabels() {
-  var all = document.getElementById('show-all-location-labels');
-  var labels = document.getElementById('opt-labels');
-  var key = 'faerun-map-show-all-location-labels';
-  try {
-    var saved = window.localStorage.getItem(key);
-    if (saved !== null && saved !== 'true' && saved !== 'false') {
-      throw new Error('Invalid saved location label preference');
-    }
-    state.showAllLocationLabels = saved === 'true';
-  } catch (err) {
-    console.error('Location label preference could not be restored.', err);
-    showStatus('Location label preference could not be restored.', true);
-  }
-  if (state.showAllLocationLabels) { state.labels = true; }
-  all.checked = state.showAllLocationLabels;
-  labels.checked = state.labels;
-  function save() {
-    invalidate();
-    try {
-      window.localStorage.setItem(key, String(state.showAllLocationLabels));
-    } catch (err) {
-      console.error('Location label preference could not be saved.', err);
-      showStatus('Location label preference could not be saved; this choice applies only to this page.', true);
-    }
-  }
-  all.addEventListener('change', function () {
-    state.showAllLocationLabels = all.checked;
-    if (all.checked) { state.labels = true; labels.checked = true; }
-    save();
-  });
-  labels.addEventListener('change', function () {
-    state.labels = labels.checked;
-    if (!labels.checked) { state.showAllLocationLabels = false; all.checked = false; }
-    save();
-  });
-}
-
-function wireMarkerLabels(id, property, label) {
-  var input = document.getElementById(id);
-  var key = 'faerun-map-' + id;
-  try {
-    var saved = window.localStorage.getItem(key);
-    if (saved !== null && !['auto', 'show', 'hide'].includes(saved)) {
-      throw new Error('Invalid saved ' + label.toLowerCase() + ' label preference');
-    }
-    state[property] = saved === null ? 'auto' : saved;
-  } catch (err) {
-    console.error(label + ' label preference could not be restored.', err);
-    showStatus(label + ' label preference could not be restored.', true);
-  }
-  input.value = state[property];
-  input.addEventListener('change', function () {
-    state[property] = input.value;
-    invalidate();
-    try {
-      window.localStorage.setItem(key, state[property]);
-    } catch (err) {
-      console.error(label + ' label preference could not be saved.', err);
-      showStatus(label + ' label preference could not be saved; this choice applies only to this page.', true);
-    }
-  });
-}
-
 function wireControls() {
-  wireLocationLabels();
-  wireMarkerLabels('junction-labels', 'junctionLabels', 'Junction');
-  wireMarkerLabels('company-labels', 'companyLabels', 'Travelling company');
   document.getElementById('opt-round-world').checked = state.roundWorld;
   document.getElementById('opt-globe').checked = state.globe;
   wireUnderlay();
@@ -7718,6 +7537,10 @@ function wireControls() {
   }
   routeAll.addEventListener('change', updateRouteTypes);
   routeTypeInputs.forEach(function (input) { input.addEventListener('change', updateRouteTypes); });
+  document.getElementById('opt-labels').addEventListener('change', function (ev) {
+    state.labels = ev.target.checked;
+    invalidate();
+  });
   document.getElementById('opt-round-world').addEventListener('change', function (ev) {
     state.roundWorld = ev.target.checked;
     if (state.roundWorld) {
@@ -7916,7 +7739,6 @@ async function refreshSharedMap() {
 async function start() {
   buildTerrainLegend();
   wireControls();
-  wireRouteAnimation();
   wireLegEditor();
   wireLocationEditor();
   window.setInterval(function () { if (!document.hidden) { refreshSharedMap(); } }, 5000);

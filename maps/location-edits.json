@@ -1,5 +1,5 @@
 {
-  "revision": 41,
+  "revision": 45,
   "locations": {
     "waterdeep": {
       "name": "Waterdeep",
@@ -291,6 +291,52 @@
       "mapPositionEdited": true,
       "verified": true,
       "placeType": "caravan_stop",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false,
+      "inhabited": false,
+      "notes": ""
+    },
+    "hlondeth": {
+      "name": "Hlondeth",
+      "x": 2029.6,
+      "y": 1943.9,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "city",
+      "isPort": true,
+      "portalGate": false,
+      "gryphonPort": false
+    },
+    "ironfang": {
+      "name": "Ironfang",
+      "x": 2099.3143,
+      "y": 1675.1381,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "city",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false
+    },
+    "gildenglade": {
+      "name": "Gildenglade",
+      "x": 2179.6762,
+      "y": 1756.2714,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "city",
+      "isPort": false,
+      "portalGate": false,
+      "gryphonPort": false
+    },
+    "location:8446184c-d02c-453b-8b27-3c653513b69d": {
+      "name": "Flint Rock",
+      "x": 713.7143,
+      "y": 937.7143,
+      "mapPositionEdited": true,
+      "verified": true,
+      "placeType": "site",
       "isPort": false,
       "portalGate": false,
       "gryphonPort": false,

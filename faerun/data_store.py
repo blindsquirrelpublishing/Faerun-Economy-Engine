@@ -56,7 +56,16 @@ def save_commodities(commodities: Iterable[Commodity]) -> None:
 # ---------------------------------------------------------------------------
 
 def load_settlements() -> List[Settlement]:
-    from .data.populations import WATERDEEP_POPULATION
+    from .data.populations import (
+        AMPHAIL_POPULATION, ARRABAR_POPULATION, HLONDETH_POPULATION, WATERDEEP_POPULATION,
+    )
+
+    bases = {
+        "waterdeep": WATERDEEP_POPULATION,
+        "hlondeth": HLONDETH_POPULATION,
+        "arrabar": ARRABAR_POPULATION,
+        "amphail": AMPHAIL_POPULATION,
+    }
 
     settlements = []
     for row in _load_json("settlements"):
@@ -64,8 +73,8 @@ def load_settlements() -> List[Settlement]:
         row.pop("population_basis", None)
         row.pop("guilds", None)
         settlement = Settlement(**row)
-        if settlement.id == "waterdeep":
-            settlement.population_basis = WATERDEEP_POPULATION
+        if settlement.id in bases:
+            settlement.population_basis = bases[settlement.id]
         settlements.append(settlement)
     return settlements
 

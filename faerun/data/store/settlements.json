@@ -600,9 +600,9 @@
     "name": "Amphail",
     "region": "Dessarin Valley",
     "zone": "dessarin",
-    "population": 900,
-    "x": 621.7,
-    "y": 1126.0,
+    "population": 850,
+    "x": 648.5289,
+    "y": 1161.7169,
     "wealth": 1.0,
     "tax": 0.05,
     "security": 0.75,
@@ -616,17 +616,19 @@
       "noble"
     ],
     "industries": {
-      "horse": 3.0,
+      "brew": 1.0,
       "farm": 2.0,
-      "brew": 1.0
+      "horse": 3.0,
+      "tan": 1.0
     },
     "specialties": {
+      "ale": 1.0,
       "horse_riding": 2.0,
       "warhorse": 1.0
     },
     "shortages": [],
-    "ruler": "",
-    "description": "Renowned for the finest horseflesh in the North."
+    "ruler": "Lord Warder Dauner Ilzimmer",
+    "description": "Village on the Long Road between Waterdeep and Red Larch. Grows food for Waterdeep and is renowned for its horses, bred by wealthy landowners and noble families."
   },
   {
     "id": "goldenfields",
@@ -652,16 +654,19 @@
       "brew": 2.0,
       "cattle": 2.0,
       "farm": 3.0,
+      "herb": 1.0,
       "orchard": 3.0,
       "tag_surplus_grain": 2.0,
       "tag_yoke": 2.0,
       "temple": 2.0
     },
     "specialties": {
-      "grain": 3.0,
-      "vegetables": 2.0,
+      "ale": 1.0,
+      "corn": 1.0,
       "fruit": 2.0,
-      "ale": 1.0
+      "grain": 3.0,
+      "rice": 1.0,
+      "vegetables": 2.0
     },
     "shortages": [
       "iron_ingot",
@@ -669,7 +674,7 @@
       "gem_agate"
     ],
     "ruler": "",
-    "description": "The Granary of the North, tended by the priests of Chauntea."
+    "description": "Walled abbey-farm of Chauntea, the Granary of the North, on raised ground on the western side of the River Dessarin, south of Bargewright Inn. Its farms, orchards and gardens grow grain, maize, rice, barley, hops, apples, oranges, herbs and vegetables, and it keeps cattle, oxen, sheep, pigs and poultry; much of its food goes to Waterdeep and nearby settlements, given in Chauntea's honour. The Goldengulp Brewery brews its namesake beer."
   },
   {
     "id": "waterdeep",
@@ -2663,7 +2668,7 @@
     "name": "Arrabar",
     "region": "Chondath",
     "zone": "vilhon",
-    "population": 42000,
+    "population": 61012,
     "x": 2077.5,
     "y": 1992.6,
     "wealth": 1.15,
@@ -2682,20 +2687,21 @@
     ],
     "industries": {
       "craft": 2.0,
+      "fish": 2.0,
       "merc": 2.0,
-      "ship": 2.0,
+      "ship": 1.0,
       "tag_oak_timber": 2.0,
-      "textile": 2.0,
+      "temple": 1.0,
+      "textile": 1.0,
       "trade": 3.0,
-      "vint": 2.0
+      "vint": 1.0
     },
     "specialties": {
-      "wine_common": 2.0,
-      "sword": 1.0
+      "wine_common": 1.0
     },
     "shortages": [],
     "ruler": "",
-    "description": "Merchant heart of the Vilhon Reach."
+    "description": "Capital of Chondath and a primary port of the Vilhon Reach at the end of the Golden Road and the Emerald Way; trade, crafting, fishing and mercenary work. Destroyed in the Spellplague and back on the map by the late 15th century DR as a port stop on the Reach."
   },
   {
     "id": "alaghon",
@@ -4473,10 +4479,11 @@
       "pirate"
     ],
     "industries": {
-      "ship": 2.0,
       "fish": 3.0,
-      "trade": 2.0,
-      "merc": 3.0
+      "merc": 3.0,
+      "salt": 1.0,
+      "ship": 2.0,
+      "trade": 2.0
     },
     "specialties": {
       "fish_salt": 1.0
@@ -4565,55 +4572,6 @@
     ],
     "ruler": "",
     "description": ""
-  },
-  {
-    "id": "lantan",
-    "name": "Lantan",
-    "region": "Lantan",
-    "zone": "islands_south",
-    "population": 15000,
-    "x": 668.5,
-    "y": 2258.0,
-    "wealth": 1.3,
-    "tax": 0.05,
-    "security": 0.8,
-    "port": "Sea of Swords",
-    "river": false,
-    "terrain": "coast",
-    "landmass": "lantan",
-    "underdark": false,
-    "traits": [
-      "gnome",
-      "port",
-      "academic",
-      "alchemy",
-      "mercantile"
-    ],
-    "industries": {
-      "alch": 3.0,
-      "arcane": 1.0,
-      "craft": 3.0,
-      "glass": 2.0,
-      "ship": 3.0,
-      "smith": 2.0,
-      "tag_candied_pineapple": 2.0,
-      "tag_farseer_lens": 2.0,
-      "tag_lantan_clockwork": 2.0,
-      "tag_pineapple": 2.0
-    },
-    "specialties": {
-      "smokepowder": 3.0,
-      "lantern": 3.0,
-      "tools_carpenter": 3.0,
-      "glassware": 2.0
-    },
-    "shortages": [
-      "grain",
-      "wool",
-      "timber"
-    ],
-    "ruler": "",
-    "description": "Gnome-run isle of gears, alchemy and smokepowder."
   },
   {
     "id": "nimbral",
@@ -6672,15 +6630,15 @@
   {
     "id": "hlondeth",
     "name": "Hlondeth",
-    "region": "Chondath",
+    "region": "Vilhon Reach",
     "zone": "vilhon",
-    "population": 1680,
+    "population": 60000,
     "x": 2029.6,
     "y": 1943.9,
-    "wealth": 1.15,
+    "wealth": 1.2,
     "tax": 0.09,
-    "security": 0.7,
-    "port": null,
+    "security": 0.8,
+    "port": "Sea of Fallen Stars",
     "river": false,
     "terrain": "coast",
     "landmass": "faerun",
@@ -6688,15 +6646,30 @@
     "traits": [
       "port",
       "mercantile",
-      "mercenary",
       "noble",
-      "surveyed_market"
+      "temple",
+      "cosmopolitan"
     ],
-    "industries": {},
-    "specialties": {},
+    "industries": {
+      "craft": 2.0,
+      "farm": 1.0,
+      "fish": 2.0,
+      "herb": 1.0,
+      "pottery": 1.0,
+      "quarry": 3.0,
+      "textile": 2.0,
+      "trade": 3.0,
+      "vint": 2.0
+    },
+    "specialties": {
+      "fish_fresh": 1.0,
+      "herbs_healing": 1.0,
+      "marble": 2.0,
+      "wine_common": 1.0
+    },
     "shortages": [],
     "ruler": "",
-    "description": "A surveyed local market. Its regional profile is inferred from Arrabar; goods arrive through that trade hub."
+    "description": "The City of Serpents: an independent, yuan-ti-ruled city-state on the Churning Bay of the Vilhon Reach's northern shore, one of the Reach's busiest ports, known for green marble, mosaic tiles, textiles and aloe liniments."
   },
   {
     "id": "hluthvar",

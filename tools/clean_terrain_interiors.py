@@ -1,4 +1,4 @@
-"""Review or apply source-supported terrain repairs, regionally or whole-sheet."""
+"""Review or apply bounded, topographical-supported forest interior repairs."""
 
 from __future__ import annotations
 
@@ -268,56 +268,28 @@ def propose_regions(payload, configuration):
 SEPARATE_SOURCES = ("Flat-color Faerun ground cover map.png", "Faerun elevation and sea-depth map.png")
 
 
-def mountain_elevation(elevation):
-    red, green, blue = (elevation[:, :, channel].astype(np.int16) for channel in range(3))
-    mountain = (red > green + 25) & (red > blue + 25)
-    # Shaded red slopes and pale-red summit highlights belong to the same band.
-    pink_peak = ((red >= 220) & (blue >= 130) & (np.abs(green - blue) <= 20)
-                 & (red > green + 5) & (red > blue + 5))
-    white_peak = elevation.min(axis=2) >= 240
-    return mountain | pink_peak | white_peak
-
-
-def above_treeline(elevation):
-    red, green, blue = (elevation[:, :, channel].astype(np.int16) for channel in range(3))
-    # Red hues stop at 15 degrees; orange slopes remain below the treeline.
-    red_band = 4 * (green - blue) <= red - blue
-    return mountain_elevation(elevation) & (red_band | (elevation.min(axis=2) >= 240))
-
-
-def separated_source_codes(codes, cover, elevation, whole=False):
-    forest_color = np.array([62, 132, 66], dtype=np.int32)
-    forest_distance_squared = np.sum((cover.astype(np.int32) - forest_color) ** 2, axis=2)
-    forest = forest_distance_squared < 45 ** 2
-    if whole:
-        footprint = forest
-    else:
-        seeds = np.zeros(codes.shape, bool)
-        seeds[codes.shape[0] // 2, codes.shape[1] // 2] = True
-        footprint = connected_support(forest, seeds)
-    red, green, blue = (elevation[:, :, channel].astype(np.int16) for channel in range(3))
+def separated_source_codes(codes, cover, elevation):
+    forest_color = np.array([62, 132, 66], dtype=float)
+    forest_distance = np.linalg.norm(cover.astype(float) - forest_color, axis=2)
+    forest = forest_distance < 45
+    seeds = np.zeros(codes.shape, bool)
+    seeds[codes.shape[0] // 2, codes.shape[1] // 2] = True
+    footprint = connected_support(forest, seeds)
+    red, green, blue = (elevation[:, :, channel] for channel in range(3))
     lowland = (green > red + 15) & (green > blue + 45)
     upland = (red > 175) & (green > 145) & (blue < 100)
+    mountain = (red > 175) & (red > green + 25) & (blue < 130)
+    mountain &= survey._box_mean(mountain, 1) >= 0.5
     result = codes.copy()
-    land = np.isin(codes, list("FGPDHM"))
-    eligible = footprint & land
+    eligible = footprint & np.isin(codes, list("FGPDHM"))
     result[eligible & lowland] = "F"
-    result[(land if whole else eligible) & upland] = "H"
-    mountain = mountain_elevation(elevation)
-    treeless = above_treeline(elevation)
-    result[land & mountain] = "M"
-    result[eligible & mountain & ~treeless] = "F"
+    result[eligible & upland] = "H"
+    result[eligible & mountain] = "M"
     return result, footprint
 
 
-def separate_source_bounds(payload, whole=False):
-    if whole:
-        return tuple(payload[key] for key in ("column_min", "column_max", "row_min", "row_max"))
-    return 140, 510, -40, 350
-
-
-def sample_separate_sources(payload, bounds=None):
-    column_min, column_max, row_min, row_max = bounds or separate_source_bounds(payload)
+def sample_separate_sources(payload):
+    column_min, column_max, row_min, row_max = 140, 510, -40, 350
     size = (column_max - column_min + 1, row_max - row_min + 1)
     codes = np.array([list(payload["rows"][str(row)][column_min - payload["column_min"]:column_max - payload["column_min"] + 1])
                       for row in range(row_max, row_min - 1, -1)])
@@ -335,20 +307,17 @@ def sample_separate_sources(payload, bounds=None):
     return codes, images
 
 
-def propose_separate_sources(payload, whole=False):
-    bounds = separate_source_bounds(payload, whole)
-    column_min, _, _, row_max = bounds
-    region = "Whole Faerun" if whole else "High Forest"
-    codes, images = sample_separate_sources(payload, bounds)
-    updated, footprint = separated_source_codes(codes, *images, whole=whole)
+def propose_separate_sources(payload):
+    column_min, row_max = 140, 350
+    codes, images = sample_separate_sources(payload)
+    updated, footprint = separated_source_codes(codes, *images)
     if not footprint.any():
-        raise ValueError(f"{region} ground-cover forest is empty; check source colors and alignment")
+        raise ValueError("High Forest seed is not inside the ground-cover forest; check alignment")
     changes = [{"column": column_min + int(column), "row": row_max - int(row),
                 "before": str(codes[row, column]), "after": str(updated[row, column]),
-                "ground_cover": "F" if footprint[row, column] else None,
-                "region": region + " separated sources"}
+                "ground_cover": "F", "region": "High Forest separated sources"}
                for row, column in zip(*np.where(codes != updated))]
-    return changes, [{"region": region, "forest_source_cells": int(footprint.sum()), "cells": len(changes),
+    return changes, [{"region": "High Forest", "forest_source_cells": int(footprint.sum()), "cells": len(changes),
                       "transitions": dict(Counter(change["before"] + "->" + change["after"] for change in changes))}]
 
 
@@ -374,12 +343,11 @@ def rebuild_source_boundaries(payload, destination):
     _, footprint = separated_source_codes(codes, *images)
     if not footprint.any():
         raise ValueError("High Forest ground-cover footprint is empty")
-    masks = {"forest": footprint & ~above_treeline(images[1]),
-             "mountain": codes == "M", "water": np.isin(codes, ["S", "W"])}
+    masks = {"forest": footprint, "mountain": codes == "M", "water": np.isin(codes, ["S", "W"])}
     output = {
         "format": "faerun-source-boundaries-v1", "frame": "FPS1:WD", "coordinate_units": "miles",
         "bounds": [140, 511, -40, 351],
-        "description": "High Forest vegetation outline from the connected ground-cover mass below the treeline; only red and white elevation bands are treeless. Orange slopes retain source-supported forest. Mountains and shorelines follow the current one-mile terrain. Crop edges are not boundaries.",
+        "description": "High Forest vegetation outline from the connected ground-cover mass; mountains and shorelines from the current one-mile terrain. Forest includes wooded hills and mountains. Crop edges are not boundaries.",
         "supersedes": ["high-forest", "lost-peaks", "star-mounts"],
         "source_sha256": {name: hashlib.sha256((ROOT / "maps" / name).read_bytes()).hexdigest() for name in SEPARATE_SOURCES},
         "terrain_sha256": hashlib.sha256((ROOT / "maps" / "terrain-1-mile.json").read_bytes()).hexdigest(),
@@ -437,13 +405,8 @@ def main():
     parser.add_argument("--region-file", type=Path, help="use another explicit terrain region configuration")
     parser.add_argument("--audit-file", type=Path, help="write a new rollback audit without replacing earlier audits")
     parser.add_argument("--separate-sources", action="store_true", help="classify High Forest from separate cover and elevation images")
-    parser.add_argument("--whole", action="store_true",
-                        help="apply separate-source elevation and treeline rules across the entire one-mile survey")
     parser.add_argument("--rebuild-boundaries", action="store_true", help="rebuild High Forest source outlines without changing terrain")
     args = parser.parse_args()
-    if args.whole and (not args.separate_sources or args.high_forest or args.review
-                      or args.consistency or args.regions or args.region_file or args.rebuild_boundaries):
-        parser.error("--whole requires --separate-sources and cannot be combined with regional operations")
     if args.region_file:
         args.regions = True
     grid_path = ROOT / "maps" / "terrain-1-mile.json"
@@ -452,8 +415,7 @@ def main():
     if args.consistency:
         audit_path = ROOT / "maps" / "terrain-high-forest-consistency.json"
     if args.separate_sources:
-        audit_path = ROOT / "maps" / ("terrain-whole-separate-sources-audit.json" if args.whole
-                                     else "terrain-high-forest-separate-sources-audit.json")
+        audit_path = ROOT / "maps" / "terrain-high-forest-separate-sources-audit.json"
     configuration = None
     if args.regions:
         region_path = args.region_file or ROOT / "maps" / "high-forest-regions.json"
@@ -475,7 +437,7 @@ def main():
     locations = json.loads((ROOT / "maps" / "locations.json").read_text(encoding="utf-8"))["locations"]
     with Image.open(image_path) as image:
         topographical = np.asarray(image.convert("RGB"), dtype=np.int16)
-    changes, summaries = (propose_separate_sources(payload, whole=args.whole) if args.separate_sources else
+    changes, summaries = (propose_separate_sources(payload) if args.separate_sources else
                           propose_regions(payload, configuration) if configuration else
                           propose_consistency(payload) if args.consistency else
                           propose(payload, locations, topographical, args.high_forest))
@@ -490,9 +452,6 @@ def main():
     if args.separate_sources:
         assert all(old in "FGPDHM" and new in "FHM" for old, new in actual)
         render_high_forest_review(updated, ROOT / "maps" / "terrain-1-mile-review" / "high-forest-separated-proposed.png", sources=SEPARATE_SOURCES)
-        if args.whole:
-            render_high_forest_review(updated, ROOT / "maps" / "terrain-1-mile-review" / "stormhorns-separated-proposed.png",
-                                      bounds=(760, 1010, -370, -120), sources=SEPARATE_SOURCES)
     elif args.regions:
         assert all(old in "FGPDHM" and new in "FMH" for old, new in actual)
         render_high_forest_review(updated, ROOT / "maps" / "terrain-1-mile-review" / (region_path.stem + ".png"),
@@ -532,24 +491,12 @@ def main():
     if args.separate_sources:
         audit["source"] = list(SEPARATE_SOURCES)
         audit["source_sha256"] = {name: hashlib.sha256((ROOT / "maps" / name).read_bytes()).hexdigest() for name in SEPARATE_SOURCES}
-        audit["rules"] = {"bounds_fps_miles": list(separate_source_bounds(payload, args.whole)),
-                          "scope": "whole-sheet" if args.whole else "High Forest",
-                          "cover": ("All" if args.whole else "Connected") + " dark-green forest wash; RGB distance <45 from (62,132,66)",
-                          "uplands_require_forest_cover": not args.whole,
-                          "elevation": "Green lowland, yellow upland, orange/red mountains, white highest peaks; not calibrated heights",
-                          "white_peak_minimum_rgb": 240, "white_peaks_require_forest_cover": False,
-                          "treeline": "Only red and white elevation bands are treeless; orange mountains retain source-supported forest",
-                          "red_hue_maximum_degrees": 15,
-                          "red_band_includes_shadows_and_pale_red_highlights": True,
+        audit["rules"] = {"bounds_fps_miles": [140, 510, -40, 350],
+                          "cover": "Connected dark-green forest wash; RGB distance <45 from (62,132,66)",
+                          "elevation": "Green lowland, yellow upland, orange/red mountain colour bands; not calibrated heights",
                           "alignment": "Full-sheet normalized coordinates; nearest-neighbor sampling",
                           "water_and_unclassified_preserved": True, "relief_unchanged": True,
                           "source_resolution_miles_per_pixel": 2.48}
-    if args.whole:
-        del audit["changes"]
-        audit["row_changes"] = {
-            row: {"before": before, "after": updated["rows"][row]}
-            for row, before in payload["rows"].items() if before != updated["rows"][row]
-        }
     assert grid_path.read_bytes() == original, "Grid changed during review; refusing to overwrite."
     with audit_path.open("x", encoding="utf-8") as handle:
         json.dump(audit, handle, indent=2)

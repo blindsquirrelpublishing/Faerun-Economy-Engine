@@ -377,7 +377,8 @@ def reload_catalog() -> Dict[str, Any]:
 @mcp.tool()
 def restart_market_server(host: str = "127.0.0.1", port: int = 8883,
                           seasonal_inventory: bool = True,
-                          category: str = "") -> Dict[str, Any]:
+                          category: str = "", read_only_port: Optional[int] = None,
+                          read_only_host: Optional[str] = None) -> Dict[str, Any]:
     """Restart the standalone market-board web dashboard so it picks up recent changes.
 
     The dashboard (`faerun.cli ... serve`) runs as its own long-lived process
@@ -387,13 +388,16 @@ def restart_market_server(host: str = "127.0.0.1", port: int = 8883,
     whenever the browser looks stale) to stop the old server, if this tool
     started it, and launch a fresh one that reads the current catalog.
     `category` optionally opens the location page filtered to one category.
+    `read_only_port=8884` adds a read-only listener sharing the same live world.
+    `read_only_host="0.0.0.0"` enables LAN viewers without exposing the editable port.
     """
     from .market_server import restart_market_server as _restart
 
     try:
         return _restart(host=host, port=port,
-                        seasonal_inventory=seasonal_inventory, category=category)
-    except OSError as exc:
+                        seasonal_inventory=seasonal_inventory, category=category,
+                        read_only_port=read_only_port, read_only_host=read_only_host)
+    except (OSError, ValueError) as exc:
         return _fail(exc)
 
 

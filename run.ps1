@@ -15,6 +15,8 @@
         .\run.ps1 -Check       # only run the checks, do not start the server
         .\run.ps1 -SkipCheck   # go straight to the board
         .\run.ps1 -Port 9000   # serve on a different port
+        .\run.ps1 -Port 8883 -ReadOnlyPort 8884  # share the live world with viewers
+        .\run.ps1 -Port 8883 -ReadOnlyPort 8884 -ReadOnlyHost 0.0.0.0  # LAN viewers only
         .\run.ps1 -BindHost 0.0.0.0  # listen on every network interface, not just this PC
         .\run.ps1 -SeasonalInventory  # opt into daily seasonal stock replay
 
@@ -41,6 +43,8 @@ param(
     [switch]$SkipCheck,
     [string]$BindHost = '127.0.0.1',
     [int]$Port = 8765,
+    [Nullable[int]]$ReadOnlyPort = $null,
+    [string]$ReadOnlyHost = '',
     [switch]$NoBrowser,
     [switch]$Map,
     [switch]$SeasonalInventory,
@@ -48,6 +52,12 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+if ($null -ne $ReadOnlyPort -and $ReadOnlyPort -eq $Port -and $Port -ne 0) {
+    throw 'The editable and read-only ports must be different.'
+}
+if ($ReadOnlyHost -and $null -eq $ReadOnlyPort) {
+    throw '-ReadOnlyHost requires -ReadOnlyPort.'
+}
 # PowerShell 7.3+ otherwise turns any non-zero exit from a native command into
 # a terminating error, which would bypass the exit-code handling below.
 $PSNativeCommandUseErrorActionPreference = $false
@@ -241,6 +251,8 @@ $subcommand = if ($Map) { 'map' } else { 'serve' }
 $serveArgs = @('-m', 'faerun.cli')
 if ($SeasonalInventory) { $serveArgs += '--seasonal-inventory' }
 $serveArgs += @($subcommand, '--host', $BindHost, '--port', "$Port")
+if ($null -ne $ReadOnlyPort) { $serveArgs += @('--read-only-port', "$ReadOnlyPort") }
+if ($ReadOnlyHost) { $serveArgs += @('--read-only-host', $ReadOnlyHost) }
 if ($NoBrowser) { $serveArgs += '--no-browser' }
 if ($Underlay) {
     if (-not (Test-Path -LiteralPath $Underlay)) {

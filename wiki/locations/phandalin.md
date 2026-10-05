@@ -20,7 +20,7 @@ of an older settlement. Mining in the nearby Sword Mountains is central to its
 economy, alongside agriculture and woodland trades. The modern settlement began
 to recover around 1486 DR and was established by 1491 DR. [Source: wiki history][history]
 
-![Phandalin](Phandalin_ A Frontier Village Map.jpg)
+![alt text](<Phandalin_ A Frontier Village Map.png>)
 
 ## Geography and Layout
 

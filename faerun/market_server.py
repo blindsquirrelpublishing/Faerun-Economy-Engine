@@ -94,6 +94,8 @@ def restart_market_server(
     host: str = "127.0.0.1", port: int = 8883,
     seasonal_inventory: bool = False, category: str = "",
     wait_seconds: float = 10.0,
+    read_only_port: Optional[int] = None,
+    read_only_host: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Stop the tracked server (if any) and start a fresh one with today's catalog.
 
@@ -102,6 +104,12 @@ def restart_market_server(
     picks up commodities, settlements, businesses or routes added or edited
     through the MCP catalog tools since it was last launched.
     """
+    if read_only_port is not None and read_only_port == port:
+        raise ValueError("The editable and read-only ports must be different")
+    if read_only_host is not None and read_only_port is None:
+        raise ValueError("read_only_host requires read_only_port")
+    reader_host = host if read_only_host is None else read_only_host
+    reader_address = "127.0.0.1" if reader_host in ("", "0.0.0.0", "::") else reader_host
     stopped = stop_market_server()
 
     args = [
@@ -111,6 +119,10 @@ def restart_market_server(
     ]
     if category:
         args += ["--category", category]
+    if read_only_port is not None:
+        args += ["--read-only-port", str(read_only_port)]
+    if read_only_host is not None:
+        args += ["--read-only-host", read_only_host]
     creationflags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS \
         if sys.platform == "win32" else 0
     process = subprocess.Popen(
@@ -122,7 +134,8 @@ def restart_market_server(
     deadline = time.monotonic() + wait_seconds
     up = False
     while time.monotonic() < deadline:
-        if _port_open(host, port):
+        if _port_open(host, port) and (
+                read_only_port is None or _port_open(reader_address, read_only_port)):
             up = True
             break
         if process.poll() is not None:
@@ -132,11 +145,14 @@ def restart_market_server(
     _save_state({
         "pid": process.pid, "host": host, "port": port,
         "seasonal_inventory": seasonal_inventory, "started_at": time.time(),
+        "read_only_port": read_only_port,
+        "read_only_host": reader_host,
     })
     return {
         "previous_server": stopped,
         "started_pid": process.pid,
         "url": f"http://{host}:{port}/",
+        "read_only_url": f"http://{reader_address}:{read_only_port}/" if read_only_port is not None else None,
         "up": up,
         "exited_immediately": process.poll() is not None,
     }

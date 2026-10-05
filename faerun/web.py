@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import argparse
 import copy
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 import html
 import ipaddress
 import json
@@ -81,6 +81,7 @@ from .eventsassets import EVENTS_ASSETS
 from .waterdeepassets import WATERDEEP_ASSETS
 from .loreassets import LORE_ASSETS
 from .loredesk import read_desk, post_desk
+from .readonlyassets import READ_ONLY_HEAD, READ_ONLY_NOTICE
 
 # Static files are served from a single flat lookup keyed by bare filename.
 STATIC: Dict[str, Tuple[str, str]] = dict(ASSETS)
@@ -1276,6 +1277,17 @@ UNLOCKED_GET_ROUTES = {"/api/bootstrap", "/api/progress", "/api/map", "/api/unde
 
 class Handler(BaseHTTPRequestHandler):
     server_version = "FaerunMarket/0.1"
+    read_only = False
+
+    def parse_request(self) -> bool:
+        if not super().parse_request():
+            return False
+        if self.read_only and self.command not in {"GET", "HEAD", "OPTIONS"}:
+            self.close_connection = True
+            self._send_json({"error": "This listener is read-only; changes are disabled"}, 403)
+            self._discard_rejected_trade_body()
+            return False
+        return True
 
     def log_message(self, fmt: str, *args) -> None:  # quieter console
         if getattr(self.server, "verbose", False):
@@ -1364,6 +1376,10 @@ class Handler(BaseHTTPRequestHandler):
             self._send_bytes(body.encode("utf-8"), "text/html; charset=utf-8", 404)
             return
         body, ctype = asset
+        if self.read_only and ctype.startswith("text/html"):
+            body = body.replace("</head>", READ_ONLY_HEAD + "</head>", 1)
+            body = re.sub(r"(<body\b[^>]*>)", lambda match: match[0] + READ_ONLY_NOTICE,
+                          body, count=1)
         self._send_bytes(body.encode("utf-8"), ctype)
 
     def _send_underlay(self, source: str = "default") -> None:
@@ -1428,6 +1444,13 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
         parsed = urlparse(self.path)
+        if self.read_only and (
+                parsed.path.lstrip("/") in LORE_ASSETS or parsed.path == "/api/lore-desk"):
+            self._send_json({"error": "Lore is unavailable on the read-only listener"}, 403)
+            return
+        if parsed.path == "/api/access":
+            self._send_json({"read_only": self.read_only})
+            return
         if parsed.path == "/underlay.img":
             try:
                 self._send_underlay(parse_qs(parsed.query).get("source", ["default"])[0])
@@ -1504,54 +1527,77 @@ class Handler(BaseHTTPRequestHandler):
             self._send_json(payload)
 
 
+class ReadOnlyHandler(Handler):
+    read_only = True
+
+
 def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True,
-          verbose: bool = False, page: str = "") -> None:
+          verbose: bool = False, page: str = "",
+          read_only_port: Optional[int] = None,
+          read_only_host: Optional[str] = None) -> None:
     from .orders import TradeStore, default_ledger_path
+    if read_only_port is not None and read_only_port == port and port != 0:
+        raise ValueError("The editable and read-only ports must be different")
+    if read_only_host is not None and read_only_port is None:
+        raise ValueError("--read-only-host requires --read-only-port")
+    reader_host = host if read_only_host is None else read_only_host
     world = get_world()
     if world.trade_store is None:
         world.trade_store = TradeStore(default_ledger_path())
-    try:
-        httpd = ThreadingHTTPServer((host, port), Handler)
-    except OSError as exc:
-        # Almost always an older copy of this server still holding the port.
-        # That copy serves whatever pages existed when *it* started, which is
-        # the usual reason a newly added page appears to be missing.
-        print(f"Could not listen on {host}:{port} - {exc}")
-        print("Something is already using that port, most likely an older copy")
-        print("of this server. Close that window (Ctrl+C in it), or start this")
-        print(f"one on a free port with:  run.ps1 -Port {port + 1}")
-        raise SystemExit(1) from None
-    httpd.verbose = verbose  # type: ignore[attr-defined]
-    actual = httpd.server_address[1]
-    # 0.0.0.0 is a bind address, not something a browser can open.
-    shown = "127.0.0.1" if host in ("", "0.0.0.0", "::") else host
-    url = f"http://{shown}:{actual}"
-    print(f"Faerun market board serving at {url}")
-    print(f"  commodity board  {url}/")
-    print(f"  3D world map     {url}/map.html")
-    print(f"  location history {url}/location.html")
-    print(f"  merchant guild   {url}/trade.html")
-    print(f"  request board    {url}/board.html")
-    info = underlay_info()
-    if info["available"]:
-        print(f"  poster overlay   {info['name']}  ({info['path']})")
-    else:
-        print("  poster overlay   none found - drop a Faerun map image named")
-        print(f"                   underlay.jpg in {info['searched'][0]}")
-    if world.config.seasonal_inventory:
-        print("Warming seasonal prices in the background; standard quotes remain available.")
-        _start_seasonal_warmup(world)
-    else:
-        print("Standard prices are generated on demand; seasonal inventory is opt-in.")
-    if open_browser:
-        target = url + "/" + (page or "").lstrip("/")
-        threading.Timer(0.5, lambda: webbrowser.open(target)).start()
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\nStopped.")
-    finally:
-        httpd.server_close()
+    with ExitStack() as stack:
+        binding_host = host
+        binding_port = port
+        try:
+            httpd = stack.enter_context(ThreadingHTTPServer((host, port), Handler))
+            reader = None
+            if read_only_port is not None:
+                binding_host = reader_host
+                binding_port = read_only_port
+                reader = stack.enter_context(
+                    ThreadingHTTPServer((reader_host, read_only_port), ReadOnlyHandler))
+        except OSError as exc:
+            print(f"Could not listen on {binding_host}:{binding_port} - {exc}")
+            print("Close the server using that port, or choose a different port.")
+            raise SystemExit(1) from None
+        httpd.verbose = verbose  # type: ignore[attr-defined]
+        actual = httpd.server_address[1]
+        # 0.0.0.0 is a bind address, not something a browser can open.
+        shown = "127.0.0.1" if host in ("", "0.0.0.0", "::") else host
+        url = f"http://{shown}:{actual}"
+        print(f"Faerun market board serving at {url}")
+        print(f"  commodity board  {url}/")
+        print(f"  3D world map     {url}/map.html")
+        print(f"  location history {url}/location.html")
+        print(f"  merchant guild   {url}/trade.html")
+        print(f"  request board    {url}/board.html")
+        if reader is not None:
+            reader.verbose = verbose  # type: ignore[attr-defined]
+            reader_shown = "127.0.0.1" if reader_host in ("", "0.0.0.0", "::") else reader_host
+            print(f"  read-only view   http://{reader_shown}:{reader.server_address[1]}/")
+            print(f"  read-only bind   {reader_host}:{reader.server_address[1]}")
+        info = underlay_info()
+        if info["available"]:
+            print(f"  poster overlay   {info['name']}  ({info['path']})")
+        else:
+            print("  poster overlay   none found - drop a Faerun map image named")
+            print(f"                   underlay.jpg in {info['searched'][0]}")
+        if world.config.seasonal_inventory:
+            print("Warming seasonal prices in the background; standard quotes remain available.")
+            _start_seasonal_warmup(world)
+        else:
+            print("Standard prices are generated on demand; seasonal inventory is opt-in.")
+        if open_browser:
+            target = url + "/" + (page or "").lstrip("/")
+            threading.Timer(0.5, lambda: webbrowser.open(target)).start()
+        if reader is not None:
+            thread = threading.Thread(target=reader.serve_forever, daemon=True)
+            thread.start()
+            stack.callback(thread.join)
+            stack.callback(reader.shutdown)
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nStopped.")
 
 
 def main(argv=None) -> int:
@@ -1562,6 +1608,10 @@ def main(argv=None) -> int:
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765,
                         help="port to listen on (0 picks a free one)")
+    parser.add_argument("--read-only-port", type=int, nargs="?", const=8884,
+                        help="also serve a read-only view (default: 8884; 0 picks a free port)")
+    parser.add_argument("--read-only-host",
+                        help="read-only bind address (defaults to --host; use 0.0.0.0 for LAN)")
     parser.add_argument("--no-browser", action="store_true",
                         help="do not open a browser window")
     parser.add_argument("--verbose", action="store_true",
@@ -1575,7 +1625,8 @@ def main(argv=None) -> int:
     if args.underlay:
         set_override(args.underlay)
     serve(args.host, args.port, not args.no_browser, args.verbose,
-          "map.html" if args.map else "")
+          "map.html" if args.map else "", read_only_port=args.read_only_port,
+          read_only_host=args.read_only_host)
     return 0
 
 

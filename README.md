@@ -55,6 +55,58 @@ The agent reads queued threads and publishes sourced replies through
 required, and submitting a proposal does not change the map or simulation.
 The inbox is shared by users of this local application, not a private account mailbox.
 
+## Read-only web port
+
+Start the editable app and an additional read-only listener in the **same process**:
+
+```powershell
+.\run.ps1 -SkipCheck -Port 8883 -ReadOnlyPort 8884
+# Or:
+python -m faerun.cli serve --port 8883 --read-only-port 8884 --no-browser
+```
+
+Use `http://127.0.0.1:8883/` to edit and `http://127.0.0.1:8884/` to browse.
+Both ports share the live world, calendar, events, map edits and trade ledger.
+Refresh a viewer page to see changes made through the editable port; pages with
+existing automatic refresh retain that behavior.
+
+The read-only view displays a badge and hides editing controls. The server also
+rejects write requests with HTTP 403, including world/date changes, map edits,
+events, catalog rebuilds, trade quotes (which are saved), purchase orders,
+request-board actions and Lore messages. Browsing, filtering, historical views,
+route planning and downloads remain available. Lore navigation is hidden on the
+read-only listener, and its page, assets and Desk API return HTTP 403; use the
+editable port for Lore. Normal calculation caches and
+live-calendar updates still run; this is viewer access, not a frozen snapshot
+or a filesystem-level read-only process. `GET /api/access` reports `read_only`.
+
+The option also works with `faerun-web`, `python -m faerun.web`, and the CLI
+`map` and `location` commands. Bare `--read-only-port` selects 8884; omit the
+option to keep the existing single-port behavior. Both listeners stop together,
+and startup fails if either requested port is unavailable. The MCP
+`restart_market_server` tool accepts `read_only_port=8884`; the repository's
+server-reset script starts ports 8883 and 8884 together.
+
+By default both listeners use the configured host (`-BindHost` / `--host`).
+To enable LAN viewers while keeping editing on localhost:
+
+```powershell
+.\run.ps1 -SkipCheck -Port 8883 -ReadOnlyPort 8884 -ReadOnlyHost 0.0.0.0
+# Or:
+python -m faerun.cli serve --host 127.0.0.1 --port 8883 --read-only-port 8884 --read-only-host 0.0.0.0 --no-browser
+```
+
+LAN viewers use `http://<this-PC's-LAN-IP>:8884/`. The reset script uses this
+configuration too. The MCP restart tool accepts `read_only_host="0.0.0.0"`.
+An explicit read-only host requires a read-only port.
+
+This does not add authentication: allow inbound TCP **8884 only** from your
+trusted LAN in Windows Firewall, and keep the editable port restricted.
+An existing explicit Python firewall block must also be adjusted for 8884;
+an allow rule alone cannot override a block. Do not disable the firewall or
+allow all Python ports. Existing access restrictions for trade, requests and
+Lore still apply.
+
 ## Settlement footprint and supporting farmland
 
 Every population report includes a `land_area` scenario estimate, also available
@@ -1808,24 +1860,30 @@ The full resolution order, first hit wins:
    or `Desktop`. The first folder with matches wins; within it, the newest
    matching world poster wins.
 
-City maps, the known elevation/ground-cover/topographical reference images,
+City maps, the known elevation/ground-cover/topographical/political reference images,
 and unrelated images are excluded from automatic poster selection, even
 inside `maps\`. In this workspace, the world background is `maps\Faerun Hires.jpg`;
 the Waterdeep atlas independently uses `maps\waterdeep-map-hires.jpg`. Adding or
-updating a city map cannot replace the world background. Explicit overrides,
+updating a city map or `Faerun Political Map.png` cannot replace the original
+high-resolution poster. Explicit overrides,
 the environment variable, and the reserved `underlay.*` filename still take
 precedence when you intentionally select a differently named image.
+Saved survey-based alignment is recalculated for the loaded image's dimensions,
+so replacing a reference image with the original poster retains the surveyed
+world extent. Manually adjusted alignment remains unchanged.
 
-**Reference overlays** offers independent **Elevation / sea depth** and
-**Vegetation** toggles, each with an opacity slider. Both can be enabled over
+**Reference overlays** offers independent **Elevation / sea depth**,
+**Vegetation**, and **Political** toggles, each with an opacity slider.
+All three can be enabled together over
 the poster in the poster, 2D, and 3D views; preferences survive reloads.
 They start off, load only when enabled, and require the corresponding local
-`Faerun elevation and sea-depth map.png` and
-`Flat-color Faerun ground cover map.png` images. They share the base image's
+`Faerun elevation and sea-depth map.png`,
+`Flat-color Faerun ground cover map.png`, and `Faerun Political Map.png`
+images in `maps\`. They share the base image's
 world footprint and alignment, regardless of pixel resolution. This assumes
 the same geographic extent: differently cropped source maps need registration
 before their features can be compared accurately. The stack is base image,
-elevation, vegetation, then inferred land types (if enabled in 2D), grids,
+elevation, vegetation, political, then inferred land types (if enabled in 2D), grids,
 routes, and locations. **Poster only** intentionally hides reference overlays.
 The existing **Poster backdrop** selector remains available to change the base.
 

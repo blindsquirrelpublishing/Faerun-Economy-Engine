@@ -40,3 +40,91 @@ WATERDEEP_POPULATION = PopulationBasis(
         ),
     ),
 )
+
+
+HLONDETH_POPULATION = PopulationBasis(
+    residents=60_000,
+    reference_year=1492,
+    comparison_residents=453_600,
+    scope="Hlondeth city residents; its 50-mile territory, villages and vineyards excluded",
+    rationale=(
+        "User-selected 60,000-resident planning scenario for 1492 DR, set on a par with "
+        "Arrabar's sourced 1372 DR count. Not a census. The only sourced figure, 453,600, "
+        "covers the city and its environs in 1372 DR and is kept as the comparison. No "
+        "city-only count or post-Spellplague figure was found."
+    ),
+    evidence=(
+        PopulationEvidence(
+            title="Forgotten Realms Wiki: Hlondeth",
+            url="https://forgottenrealms.fandom.com/wiki/Hlondeth",
+            scope="City and environs",
+            period="1372 DR",
+            description=(
+                "Infobox gives 453,600 for the city and the environs, citing Forgotten "
+                "Realms Campaign Setting 3rd edition (2001), p. 216. The article places a "
+                "50-mile territory with about a dozen villages around the city, citing "
+                "Serpent Kingdoms (2004), p. 92. Underlying publications not consulted directly."
+            ),
+            accessed="2026-10-03",
+        ),
+    ),
+)
+
+
+ARRABAR_POPULATION = PopulationBasis(
+    residents=61_012,
+    reference_year=1372,
+    comparison_residents=42_000,
+    scope="Arrabar city residents",
+    rationale=(
+        "User-selected adoption of the sourced 1372 DR count in place of the earlier "
+        "42,000 engine value, which is kept as the comparison. The city was destroyed in "
+        "the Spellplague and is described as back on the map by the late 15th century DR; "
+        "no post-restoration count was found, so the 1372 figure is a planning scenario "
+        "for 1492, not a census."
+    ),
+    evidence=(
+        PopulationEvidence(
+            title="Forgotten Realms Wiki: Arrabar",
+            url="https://forgottenrealms.fandom.com/wiki/Arrabar",
+            scope="City",
+            period="1357 DR and 1372 DR",
+            description=(
+                "Infobox gives 5,000 in 1357 DR (Old Empires, 1990, p. 10) and 61,012 in "
+                "1372 DR (Forgotten Realms Campaign Setting 3rd edition, 2001, pp. 217-218). "
+                "The 1357 figure is not adopted. Underlying publications not consulted directly."
+            ),
+            accessed="2026-10-03",
+        ),
+    ),
+)
+
+
+AMPHAIL_POPULATION = PopulationBasis(
+    residents=850,
+    reference_year=1372,
+    comparison_residents=900,
+    scope="Amphail village residents and its outlying farms",
+    rationale=(
+        "User-selected adoption of the sourced circa 1372 DR count in place of the earlier "
+        "900 gazetteer estimate, which is kept as the comparison. The count covers 600 "
+        "people in the village and 250 on outlying farms, matching the engine's assumption "
+        "that residents farm the surrounding land. No later count was found, so this is a "
+        "planning scenario for 1492, not a census."
+    ),
+    evidence=(
+        PopulationEvidence(
+            title="Forgotten Realms Wiki: Amphail (village)",
+            url="https://forgottenrealms.fandom.com/wiki/Amphail_(village)",
+            scope="Village and outlying farms",
+            period="Circa 1372 DR (3rd edition); village-only figure from 2nd edition",
+            description=(
+                "Infobox gives 850 (600 in the village, 250 on outlying farms), citing the "
+                "Environs of Waterdeep web enhancement (2006), p. 8. The article text gives "
+                "600 for the village, citing The North: Guide to the Savage Frontier (1996), "
+                "p. 4. Underlying publications not consulted directly."
+            ),
+            accessed="2026-10-04",
+        ),
+    ),
+)

@@ -877,6 +877,11 @@ state.rasterLayers.elevation.on=false;calls.length=0;drawPlanar();
 assert.deepEqual(calls.filter(call=>call[0]==='poster'),[['poster',0.6]]);
 state.rasterLayers['ground-cover'].alpha=0;calls.length=0;drawPlanar();
 assert(!calls.some(call=>call[0]==='poster'));assert.equal(ctx.globalAlpha,1);
+state.rasterLayers.political={on:true,alpha:0.4,image:{width:4,height:4}};
+calls.length=0;drawPlanar();
+assert.deepEqual(calls.filter(call=>call[0]==='poster'),[['poster',0.4]]);
+state.rasterLayers.political.on=false;calls.length=0;drawPlanar();
+assert(!calls.some(call=>call[0]==='poster'));assert.equal(ctx.globalAlpha,1);
 """
         subprocess.run([node, '-e', script], encoding='utf-8', check=True)
 
@@ -891,7 +896,7 @@ def test_reference_overlays_share_projection_and_respect_poster_only():
     if not node:
         pytest.skip("Node.js is required for map behavior checks")
     for html in (MAP_HTML, TERRAIN_HTML):
-        for source in ("elevation", "ground-cover"):
+        for source in ("elevation", "ground-cover", "political"):
             assert html.count('id="layer-' + source + '"') == 1
             assert html.count('id="layer-' + source + '-alpha"') == 1
     wrapper = MAP_JS[MAP_JS.index("function drawUnderlay()"):
@@ -900,18 +905,20 @@ def test_reference_overlays_share_projection_and_respect_poster_only():
                         MAP_JS.index("function routeBezierSegments(")]
     script = """
 const assert=require('node:assert/strict');
-const poster={width:100,height:50}, elevation={width:20,height:10}, vegetation={width:30,height:15};
+const poster={width:100,height:50}, elevation={width:20,height:10}, vegetation={width:30,height:15}, political={width:40,height:20};
 const state={under:poster,underOn:true,underAlpha:0.55,underMpp:2,underStretch:1.5,underX:10,underY:20,
- rasterLayers:{elevation:{on:true,alpha:0.35,image:elevation},vegetation:{on:true,alpha:0.6,image:vegetation}},
+ rasterLayers:{elevation:{on:true,alpha:0.35,image:elevation},vegetation:{on:true,alpha:0.6,image:vegetation},political:{on:true,alpha:0.4,image:political}},
  step:2,underDrape:false};
 let only=false;function posterOnlyActive(){return only;}
 const calls=[];function drawUnderlayLayer(image,alpha,posterOnly){calls.push([image,alpha,posterOnly]);}
 """ + wrapper + """
-drawUnderlay();assert.deepEqual(calls,[[poster,0.55,false],[elevation,0.35,false],[vegetation,0.6,false]]);
+drawUnderlay();assert.deepEqual(calls,[[poster,0.55,false],[elevation,0.35,false],[vegetation,0.6,false],[political,0.4,false]]);
 calls.length=0;state.underOn=false;drawUnderlay();
-assert.deepEqual(calls,[[elevation,0.35,false],[vegetation,0.6,false]]);
+assert.deepEqual(calls,[[elevation,0.35,false],[vegetation,0.6,false],[political,0.4,false]]);
 calls.length=0;only=true;drawUnderlay();assert.deepEqual(calls,[[poster,1,true]]);
 calls.length=0;only=false;state.rasterLayers.elevation.on=false;state.rasterLayers.vegetation.alpha=0;
+drawUnderlay();assert.deepEqual(calls,[[political,0.4,false]]);
+calls.length=0;state.rasterLayers.political.on=false;
 drawUnderlay();assert.deepEqual(calls,[]);
 """
     subprocess.run([node, "-e", script], check=True, capture_output=True, text=True)
@@ -930,7 +937,7 @@ const ctx={globalAlpha:0.9,globalCompositeOperation:'source-over',drawImage(){
  assert.equal(this.globalAlpha,0.35);assert.equal(this.globalCompositeOperation,'multiply');
 }};
 """ + projection + """
-for(const img of [{width:100,height:50},{width:20,height:10},{width:30,height:15}]){
+for(const img of [{width:100,height:50},{width:20,height:10},{width:30,height:15},{width:40,height:20}]){
  positions=[];drawUnderlayLayer(img,0.35,false);
  assert.deepEqual(positions[0],[10,20]);assert.deepEqual(positions.at(-1),[210,170]);
  assert.equal(ctx.globalAlpha,0.9);assert.equal(ctx.globalCompositeOperation,'source-over');
@@ -953,9 +960,10 @@ def test_reference_overlay_loading_preferences_and_errors():
     script = """
 const assert=require('node:assert/strict');
 const state={under:{width:100,height:50},
- underInfo:{options:[{id:'elevation'},{id:'ground-cover'}]},
+ underInfo:{options:[{id:'elevation'},{id:'ground-cover'},{id:'political'}]},
  rasterLayers:{elevation:{on:false,alpha:0.35,image:null,loading:false},
- 'ground-cover':{on:false,alpha:0.35,image:null,loading:false}}};
+ 'ground-cover':{on:false,alpha:0.35,image:null,loading:false},
+ political:{on:false,alpha:0.35,image:null,loading:false}}};
 const controls={},storage={},errors=[],requests=[];
 const window={localStorage:{getItem(key){return storage[key] || null;},setItem(key,value){storage[key]=value;}}};
 function underlayEl(id){return controls[id] || (controls[id]={});}
@@ -971,6 +979,16 @@ class Image {set src(url){queueMicrotask(()=> decode ? this.onload() : this.oner
  assert(state.rasterLayers.elevation.image);assert.equal(state.rasterLayers['ground-cover'].alpha,0);
  assert.equal(controls['layer-elevation'].checked,true);assert.equal(controls['layer-elevation-alpha'].disabled,false);
  await loadRasterLayer('elevation');assert.equal(requests.length,1);
+ assert.equal(state.rasterLayers.political.on,false);
+ assert.equal(controls['layer-political-alpha'].disabled,true);
+ state.rasterLayers.political.on=true;state.rasterLayers.political.alpha=0.45;
+ await loadRasterLayer('political');saveRasterLayers();
+ assert.equal(requests.at(-1),'/api/underlay?source=political');
+ assert.deepEqual(JSON.parse(storage[RASTER_LAYERS_KEY]).political,{on:true,alpha:0.45});
+ state.rasterLayers.political.on=false;state.rasterLayers.political.alpha=0.35;rasterLayersRestored=false;
+ restoreRasterLayers();
+ assert.equal(state.rasterLayers.political.on,true);assert.equal(state.rasterLayers.political.alpha,0.45);
+ assert.equal(controls['layer-political'].checked,true);assert.equal(controls['layer-political-alpha'].disabled,false);
  state.rasterLayers['ground-cover'].on=true;
  const pending=loadRasterLayer('ground-cover');state.rasterLayers['ground-cover'].on=false;await pending;
  assert.equal(state.rasterLayers['ground-cover'].on,false);
@@ -984,6 +1002,7 @@ class Image {set src(url){queueMicrotask(()=> decode ? this.onload() : this.oner
  assert.equal(JSON.parse(storage[RASTER_LAYERS_KEY])['ground-cover'].on,false);
  state.underInfo.options=[];syncRasterLayerControls();
  assert.equal(controls['layer-elevation'].disabled,true);assert.equal(controls['layer-elevation-alpha'].disabled,true);
+ assert.equal(controls['layer-political'].disabled,true);assert.equal(controls['layer-political-alpha'].disabled,true);
 })().catch(error=>{console.error(error);process.exitCode=1;});
 """
     subprocess.run([node, "-e", script], check=True, capture_output=True, text=True)
