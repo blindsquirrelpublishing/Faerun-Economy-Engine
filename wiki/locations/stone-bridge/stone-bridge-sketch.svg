@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 900" width="1100" height="900" font-family="Georgia, 'DejaVu Serif', serif">
+<rect width="1100" height="900" fill="#f4ecd8"/>
+<text x="550" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#3b2f22">Stone Bridge, working sketch</text>
+<text x="550" y="56" text-anchor="middle" font-size="12.5" font-style="italic" fill="#3b2f22">Schematic of the crossing, from the written sources (no published plan exists). Not to scale.</text>
+
+<rect x="40" y="80" width="1020" height="480" fill="#eadfbd" stroke="#6b5b45" stroke-width="2"/>
+
+<g fill="none" stroke="#8a7550" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.8">
+<path d="M70,170 q18,-26 36,0 M120,150 q18,-26 36,0 M80,420 q18,-26 36,0 M330,120 q18,-26 36,0 M690,110 q18,-26 36,0 M760,150 q18,-26 36,0 M820,470 q18,-26 36,0 M700,500 q18,-26 36,0 M370,500 q18,-26 36,0"/>
+</g>
+
+<path d="M545,80 C505,150 585,210 540,290 C500,360 590,430 545,560 L615,560 C660,430 570,360 610,290 C655,210 575,150 615,80 Z" fill="#9cc3d9" stroke="#4f86a8" stroke-width="1.5"/>
+<text x="593" y="140" font-size="12" font-style="italic" fill="#2f5d7a" transform="rotate(80 593 140)" text-anchor="middle">River Dessarin</text>
+
+<polyline points="190,80 205,230 230,300 195,420 180,560" fill="none" stroke="#fffaf0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="165" y="520" font-size="11" fill="#6b5b45" text-anchor="end">The Long Road</text>
+
+<polyline points="960,80 945,200 955,330 935,450 945,560" fill="none" stroke="#fffaf0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="975" y="200" font-size="11" fill="#6b5b45" transform="rotate(-85 975 200)" text-anchor="middle">Dessarin Road (Jundar's Pass)</text>
+
+<polyline points="230,300 330,300 460,296 560,288 650,296 780,310 940,320" fill="none" stroke="#fffaf0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="370" y="320" font-size="11" fill="#6b5b45" text-anchor="middle">Stone Trail (rough dirt road)</text>
+<text x="800" y="332" font-size="11" fill="#6b5b45" text-anchor="middle">Stone Trail</text>
+
+<path d="M470,298 Q550,268 635,298" fill="none" stroke="#7d7a76" stroke-width="12" stroke-linecap="round"/>
+<path d="M470,298 Q550,268 635,298" fill="none" stroke="#b9b4ab" stroke-width="7" stroke-linecap="round"/>
+
+<path d="M262,330 C268,400 262,450 268,520" fill="none" stroke="#8a4b3a" stroke-width="2" stroke-dasharray="7 5" stroke-linecap="round"/>
+<polygon points="268,532 261,516 275,516" fill="#8a4b3a"/>
+<text x="294" y="450" font-size="10.5" fill="#8a4b3a" transform="rotate(90 294 450)" text-anchor="middle">Ironstar clan flees south, west bank (207 DR)</text>
+
+<circle cx="552" cy="283" r="14" fill="#8a6bb0" stroke="#3b2f22" stroke-width="1.2"/><text x="552" y="286.5" text-anchor="middle" font-size="9" font-weight="bold" fill="#1d1710">1</text>
+
+<rect x="224" y="294" width="12" height="12" fill="#d9a441" stroke="#3b2f22"/>
+<text x="230" y="282" font-size="12" font-weight="bold" fill="#3b2f22" text-anchor="middle">2 Westbridge</text>
+<rect x="934" y="314" width="12" height="12" fill="#d9a441" stroke="#3b2f22"/>
+<text x="890" y="306" font-size="12" font-weight="bold" fill="#3b2f22" text-anchor="middle">3 Beliard</text>
+
+<text x="552" y="232" font-size="13" font-weight="bold" fill="#3b2f22" text-anchor="middle">Stone Bridge</text>
+<text x="552" y="247" font-size="10.5" font-style="italic" fill="#3b2f22" text-anchor="middle">temple of Moradin</text>
+
+<text x="80" y="110" font-size="10.5" fill="#6b5b45">Long Road to Red Larch and Triboar</text>
+<text x="925" y="110" font-size="10.5" fill="#6b5b45" text-anchor="end">Dessarin Road</text>
+<text x="925" y="124" font-size="10.5" fill="#6b5b45" text-anchor="end">on to the High Forest</text>
+
+<g transform="translate(1015,520)"><polygon points="0,-26 7,0 0,-6 -7,0" fill="#3b2f22"/><polygon points="0,26 7,0 0,6 -7,0" fill="none" stroke="#3b2f22"/><text y="-33" text-anchor="middle" font-size="12" font-weight="bold" fill="#3b2f22">N?</text></g>
+
+<text x="40" y="590" font-size="15" font-weight="bold" fill="#3b2f22">Side view of the arch (vertical scale exaggerated)</text>
+<rect x="40" y="600" width="1020" height="190" fill="#efe6cc" stroke="#6b5b45" stroke-width="2"/>
+<rect x="470" y="740" width="160" height="50" fill="#9cc3d9" stroke="#4f86a8"/>
+<path d="M40,740 L470,740 L470,790 L40,790 Z M630,740 L1060,740 L1060,790 L630,790 Z" fill="#c9b98f" stroke="#6b5b45"/>
+<path d="M130,740 Q550,540 970,740" fill="none" stroke="#7d7a76" stroke-width="16" stroke-linecap="round"/>
+<path d="M130,740 Q550,540 970,740" fill="none" stroke="#b9b4ab" stroke-width="10" stroke-linecap="round"/>
+<line x1="550" y1="650" x2="550" y2="740" stroke="#3b2f22" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="560" y="690" font-size="11.5" fill="#3b2f22">about 400 ft high</text>
+<line x1="130" y1="778" x2="970" y2="778" stroke="#3b2f22" stroke-width="1"/>
+<line x1="130" y1="771" x2="130" y2="785" stroke="#3b2f22"/><line x1="970" y1="771" x2="970" y2="785" stroke="#3b2f22"/>
+<text x="550" y="762" text-anchor="middle" font-size="11.5" fill="#3b2f22">about 2 miles long (wiki figure, unverified)</text>
+<text x="550" y="618" text-anchor="middle" font-size="11.5" fill="#3b2f22">single granite arch, about six paces wide, no railings; Besilmer's sign (wheel over a plough) carved on it</text>
+<text x="550" y="810" text-anchor="middle" font-size="11" fill="#6b5b45">River Dessarin</text>
+
+<text x="40" y="838" font-size="14" font-weight="bold" fill="#3b2f22">Key</text>
+<circle cx="52" cy="855" r="6.5" fill="#8a6bb0" stroke="#3b2f22"/><text x="52" y="857.5" text-anchor="middle" font-size="7.5" font-weight="bold">1</text><text x="66" y="859" font-size="11" fill="#3b2f22">Stone Bridge (landmark, no settlement)</text>
+<rect x="326" y="849" width="12" height="12" fill="#d9a441" stroke="#3b2f22"/><text x="344" y="859" font-size="11" fill="#3b2f22">2, 3 Villages named in the sources, not in the engine</text>
+<line x1="684" y1="855" x2="714" y2="855" stroke="#fffaf0" stroke-width="7" stroke-linecap="round"/><text x="720" y="859" font-size="11" fill="#3b2f22">Road or trail</text>
+<line x1="830" y1="855" x2="860" y2="855" stroke="#8a4b3a" stroke-width="2" stroke-dasharray="7 5"/><text x="866" y="859" font-size="11" fill="#3b2f22">Legendary flight</text>
+
+<text x="40" y="880" font-size="10" fill="#6b5b45">East and west follow the Stone Trail (Westbridge west of the bridge, Beliard east). North is unconfirmed; the river's course here is not given in the sources.</text>
+<text x="40" y="893" font-size="10" fill="#6b5b45">Drawn 2026-10-10 for the Faerun Economy Engine wiki. A reconstruction from text, not a copy of any published map. The engine places the bridge far from the Long Road (SB4).</text>
+</svg>
