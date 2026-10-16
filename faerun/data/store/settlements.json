@@ -90,7 +90,7 @@
     "region": "Icewind Dale",
     "zone": "icewind",
     "population": 750,
-    "x": 148.0,
+    "x": 148,
     "y": 375.7,
     "wealth": 0.65,
     "tax": 0.03,
@@ -160,7 +160,7 @@
     "zone": "icewind",
     "population": 350,
     "x": 102.2,
-    "y": 348.0,
+    "y": 348,
     "wealth": 0.6,
     "tax": 0.02,
     "security": 0.45,
@@ -299,12 +299,13 @@
       "trade": 2.0
     },
     "specialties": {
+      "clothing_fine": 1.0,
       "glassware": 2.0,
-      "clothing_fine": 1.0
+      "lantern": 1.0
     },
     "shortages": [],
-    "ruler": "Lord Protector Neverember",
-    "description": "The Jewel of the North, rebuilt around its ever-warm river."
+    "ruler": "Lord Protector Dagult Neverember",
+    "description": "The Jewel of the North, a Lords' Alliance port on the High Road between Waterdeep and Luskan. Its river, warmed beneath Mount Hotenow, keeps the harbour ice-free and the hothouse gardens green, and its crafters were famed for multicoloured glass lamps, water clocks and jewellery. Destroyed by the eruption of 1451 DR, it was rebuilt under Lord Protector Dagult Neverember, who reopened trade; by 1491 DR merchants were returning and a trading alliance with Gauntlgrym was forming, though ruins remained around the sealed Chasm."
   },
   {
     "id": "port_llast",
@@ -312,8 +313,8 @@
     "region": "Sword Coast North",
     "zone": "swordcoast_north",
     "population": 800,
-    "x": 416.4,
-    "y": 957.5,
+    "x": 406.1972,
+    "y": 990.0753,
     "wealth": 0.7,
     "tax": 0.04,
     "security": 0.55,
@@ -344,8 +345,8 @@
     "region": "Sword Coast North",
     "zone": "swordcoast_north",
     "population": 900,
-    "x": 488.4,
-    "y": 1050.8,
+    "x": 458.9087,
+    "y": 1069.216,
     "wealth": 0.75,
     "tax": 0.05,
     "security": 0.6,
@@ -361,13 +362,14 @@
     "industries": {
       "mine_iron": 2.0,
       "smith": 1.0,
-      "farm": 1.0
+      "farm": 1.0,
+      "fish": 1.0
     },
     "specialties": {
       "iron_ore": 1.0
     },
     "shortages": [],
-    "ruler": "",
+    "ruler": "Town council loyal to Lord Protector Dagult Neverember",
     "description": ""
   },
   {
@@ -391,10 +393,13 @@
       "mining"
     ],
     "industries": {
-      "mine_iron": 1.0,
-      "mine_silver": 1.0,
+      "craft": 1.0,
       "farm": 1.0,
-      "craft": 1.0
+      "hunt": 1.0,
+      "log": 1.0,
+      "mine_gold": 1.0,
+      "mine_iron": 1.0,
+      "mine_silver": 1.0
     },
     "specialties": {
       "silver_ingot": 1.0
@@ -404,7 +409,7 @@
       "silk"
     ],
     "ruler": "",
-    "description": ""
+    "description": "Rebuilt frontier village of farmers, woodcutters, trappers and prospectors in the Lost Hills of the Sword Mountains, south of Neverwinter Wood, resettled from about 1486 DR on the ruins of a 10th-century town. Gold and platinum mining bring most of its wealth; it also trades timber and skins. Edermath Orchard grows apples and makes cider, Barthen's Provisions is the main trading post, and the Miner's Exchange weighs and buys ore and keeps claim records."
   },
   {
     "id": "mirabar",
@@ -481,6 +486,7 @@
       "arcane": 2.0,
       "cattle": 2.0,
       "farm": 1.0,
+      "herd": 1.0,
       "horse": 2.0,
       "tag_harness": 2.0,
       "tag_saddle_bags": 2.0
@@ -490,7 +496,7 @@
     },
     "shortages": [],
     "ruler": "",
-    "description": "Home of the eccentric Harpell wizards."
+    "description": "Small hamlet on an isolated stretch of the Long Road between the Crags and the Evermoors, founded in 1042 DR by Shardra Harpell and home of the eccentric Harpell wizards of the Ivy Mansion. Ranchers graze the surrounding grassland; beef and mutton are its exports. About 130 lived in the village (1358 and 1366 DR) and some 1,100 in the surrounding area (1358 DR). Inns, festhalls, a horse trader, a stirrup and spur smithy and travellers' outfitters serve Long Road traffic. Governed by a council of elders led by the Harpells; Dowell Harpell spoke for it on the Lords' Alliance council in 1489 DR."
   },
   {
     "id": "triboar",
@@ -514,19 +520,25 @@
       "frontier"
     ],
     "industries": {
-      "cattle": 3.0,
-      "farm": 2.0,
-      "trade": 2.0,
+      "cattle": 2.0,
       "craft": 1.0,
-      "smith": 1.0
+      "farm": 2.0,
+      "horse": 2.0,
+      "smith": 2.0,
+      "tan": 1.0,
+      "trade": 2.0
     },
     "specialties": {
       "cow": 2.0,
-      "meat_salt": 1.0
+      "horse_riding": 1.0,
+      "nails": 1.0,
+      "pony": 1.0,
+      "saddle": 1.0,
+      "wagon": 1.0
     },
     "shortages": [],
-    "ruler": "",
-    "description": ""
+    "ruler": "Lord Protector Darathra Shendrel",
+    "description": "Prosperous trading town and frontier crossroads where the Evermoor Way meets the Long Road in the Dessarin Valley, ruled by an elected Lord Protector. Known for wagons, caravan services and guides, horse and pony ranches west of town, cattle dealing, forged ironware and leather goods such as harness. About 2,500 people in the mid 14th century DR; by the late 15th century DR nearly half lived on outlying farms and ranches (Forgotten Realms Wiki, citing Volo's Guide to the North, The North and Storm King's Thunder)."
   },
   {
     "id": "yartar",
@@ -549,17 +561,19 @@
       "frontier"
     ],
     "industries": {
-      "trade": 3.0,
-      "fish": 2.0,
+      "craft": 1.0,
       "farm": 2.0,
-      "craft": 1.0
+      "fish": 2.0,
+      "ship": 1.0,
+      "trade": 3.0
     },
     "specialties": {
-      "barrel": 1.0
+      "barrel": 1.0,
+      "ship_boat": 1.0
     },
     "shortages": [],
-    "ruler": "",
-    "description": ""
+    "ruler": "Waterbaron Nestra Ruthiol",
+    "description": "Fortified trading city on the east bank of the River Surbrin near its meeting with the Dessarin, where the Evermoor Way crosses by a fortified bridge to the Shield Tower citadel on the west bank. A crossroads for caravans and river barges between Waterdeep and Silverymoon, known for fishing (crab, eel and other catch sold in the Fishyard market) and barge-building; it imports food, with grain and produce from Goldenfields. Ruled by an elected Waterbaron; a Lords' Alliance member. Sources: Sword Coast Adventurer's Guide, pp. 57 to 58; Princes of the Apocalypse, pp. 33, 39; Volo's Guide to the North, pp. 93 to 96 (via the Forgotten Realms Wiki)."
   },
   {
     "id": "red_larch",
@@ -582,18 +596,23 @@
       "frontier"
     ],
     "industries": {
-      "quarry": 2.0,
-      "farm": 2.0,
       "craft": 1.0,
-      "herd": 1.0
+      "farm": 2.0,
+      "herd": 1.0,
+      "quarry": 2.0,
+      "tan": 1.0
     },
     "specialties": {
+      "bricks": 1.0,
+      "chicken": 1.0,
+      "eggs": 1.0,
       "granite": 2.0,
-      "bricks": 1.0
+      "saddle": 1.0,
+      "wagon": 1.0
     },
     "shortages": [],
     "ruler": "",
-    "description": ""
+    "description": "Waystop village on the Long Road about seven days' ride north of Waterdeep, on a low ridge at the western edge of the Dessarin Valley where trails lead to Bargewright Inn and Kheldell. Known for stone quarries in the hills to the east, harness-makers, wagonworks, a poultry farm and crumblecake, a baked loaf of nuts, chickpeas, roots and fowl."
   },
   {
     "id": "amphail",
@@ -673,7 +692,7 @@
       "silk",
       "gem_agate"
     ],
-    "ruler": "",
+    "ruler": "Abbot Ellardin Darovik",
     "description": "Walled abbey-farm of Chauntea, the Granary of the North, on raised ground on the western side of the River Dessarin, south of Bargewright Inn. Its farms, orchards and gardens grow grain, maize, rice, barley, hops, apples, oranges, herbs and vegetables, and it keeps cattle, oxen, sheep, pigs and poultry; much of its food goes to Waterdeep and nearby settlements, given in Chauntea's honour. The Goldengulp Brewery brews its namesake beer."
   },
   {
@@ -707,6 +726,7 @@
       "arcane": 3.0,
       "brew": 2.0,
       "craft": 3.0,
+      "fish": 2.0,
       "glass": 1.0,
       "paper": 2.0,
       "ship": 2.0,
@@ -731,13 +751,13 @@
       "iron_ore",
       "wool"
     ],
-    "ruler": "The Lords of Waterdeep",
+    "ruler": "Open Lord Laeral Silverhand and the Lords of Waterdeep",
     "description": "City of Splendors; the greatest market on the Sword Coast."
   },
   {
     "id": "daggerford",
     "name": "Daggerford",
-    "region": "Sword Coast",
+    "region": "Delimbiyr Vale",
     "zone": "waterdeep",
     "population": 900,
     "x": 703.7,
@@ -755,22 +775,29 @@
       "frontier"
     ],
     "industries": {
-      "farm": 3.0,
+      "brew": 1.0,
       "cattle": 2.0,
       "craft": 1.0,
-      "smith": 1.0
+      "farm": 3.0,
+      "fish": 1.0,
+      "hunt": 1.0,
+      "ship": 1.0,
+      "smith": 1.0,
+      "tan": 1.0
     },
     "specialties": {
+      "clothing_common": 1.0,
+      "furs": 1.0,
       "grain": 1.0
     },
     "shortages": [],
-    "ruler": "",
-    "description": ""
+    "ruler": "Duchess Morwen Daggerford (identity disputed in 1489 DR)",
+    "description": "Walled farming town and duchy on the Trade Way, on the north bank of the Delimbiyr (the Shining River). Cargo moves here between river boats and Trade Way caravans, since the river is too shallow for ships further upstream. Exports furs and garments and imports timber; has river shipyards, smithies, a tannery outside the walls and a brewery. Ruled by a Duke or Duchess of the Daggerford line, with a Council of Guilds handling daily affairs."
   },
   {
     "id": "secomber",
     "name": "Secomber",
-    "region": "Sword Coast",
+    "region": "Delimbiyr Vale",
     "zone": "waterdeep",
     "population": 1300,
     "x": 848.0,
@@ -785,22 +812,18 @@
     "underdark": false,
     "traits": [
       "frontier",
-      "mining",
       "arcane"
     ],
     "industries": {
-      "mine_gem": 2.0,
-      "fish": 1.0,
+      "craft": 1.0,
       "farm": 1.0,
-      "craft": 1.0
+      "fish": 1.0,
+      "quarry": 1.0
     },
-    "specialties": {
-      "gem_agate": 2.0,
-      "gem_moonstone": 1.0
-    },
+    "specialties": {},
     "shortages": [],
     "ruler": "",
-    "description": ""
+    "description": "Small town on three stone hills on the north bank of the River Delimbiyr where the Unicorn Run joins it, built on the ruins of Hastarl, ancient capital of Athalantar; the High Moor lies to the south. A stop on the Delimbiyr Route between Daggerford and Loudwater, with the Secomber Trail north to Uluvin. Farming, fishing and stone-cutting are the main occupations, and locals hire out as guides and guards for caravans and adventurers. Mostly humans with nearly as many halflings, and some dwarves. Justice is kept by elected Rods of Justice and juries of landowners; a small Lords' Alliance garrison held a hilltop fort in the 14th century DR. By 1479 DR hobgoblin raids had forced the walled town to pay tribute, which later left it poor."
   },
   {
     "id": "baldur_s_gate",
@@ -1571,7 +1594,7 @@
     "zone": "silvermarches",
     "population": 500,
     "x": 936.5,
-    "y": 745.0,
+    "y": 745,
     "wealth": 0.7,
     "tax": 0.04,
     "security": 0.5,
@@ -1699,7 +1722,7 @@
     "zone": "underdark_north",
     "population": 14000,
     "x": 761.3,
-    "y": 834.0,
+    "y": 834,
     "wealth": 1.0,
     "tax": 0.1,
     "security": 0.5,
@@ -3315,8 +3338,8 @@
     "region": "Dalelands",
     "zone": "dales",
     "population": 3000,
-    "x": 1869.4,
-    "y": 1121.9,
+    "x": 1872.362,
+    "y": 1118.938,
     "wealth": 1.25,
     "tax": 0.03,
     "security": 0.8,
@@ -4513,9 +4536,10 @@
       "craft"
     ],
     "industries": {
-      "ship": 3.0,
+      "craft": 2.0,
       "fish": 2.0,
-      "craft": 2.0
+      "herd": 1.0,
+      "ship": 3.0
     },
     "specialties": {
       "ship_boat": 3.0,
@@ -4527,7 +4551,7 @@
       "fruit"
     ],
     "ruler": "",
-    "description": ""
+    "description": "Small, rocky, barren island city-state in the Sea of Swords off the Sword Coast, west of the Trollbark Forest between Daggerford and Baldur's Gate and about 300 miles south of Waterdeep. The town is cut into the rock around a mainland-facing natural harbour, its cave-like buildings linked by tunnels and stairs; the harbour approach is treacherous. Its people are goat-herders, fishers and renowned shipwrights who build and repair many of the ocean-going ships of the North (small merchant vessels in about two months, large trade ships in six, warships in four or more). It exports fish, goats and ships and imports timber, the island having been logged bare by 1367 DR. Local families privately own the docks and warehouses. Independent under Waterdeep's patronage, allied with Baldur's Gate from 1364 DR, and a Lords' Alliance member circa 1491 DR."
   },
   {
     "id": "ruathym",
@@ -4579,8 +4603,8 @@
     "region": "Nimbral",
     "zone": "islands_south",
     "population": 12000,
-    "x": 690.0,
-    "y": 2518.7,
+    "x": 515.6292,
+    "y": 3290.894,
     "wealth": 1.3,
     "tax": 0.04,
     "security": 0.85,
@@ -4754,8 +4778,8 @@
     "region": "Thay",
     "zone": "thay",
     "population": 2000,
-    "x": 3448.9,
-    "y": 1169.7,
+    "x": 3601.8249,
+    "y": 1170.4615,
     "wealth": 1.3,
     "tax": 0.14,
     "security": 0.6,
@@ -5241,8 +5265,8 @@
     "region": "Halruaa",
     "zone": "halruaa",
     "population": 1840,
-    "x": 3004.0,
-    "y": 2917.5,
+    "x": 3002.4914,
+    "y": 2912.0396,
     "wealth": 1.35,
     "tax": 0.08,
     "security": 0.9,
@@ -5356,8 +5380,8 @@
     "region": "Mulhorand",
     "zone": "mulhorand",
     "population": 2000,
-    "x": 3224.9,
-    "y": 2697.4,
+    "x": 3225.3504,
+    "y": 2690.726,
     "wealth": 1.25,
     "tax": 0.1,
     "security": 0.8,
@@ -6262,8 +6286,8 @@
     "region": "Turmish",
     "zone": "turmish",
     "population": 1200,
-    "x": 2162.8,
-    "y": 1742.2,
+    "x": 2179.6762,
+    "y": 1756.2714,
     "wealth": 1.1,
     "tax": 0.08,
     "security": 0.75,
@@ -6347,7 +6371,7 @@
     "region": "Silver Marches",
     "zone": "silvermarches",
     "population": 840,
-    "x": 887.0,
+    "x": 887,
     "y": 971.2,
     "wealth": 1.1,
     "tax": 0.06,
@@ -6931,8 +6955,8 @@
     "region": "Turmish",
     "zone": "turmish",
     "population": 1200,
-    "x": 2075.1,
-    "y": 1633.0,
+    "x": 2099.3143,
+    "y": 1675.1381,
     "wealth": 1.1,
     "tax": 0.08,
     "security": 0.75,
@@ -7269,8 +7293,8 @@
     "region": "Mulhorand",
     "zone": "mulhorand",
     "population": 2000,
-    "x": 3291.0,
-    "y": 2696.6,
+    "x": 3292.7039,
+    "y": 2683.9005,
     "wealth": 1.25,
     "tax": 0.1,
     "security": 0.8,
@@ -7385,8 +7409,8 @@
     "region": "Impiltur",
     "zone": "impiltur",
     "population": 1600,
-    "x": 2326.2,
-    "y": 1145.0,
+    "x": 2308.342,
+    "y": 1142.333,
     "wealth": 1.2,
     "tax": 0.08,
     "security": 0.85,
@@ -9071,8 +9095,8 @@
     "region": "Thesk",
     "zone": "thesk",
     "population": 920,
-    "x": 2473.0,
-    "y": 1223.9,
+    "x": 2498.5809,
+    "y": 1224.0222,
     "wealth": 1.15,
     "tax": 0.09,
     "security": 0.6,
@@ -10470,8 +10494,8 @@
     "region": "Mulhorand",
     "zone": "mulhorand",
     "population": 2000,
-    "x": 3731.2,
-    "y": 1808.4,
+    "x": 3730.2874,
+    "y": 1782.5546,
     "wealth": 1.25,
     "tax": 0.1,
     "security": 0.8,

@@ -73,11 +73,20 @@ FOOD_PORTIONS_LB = {
     "brandy": (0.0, .008), "mead": (.002, .030),
     "dwarven_spirits": (0.0, .004), "elverquisst": (0.0, .0002),
 }
-# Category-independent edible goods; callers intersect with their catalogue.
+# Human food and drink (including edible specials); animal feed and green coffee
+# are raw/intermediate stocks, despite their catalogue food category.
 FOOD_COMMODITIES = frozenset({
-    "grain", "corn", "rice", "flour", "bread", "vegetables", "fruit",
-    "chultan_fruit", "nuts", "cheese", "butter", "eggs", "meat_fresh",
+    "grain", "barley", "corn", "rice", "flour", "bread", "vegetables", "fruit",
+    "grapes", "chultan_fruit", "nuts", "cheese", "butter", "eggs", "meat_fresh",
     "meat_salt", "fish_fresh", "fish_salt", "salt", "ale",
+    "apples", "breadfruit", "candied_citrus_peel",
+    "candied_pineapple", "citrus", "dates", "deep_rothe_cheese",
+    "dried_apples", "dried_berries", "dried_breadfruit", "dried_figs",
+    "dried_peaches", "dried_pears", "dried_plantains", "duergar_grey_ale",
+    "figs", "fire_wine", "firepepper_sauce", "garlic", "kelp_ale",
+    "mineral_salt", "peaches", "pears", "pineapple", "plantains",
+    "reghed_frost_mead", "sea_salt", "starflower_wine", "surplus_grain",
+    "wild_berries",
 } | FOOD_PORTIONS_LB.keys() | SPICE_SHARES.keys())
 HOUSE_MATERIALS_LB = {
     "timber": 2000.0, "planks": 6000.0, "bricks": 6000.0,
@@ -190,7 +199,16 @@ ASSUMPTIONS = [
     "share one workforce across eligible ores, stone and clay; a wealthy market "
     "does not acquire ore or tropical growing conditions.",
     "Unmodeled finished consumption goods retain demand*population*.002 trade "
-    "units/day in an appropriate sector. Unmodeled BOM inputs and generic metal, "
+    "units/day in an appropriate sector, except ship hulls: only explicit vessel "
+    "orders create ship demand (fishing-boat replacement; coastal merchant cogs "
+    "at four percent annual renewal per thirty carrier workers). Livestock "
+    "purchases require an explicit herd, workforce or defense replacement order "
+    "(goats: ten heads per herd industry level annually); other unmodeled "
+    "large durable assets likewise need explicit orders. Named jewelry and "
+    "instrument lines have small annual replacement orders rather than a "
+    "full daily per-capita rate. "
+    "A per-capita index does not represent daily replacement of whole herds "
+    "or vehicles. Unmodeled BOM inputs and generic metal, "
     "material, textile and gem stocks have zero final consumption: industrial "
     "demand belongs to the recipe engine. Explicit end-uses such as grain, fuel, "
     "construction materials and medical linen are retained. Unmodeled arcane "
@@ -251,7 +269,16 @@ def resource_assumptions(s: Settlement) -> dict:
     if terrain == "desert" and irrigated:
         farm_factor = .12
     acres = pop * 6.0 * size_factor * farm_factor * (1 + .12 * _level(s, "farm"))
+    # Orlumbor's documented barren island cannot inherit mainland cropland.
+    # Other island settlements keep their existing inferred or documented yields.
+    island_cropland = s.id == "orlumbor" and s.landmass == "orlumbor" and not any(
+        _level(s, industry) for industry in ("farm", "orchard", "herb", "spice")
+    )
     land = {cid: acres * share for cid, share in LAND_SHARES.items()}
+    if island_cropland:
+        # Herding goats is not evidence of modeled cattle, poultry or arable fields.
+        land = {cid: 0.0 for cid in land}
+        acres = 0.0
     woodland_share = WOODLAND_SHARES.get(terrain, 0.0)
     if terrain not in {"desert", "tundra", "cavern"} and _level(s, "log"):
         woodland_share = max(.18, woodland_share)
@@ -289,6 +316,8 @@ def resource_assumptions(s: Settlement) -> dict:
         "farm_terrain_factor": farm_factor,
         "irrigated": irrigated,
         "farm_acres": acres,
+        "land_scope": ("no inferred offshore cropland" if island_cropland else
+                       "settlement plus inferred accessible hinterland"),
         "land_acres": land,
         "land_shares": dict(LAND_SHARES),
         "crop_yields_lb_per_acre_year": dict(CROP_YIELDS),
@@ -631,7 +660,9 @@ def final_requirements(
     # The core's catalogue units are deliberate anchors, not freight weights
     # of livestock or liquid packaging; only edible mass is diversified here.
     staple_lb = core.pop("grain") * 60.0 * pop
-    mass("grain", "household", staple_lb * (.90 - .08 * share))
+    barley_share = .04
+    mass("grain", "household", staple_lb * (.90 - .08 * share - barley_share))
+    mass("barley", "household", staple_lb * barley_share)
     mass("corn", "household", staple_lb * .10)
     mass("rice", "household", staple_lb * .08 * share)
     meat_lb = core.pop("meat_fresh") * 40.0 * pop
@@ -645,7 +676,9 @@ def final_requirements(
     mass("butter", "household", dairy_lb * .15)
     fruit_lb = core.pop("fruit") * 30.0 * pop
     exotic_share = .005 + .195 * share
-    mass("fruit", "household", fruit_lb * (.90 - exotic_share))
+    grape_share = .02
+    mass("fruit", "household", fruit_lb * (.90 - exotic_share - grape_share))
+    mass("grapes", "household", fruit_lb * grape_share)
     mass("chultan_fruit", "household", fruit_lb * exotic_share)
     mass("nuts", "household", fruit_lb * .10)
     for cid, units in core.items():
@@ -723,7 +756,9 @@ def final_requirements(
     for cid, c in goods.items():
         if cid in modeled:
             continue
-        if cid in intermediate_ids or c.category in {"metal", "material", "textile", "gem"}:
+        if (cid in {"jewelry", "musical_instrument"} or cid in intermediate_ids
+                or c.category in {"metal", "material", "textile", "gem", "livestock"}
+                or c.unit in {"head", "ship", "boat", "raft", "carpet", "chariot", "carriage", "suit"}):
             continue
         if c.category == "arcane":
             add(cid, "arcane", max(0.0, demand_indices[cid]) * mages * .002)
@@ -732,6 +767,15 @@ def final_requirements(
             "arms": "defense", "livestock": "agriculture",
         }.get(c.category, "household")
         add(cid, sector, max(0.0, demand_indices[cid]) * pop * .002)
+    # Small seagoing hulls are capital replacements, not per-resident purchases.
+    # Coastal carrier crews stand in for a local fleet; only ports order hulls.
+    if s.is_port:
+        add("merchant_cog", "logistics", p["logistics_workers"] / 30 * .04 / DAYS_PER_YEAR)
+    # Herd industry is explicit evidence of a local breeding flock; no general
+    # population-based goat demand or inferred pasture is assumed for islands.
+    add("goats", "agriculture", _level(s, "herd") * 10 / DAYS_PER_YEAR)
+    add("jewelry", "household", pop / 1000 * 2 * (.5 + share) / DAYS_PER_YEAR)
+    add("musical_instrument", "culture", pop / 1000 / DAYS_PER_YEAR)
     # Add after household fallback so explicit service use does not erase an
     # existing household final good (e.g. lanterns, pottery or bound books).
     for plan in plans:

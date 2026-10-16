@@ -1,0 +1,145 @@
+{
+  "master_id": "ARRABAR-LW-r01-DRAFT",
+  "source_geometry_known": false,
+  "basis": "README geography / Ed Greenwood canal account; no exact plans",
+  "basin": {
+    "id": "NW-B01",
+    "center": [
+      460,
+      282
+    ],
+    "radius_x_px": 27,
+    "radius_y_px": 22,
+    "basis": "explicit reconstruction south of Warehouse District; location and dimensions unverified",
+    "waterbody": "open water for maneuvering barges and small vessels, not a rotating platform"
+  },
+  "canals": [
+    {
+      "id": "NW-C01",
+      "coordinates": [
+        [
+          355,
+          239
+        ],
+        [
+          396,
+          252
+        ],
+        [
+          430,
+          252
+        ],
+        [
+          444,
+          269
+        ]
+      ],
+      "width_px": 7,
+      "role": "proposed harbor-to-basin route"
+    },
+    {
+      "id": "NW-C02",
+      "coordinates": [
+        [
+          368,
+          124
+        ],
+        [
+          392,
+          153
+        ],
+        [
+          398,
+          200
+        ],
+        [
+          396,
+          252
+        ],
+        [
+          380,
+          282
+        ],
+        [
+          351,
+          318
+        ]
+      ],
+      "width_px": 5,
+      "role": "proposed Port spine"
+    },
+    {
+      "id": "NW-C03",
+      "coordinates": [
+        [
+          460,
+          260
+        ],
+        [
+          460,
+          252
+        ],
+        [
+          460,
+          159
+        ],
+        [
+          399,
+          159
+        ]
+      ],
+      "width_px": 5,
+      "role": "proposed Warehouse branch"
+    },
+    {
+      "id": "NW-C04",
+      "coordinates": [
+        [
+          487,
+          282
+        ],
+        [
+          533,
+          282
+        ],
+        [
+          533,
+          215
+        ]
+      ],
+      "width_px": 5,
+      "role": "proposed east branch"
+    },
+    {
+      "id": "NW-C05",
+      "coordinates": [
+        [
+          460,
+          304
+        ],
+        [
+          460,
+          329
+        ],
+        [
+          538,
+          329
+        ]
+      ],
+      "width_px": 5,
+      "role": "proposed southern branch"
+    }
+  ],
+  "lightwell": {
+    "center": [
+      460,
+      282
+    ],
+    "radius_x_px": 8,
+    "radius_y_px": 6,
+    "basis": "smaller than basin is sourced; dimensions and exact position inferred"
+  },
+  "vertical_datum": null,
+  "depths": "unknown",
+  "street_alignment": "uses shared image coordinates; does not claim every canal is beneath a street"
+}

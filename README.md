@@ -34,7 +34,7 @@ imported from Goldenfields - 1,024 miles, 51 days
 
 The [location wiki](wiki/README.md) collects dated lore, named places and people,
 engine assumptions, and unresolved evidence in one project-local reference.
-Start with [Phandalin](wiki/locations/phandalin.md). Forgotten Realms Wiki is the
+Start with [Phandalin](wiki/locations/phandalin/README.md). Forgotten Realms Wiki is the
 preferred secondary canon reference for information the engine does not provide.
 Reviewed summaries and source provenance are included in location-detail API and
 MCP responses under `lore`. Sourced lore and simulation outputs stay separate;
@@ -1050,7 +1050,23 @@ still enforced. Unused ingredient reservations are not re-exported in a
 second pass, so unmet workshop plans can coexist with another unused input.
 
 `GET /api/location?settlement=waterdeep` includes the full `requirements`
-payload even when its price table is filtered by category. Market reports
+payload even when its price table is filtered by category. For Red Larch,
+`location_metadata` contains curated identity, layout, map references and source
+provenance; it is `null` for other settlements. The simulation snapshot is
+explicitly separate from canonical claims. The payload also carries a
+`climate` object, shown under **Climate** on the location page: the model's
+climate class plus, where one has been reviewed, a sourced seasonal description
+(`faerun/data/climate.py`). Sourced text is regional, inference is labelled, and
+only the model class affects the economy. A `demographics` object, shown under
+**Racial makeup**, gives the reviewed races of the settlement with sourced
+percentages where they exist, separately labeled illustrative estimates where
+explicitly provided, otherwise sourced descriptions or `unresearched`
+(`faerun/data/demographics.py`). It is reference text only; the
+model's population is not divided by race. Every researched location must have
+a record. The location page's **Download page
+data (JSON)** button saves this whole payload (prices, events, guilds, climate,
+demographics, lore and requirements) plus the named businesses, and the seven-year history only
+if it has been loaded. Market reports
 expose baseline final requirements and per-sector quantities, and quotes
 include `final_demand_per_day`, `final_consumption_per_day`, `demand_sectors`,
 processing requirements and consumed inputs. Existing `household_*` quote
@@ -1198,7 +1214,14 @@ receipts. Nonmarket public services are imputed. Named durable service assets
 are capital acquisitions rather than intermediate consumption; depreciation
 is not deducted from gross product. Output includes modeled production into
 closing material. Source-district calibration means this is a settlement-and-
-hinterland proxy, not independently surveyed city GDP.
+hinterland proxy, not independently surveyed city GDP. Unmodeled livestock
+and large durable assets (such as ships, vehicles, and flying carpets) need
+explicit replacement or institutional orders; a generic per-resident demand
+index does not imply daily purchases. Other unmodeled finished goods, including
+some foods, still use a generic demand estimate and may require more specific
+diet and substitution evidence. These are planned orders, not necessarily
+fulfilled imports; output reflects material-backed production, including
+unsold stock.
 
 Exports and tourist receipts are **not added again to GLP**: the underlying
 goods and services already enter production. Annual and per-resident figures
@@ -2460,6 +2483,8 @@ Changing the date, seed or events bumps the revision and invalidates the cache.
 ```
 faerun/
   calendar.py           the Calendar of Harptos and its seasons
+  brand.py              Faerûn Cartographers logo, favicon and footer added to every page
+  static/               logo and favicon images (master: images/)
   models.py             Commodity, Settlement, Event, PriceQuote
   world.py              the trade graph, routing, events, tunable config
   economy.py            the price engine and the public query API

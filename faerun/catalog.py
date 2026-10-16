@@ -52,7 +52,18 @@ def reload_from_disk() -> Dict[str, int]:
         b.id: b for b in businesses_mod.BUSINESSES
         if any(loc in world.settlements for loc in b.locations)
     }
-    world.rebuild()
+    if getattr(world, "_use_location_edits", False):
+        # Module reload brings back the calibrated catalog coordinates. Refresh
+        # the base snapshot and replay saved map positions even when the edits
+        # file's timestamp has not changed since the previous world build.
+        # Otherwise Amphail briefly reverts to its older control point.
+        from copy import deepcopy
+
+        world._location_base_settlements = deepcopy(world.settlements)
+        world._location_edits_stamp = None
+        world.sync_location_edits()  # also rebuilds the graph with route edits
+    else:
+        world.rebuild()
     return {
         "commodities": len(world.commodities),
         "settlements": len(world.settlements),

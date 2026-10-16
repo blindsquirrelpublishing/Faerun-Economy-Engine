@@ -1,0 +1,38 @@
+{
+  "map_name": "",
+  "source_image": "",
+  "source_priority": "",
+  "image_width_px": null,
+  "image_height_px": null,
+  "north_rotation_degrees": 0,
+  "scale": {
+    "units": "",
+    "pixels_per_unit": null
+  },
+  "control_points": [
+    {
+      "id": "",
+      "u": null,
+      "v": null,
+      "description": ""
+    }
+  ],
+  "features": [
+    {
+      "id": "",
+      "name": "",
+      "type": "building|road|water|wall|gate|bridge|landmark|terrain|field|forest",
+      "geometry_type": "point|polyline|polygon",
+      "normalized_coordinates": [],
+      "source": "",
+      "confidence": "verified|estimated|unknown"
+    }
+  ],
+  "elevation": {
+    "source": "",
+    "vertical_datum": "",
+    "contour_interval": null,
+    "is_hypothetical": false
+  },
+  "notes": []
+}

@@ -1,0 +1,693 @@
+{
+  "package_version": "1.0",
+  "generated_utc": "2026-10-15",
+  "settlement_id": "secomber",
+  "target_year_dr": 1492,
+  "use_policy": "Research/economic correction proposal. Do not directly overwrite canonical data without reviewing evidence and historical dates.",
+  "original_input_file": "source/secomber.json",
+  "source_dossier": "source/README.md",
+  "original_engine_record": {
+    "settlement_id": "secomber",
+    "region": "Delimbiyr Vale",
+    "zone": "waterdeep",
+    "population": 1300,
+    "population_note": "Gazetteer estimate with no reference year. Sourced figures: 900 (1358 and 1367 DR) and 1,417 (1372 DR) (SE4).",
+    "x": 848.0,
+    "y": 1194.4,
+    "wealth": 0.85,
+    "tax": 0.04,
+    "security": 0.55,
+    "port": null,
+    "river": true,
+    "terrain": "hills",
+    "traits": [
+      "frontier",
+      "mining",
+      "arcane"
+    ],
+    "industries": {
+      "craft": 1.0,
+      "farm": 1.0,
+      "fish": 1.0,
+      "mine_gem": 2.0,
+      "quarry": 1.0
+    },
+    "specialties": {
+      "gem_agate": 2.0,
+      "gem_moonstone": 1.0
+    },
+    "shortages": [],
+    "ruler": "",
+    "read_from": "faerun/data/store/settlements.json (2026-10-15)"
+  },
+  "source_record": {
+    "schema_version": 1,
+    "id": "secomber",
+    "name": "Secomber",
+    "summary": "Small walled town on three stone hills on the north bank of the River Delimbiyr, where the Unicorn Run joins it; a stop on the Delimbiyr Route (Daggerford to the west, Zelbross and Loudwater to the east) with the Secomber Trail running north to Uluvin; farming, fishing, stone-cutting and caravan trade; hobgoblin tribute by 1479 DR.",
+    "evidence_reviewed": "2026-10-14",
+    "wiki_entry": "README.md",
+    "identity": {
+      "region": "Delimbiyr Vale",
+      "subregion": "North bank of the River Delimbiyr at the mouth of the Unicorn Run; High Moor to the south",
+      "settlement_type": "Small walled town",
+      "ruler_office": "Lord (14th century DR); no ruler recorded for the late 15th century",
+      "arms": null,
+      "namesake": null
+    },
+    "periods": {
+      "lore_2e_3e": "1358 to 1372 DR (The Savage Frontier, Volo's Guide to the Sword Coast, The North, Forgotten Realms Campaign Setting)",
+      "snapshot_4e": "1479 DR (Forgotten Realms Campaign Guide)",
+      "snapshot_5e": "circa 1491 DR (Storm King's Thunder)",
+      "planning_baseline_dr": 1492,
+      "note": "Nothing is verified for 1492 DR itself."
+    },
+    "position": {
+      "location_id": "fps-secomber",
+      "fps": "FPS1:WD:X+002.07:Y+000.05",
+      "x": 2.07,
+      "y": 0.05,
+      "east_miles": 248.0,
+      "north_miles": 5.6,
+      "pixel_x": 1005,
+      "pixel_y": 675,
+      "method": "manual_approximate",
+      "note": "Taken from maps/locations.json; not a canonical georeference. The engine position is about 161 miles from Daggerford (SE14)."
+    },
+    "engine_record": {
+      "settlement_id": "secomber",
+      "region": "Delimbiyr Vale",
+      "zone": "waterdeep",
+      "population": 1300,
+      "population_note": "Gazetteer estimate with no reference year. Sourced figures: 900 (1358 and 1367 DR) and 1,417 (1372 DR) (SE4).",
+      "x": 848.0,
+      "y": 1194.4,
+      "wealth": 0.85,
+      "tax": 0.04,
+      "security": 0.55,
+      "port": null,
+      "river": true,
+      "terrain": "hills",
+      "traits": [
+        "frontier",
+        "mining",
+        "arcane"
+      ],
+      "industries": {
+        "craft": 1.0,
+        "farm": 1.0,
+        "fish": 1.0,
+        "mine_gem": 2.0,
+        "quarry": 1.0
+      },
+      "specialties": {
+        "gem_agate": 2.0,
+        "gem_moonstone": 1.0
+      },
+      "shortages": [],
+      "ruler": "",
+      "read_from": "faerun/data/store/settlements.json (2026-10-15)"
+    },
+    "area_geography": {
+      "summary": "Town on three stone hills north of the Delimbiyr; the Unicorn Run flows south along the east side to join the river; the Delimbiyr Route runs along the north bank from Daggerford (west) over the Unicorn Run to Zelbross and Loudwater (east); the Secomber Trail leaves the Route north to Uluvin; the High Moor lies south of the river.",
+      "routes": [
+        "Delimbiyr Route (west to Daggerford and the Trade Way; east to Zelbross and Loudwater)",
+        "Secomber Trail (north to Uluvin)"
+      ],
+      "nearby_not_in_engine": [
+        "Zelbross",
+        "Uluvin",
+        "Snowhills Farm",
+        "Moon Mountain Brewery",
+        "Mishka's Warren"
+      ],
+      "orientation": "North up, as drawn by the compass on the reference town maps; not confirmed by a written source.",
+      "sources": [
+        "The North: Guide to the Savage Frontier (1996), pp. 63, 76 and Map of Interior",
+        "Forgotten Realms Campaign Setting (3rd edition), p. 228",
+        "Forgotten Realms Interactive Atlas (1999), Secomber Trail"
+      ]
+    },
+    "town_plan": {
+      "source": "Three-hill town map of Secomber (wiki file Secomber.jpg, 4th-edition era, caption 1479 DR; publication not identified), stored in this folder as three copies of different resolution and colour",
+      "source_url": "https://forgottenrealms.fandom.com/wiki/File:Secomber.jpg",
+      "stored": [
+        "caa1e0862716ef40c7b66b7c3409eff2.png",
+        "9966bc80353646297704ac0f85c03cc0.png",
+        "OIP.webp"
+      ],
+      "stored_note": "The README says published images are linked, not stored; these files were added to the folder as reference images on 2026-10-15 and their provenance is not recorded. caa1e0862716ef40c7b66b7c3409eff2.png is the parchment version; 9966bc80353646297704ac0f85c03cc0.png is a green-wash version and OIP.webp a small copy; all show the same plan.",
+      "date": "1479 DR (caption)",
+      "orientation": "Compass rose at the west side, north up",
+      "scale": "None",
+      "layout": [
+        "Three ring-shaped hills, each with houses on concentric rings, enclosed together by a wall that runs from the south side of the town round the north and east sides",
+        "A palisaded fort stands on the south-west hill",
+        "A pool and a cluster of larger buildings (inns and halls) lie in the middle, where the three hills meet",
+        "A road runs from the centre south-east to the junction on the Delimbiyr Route; a second road runs south-west to the Route",
+        "The Delimbiyr Route runs east to west along the river; the Secomber Trail leaves it at the junction and runs north to Uluvin",
+        "A wooden bridge carries the Route over the Unicorn Run to the east, towards Loudwater",
+        "A strip of buildings and about nine piers line the north bank of the Delimbiyr, with a few more buildings at the junction",
+        "A planted field lies in the north-west corner"
+      ],
+      "other_reference_images": [
+        {
+          "file": "240201 - secomber - 23 - secomber.jpg",
+          "kind": "Hand-drawn grid-paper map of a much larger, sprawling town with named lanes, numbered lots, a harbour and bridges over the Delimbiyr; marked as not to scale",
+          "source": "Not identified",
+          "used_in_sketch": false,
+          "note": "Layout differs from the three-stone-hills plan; its lane and lot names are not in the wiki entry and were not used."
+        },
+        {
+          "file": "ca156e05bab08b559a9ff518b5e5674b.jpg",
+          "kind": "Digital map with nine numbered sites, a wide Delimbiyr and bridges to the south bank; no legend",
+          "source": "Not identified",
+          "used_in_sketch": false,
+          "note": "Layout differs from the three-hill plan; not used."
+        }
+      ],
+      "uncertain_readings": [
+        "The three-hill plan is 4th-edition era and unscaled, so no distances can be taken from it",
+        "The named buildings (Tower of Amelior Amanitas, Singing Sprite, Seven-Stringed Harp) cannot be placed on it"
+      ]
+    },
+    "sketch": {
+      "file": "secomber-sketch.svg",
+      "drawn": "2026-10-15",
+      "method": "Single panel drawn by eye from the three-hill town plan and the written sources. Three hills drawn as contour rings with a ring of house markers on each; palisaded fort on the south-west hill; wall circuit, road spine, pool and number of piers assumed; River Delimbiyr along the south, Unicorn Run along the east with a wooden bridge on the Delimbiyr Route; Secomber Trail north.",
+      "status": "Working reconstruction, not a copy of a published map",
+      "panels": [
+        "Town and crossing (schematic)"
+      ],
+      "assumed": [
+        "Wall circuit",
+        "Positions and number of buildings",
+        "Road spine from the centre to the Route",
+        "Number and positions of harbour piers",
+        "Size and position of the pool in the centre"
+      ],
+      "not_plotted": [
+        "Tower of Amelior Amanitas",
+        "Singing Sprite",
+        "Seven-Stringed Harp"
+      ]
+    },
+    "maps": [
+      {
+        "id": "working-sketch",
+        "title": "Secomber, working sketch (2026-10-15)",
+        "edition": null,
+        "url": null,
+        "stored": "secomber-sketch.svg"
+      },
+      {
+        "id": "town-1479",
+        "title": "Secomber and surrounding area; 4th-edition era, caption 1479 DR",
+        "edition": "4th (probable)",
+        "url": "https://forgottenrealms.fandom.com/wiki/File:Secomber.jpg",
+        "stored": "caa1e0862716ef40c7b66b7c3409eff2.png"
+      },
+      {
+        "id": "unicorn-run-the-north",
+        "title": "Unicorn Run, from The North",
+        "edition": "2nd (probable, from the file name; not checked)",
+        "url": "https://forgottenrealms.fandom.com/wiki/File:UnicornRun-TheNorth.png",
+        "stored": null
+      },
+      {
+        "id": "delimbiyr-route",
+        "title": "Delimbiyr Route highlighted",
+        "edition": null,
+        "url": "https://forgottenrealms.fandom.com/wiki/File:DelimbiyrRoute.PNG",
+        "stored": null
+      },
+      {
+        "id": "delimbiyr-vale-5e",
+        "title": "Delimbiyr Vale, Scourge of the Sword Coast, p. 10, circa 1485 DR",
+        "edition": "5th",
+        "url": "https://forgottenrealms.fandom.com/wiki/File:DelimbiyrVale.png",
+        "stored": null
+      },
+      {
+        "id": "high-moor-1479",
+        "title": "High Moor in 1479 DR",
+        "edition": "4th (era)",
+        "url": "https://forgottenrealms.fandom.com/wiki/File:High_Moor.jpg",
+        "stored": null
+      }
+    ],
+    "interactive_map": {
+      "exists": false,
+      "note": "Map:Secomber does not exist (checked 2026-10-14); no marker positions are available."
+    },
+    "sources": [
+      {
+        "id": "frwiki",
+        "title": "Forgotten Realms Wiki: Secomber",
+        "kind": "secondary",
+        "url": "https://forgottenrealms.fandom.com/wiki/Secomber"
+      },
+      {
+        "id": "frwiki-maps",
+        "title": "Forgotten Realms Wiki: Category:Maps of Secomber",
+        "kind": "secondary",
+        "url": "https://forgottenrealms.fandom.com/wiki/Category:Maps_of_Secomber"
+      },
+      {
+        "id": "frwiki-route",
+        "title": "Forgotten Realms Wiki: Delimbiyr Route",
+        "kind": "secondary",
+        "url": "https://forgottenrealms.fandom.com/wiki/Delimbiyr_Route"
+      },
+      {
+        "id": "frwiki-trail",
+        "title": "Forgotten Realms Wiki: Secomber Trail",
+        "kind": "secondary",
+        "url": "https://forgottenrealms.fandom.com/wiki/Secomber_Trail"
+      }
+    ],
+    "copyright_note": "Published map images belong to their owners (Wizards of the Coast or their creators). This file records facts and links."
+  },
+  "periods": [
+    {
+      "period": "516 DR",
+      "notes": "Mixed halfling/human foundation (source-derived)"
+    },
+    {
+      "period": "1358–1372 DR",
+      "notes": "Population readings, peaceful caravan and river-trade character, listed inns, fort/garrison"
+    },
+    {
+      "period": "1479 DR",
+      "notes": "Wall shown in 4e reference description; hobgoblin raiding and tribute"
+    },
+    {
+      "period": "circa 1491 DR",
+      "notes": "Poverty due to tribute; 1492 specifics not verified"
+    },
+    {
+      "period": "1492 DR",
+      "notes": "Atlas/economy modeling baseline, not independent historical observation"
+    }
+  ],
+  "evidence": [
+    {
+      "key": "identity.three_hills",
+      "finding": "Town on three stone hills, north of the Delimbiyr at the Unicorn Run confluence",
+      "confidence": "supported_secondary",
+      "date_scope": "historic/general",
+      "references": [
+        "README: Overview",
+        "README: Geography"
+      ]
+    },
+    {
+      "key": "identity.founding",
+      "finding": "Settled in 516 DR by halflings of Delimbiyr Vale and humans of Delimbiyran",
+      "confidence": "supported_secondary",
+      "date_scope": "516 DR",
+      "references": [
+        "README: Overview"
+      ]
+    },
+    {
+      "key": "demographics.races",
+      "finding": "Humans form a majority or about half; halflings almost as numerous, with small dwarf, gnome and moon elf populations",
+      "confidence": "supported_secondary",
+      "date_scope": "14th-century descriptions",
+      "references": [
+        "README: Population"
+      ]
+    },
+    {
+      "key": "geography.river",
+      "finding": "Delimbiyr River runs west along south; Unicorn Run flows south along east and joins it",
+      "confidence": "supported_secondary",
+      "date_scope": "historic/general",
+      "references": [
+        "README: Geography"
+      ]
+    },
+    {
+      "key": "geography.high_moor",
+      "finding": "High Moor is south of river",
+      "confidence": "supported_secondary",
+      "date_scope": "historic/general",
+      "references": [
+        "README: Geography"
+      ]
+    },
+    {
+      "key": "transport.delimbiyr_route",
+      "finding": "Delimbiyr Route follows river, toward Trade Way/Daggerford to west and Zelbross/Loudwater east",
+      "confidence": "supported_secondary",
+      "date_scope": "historic/general",
+      "references": [
+        "README: Geography"
+      ]
+    },
+    {
+      "key": "transport.secomber_trail",
+      "finding": "Trail north-west toward Uluvin",
+      "confidence": "supported_secondary",
+      "date_scope": "historic/general",
+      "references": [
+        "README: Geography"
+      ]
+    },
+    {
+      "key": "economy.core_industries",
+      "finding": "Farming, fishing, stone-cutting and caravan guide/guard services",
+      "confidence": "supported_secondary",
+      "date_scope": "1358–1372 DR",
+      "references": [
+        "README: Economy and Trade"
+      ]
+    },
+    {
+      "key": "economy.hobgoblin_tribute",
+      "finding": "Hobgoblin raids and tribute by 1479 DR; impoverishment noted by circa 1491 DR",
+      "confidence": "supported_secondary",
+      "date_scope": "1479–1491 DR",
+      "references": [
+        "README: Overview",
+        "README: Economy and Trade"
+      ]
+    },
+    {
+      "key": "population.1358",
+      "finding": "900 residents",
+      "confidence": "supported_secondary",
+      "date_scope": "1358 DR",
+      "references": [
+        "README: Population"
+      ]
+    },
+    {
+      "key": "population.1367",
+      "finding": "900 residents",
+      "confidence": "supported_secondary",
+      "date_scope": "1367 DR",
+      "references": [
+        "README: Population"
+      ]
+    },
+    {
+      "key": "population.1372",
+      "finding": "1,417 residents",
+      "confidence": "supported_secondary",
+      "date_scope": "1372 DR",
+      "references": [
+        "README: Population"
+      ]
+    },
+    {
+      "key": "population.engine",
+      "finding": "1,300 residents in engine; date/evidence not supplied",
+      "confidence": "engine_only",
+      "date_scope": "undated",
+      "references": [
+        "secomber.json: engine_record"
+      ]
+    },
+    {
+      "key": "government.justice",
+      "finding": "Six to nine elected Rods of Justice and nine-landowner juries described in later publication",
+      "confidence": "supported_secondary",
+      "date_scope": "undated practice",
+      "references": [
+        "README: Government"
+      ]
+    },
+    {
+      "key": "military.garrison",
+      "finding": "About 30 Lords Alliance soldiers and over 100 militia recorded in older sources",
+      "confidence": "supported_secondary",
+      "date_scope": "14th century",
+      "references": [
+        "README: Government"
+      ]
+    },
+    {
+      "key": "business.samril",
+      "finding": "Samril’s Fine Blades finishes blades for shipment to Waterdeep",
+      "confidence": "supported_secondary",
+      "date_scope": "undated; published 2013",
+      "references": [
+        "README: Businesses"
+      ]
+    },
+    {
+      "key": "business.gleskur",
+      "finding": "Gleskur’s Finemetals produces braided copper wire",
+      "confidence": "supported_secondary",
+      "date_scope": "undated; published 2013",
+      "references": [
+        "README: Businesses"
+      ]
+    },
+    {
+      "key": "business.singing_sprite",
+      "finding": "Singing Sprite inn, recorded 1367 and 1396 DR",
+      "confidence": "supported_secondary",
+      "date_scope": "1367–1396 DR",
+      "references": [
+        "README: Businesses"
+      ]
+    },
+    {
+      "key": "business.seven_stringed_harp",
+      "finding": "Seven-Stringed Harp tavern",
+      "confidence": "supported_secondary",
+      "date_scope": "1396 DR",
+      "references": [
+        "README: Businesses"
+      ]
+    },
+    {
+      "key": "economy.vinegar",
+      "finding": "Halfling vineyards northwest of town produce sour vinegar",
+      "confidence": "supported_secondary",
+      "date_scope": "undated; modern publication",
+      "references": [
+        "README: Economy and Trade"
+      ]
+    },
+    {
+      "key": "economy.moon_mountain",
+      "finding": "Moon Mountain Brewery, roughly two days north, supplied ale; Moon Rum available in Secomber",
+      "confidence": "supported_secondary",
+      "date_scope": "circa 1372 DR",
+      "references": [
+        "README: Economy and Trade"
+      ]
+    }
+  ],
+  "additional_demographic_guidance": {
+    "population_mix": "Humans and halflings nearly equal in older sources; exact shares for 1492 unknown",
+    "settlement_character": "mixed human-halfling town with low hillside homes and extensive gardens; architecture is qualitative style guidance, not a count of verified structures",
+    "style_warning": "Do not apply Tolkien-specific underground hobbit holes to every home as canon"
+  },
+  "geographic_master": {
+    "preferred_source": "three-hill Secomber town plan, likely 4e era, date caption 1479 DR; authorship and scale not verified",
+    "primary_artifact": "caa1e0862716ef40c7b66b7c3409eff2.png",
+    "land_water": "Delimbiyr along south; Unicorn Run along east; confluence at southeastern edge; bridge crosses Unicorn Run on east-west road",
+    "landmarks": "Three hills, hill fort on southwestern hill in older description, central pool/halls, waterfront buildings/piers shown in source",
+    "source_limitations": [
+      "Town plan unscaled",
+      "Specific properties and landmarks unverified",
+      "Other hand-drawn and digital maps have conflicting layouts and are not interchangeable",
+      "No published surveyed water polygons or elevation readings supplied"
+    ],
+    "status": "reference reconstruction only; no geometry layer has been shown here to pass GIS registration/overlay validation"
+  },
+  "map_source_conflicts": [
+    {
+      "issue": "Three-hill map vs NineLizards graph-paper map vs numbered digital map",
+      "decision": "Treat three-hill reference as primary for proposed reconstruction; others secondary, not merged geometrically",
+      "confidence": "moderate"
+    },
+    {
+      "issue": "1479 walls vs later-era removed walls claim",
+      "decision": "Store wall_status_by_period; leave 1492 wall geometry unresolved pending full source verification",
+      "confidence": "uncertain"
+    },
+    {
+      "issue": "Bridge depicted as timber in three-hill reference vs stone bridge in generated scene",
+      "decision": "Use three-hill source for bridge type; generated stone bridge is not evidence",
+      "confidence": "moderate"
+    }
+  ],
+  "map_rendering_warnings": [
+    "AI-generated Secomber map plates and scenes are illustrative only and not proof of exact GIS geometry, labels, topographic elevations, square-cell metric scale, or v1.8 compliance",
+    "Numerical 250-ft map-grid scale and 50-ft contours in illustrations are not sourced measurements",
+    "Some generated scenes invented businesses, an oversized port, and tall buildings; do not import these into market records",
+    "Names like High Hill, Goodhill, Lord’s Hill, The Green, Flanks and Harbour are from alternate reconstructed maps, not confirmed canon placements",
+    "Do not infer a commercial port category from illustrated wharves; source engine says port=null, river=true"
+  ],
+  "engine_change_proposals": [
+    {
+      "id": "SE1",
+      "status": "already_applied",
+      "action": "Keep quarry=1; validate output against model",
+      "priority": "high"
+    },
+    {
+      "id": "SE2",
+      "status": "already_applied",
+      "action": "Retain richer engine description",
+      "priority": "medium"
+    },
+    {
+      "id": "SE3",
+      "status": "already_applied",
+      "action": "Retain region=Delimbiyr Vale",
+      "priority": "high"
+    },
+    {
+      "id": "SE4",
+      "status": "proposed",
+      "action": "Do not silently replace population 1300; annotate as undated modeled estimate, preserve 900/1417 dated points",
+      "priority": "high"
+    },
+    {
+      "id": "SE5",
+      "status": "proposed",
+      "action": "Do not set Traskar Selarn as ruler in 1492; historic label only",
+      "priority": "medium"
+    },
+    {
+      "id": "SE6",
+      "status": "proposed",
+      "action": "Audit mine_gem=2, agate=2, moonstone=1 and mining trait; no lore evidence found in dossier",
+      "priority": "high"
+    },
+    {
+      "id": "SE7",
+      "status": "proposed",
+      "action": "Add canonical Delimbiyr Route links, Uluvin trail, possible river lane; remove erroneous Black Road labels after route QA",
+      "priority": "high"
+    },
+    {
+      "id": "SE8",
+      "status": "proposed",
+      "action": "Model 1479–1491 raid/tribute burden, reduced wealth/security only after a consistent rule exists",
+      "priority": "high"
+    },
+    {
+      "id": "SE9",
+      "status": "proposed",
+      "action": "Represent Moon Mountain Brewery as external trade link, historical-era only unless 1492 operation confirmed",
+      "priority": "medium"
+    },
+    {
+      "id": "SE10",
+      "status": "proposed",
+      "action": "Add named fine-blade and copper-wire shops as historical/undated, not confirmed operational for 1492",
+      "priority": "medium"
+    },
+    {
+      "id": "SE11",
+      "status": "proposed",
+      "action": "Mark vinegar vineyards as undated; enable vint only with suitable date evidence",
+      "priority": "low"
+    },
+    {
+      "id": "SE12",
+      "status": "proposed",
+      "action": "Record Singing Sprite and Seven-Stringed Harp without presuming 1492 operation or exact lot",
+      "priority": "medium"
+    },
+    {
+      "id": "SE13",
+      "status": "proposed",
+      "action": "Fix systemic import demand / supply balance; check unsupported tea, cotton, ore and fruit exports",
+      "priority": "high"
+    },
+    {
+      "id": "SE14",
+      "status": "proposed",
+      "action": "Check Secomber coordinate placement against historical regional map",
+      "priority": "medium"
+    },
+    {
+      "id": "SE15",
+      "status": "open_external",
+      "action": "Separate Amphail reload_catalog coordinate issue from Secomber work",
+      "priority": "low"
+    }
+  ],
+  "commodity_candidates": [
+    {
+      "name": "beet rum",
+      "support": "Moon Rum circa 1372 DR",
+      "proposed_production": "distill"
+    },
+    {
+      "name": "cider",
+      "support": "Moon Mountain Brewery cider",
+      "proposed_production": "brew/orchard"
+    },
+    {
+      "name": "vinegar",
+      "support": "Halfling vineyards, undated",
+      "proposed_production": "vint"
+    },
+    {
+      "name": "copper wire",
+      "support": "Gleskur workshop, undated",
+      "proposed_production": "smith"
+    },
+    {
+      "name": "abrasive polish and whetstones",
+      "support": "Blade-finishing supply chain, 2013 publication",
+      "proposed_production": "quarry/mine_iron"
+    },
+    {
+      "name": "river crabs and eels",
+      "support": "Singing Sprite dishes",
+      "proposed_production": "fish"
+    },
+    {
+      "name": "chapbooks",
+      "support": "The Dancing Dwarf",
+      "proposed_production": "paper/craft"
+    }
+  ],
+  "engine_issues": {
+    "trade_snapshot_before": {
+      "gross_product_gp_day": 850.8,
+      "exports_gp_day": 247.9,
+      "imports_gp_day": 59799
+    },
+    "trade_snapshot_after_quarry": {
+      "gross_product_gp_day": 1013.6,
+      "exports_gp_day": 296.5,
+      "imports_gp_day": 59795
+    },
+    "warning": "These are observed engine runs from 2026-10-14, not historical prices or verified balanced market values. Imports wildly exceed output and likely contain engine-wide artifacts."
+  },
+  "sources": {
+    "wiki": "https://forgottenrealms.fandom.com/wiki/Secomber",
+    "maps": "https://forgottenrealms.fandom.com/wiki/Category:Maps_of_Secomber",
+    "town_plan": "https://forgottenrealms.fandom.com/wiki/File:Secomber.jpg",
+    "delimbiyr_route": "https://forgottenrealms.fandom.com/wiki/Delimbiyr_Route",
+    "secomber_trail": "https://forgottenrealms.fandom.com/wiki/Secomber_Trail",
+    "nine_lizards": "https://www.ninelizards.com/archive/secomber%202.htm"
+  },
+  "references_cited_in_readme": "See original README for primary-publication bibliography; these were mostly cited indirectly via Forgotten Realms Wiki and not independently consulted.",
+  "files_included": [
+    "source/README.md",
+    "source/secomber.json",
+    "source/secomber-sketch.svg",
+    "reference_maps/*",
+    "generated_maps/*"
+  ],
+  "recommended_next_steps": [
+    "Preserve dated observations separately from model default",
+    "Review SE4 SE6 SE7 SE8 SE13 first",
+    "Approve shoreline from primary source before importing map geometry",
+    "Create separate historical and reconstructed property layers",
+    "Check architecture and halfling mix qualitatively; do not create numeric shares without source"
+  ]
+}

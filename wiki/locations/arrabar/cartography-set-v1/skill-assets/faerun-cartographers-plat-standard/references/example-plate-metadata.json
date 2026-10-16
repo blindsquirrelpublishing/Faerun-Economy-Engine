@@ -1,0 +1,32 @@
+{
+  "plat_standard_version": "1.8",
+  "sheet_width_in": 19,
+  "sheet_height_in": 13,
+  "left_panel_width_in": 3.8,
+  "left_sections_pct": [
+    15,
+    15,
+    60,
+    10
+  ],
+  "grid_cols": "ABCDEFGHIJKLMNOPQ",
+  "grid_rows": 16,
+  "grid_cell_width_in": 0.72,
+  "grid_cell_height_in": 0.72,
+  "compass_diameter_pt": 72,
+  "seal_width_in": 1.18,
+  "seal_height_in": 1.18,
+  "scale_feet_per_cell": 250,
+  "scale_bar_feet": 250,
+  "scale_bar_length_in": 0.72,
+  "scale_tick_feet": [
+    0,
+    125,
+    250
+  ],
+  "scale_tick_positions_in": [
+    0,
+    0.36,
+    0.72
+  ]
+}

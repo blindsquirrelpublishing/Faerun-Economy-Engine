@@ -1,0 +1,11 @@
+# Map validation checklist
+- [ ] Same north orientation, map extent, and aspect ratio
+- [ ] Every verified landmark anchored to same normalized position
+- [ ] Buildings preserve footprint, orientation and neighborhood order
+- [ ] All road junctions and bends remain in place
+- [ ] All bridges cross the same waterways at the same points
+- [ ] Walls, gates, towers and boundaries unchanged
+- [ ] Forests, fields, orchards and water boundaries unchanged
+- [ ] No unsupported landmark names or fabricated legend entries
+- [ ] Terrain contours sourced or explicitly hypothetical
+- [ ] Any deviations from exact alignment disclosed

@@ -88,6 +88,94 @@
     "reserve_days": 75
   },
   {
+    "id": "barley",
+    "name": "Barley",
+    "category": "food",
+    "base_price": 0.6,
+    "unit": "bushel",
+    "weight": 60.0,
+    "produced_by": [
+      "farm"
+    ],
+    "required_skill": {},
+    "demand": 0.25,
+    "luxury": 0.0,
+    "perishable": 0.15,
+    "demand_traits": {},
+    "season": {
+      "autumn": 0.8,
+      "winter": 1.15,
+      "spring": 1.25
+    },
+    "substitutes": [],
+    "requires": [],
+    "description": "Barley grown for brewing and household grain; a model crop distinct from wheat.",
+    "bom": {},
+    "production_profile": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.5,
+      3,
+      5,
+      1.5,
+      0,
+      0
+    ],
+    "demand_profile": [],
+    "regional_production_profiles": {
+      "cold": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        7,
+        0,
+        0
+      ],
+      "arid": [
+        0,
+        0,
+        1,
+        4,
+        4,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "tropical": [
+        0,
+        1,
+        3,
+        1,
+        0,
+        0,
+        0,
+        1,
+        3,
+        1,
+        0,
+        0
+      ],
+      "underdark": []
+    },
+    "storage_days": 400,
+    "storage_loss": 0.0003,
+    "reserve_days": 75
+  },
+  {
     "id": "corn",
     "name": "Corn (maize)",
     "category": "food",
@@ -507,6 +595,36 @@
       ],
       "underdark": []
     },
+    "storage_days": 10,
+    "storage_loss": 0.08,
+    "reserve_days": 1
+  },
+  {
+    "id": "grapes",
+    "name": "Wine grapes",
+    "category": "food",
+    "base_price": 0.55,
+    "unit": "crate",
+    "weight": 30.0,
+    "produced_by": [
+      "vint"
+    ],
+    "required_skill": {},
+    "demand": 0.12,
+    "luxury": 0.2,
+    "perishable": 0.9,
+    "demand_traits": {},
+    "season": {
+      "autumn": 0.75,
+      "winter": 1.8
+    },
+    "substitutes": [],
+    "requires": [],
+    "description": "Vineyard grapes sold by the crate for fresh use and table-wine production.",
+    "bom": {},
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
     "storage_days": 10,
     "storage_loss": 0.08,
     "reserve_days": 1
@@ -3682,7 +3800,7 @@
     "requires": [],
     "description": "Ale is a drink good in Faerûn, traded in keg lots for daily use, craft, and commerce. A prepared beverage prized for hospitality, ceremony, and everyday refreshment.",
     "bom": {
-      "grain": 0.8
+      "barley": 0.8
     },
     "production_profile": [],
     "demand_profile": [
@@ -3761,7 +3879,7 @@
     "requires": [],
     "description": "Table wine is a drink good in Faerûn, traded in cask lots for daily use, craft, and commerce. A prepared beverage prized for hospitality, ceremony, and everyday refreshment.",
     "bom": {
-      "fruit": 3.5
+      "grapes": 6.0
     },
     "production_profile": [],
     "demand_profile": [],
@@ -4316,6 +4434,75 @@
     "bom": {
       "cloth_dyed": 0.25,
       "silk": 0.1
+    },
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 365,
+    "storage_loss": 0.0001,
+    "reserve_days": 15
+  },
+  {
+    "id": "jewelry",
+    "name": "Silver and gemstone jewelry",
+    "category": "luxury",
+    "base_price": 65.0,
+    "unit": "piece",
+    "weight": 0.25,
+    "produced_by": [
+      "craft"
+    ],
+    "required_skill": {
+      "textile": 2
+    },
+    "demand": 0.025,
+    "luxury": 0.9,
+    "perishable": 0.0,
+    "demand_traits": {
+      "noble": 2.5,
+      "mercantile": 1.5
+    },
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "Worked silver set with a small agate, sold as a nonmagical ornamental piece.",
+    "bom": {
+      "silver_ingot": 0.1,
+      "gem_agate": 1.0
+    },
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 365,
+    "storage_loss": 0.0001,
+    "reserve_days": 15
+  },
+  {
+    "id": "musical_instrument",
+    "name": "Stringed musical instrument",
+    "category": "product",
+    "base_price": 30.0,
+    "unit": "instrument",
+    "weight": 4.0,
+    "produced_by": [
+      "craft"
+    ],
+    "required_skill": {
+      "textile": 2
+    },
+    "demand": 0.02,
+    "luxury": 0.55,
+    "perishable": 0.0,
+    "demand_traits": {
+      "cosmopolitan": 1.5
+    },
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "An unenchanted lute or similar workshop-made stringed instrument.",
+    "bom": {
+      "planks": 0.03,
+      "rope": 0.1
     },
     "production_profile": [],
     "demand_profile": [],
@@ -5809,6 +5996,33 @@
     "reserve_days": 0.0
   },
   {
+    "id": "goats",
+    "name": "Goats (live)",
+    "category": "livestock",
+    "base_price": 2.0,
+    "unit": "head",
+    "weight": 8.0,
+    "produced_by": [
+      "herd"
+    ],
+    "required_skill": {},
+    "demand": 0.25,
+    "luxury": 0.0,
+    "perishable": 0.0,
+    "demand_traits": {},
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "Live goats traded by the head; distinct from the named giant-goat herds.",
+    "bom": {},
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 0.0,
+    "storage_loss": 0.0,
+    "reserve_days": 0.0
+  },
+  {
     "id": "pig",
     "name": "Swine",
     "category": "livestock",
@@ -5934,7 +6148,8 @@
     "unit": "head",
     "weight": 12.0,
     "produced_by": [
-      "horse"
+      "horse",
+      "farm"
     ],
     "required_skill": {},
     "demand": 0.3,
@@ -5964,7 +6179,8 @@
     "unit": "head",
     "weight": 15.0,
     "produced_by": [
-      "horse"
+      "horse",
+      "farm"
     ],
     "required_skill": {},
     "demand": 0.5,
@@ -6431,6 +6647,42 @@
     "storage_days": 365,
     "storage_loss": 0.0001,
     "reserve_days": 15
+  },
+  {
+    "id": "merchant_cog",
+    "name": "Seagoing merchant cog",
+    "category": "product",
+    "base_price": 5000.0,
+    "unit": "ship",
+    "weight": 40000.0,
+    "produced_by": [
+      "ship"
+    ],
+    "required_skill": {},
+    "demand": 0.01,
+    "luxury": 0.0,
+    "perishable": 0.0,
+    "demand_traits": {
+      "port": 2.0,
+      "mercantile": 1.5
+    },
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "Small seagoing merchant vessel built by coastal shipwrights; priced as a Waterdeep cog.",
+    "bom": {
+      "planks": 120.0,
+      "nails": 40.0,
+      "rope": 60.0,
+      "sailcloth": 30.0,
+      "pitch": 25.0
+    },
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 0.0,
+    "storage_loss": 0.0,
+    "reserve_days": 0.0
   },
   {
     "id": "dagger",
@@ -10897,6 +11149,100 @@
     "requires": [],
     "description": "",
     "bom": {},
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 365,
+    "storage_loss": 0.0001,
+    "reserve_days": 15
+  },
+  {
+    "id": "animal_feed",
+    "name": "Animal feed (hay and oats)",
+    "category": "food",
+    "base_price": 0.5,
+    "unit": "sack",
+    "weight": 50.0,
+    "produced_by": [
+      "farm"
+    ],
+    "required_skill": {},
+    "demand": 0.3,
+    "luxury": 0.0,
+    "perishable": 0.1,
+    "demand_traits": {
+      "mercantile": 1.5
+    },
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "Hay and oats sold by the sack for draft animals, mounts and oxen on the road. Sold by Triboar caravan outfitters (The Cart and Coin, Ransor's Open Road). Price set near grain per pound; an estimate, not a catalogue price.",
+    "bom": {},
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 365,
+    "storage_loss": 0.0001,
+    "reserve_days": 15
+  },
+  {
+    "id": "caravan_supplies",
+    "name": "Caravan gear and supplies",
+    "category": "product",
+    "base_price": 12.0,
+    "unit": "kit",
+    "weight": 40.0,
+    "produced_by": [
+      "craft",
+      "tan"
+    ],
+    "required_skill": {},
+    "demand": 0.05,
+    "luxury": 0.0,
+    "perishable": 0.0,
+    "demand_traits": {
+      "mercantile": 2.0
+    },
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "A wagoner's kit of rope, lanterns, straps, tarps and camp gear, sold by Triboar caravan outfitters; named as a Triboar export. Price is an estimate from its inputs.",
+    "bom": {
+      "rope": 2.0,
+      "lantern": 1.0,
+      "leather": 1.0
+    },
+    "production_profile": [],
+    "demand_profile": [],
+    "regional_production_profiles": {},
+    "storage_days": 365,
+    "storage_loss": 0.0001,
+    "reserve_days": 15
+  },
+  {
+    "id": "wagon_fittings",
+    "name": "Wagon fittings",
+    "category": "product",
+    "base_price": 4.0,
+    "unit": "set",
+    "weight": 15.0,
+    "produced_by": [
+      "smith"
+    ],
+    "required_skill": {},
+    "demand": 0.1,
+    "luxury": 0.0,
+    "perishable": 0.0,
+    "demand_traits": {
+      "mercantile": 1.5
+    },
+    "season": {},
+    "substitutes": [],
+    "requires": [],
+    "description": "Eyebolts, latches, linchpins and bands that hold a wagon together, made by Aldenar Uldinath for Wainwright's Wagons (14th century DR). Price is an estimate.",
+    "bom": {
+      "iron_ingot": 1.5
+    },
     "production_profile": [],
     "demand_profile": [],
     "regional_production_profiles": {},

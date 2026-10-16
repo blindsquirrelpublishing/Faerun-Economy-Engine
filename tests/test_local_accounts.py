@@ -89,6 +89,14 @@ def test_glp_subtracts_each_intermediate_once():
     assert account["glp_per_resident_gp_per_year"] == 42 * 365 / 100
 
 
+def test_waterdeep_unmodeled_durables_do_not_dominate_goods_accounts():
+    from faerun.location import location_detail
+
+    accounts = location_detail("Waterdeep", world=World())["requirements"]["economy"]["accounts"]
+    assert accounts["goods_imports_gp_per_day"] < 200_000
+    assert accounts["goods_output_gp_per_day"] < 300_000
+
+
 def test_goods_trade_books_the_same_gate_price_not_landed_cost():
     w = World(settlements=[S("Mine", "Test", "test", 100, 0, 0),
                            S("Town", "Test", "test", 100, 30, 0)],

@@ -3894,5 +3894,3825 @@
     "transport_equipment": {},
     "capacity_lb": 0,
     "capacity_ft3": 0.0
+  },
+  {
+    "id": "mhandyvvers_poultry",
+    "name": "Mhandyvver's Poultry",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "turkeys, chickens and clipped ducks",
+      "eggs, fresh or pickled",
+      "poultry roasted or preserved in oil"
+    ],
+    "offers": {
+      "chicken": "standard",
+      "eggs": "standard",
+      "meat_fresh": "basic"
+    },
+    "price_modifier": 1.0,
+    "description": "Barn-like poultry shop on the Long Road in Red Larch, next to Luruth's Tannery and across from Vallivoe's Sundries, selling fowl, fresh eggs and chicks. Run by Oskler Mhandyvver around 1366 DR (Volo's Guide to the North, p. 80) and by his descendant Minthra Mhandyvver and her three children in 1491 DR, when it sold poultry roasted or preserved in oil and eggs fresh or pickled (Princes of the Apocalypse, p. 27, via the Forgotten Realms Wiki). Chickens stand in for turkeys and ducks; fresh meat stands in for prepared fowl.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "chicken": 21,
+        "eggs": 21,
+        "meat_fresh": 12
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "High Road, 374",
+        "district": "Trade Quarter",
+        "city": "Red Larch",
+        "zip": "FA-32-374"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "chansyrl_fine_harness",
+    "name": "Chansyrl Fine Harness",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "harness-making",
+      "harness for wagons"
+    ],
+    "offers": {
+      "harness": "fine",
+      "saddle": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Harness-maker's workshop in Red Larch founded by Alaglath Chansyrl, who in the 14th century DR also made harness for the wagons built at Thelorn's Safe Journeys (Volo's Guide to the North, p. 80), and run by her granddaughter Phaendra Chansyrl in 1491 DR (Princes of the Apocalypse, pp. 22 to 29, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "harness": 14,
+        "saddle": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "High Road, 505",
+        "district": "Trade Quarter",
+        "city": "Red Larch",
+        "zip": "FA-32-505"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "thelorns_safe_journeys",
+    "name": "Thelorn's Safe Journeys",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "wagonworks",
+      "custom-built wagons"
+    ],
+    "offers": {
+      "cart": "standard",
+      "wagon": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Wagonworks in Red Larch owned by the former mercenary Thelorn. In the 14th century DR it kept at least a dozen high-quality wagons in a shed at about 150 gp each and took custom orders needing a tenday each (Volo's Guide to the North, pp. 80 to 81). Described as a busy wagon shop in 1491 DR, when Waelvur's Wagonworks was its rival (Princes of the Apocalypse, pp. 22 to 29, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "cart": 21,
+        "wagon": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "High Road, 652",
+        "district": "Trade Quarter",
+        "city": "Red Larch",
+        "zip": "FA-32-652"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "luruths_tannery",
+    "name": "Luruth's Tannery",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "tannery"
+    ],
+    "offers": {
+      "leather": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Tannery on the Long Road in Red Larch, next to Mhandyvver's Poultry, run by the tanner Ulhro Luruth in 1491 DR (Princes of the Apocalypse, pp. 21, 28 to 29, via the Forgotten Realms Wiki). The wiki has no article for the tannery itself.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "leather": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "High Road, 818",
+        "district": "Trade Quarter",
+        "city": "Red Larch",
+        "zip": "FA-32-818"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "daggerthrust_ales",
+    "name": "Daggerthrust Ales",
+    "headquarters": "daggerford",
+    "locations": [
+      "daggerford"
+    ],
+    "specialties": [
+      "ales and beers",
+      "brewery"
+    ],
+    "offers": {
+      "ale": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Brewery in Daggerford's River Quarter run by the married couple Halla and Sturgin Brewer, brewing ales and beers in the style of Calimshan's Golden Sands brews and releasing new recipes often. Operating in the late 15th century DR (Scourge of the Sword Coast, 2014, p. 18, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "daggerford": {
+        "ale": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "daggerford": {
+        "street": "High Road, 202",
+        "district": "Trade Quarter",
+        "city": "Daggerford",
+        "zip": "FA-45-202"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "millers_dry_goods",
+    "name": "Miller's Dry Goods",
+    "headquarters": "daggerford",
+    "locations": [
+      "daggerford"
+    ],
+    "specialties": [
+      "grain",
+      "milled flour",
+      "household goods"
+    ],
+    "offers": {
+      "flour": "standard",
+      "grain": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Dry-goods shop in Daggerford's Caravan Quarter owned by Bess Miller, who also owned three nearby grain mills; sold grain, ground flour and household items. Operating in the late 15th century DR (Scourge of the Sword Coast, 2014, p. 19, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "daggerford": {
+        "flour": 21,
+        "grain": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "daggerford": {
+        "street": "High Road, 211",
+        "district": "Trade Quarter",
+        "city": "Daggerford",
+        "zip": "FA-45-211"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "gublins_cloth_and_cordage",
+    "name": "Gublin's Cloth & Cordage",
+    "headquarters": "daggerford",
+    "locations": [
+      "daggerford"
+    ],
+    "specialties": [
+      "rope",
+      "cloth",
+      "imported textiles"
+    ],
+    "offers": {
+      "linen": "standard",
+      "rope": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Cloth and rope shop in Daggerford's Farmers' Quarter run by Gilly Gublin, with rope-winding machinery from Baldur's Gate's High House of Wonders on its top floor; sold high-quality cloth and cordage, much of it imported, at low prices. Operating in the late 15th century DR (Scourge of the Sword Coast, 2014, p. 19, via the Forgotten Realms Wiki). Linen stands in for the unspecified cloth.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "daggerford": {
+        "linen": 21,
+        "rope": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "daggerford": {
+        "street": "High Road, 107",
+        "district": "Trade Quarter",
+        "city": "Daggerford",
+        "zip": "FA-45-107"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "dervals_smithy",
+    "name": "Derval's Smithy",
+    "headquarters": "daggerford",
+    "locations": [
+      "daggerford"
+    ],
+    "specialties": [
+      "weapons",
+      "militia metalwork"
+    ],
+    "offers": {
+      "arrows": "standard",
+      "spear": "standard",
+      "sword": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Daggerford's leading smithy in the River Quarter, founded by the dwarf Derval Ironeater and run by his grandson Ignal Ironeater; forges weapons in Derval's style for private sale but mainly spear and arrow heads and other metalwork for the town militia. Operating in the late 15th century DR (Scourge of the Sword Coast, 2014, p. 18, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "daggerford": {
+        "arrows": 21,
+        "spear": 21,
+        "sword": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "daggerford": {
+        "street": "High Road, 794",
+        "district": "Trade Quarter",
+        "city": "Daggerford",
+        "zip": "FA-45-794"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "cromachs_smithy",
+    "name": "Cromach's Smithy",
+    "headquarters": "daggerford",
+    "locations": [
+      "daggerford"
+    ],
+    "specialties": [
+      "metal tools",
+      "horseshoes",
+      "wooden wheels"
+    ],
+    "offers": {
+      "horseshoes": "standard",
+      "tools_carpenter": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Forge on Daggerford's High Road in the Farmers' Quarter, founded by the human smith Cromach over a century earlier and run by the dwarf Tholvar Cragjaw in the late 15th century DR; makes metal tools, horseshoes and wooden wheels (Scourge of the Sword Coast, 2014, p. 19, via the Forgotten Realms Wiki). No wheel commodity exists.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "daggerford": {
+        "horseshoes": 21,
+        "tools_carpenter": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "daggerford": {
+        "street": "High Road, 889",
+        "district": "Trade Quarter",
+        "city": "Daggerford",
+        "zip": "FA-45-889"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "sullerton_shipbuilders",
+    "name": "Sullerton Shipbuilders",
+    "headquarters": "daggerford",
+    "locations": [
+      "daggerford"
+    ],
+    "specialties": [
+      "river boats",
+      "shipyard"
+    ],
+    "offers": {
+      "ship_boat": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Sullerton family shipyard in a large warehouse by Daggerford's River Gate, owned by Wilma Sullerton, building only vessels for the Delimbiyr River; short of lumber when the local logging trade ran into trouble. Operating in the late 15th century DR (Scourge of the Sword Coast, 2014, pp. 9 and 19, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "daggerford": {
+        "ship_boat": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "daggerford": {
+        "street": "High Road, 775",
+        "district": "Trade Quarter",
+        "city": "Daggerford",
+        "zip": "FA-45-775"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "wainwrights_wagons",
+    "name": "Wainwright's Wagons",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "wagon-building"
+    ],
+    "offers": {
+      "cart": "standard",
+      "wagon": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Long-standing wagon shop in Triboar. In the 14th century DR Skulner Wainwright built the finest wagons in the Dessarin Valley, from about 175 gp (Volo's Guide to the North, pp. 86 to 87); managed by Tosker Wainwright after 1485 DR (Storm King's Thunder, pp. 54 to 55, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "cart": 21,
+        "wagon": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 53",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-053"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "othovirs_harness_shop",
+    "name": "Othovir's Harness Shop",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "engraved elk-skin harness"
+    ],
+    "offers": {
+      "harness": "fine",
+      "saddle": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Harness shop in Triboar where the craftsman Othovir makes and sells elaborately engraved harness of elk skin; operating after 1485 DR (Storm King's Thunder, p. 56, via the Forgotten Realms Wiki). Harness is made only by the tag_harness industry, so the shop sells imported harness (R15).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "harness": 14,
+        "saddle": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 378",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-378"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "foehammers_forge",
+    "name": "Foehammer's Forge",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "metalwork",
+      "smithing"
+    ],
+    "offers": {
+      "horseshoes": "standard",
+      "nails": "standard",
+      "tools_carpenter": "fine",
+      "wagon_fittings": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Smithy of the shield dwarf Ghelryn Foehammer in Triboar, whose metalwork was sold in shops across the North and along the Sword Coast (Volo's Guide to the North, p. 86; The North, p. 37); operating after 1485 DR, when Ghelryn was also Royal Armorer of Citadel Felbarr (Storm King's Thunder, p. 57, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "horseshoes": 21,
+        "nails": 21,
+        "tools_carpenter": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 675",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-675"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "uldinaths_arms",
+    "name": "Uldinath's Arms",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "swordsmithing",
+      "wagon ironwork"
+    ],
+    "offers": {
+      "nails": "standard",
+      "sword": "fine",
+      "wagon_fittings": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Smithy in Triboar founded by the swordsmith Aldenar Uldinath, whose eyebolts, latches, nails and pins supported Wainwright's Wagons in the 14th century DR (Volo's Guide to the North, p. 86); run by Harriet Uldinath after 1485 DR in a friendly rivalry with Foehammer's Forge (Storm King's Thunder, p. 57, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "nails": 21,
+        "sword": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 488",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-488"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "happy_horse_ranch",
+    "name": "Happy Horse Ranch",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "horse breeding",
+      "stabling"
+    ],
+    "offers": {
+      "horse_draft": "standard",
+      "horse_riding": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Ranch and stables west of Triboar where the Karnveller family (Janele, with Aldo, Hingo and Rasko) bred, reared and housed horses for sale; operating after 1485 DR (Storm King's Thunder, pp. 54 to 55, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "horse_draft": 21,
+        "horse_riding": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 791",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-791"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "merivold_pony_park",
+    "name": "Merivold Pony Park",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "pony breeding"
+    ],
+    "offers": {
+      "pony": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Pony farm at Triboar where the Merivold sisters bred, reared and trained ponies sold as steeds for halflings; operating after 1485 DR (Storm King's Thunder, pp. 55, 57, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "pony": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 36",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-036"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "cart_and_coin",
+    "name": "The Cart and Coin",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "caravan outfitting",
+      "draft animals",
+      "caravan guards"
+    ],
+    "offers": {
+      "horse_draft": "standard",
+      "mule": "standard",
+      "ox": "standard",
+      "animal_feed": "standard",
+      "caravan_supplies": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Caravan outfitter in Triboar selling caravan gear, supplies and animal feed, selling and exchanging horses and draft animals, and hiring out caravan guards; recorded in the 14th century DR (Volo's Guide to the North, p. 86; The North, p. 37) and owned by Arn and Syreen Widdens after 1485 DR (Storm King's Thunder, pp. 54, 56, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "grain": 12,
+        "horse_draft": 21,
+        "mule": 21,
+        "ox": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 4,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 4
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 334",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-334"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "lions_share",
+    "name": "The Lion's Share",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "general goods",
+      "caravan supplies"
+    ],
+    "offers": {
+      "caravan_supplies": "standard",
+      "rope": "standard",
+      "lantern": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Triboar branch of the Lionshield Coster of Yartar, trading general goods to caravans; operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Offers are inferred from its caravan trade, not listed in the source.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "caravan_supplies": 21,
+        "rope": 21,
+        "lantern": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 161",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-161"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "triboar_apothecary",
+    "name": "Triboar Apothecary",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "apothecary",
+      "healing potions"
+    ],
+    "offers": {
+      "potion_healing": "standard",
+      "herbs_healing": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Apothecary run by Tarmock Felaskur, operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki).",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "potion_healing": 21,
+        "herbs_healing": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 18",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-018"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "talking_troll",
+    "name": "The Talking Troll",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "bar"
+    ],
+    "offers": {
+      "ale": "standard",
+      "wine_common": "basic"
+    },
+    "price_modifier": 1.0,
+    "description": "Bar on the Triboar road trade, operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Lodging and food service are not modeled.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "ale": 21,
+        "wine_common": 12
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 384",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-384"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "triboar_arms",
+    "name": "The Triboar Arms",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "tavern"
+    ],
+    "offers": {
+      "ale": "standard",
+      "bread": "standard",
+      "meat_fresh": "basic"
+    },
+    "price_modifier": 1.0,
+    "description": "Tavern burned twice and rebuilt, operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Food service is inferred.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "ale": 21,
+        "bread": 21,
+        "meat_fresh": 12
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 271",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-271"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "pleasing_platter",
+    "name": "The Pleasing Platter",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "restaurant"
+    ],
+    "offers": {
+      "bread": "standard",
+      "meat_fresh": "standard",
+      "wine_common": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Restaurant operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Menu is inferred.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "bread": 21,
+        "meat_fresh": 21,
+        "wine_common": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 696",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-696"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "everwyvern_house",
+    "name": "Everwyvern House",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "luxury inn"
+    ],
+    "offers": {
+      "wine_common": "fine",
+      "ale": "standard",
+      "bread": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Luxury inn for Waterdhavian nobles, operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Lodging is not modeled; offers are the table.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "wine_common": 14,
+        "ale": 21,
+        "bread": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 746",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-746"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "northshield_house",
+    "name": "Northshield House",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "inn"
+    ],
+    "offers": {
+      "ale": "standard",
+      "bread": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Inn operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Lodging is not modeled; offers are the table.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "ale": 21,
+        "bread": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 817",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-817"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "six_windows",
+    "name": "Six Windows",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar"
+    ],
+    "specialties": [
+      "boarding house"
+    ],
+    "offers": {
+      "bread": "basic",
+      "ale": "basic"
+    },
+    "price_modifier": 1.0,
+    "description": "Boarding house operating after 1485 DR (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Lodging is not modeled; offers are the table.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {
+        "bread": 12,
+        "ale": 12
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 200",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-200"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "carrier_triboar_travelers_waterdeep",
+    "name": "The Triboar Travelers (Waterdeep Run)",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar",
+      "waterdeep"
+    ],
+    "specialties": [
+      "wagon rental",
+      "caravan guides",
+      "The Long Road freight"
+    ],
+    "offers": {},
+    "price_modifier": 1.0,
+    "description": "Caravan company renting wagons to merchants for trips to Waterdeep along the Long Road, with set return-trip prices (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Fleet sizes are an estimate.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {},
+      "waterdeep": {}
+    },
+    "services": [
+      "wagon rental to Waterdeep",
+      "set return-trip prices",
+      "caravan guides"
+    ],
+    "roles": {
+      "dispatchers": 2,
+      "drivers": 10,
+      "loadmasters": 3,
+      "mechanics": 2
+    },
+    "employees": {
+      "owners": 2,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 2
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 2
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 2
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 45",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-045"
+      },
+      "waterdeep": {
+        "street": "Market Road, 252",
+        "district": "Trade Quarter",
+        "city": "Waterdeep",
+        "zip": "FA-61-252"
+      }
+    },
+    "location_mode": "rolling",
+    "itinerary": [
+      {
+        "route": "The Long Road",
+        "origin": "triboar",
+        "destination": "waterdeep",
+        "status": "rolling",
+        "progress": 0.25
+      }
+    ],
+    "carrier_service_id": "triboar-travelers-waterdeep",
+    "carrier_modes": [
+      "road"
+    ],
+    "transport_equipment": {
+      "horse_freight_wagons": 10,
+      "spare_wagons": 2
+    },
+    "capacity_lb": 40000,
+    "capacity_ft3": 1000.0
+  },
+  {
+    "id": "carrier_triboar_travelers_everlund",
+    "name": "The Triboar Travelers (Everlund Run)",
+    "headquarters": "triboar",
+    "locations": [
+      "triboar",
+      "everlund"
+    ],
+    "specialties": [
+      "wagon rental",
+      "caravan guides",
+      "The Evermoor Way freight"
+    ],
+    "offers": {},
+    "price_modifier": 1.0,
+    "description": "Caravan company renting wagons to merchants for trips to Everlund by the Evermoor Way, with set return-trip prices (Storm King's Thunder, pp. 54 to 58, via the Forgotten Realms Wiki). Fleet sizes are an estimate.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "triboar": {},
+      "everlund": {}
+    },
+    "services": [
+      "wagon rental to Everlund",
+      "set return-trip prices",
+      "caravan guides"
+    ],
+    "roles": {
+      "dispatchers": 2,
+      "drivers": 8,
+      "loadmasters": 3,
+      "mechanics": 2
+    },
+    "employees": {
+      "owners": 2,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 2
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 2
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 2
+      }
+    ],
+    "location_addresses": {
+      "triboar": {
+        "street": "High Road, 843",
+        "district": "Trade Quarter",
+        "city": "Triboar",
+        "zip": "FA-55-843"
+      },
+      "everlund": {
+        "street": "Market Road, 68",
+        "district": "Trade Quarter",
+        "city": "Everlund",
+        "zip": "FA-69-068"
+      }
+    },
+    "location_mode": "rolling",
+    "itinerary": [
+      {
+        "route": "The Evermoor Way",
+        "origin": "triboar",
+        "destination": "everlund",
+        "status": "rolling",
+        "progress": 0.5
+      }
+    ],
+    "carrier_service_id": "triboar-travelers-everlund",
+    "carrier_modes": [
+      "road"
+    ],
+    "transport_equipment": {
+      "horse_freight_wagons": 8,
+      "spare_wagons": 2
+    },
+    "capacity_lb": 32000,
+    "capacity_ft3": 800.0
+  },
+  {
+    "id": "barthens_provisions",
+    "name": "Barthen's Provisions",
+    "headquarters": "phandalin",
+    "locations": [
+      "phandalin"
+    ],
+    "specialties": [
+      "trading post",
+      "general goods",
+      "livestock brokerage"
+    ],
+    "offers": {
+      "butter": "standard",
+      "candles": "standard",
+      "caravan_supplies": "standard",
+      "lantern": "standard",
+      "rope": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Phandalin's largest trading post, run by Elmar Barthen with clerks Ander and Thistle and open from dawn to dusk in 1491 DR (Lost Mine of Phandelver, pp. 14 to 16). Sold adventuring gear, rations and simple goods but no weapons, armour or potions; loaded and unloaded the wagons in and out of town, brokered livestock sales, supplied Tibor Wester's logging camp and carried Butterskull Ranch's skull-shaped butter in the early 1490s DR (Dragon of Icespire Peak, pp. 8 to 9, 34). Closed in late 1495 or early 1496 DR (Acquisitions Incorporated, pp. 108 to 109). All via the Forgotten Realms Wiki; offers are inferred from that description.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "phandalin": {
+        "butter": 21,
+        "candles": 21,
+        "caravan_supplies": 21,
+        "lantern": 21,
+        "rope": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 5,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 5
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "phandalin": {
+        "street": "High Road, 350",
+        "district": "Trade Quarter",
+        "city": "Phandalin",
+        "zip": "FA-43-350"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "lionshield_coster_phandalin",
+    "name": "Lionshield Coster (Phandalin post)",
+    "headquarters": "phandalin",
+    "locations": [
+      "phandalin"
+    ],
+    "specialties": [
+      "weapons",
+      "armour",
+      "trading post"
+    ],
+    "offers": {
+      "armor_leather": "standard",
+      "arrows": "standard",
+      "bow_short": "standard",
+      "shield": "standard",
+      "spear": "standard",
+      "sword": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Phandalin trading post of the Lionshield Coster of Yartar, selling weapons and armour shipped in from the coster; run by Linene Graywind in 1491 DR (Lost Mine of Phandelver, pp. 16 to 17) and with her daughter Minghee by 1496 DR (Acquisitions Incorporated, p. 105), via the Forgotten Realms Wiki. Specific weapon types are inferred.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "phandalin": {
+        "armor_leather": 21,
+        "arrows": 21,
+        "bow_short": 21,
+        "shield": 21,
+        "spear": 21,
+        "sword": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 6,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 6
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "phandalin": {
+        "street": "High Road, 250",
+        "district": "Trade Quarter",
+        "city": "Phandalin",
+        "zip": "FA-43-250"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "phandalin_miners_exchange",
+    "name": "Phandalin Miner's Exchange",
+    "headquarters": "phandalin",
+    "locations": [
+      "phandalin"
+    ],
+    "specialties": [
+      "ore and gem buying",
+      "claims registry",
+      "carts and wagons"
+    ],
+    "offers": {
+      "cart": "standard",
+      "wagon": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Trading post and guildhall that weighs and buys ore and gems from local miners, registers claims and sells goods; the best place in Phandalin to buy carts and wagons. Run by the Zhentarim agent Halia Thornton in 1491 DR (Lost Mine of Phandelver, pp. 16 to 17) and by Sharna Quirstiron by 1496 DR; it often went months without revenue in the early 1490s DR (Acquisitions Incorporated, pp. 105 to 108). Via the Forgotten Realms Wiki. Ore and gem purchasing is not modeled.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "phandalin": {
+        "cart": 21,
+        "wagon": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "phandalin": {
+        "street": "High Road, 16",
+        "district": "Trade Quarter",
+        "city": "Phandalin",
+        "zip": "FA-43-016"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "edermath_orchard",
+    "name": "Edermath Orchard",
+    "headquarters": "phandalin",
+    "locations": [
+      "phandalin"
+    ],
+    "specialties": [
+      "apples",
+      "cider",
+      "juice"
+    ],
+    "offers": {
+      "fruit": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Apple orchard and cider mill on the north-west side of Phandalin kept by Daran Edermath, a retired marshal, in 1491 DR (Lost Mine of Phandelver, pp. 15 to 16); fresh fruit and juice in summer, cider in winter, sold to visiting merchants and local inns; employing out-of-work miners by 1496 DR (Acquisitions Incorporated, pp. 101, 107). Via the Forgotten Realms Wiki. Cider has no commodity; fruit stands in for apples.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "phandalin": {
+        "fruit": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "phandalin": {
+        "street": "High Road, 850",
+        "district": "Trade Quarter",
+        "city": "Phandalin",
+        "zip": "FA-43-850"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "stonehill_inn",
+    "name": "Stonehill Inn",
+    "headquarters": "phandalin",
+    "locations": [
+      "phandalin"
+    ],
+    "specialties": [
+      "inn"
+    ],
+    "offers": {
+      "ale": "standard",
+      "bread": "standard",
+      "meat_fresh": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Two-storey inn near the centre of Phandalin with six guest rooms, run by Toblen and Trilena Stonehill, who came from Triboar; a bed cost 5 sp a night and a meal about 1 sp, with ale and cider served, in 1491 DR (Lost Mine of Phandelver, pp. 14 to 15, 18; Dragon of Icespire Peak, p. 8), via the Forgotten Realms Wiki. Lodging is not modeled; the menu is inferred.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "phandalin": {
+        "ale": 21,
+        "bread": 21,
+        "meat_fresh": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "phandalin": {
+        "street": "High Road, 572",
+        "district": "Trade Quarter",
+        "city": "Phandalin",
+        "zip": "FA-43-572"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "sleeping_giant_phandalin",
+    "name": "The Sleeping Giant",
+    "headquarters": "phandalin",
+    "locations": [
+      "phandalin"
+    ],
+    "specialties": [
+      "tap house"
+    ],
+    "offers": {
+      "ale": "basic"
+    },
+    "price_modifier": 1.0,
+    "description": "Rundown tap house at the east end of Phandalin's main street run by the dwarf Grista Kettlecopp, frequented by miners and by the Redbrands in 1491 DR (Lost Mine of Phandelver, p. 18) and still open, more worn, in 1496 DR (Acquisitions Incorporated, p. 108), via the Forgotten Realms Wiki.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "phandalin": {
+        "ale": 12
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "phandalin": {
+        "street": "High Road, 803",
+        "district": "Trade Quarter",
+        "city": "Phandalin",
+        "zip": "FA-43-803"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "lionshield_coster",
+    "name": "Lionshield Coster",
+    "headquarters": "yartar",
+    "locations": [
+      "yartar"
+    ],
+    "specialties": [
+      "merchant company",
+      "weapons",
+      "armour",
+      "finished goods"
+    ],
+    "offers": {
+      "armor_leather": "standard",
+      "arrows": "standard",
+      "bow_short": "standard",
+      "shield": "standard",
+      "spear": "standard",
+      "sword": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Merchant company based in Yartar (lion's head on a shield, often on blue) operating across the greater Dessarin Valley in the 15th century DR, shipping finished goods such as armour and weapons to small settlements; posts at Phandalin (1491 DR), Nightstone and the Lion's Share in Triboar (Lost Mine of Phandelver, pp. 16 to 17; Storm King's Thunder, pp. 25, 54, via the Forgotten Realms Wiki). Offers are inferred from the Phandalin post; the Yartar house's own stock is not described.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "yartar": {
+        "armor_leather": 21,
+        "arrows": 21,
+        "bow_short": 21,
+        "shield": 21,
+        "spear": 21,
+        "sword": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 6,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 6
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "yartar": {
+        "street": "High Road, 708",
+        "district": "Trade Quarter",
+        "city": "Yartar",
+        "zip": "FA-59-708"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "singing_sprite",
+    "name": "Singing Sprite",
+    "headquarters": "secomber",
+    "locations": [
+      "secomber"
+    ],
+    "specialties": [
+      "inn"
+    ],
+    "offers": {
+      "ale": "standard",
+      "mead": "standard",
+      "wine_common": "standard",
+      "bread": "standard",
+      "meat_fresh": "standard",
+      "fish_fresh": "standard",
+      "cheese": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Slate-roofed stone inn facing the Seven-Stringed Harp across a muddy crossing of lanes in Secomber, with a never-closing common dining room, meeting rooms the townsfolk hire constantly and a copper bathtub in every room. Built by the human wizard Ganatharas and named for his late sprite wife Lathiril Shrune; owned by the gnome Windfeather family, whose innkeeper on duty is Heverseer Windfeather or one of his three brothers, working in shifts (Volo's Guide to the Sword Coast, 1994, pp. 83 to 85, set 1367 DR; The North, 1996, p. 64). Rooms were 10 to 17 gp a night with hot baths, clothes-mending and stabling, ale 6 cp a tankard, mead, milk and wine 2 gp a tallglass, and platters or stew bowls 7 gp with two drinks. The menu names green Delimbiyr river crabs, roast lamb, venison and beef, fowl stew and cheese-stuffed crackers, with steamed greens bought from local gardens. Operation in 1492 DR is not verified. Lodging is not modeled; offers are inferred from the menu (river crabs stand in as fresh fish) and staff beyond the four brothers is assumed.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "secomber": {
+        "ale": 21,
+        "mead": 21,
+        "wine_common": 21,
+        "bread": 21,
+        "meat_fresh": 21,
+        "fish_fresh": 21,
+        "cheese": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 3,
+      "merchants": 4,
+      "warehouse_staff": 2
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 3
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 4
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 2
+      }
+    ],
+    "location_addresses": {
+      "secomber": {
+        "street": "Pond crossing, opposite the Seven-Stringed Harp",
+        "district": "The Bowl",
+        "city": "Secomber",
+        "zip": "FA-48-100"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "seven_stringed_harp",
+    "name": "Seven-Stringed Harp",
+    "headquarters": "secomber",
+    "locations": [
+      "secomber"
+    ],
+    "specialties": [
+      "tavern"
+    ],
+    "offers": {
+      "ale": "standard",
+      "wine_common": "standard",
+      "bread": "standard",
+      "fish_salt": "standard",
+      "cheese": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Ramshackle, many-winged tavern at the lowest spot in Secomber, beside a horse pond in the bowl between the three hills, with a huge hitching rail, a floating, glowing harp (a permanent spell by the mage Amelior Amanitas) and servants' passages hidden behind tapestries. Locals meet there, merchants do business and hire guards, and three to seven bards play for free most nights; it is where the Ballad of the Dream Weaver was first heard, sung by the half-elven bard Talanthe Truesilver about 40 winters before 1367 DR, when it was called the Stag (Volo's Guide to the Sword Coast, 1994, pp. 80 to 82; The North, 1996, p. 64). Staff are young would-be harpists. Ale was 3 cp a tankard, stout 5 cp, minty white wine 6 cp a tallglass and plates 1 sp (salted biscuits with snails or small fish, or peppered mushrooms rolled in melted cheese). The owner is not named; operation in 1492 DR is not verified. Offers are inferred from the menu (biscuits as bread, small fish as salt fish) and staff counts are assumed.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "secomber": {
+        "ale": 21,
+        "wine_common": 21,
+        "bread": 21,
+        "fish_salt": 21,
+        "cheese": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 4,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 4
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "secomber": {
+        "street": "Pond crossing, beside the horse pond",
+        "district": "The Bowl",
+        "city": "Secomber",
+        "zip": "FA-48-101"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "samrils_fine_blades",
+    "name": "Samril's Fine Blades",
+    "headquarters": "secomber",
+    "locations": [
+      "secomber"
+    ],
+    "specialties": [
+      "weapons",
+      "blade finishing"
+    ],
+    "offers": {
+      "sword": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "Halfling workshop in Secomber, run by the Samril family, that finished raw blades from the Arthane Furnace in Beliard by sharpening and polishing them and fitting grips of local duskwood and blueleaf, leather wraps and copper wire, then sent them to the Arthane Armory in Waterdeep. Suppliers named on the same map include the woodcutter Maraszymo Darluth in the High Forest, Gleskur's Finemetals (copper wire), Anastur's Abrasives in Llorkh and Sorkryn's Soft Hides in Scornubel (Ed Greenwood, \"Thaelon Morgyr's Map\", Forging the Realms, 2013, via the Forgotten Realms Wiki). The source is undated; operation in 1492 DR is not verified. The finished blade stands in as `sword`; the raw blades are bought in, so the stock records finishing only, and staff counts are assumed.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "secomber": {
+        "sword": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 3,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "secomber": {
+        "street": "Workshop lane (position unknown)",
+        "district": "Secomber",
+        "city": "Secomber",
+        "zip": "FA-48-102"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "gleskurs_finemetals",
+    "name": "Gleskur's Finemetals of Secomber",
+    "headquarters": "secomber",
+    "locations": [
+      "secomber"
+    ],
+    "specialties": [
+      "metalwork",
+      "copper wire"
+    ],
+    "offers": {},
+    "price_modifier": 1.0,
+    "description": "Dwarf metal workshop in Secomber supplying braided copper wire for the sword grips finished at Samril's Fine Blades (Ed Greenwood, \"Thaelon Morgyr's Map\", Forging the Realms, 2013, via the Forgotten Realms Wiki). The source is undated and names no individual; operation in 1492 DR is not verified. Copper wire is not a commodity, so the shop offers none and is recorded as a service; `copper_ingot` would be its input. Staff counts are assumed.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "secomber": {}
+    },
+    "services": [
+      "braided copper wire for sword grips",
+      "fine metalwork"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Blacksmith",
+        "level": 3,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "secomber": {
+        "street": "Workshop lane (position unknown)",
+        "district": "Secomber",
+        "city": "Secomber",
+        "zip": "FA-48-103"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
+  },
+  {
+    "id": "waelvurs_wagonworks",
+    "name": "Waelvur's Wagonworks",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "wagon-building"
+    ],
+    "offers": {
+      "wagon": "standard"
+    },
+    "price_modifier": 1,
+    "description": "Ilmeth Waelvur ran a rival wagon workshop in 1491 DR (Princes of the Apocalypse, pp. 24, 27, via Forgotten Realms Wiki). Carts and quantities are not established. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "wagon": 1
+      }
+    },
+    "services": [
+      "wagon-building"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "albaeri_mellikho_stoneworks",
+    "name": "Albaeri Mellikho's stoneworks",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "stonecutting"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Albaeri Mellikho operated a stoneworks with stonecutters in 1491 DR (Princes of the Apocalypse, p. 28, via Forgotten Realms Wiki); the kind of stone is not established, so no granite, marble or bricks are offered. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "stonecutting"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "tantur_smithy",
+    "name": "Tantur smithy",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "blacksmithing"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Eldras Tantur worked as a blacksmith with his family in 1491 DR (Princes of the Apocalypse, p. 26, via Forgotten Realms Wiki). Particular forged goods are not identified. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "blacksmithing"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "ironhead_arms",
+    "name": "Ironhead Arms",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "weapons shop"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Feng Ironhead operated this weapons shop, opened in 1488 DR and documented in 1491 DR (Princes of the Apocalypse, p. 27, via Forgotten Realms Wiki). Individual weapon types are not established. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "weapons sales"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "lorrens_bakery",
+    "name": "Lorren's bakery",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "baking"
+    ],
+    "offers": {
+      "bread": "standard"
+    },
+    "price_modifier": 1,
+    "description": "Mangobarl Lorren was the village baker in 1491 DR (Princes of the Apocalypse, pp. 25-26, via Forgotten Realms Wiki). Bread is a generic engine mapping for a bakery, not a verified product list. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "bread": 1
+      }
+    },
+    "services": [
+      "baking"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "ornras_butcher_shop",
+    "name": "Ornra's butcher shop",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "butchery"
+    ],
+    "offers": {
+      "meat_fresh": "standard"
+    },
+    "price_modifier": 1,
+    "description": "Jalessa Ornra operated a butcher shop in 1491 DR (Princes of the Apocalypse, p. 26, via Forgotten Realms Wiki). Fresh meat is a generic engine mapping, not a verified stock list. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "meat_fresh": 1
+      }
+    },
+    "services": [
+      "butchery"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "tarnlar_clothing_shop",
+    "name": "Tarnlar clothing shop",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "clothing shop"
+    ],
+    "offers": {
+      "clothing_common": "standard"
+    },
+    "price_modifier": 1,
+    "description": "Helvur Tarnlar and Maegla were clothiers in a shared shop in 1491 DR (Princes of the Apocalypse, p. 25, via Forgotten Realms Wiki). Common clothing is a generic engine mapping, not a sourced garment category. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {
+        "clothing_common": 1
+      }
+    },
+    "services": [
+      "clothing sales"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "gaelkurs",
+    "name": "Gaelkur's",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "used-goods shop and barber"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Marlandro Gaelkur ran a used-tools shop, barber and small tavern in 1491 DR (Princes of the Apocalypse, pp. 28, 159, via Forgotten Realms Wiki). No specific tools or drinks are attested. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "used tools sales",
+      "barber",
+      "small tavern"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "vallivoes_sundries",
+    "name": "Vallivoe's Sundries",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "general goods"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Endrith Vallivoe ran a new-and-used goods shop in 1491 DR (Princes of the Apocalypse, p. 29, via Forgotten Realms Wiki). No specific goods are attested. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "new and used goods sales"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "hanadroum_bathhouse",
+    "name": "Hanadroum's bathhouse",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "bathhouse"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Haeleeya Hanadroum ran the village bathhouse in 1491 DR (Princes of the Apocalypse, p. 27, via Forgotten Realms Wiki). The registry name identifies its operator, not an attested business sign. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "baths"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "bethendur_storage",
+    "name": "Bethendur's storage business",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "storage"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Aerego Bethendur ran a storage business in 1491 DR (Princes of the Apocalypse, p. 28, via Forgotten Realms Wiki). The registry name identifies its operator, not an attested business sign. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "storage"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "swinging_sword_red_larch",
+    "name": "The Swinging Sword",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "inn"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Kaylessa Irkell operated the Swinging Sword inn on the Long Road in 1491 DR (Princes of the Apocalypse, pp. 22-23, via Forgotten Realms Wiki). No individual food or drink is offered as a commodity here. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "lodging",
+      "meals",
+      "drinks",
+      "baths"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Long Road (number unknown)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
+  },
+  {
+    "id": "helm_at_highsun_red_larch",
+    "name": "Helm at Highsun",
+    "headquarters": "red_larch",
+    "locations": [
+      "red_larch"
+    ],
+    "specialties": [
+      "tavern"
+    ],
+    "offers": {},
+    "price_modifier": 1,
+    "description": "Justran Daehl and Garlen Harlathurl co-owned the Helm at Highsun tavern in 1491 DR (Princes of the Apocalypse, pp. 21, 24, via Forgotten Realms Wiki). Earlier management is historical, not current stock evidence. Business offers, unit stock, worker allocations, ability scores and address fields are simulation scenarios, not attested canon; this registry identifies existing 1491 DR village activity and does not increase settlement industry output.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "red_larch": {}
+    },
+    "services": [
+      "tavern drinks"
+    ],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 0,
+      "merchants": 0,
+      "warehouse_staff": 0
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 1,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "red_larch": {
+        "street": "Location unknown (scenario placeholder)",
+        "district": "Unknown (scenario placeholder)",
+        "city": "Red Larch",
+        "zip": "UNKNOWN"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0
   }
 ]

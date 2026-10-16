@@ -33,9 +33,9 @@ SIMPLE_BOMS = {
   "meat_salt": {"meat_fresh": 2.5, "salt": 0.2},
   "fish_salt": {"fish_fresh": 1.7, "salt": 0.2},
   "olive_oil": {"olives": 0.7},
-  "ale": {"grain": 0.8},
+  "ale": {"barley": 0.8},
   "mead": {"honey": 0.6},
-  "wine_common": {"fruit": 3.5},
+  "wine_common": {"grapes": 6.0},
   "wine_fine": {"wine_common": 0.03},
   "brandy": {"wine_common": 0.08},
   "dwarven_spirits": {"grain": 0.08},
@@ -69,6 +69,7 @@ SIMPLE_BOMS = {
   "lantern": {"iron_ingot": 0.15, "glassware": 0.05},
   "fishing_net": {"rope": 2.0},
   "ship_boat": {"planks": 8.0, "nails": 4.0, "rope": 5.0, "sailcloth": 2.0},
+  "merchant_cog": {"planks": 120.0, "nails": 40.0, "rope": 60.0, "sailcloth": 30.0, "pitch": 25.0},
   "dagger": {"steel_ingot": 0.12, "leather": 0.03},
   "sword": {"steel_ingot": 0.3, "leather": 0.08},
   "axe_battle": {"steel_ingot": 0.35, "planks": 0.01},
@@ -99,6 +100,9 @@ SKILL_REQUIREMENTS = {
     "armor_plate": {"armor": 3},
     "potion_healing": {"alch": 2},
     "arcane_focus": {"arcane": 2},
+    "jewelry": {"craft": 2},
+    "musical_instrument": {"craft": 2},
+    "merchant_cog": {"ship": 2},
     "book": {"paper": 2},
 }
 for commodity_id, requirements in SKILL_REQUIREMENTS.items():
@@ -109,6 +113,18 @@ for commodity_id, requirements in SKILL_REQUIREMENTS.items():
 # tropical districts can supply several harvest windows. Underground agriculture
 # uses its existing resource gates without inheriting a surface winter.
 _HARVEST_CALENDARS = {
+    "barley": {
+        "temperate": [0, 0, 0, 0, 0, 0, 0.5, 3, 5, 1.5, 0, 0],
+        "cold": [0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 0, 0],
+        "arid": [0, 0, 1, 4, 4, 1, 0, 0, 0, 0, 0, 0],
+        "tropical": [0, 1, 3, 1, 0, 0, 0, 1, 3, 1, 0, 0],
+    },
+    "grapes": {
+        "temperate": [0, 0, 0, 0, 0, 0, 0, 0.5, 3, 5, 1.5, 0],
+        "cold": [0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 2, 0],
+        "arid": [0, 0, 0, 0, 0, 0, 0, 0.5, 3, 5, 1.5, 0],
+        "tropical": [0, 0, 0, 0, 0, 0, 0, 0.5, 3, 5, 1.5, 0],
+    },
     "grain": {
         "temperate": [0, 0, 0, 0, 0, 0, 0.5, 3, 5, 1.5, 0, 0],
         "cold": [0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 0, 0],
@@ -191,7 +207,8 @@ _HARVEST_CALENDARS = {
     },
 }
 _HARVEST_GOODS = {
-    "grain": "grain",
+    "grain": "grain barley",
+    "grapes": "grapes",
     "corn": "corn",
     "rice": "rice",
     "vegetables": "vegetables",
@@ -258,11 +275,11 @@ for commodity in COMMODITIES:
         commodity.reserve_days = 15
 
 _STORAGE_POLICIES = [
-    ("grain corn rice", 400, 0.0003, 75),
+    ("grain barley corn rice", 400, 0.0003, 75),
     ("flour", 120, 0.002, 20),
     ("bread", 3, 0.25, 0.5),
     ("vegetables", 14, 0.05, 2),
-    ("fruit chultan_fruit", 10, 0.08, 1),
+    ("fruit grapes chultan_fruit", 10, 0.08, 1),
     ("nuts", 270, 0.001, 30),
     ("cheese", 90, 0.004, 10),
     ("butter", 14, 0.04, 2),

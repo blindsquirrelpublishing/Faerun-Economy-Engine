@@ -1,0 +1,1486 @@
+{
+  "schema_version": 1,
+  "id": "daggerford",
+  "name": "Daggerford",
+  "summary": "Small walled town and duchy on the Trade Way, on the north bank of the Delimbiyr; farming community and river-to-caravan transfer point.",
+  "evidence_reviewed": "2026-10-07",
+  "wiki_entry": "README.md",
+  "identity": {
+    "region": "Delimbiyr Vale",
+    "subregion": "Sword Coast",
+    "settlement_type": "Small walled town and duchy",
+    "ruler_office": "Duke or Duchess of Daggerford; Council of Guilds handles daily affairs",
+    "arms": "Bloodied silver dagger on dark blue",
+    "namesake": "Tyndal, who killed six lizardfolk raiders with a dagger at the river crossing in 931 DR"
+  },
+  "periods": {
+    "reference_2e": "circa 1347 to 1372 DR",
+    "snapshot_5e": "circa 1485 to 1489 DR",
+    "planning_baseline_dr": 1492,
+    "note": "Nothing is verified for 1492 DR itself."
+  },
+  "position": {
+    "location_id": "fps-daggerford",
+    "fps": "FPS1:WD:X+000.86:Y-000.55",
+    "x": 0.86,
+    "y": -0.55,
+    "east_miles": 103.7,
+    "north_miles": -66.2,
+    "method": "manual_approximate"
+  },
+  "engine_record": {
+    "settlement_id": "daggerford",
+    "region": "Delimbiyr Vale",
+    "zone": "waterdeep",
+    "population": 900,
+    "population_note": "Gazetteer estimate with no reference year; 891 (1372 DR) and 1,200 (1485 DR) proposed as comparisons (D10)",
+    "x": 703.7,
+    "y": 1266.2,
+    "wealth": 0.9,
+    "tax": 0.05,
+    "security": 0.65,
+    "port": null,
+    "river": true,
+    "terrain": "plains",
+    "traits": [
+      "agrarian",
+      "frontier"
+    ],
+    "industries": {
+      "brew": 1.0,
+      "cattle": 2.0,
+      "craft": 1.0,
+      "farm": 3.0,
+      "fish": 1.0,
+      "hunt": 1.0,
+      "ship": 1.0,
+      "smith": 1.0,
+      "tan": 1.0
+    },
+    "specialties": {
+      "clothing_common": 1.0,
+      "furs": 1.0,
+      "grain": 1.0
+    },
+    "shortages": [],
+    "ruler": "",
+    "read_from": "faerun/data/store/settlements.json"
+  },
+  "town_plan": {
+    "source": "1996 TSR town map, \"Town of Daggerford\" (product code 1142XXX0703)",
+    "source_url": "https://d20.pub/assets/uploads/2018/02/Daggerford-Side-View-Expanded-Map-Forgotten-Realms.gif",
+    "orientation": "North is up",
+    "building_count": 148,
+    "empty_building_keys": [
+      35,
+      46,
+      51,
+      68,
+      84,
+      87,
+      107,
+      109,
+      119,
+      131,
+      137,
+      139,
+      148
+    ],
+    "gates": [
+      {
+        "key": 3,
+        "name": "Farmers' Gate",
+        "side": "north"
+      },
+      {
+        "key": 144,
+        "name": "Caravan Gate",
+        "side": "west"
+      },
+      {
+        "key": 4,
+        "name": "River Gate",
+        "side": "south-east"
+      }
+    ],
+    "castle": {
+      "key": 6,
+      "name": "Ducal Castle",
+      "position": "north-east, walled enclosure with courtyard garden"
+    },
+    "commons_key": 147,
+    "cisterns": {
+      "key": 2,
+      "approximate_count": 8
+    },
+    "quarters": [
+      {
+        "id": "riverman",
+        "name": "Riverman Quarter",
+        "keys": [
+          10,
+          44
+        ],
+        "where": "South, along River Road and the docks",
+        "streets": [
+          "River Road",
+          "Water Street",
+          "Kauth Alley"
+        ]
+      },
+      {
+        "id": "money",
+        "name": "Money Quarter",
+        "keys": [
+          45,
+          57
+        ],
+        "where": "Centre, east of the Caravan Quarter",
+        "streets": [
+          "Hill Road",
+          "The Trade Way"
+        ]
+      },
+      {
+        "id": "caravan",
+        "name": "Caravan Quarter",
+        "keys": [
+          58,
+          91
+        ],
+        "where": "West, inside the Caravan Gate",
+        "streets": [
+          "The High Road",
+          "Rogar Alley",
+          "Guild Alley"
+        ]
+      },
+      {
+        "id": "farmers",
+        "name": "Farmers' Quarter",
+        "keys": [
+          92,
+          145
+        ],
+        "where": "North and north-west",
+        "streets": [
+          "Farmers' Road",
+          "Fields Lane",
+          "Wall Street",
+          "Cymora Alley",
+          "Horse Way",
+          "Duke's Way"
+        ]
+      }
+    ],
+    "uncertain_readings": [
+      "Kauth Alley",
+      "Cymora Alley",
+      "Three residents (Derf, Sniden Elkslodge, Zarebor the Piercer) share key 88 as printed"
+    ],
+    "building_key": [
+      {
+        "key": 1,
+        "entry": "Towers (wall towers)",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 2,
+        "entry": "Cisterns",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 3,
+        "entry": "Farmers' Gate",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 4,
+        "entry": "River Gate",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 5,
+        "entry": "Delfen's Tower; resident Delfen \"Yellowknife\" Ondabarl (also listed at 78)",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 6,
+        "entry": "Ducal Castle; residents Bronwyn Daggerford, Gwydion pen Dafwyd, Pwyll \"Greatshout\" Daggerford",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 7,
+        "entry": "Lathander's Temple (Moonglow Tower)",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 8,
+        "entry": "Stables",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 9,
+        "entry": "Mikitan Shipyards (Mikitan)",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 10,
+        "entry": "Mariners' Alliance",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 11,
+        "entry": "Kaulbach",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 12,
+        "entry": "Olin",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 13,
+        "entry": "Soumet",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 14,
+        "entry": "Pauldine",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 15,
+        "entry": "Nanteuil",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 16,
+        "entry": "Watermen's Circle",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 17,
+        "entry": "Maranta",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 18,
+        "entry": "Weichert",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 19,
+        "entry": "Delisle",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 20,
+        "entry": "Trommen",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 21,
+        "entry": "Ramusio",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 22,
+        "entry": "Archiloque",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 23,
+        "entry": "Janssen",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 24,
+        "entry": "Zaluski",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 25,
+        "entry": "Valmiki",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 26,
+        "entry": "The Flying Fish; Carrl",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 27,
+        "entry": "Tempus' Shrine (Table of the Sword)",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 28,
+        "entry": "Heralds' and Runners' Union",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 29,
+        "entry": "Barracks",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 30,
+        "entry": "Tenison",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 31,
+        "entry": "Dekoran Boatwright (Dekoran)",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 32,
+        "entry": "Youmans's Residence",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 33,
+        "entry": "Cromach",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 34,
+        "entry": "Jail",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 35,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "riverman"
+      },
+      {
+        "key": 36,
+        "entry": "Constable",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 37,
+        "entry": "Black Stone Inn; Gildamesh",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 38,
+        "entry": "Pleaders' Consortium",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 39,
+        "entry": "Blacksmiths' Guildhouse",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 40,
+        "entry": "Derval Ironeater",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 41,
+        "entry": "Duneden",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 42,
+        "entry": "Moneylenders' Coalition",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 43,
+        "entry": "River Shining Tavern",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 44,
+        "entry": "The Clean Chin (barber, mortuary, adventuring needs, healing); Garick Honestone",
+        "empty": false,
+        "quarter": "riverman"
+      },
+      {
+        "key": 45,
+        "entry": "Darfin Longwalker",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 46,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "money"
+      },
+      {
+        "key": 47,
+        "entry": "Chateau Elite Inn; Papa Blekandssen",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 48,
+        "entry": "Bjorn's Tenements (Bjorn)",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 49,
+        "entry": "Korbus's Jewelry and Fine Ornaments",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 50,
+        "entry": "Farrel's Fine Jewelry and Apparel",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 51,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "money"
+      },
+      {
+        "key": 52,
+        "entry": "Nartan's Fine Foods (Nartan)",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 53,
+        "entry": "Lady Luck Tavern",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 54,
+        "entry": "Merchants' Guild",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 55,
+        "entry": "Jewelers' Congress",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 56,
+        "entry": "Derval's Bright Blade",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 57,
+        "entry": "Kryptgarden Scrolls",
+        "empty": false,
+        "quarter": "money"
+      },
+      {
+        "key": 58,
+        "entry": "Tailors' Federation",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 59,
+        "entry": "Tanners' Council",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 60,
+        "entry": "Thinkers' Fraternity",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 61,
+        "entry": "Youatt",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 62,
+        "entry": "Wayfel",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 63,
+        "entry": "Physicians' Order",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 64,
+        "entry": "Taverners' Confederation",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 65,
+        "entry": "Owenden",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 66,
+        "entry": "Garrick",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 67,
+        "entry": "Cromach's Smithy",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 68,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "caravan"
+      },
+      {
+        "key": 69,
+        "entry": "Oleg's Weaponforge",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 70,
+        "entry": "Quarenghi",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 71,
+        "entry": "Garth",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 72,
+        "entry": "Kira",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 73,
+        "entry": "Tymora's Shrine (Fairfortune Hall)",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 74,
+        "entry": "Oleg",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 75,
+        "entry": "Leatherworkers' Conglomerate",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 76,
+        "entry": "Farrel",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 77,
+        "entry": "Baergon Bluesword",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 78,
+        "entry": "Delfen \"Yellowknife\" Ondabarl",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 79,
+        "entry": "Emser",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 80,
+        "entry": "Ines",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 81,
+        "entry": "Bohle",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 82,
+        "entry": "Scribes' Friendship",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 83,
+        "entry": "Yarth Stowage (five-storey warded warehouse); Yarth of Berun",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 84,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "caravan"
+      },
+      {
+        "key": 85,
+        "entry": "Oryv's Cloth Emporium (Oryv)",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 86,
+        "entry": "Sorceller's Encapsulate",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 87,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "caravan"
+      },
+      {
+        "key": 88,
+        "entry": "Derf's Skin Art; residents Derf, Sniden Elkslodge, Zarebor the Piercer",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 89,
+        "entry": "Fences' Syndicate",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 90,
+        "entry": "Schlegel",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 91,
+        "entry": "Daggerford Inn",
+        "empty": false,
+        "quarter": "caravan"
+      },
+      {
+        "key": 92,
+        "entry": "Kelson Darktreader",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 93,
+        "entry": "Llewellyn Longhand",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 94,
+        "entry": "Liam Sunmist",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 95,
+        "entry": "Chauntea's Shrine (Harvest House)",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 96,
+        "entry": "Ransaran's Sergeant-at-Arms (Ransaran)",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 97,
+        "entry": "Ruckert",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 98,
+        "entry": "Wiston Apothecary (Wiston of Yartar)",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 99,
+        "entry": "Filvendor Lightfoot",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 100,
+        "entry": "Korbus Brightjewel (Korbus's Jewelry and Fine Ornaments)",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 101,
+        "entry": "Uilkens",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 102,
+        "entry": "Pascal's Tenements (Pascal)",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 103,
+        "entry": "Xylander",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 104,
+        "entry": "Shalendra Dare-all",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 105,
+        "entry": "Maerovyna",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 106,
+        "entry": "Farmers' Society",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 107,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "farmers"
+      },
+      {
+        "key": 108,
+        "entry": "Grand Playhouse",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 109,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "farmers"
+      },
+      {
+        "key": 110,
+        "entry": "Happy Cow (tavern and tenement)",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 111,
+        "entry": "Vix the Chandler",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 112,
+        "entry": "Fulbar Hardcheese",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 113,
+        "entry": "Sherlen Spearslayer",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 114,
+        "entry": "Maelwyn",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 115,
+        "entry": "Animal Handlers' Affiliation",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 116,
+        "entry": "MacClure",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 117,
+        "entry": "Cadogan",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 118,
+        "entry": "Dragonback Inn; Alian",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 119,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "farmers"
+      },
+      {
+        "key": 120,
+        "entry": "Kyrie",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 121,
+        "entry": "Aswansea",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 122,
+        "entry": "Cork",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 123,
+        "entry": "Jesse",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 124,
+        "entry": "Filarion Filvendorson",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 125,
+        "entry": "Thieves' Brotherhood",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 126,
+        "entry": "Czszudleaux",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 127,
+        "entry": "Hadrion",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 128,
+        "entry": "Paine",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 129,
+        "entry": "Falconer",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 130,
+        "entry": "Guildmasters' Hall",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 131,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "farmers"
+      },
+      {
+        "key": 132,
+        "entry": "Nicomantis",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 133,
+        "entry": "Bando the Lame",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 134,
+        "entry": "Demetira Landscraper",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 135,
+        "entry": "Potter's Wheel; Marcus",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 136,
+        "entry": "Wayfel's Smithy",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 137,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "farmers"
+      },
+      {
+        "key": 138,
+        "entry": "Lamet",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 139,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": "farmers"
+      },
+      {
+        "key": 140,
+        "entry": "Carpenters' League",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 141,
+        "entry": "Zeno",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 142,
+        "entry": "Behring",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 143,
+        "entry": "Marketplace Storage",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 144,
+        "entry": "Caravan Gate",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 145,
+        "entry": "Marketplace",
+        "empty": false,
+        "quarter": "farmers"
+      },
+      {
+        "key": 146,
+        "entry": "Drill Field",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 147,
+        "entry": "Commons",
+        "empty": false,
+        "quarter": null
+      },
+      {
+        "key": 148,
+        "entry": "Empty",
+        "empty": true,
+        "quarter": null
+      }
+    ]
+  },
+  "interactive_map_markers": {
+    "source": "Forgotten Realms Wiki \"Map:Daggerford (14th Century DR)\", drawn on the 5th-edition Schley map; read 2026-10-07",
+    "source_url": "https://forgottenrealms.fandom.com/wiki/Map:Daggerford_(14th_Century_DR)",
+    "coordinates": "Origin bottom left, x then y, in the map's own units (not pixels); larger x is east and larger y is north (inferred); no scale",
+    "markers": [
+      {
+        "place": "Caravan Gate",
+        "kind": "Gate",
+        "x": 167,
+        "y": 524,
+        "note": "West"
+      },
+      {
+        "place": "Farmer's Gate",
+        "kind": "Gate",
+        "x": 375,
+        "y": 842,
+        "note": "North"
+      },
+      {
+        "place": "River Gate",
+        "kind": "Gate",
+        "x": 743,
+        "y": 192,
+        "note": "South, near the docks"
+      },
+      {
+        "place": "Ducal Castle",
+        "kind": "Public building",
+        "x": 820,
+        "y": 615,
+        "note": null
+      },
+      {
+        "place": "Marketplace",
+        "kind": "Landmark",
+        "x": 230,
+        "y": 638,
+        "note": null
+      },
+      {
+        "place": "Guildmasters' Hall",
+        "kind": "Public building",
+        "x": 217,
+        "y": 727,
+        "note": null
+      },
+      {
+        "place": "Barracks",
+        "kind": "Public building",
+        "x": 437,
+        "y": 256,
+        "note": null
+      },
+      {
+        "place": "Jail and Constable's office",
+        "kind": "Public building",
+        "x": 595,
+        "y": 364,
+        "note": null
+      },
+      {
+        "place": "Stables",
+        "kind": "Business",
+        "x": 730,
+        "y": 370,
+        "note": null
+      },
+      {
+        "place": "Caravan Quarter (label)",
+        "kind": "Quarter",
+        "x": 333,
+        "y": 491,
+        "note": null
+      },
+      {
+        "place": "Money Quarter (label)",
+        "kind": "Quarter",
+        "x": 471,
+        "y": 494,
+        "note": null
+      },
+      {
+        "place": "Rivermen's Quarter (label)",
+        "kind": "Quarter",
+        "x": 609,
+        "y": 304,
+        "note": null
+      },
+      {
+        "place": "Harvest House (Chauntea)",
+        "kind": "Temple",
+        "x": 506,
+        "y": 704,
+        "note": null
+      },
+      {
+        "place": "Morninglow Tower (Lathander, later Amaunator)",
+        "kind": "Temple",
+        "x": 577,
+        "y": 578,
+        "note": null
+      },
+      {
+        "place": "Shrine of Tempus",
+        "kind": "Shrine",
+        "x": 540,
+        "y": 240,
+        "note": null
+      },
+      {
+        "place": "Shrine of Tymora",
+        "kind": "Shrine",
+        "x": 303,
+        "y": 404,
+        "note": null
+      },
+      {
+        "place": "Cromach's Smithy",
+        "kind": "Business",
+        "x": 142,
+        "y": 671,
+        "note": null
+      },
+      {
+        "place": "Jerdan's Smithy",
+        "kind": "Business",
+        "x": 130,
+        "y": 785,
+        "note": null
+      },
+      {
+        "place": "Derval's Smithy",
+        "kind": "Business",
+        "x": 529,
+        "y": 313,
+        "note": null
+      },
+      {
+        "place": "Sullerton Shipbuilders",
+        "kind": "Business",
+        "x": 800,
+        "y": 295,
+        "note": null
+      },
+      {
+        "place": "Daggerthrust Ales",
+        "kind": "Business",
+        "x": 486,
+        "y": 322,
+        "note": null
+      },
+      {
+        "place": "Sword Coast Traders' Bank",
+        "kind": "Business",
+        "x": 582,
+        "y": 431,
+        "note": null
+      },
+      {
+        "place": "The Clean Chin",
+        "kind": "Business",
+        "x": 488,
+        "y": 293,
+        "note": null
+      },
+      {
+        "place": "Miller's Dry Goods",
+        "kind": "Shop",
+        "x": 285,
+        "y": 571,
+        "note": null
+      },
+      {
+        "place": "Gublin's Cloth & Cordage",
+        "kind": "Shop",
+        "x": 334,
+        "y": 648,
+        "note": null
+      },
+      {
+        "place": "Trade of the Tools",
+        "kind": "Shop",
+        "x": 447,
+        "y": 523,
+        "note": null
+      },
+      {
+        "place": "The Decorated Man",
+        "kind": "Shop",
+        "x": 325,
+        "y": 579,
+        "note": null
+      },
+      {
+        "place": "Helmick's Herbs and Oddments",
+        "kind": "Shop",
+        "x": 418,
+        "y": 776,
+        "note": null
+      },
+      {
+        "place": "Lady Luck Tavern",
+        "kind": "Tavern",
+        "x": 235,
+        "y": 564,
+        "note": null
+      },
+      {
+        "place": "Happy Cow Tavern",
+        "kind": "Tavern",
+        "x": 339,
+        "y": 786,
+        "note": null
+      },
+      {
+        "place": "River Shining Tavern",
+        "kind": "Tavern",
+        "x": 429,
+        "y": 699,
+        "note": null
+      },
+      {
+        "place": "Silver Flood Inn",
+        "kind": "Inn",
+        "x": 637,
+        "y": 337,
+        "note": null
+      },
+      {
+        "place": "The Otter's Run",
+        "kind": "Tavern",
+        "x": 644,
+        "y": 244,
+        "note": null
+      },
+      {
+        "place": "The Lizard's Gizzard",
+        "kind": "Inn",
+        "x": 493,
+        "y": 573,
+        "note": null
+      },
+      {
+        "place": "Delfen's Tower",
+        "kind": "Residence",
+        "x": 604,
+        "y": 832,
+        "note": null
+      },
+      {
+        "place": "Sir Isteval's Residence",
+        "kind": "Residence",
+        "x": 197,
+        "y": 789,
+        "note": null
+      },
+      {
+        "place": "Curran Corvalin's Residence",
+        "kind": "Residence",
+        "x": 486,
+        "y": 440,
+        "note": null
+      },
+      {
+        "place": "Darrondar Gweth's Residence",
+        "kind": "Residence",
+        "x": 486,
+        "y": 357,
+        "note": null
+      },
+      {
+        "place": "Ironeater Residence",
+        "kind": "Residence",
+        "x": 249,
+        "y": 791,
+        "note": null
+      },
+      {
+        "place": "Kelson Darktreader's House",
+        "kind": "Residence",
+        "x": 506,
+        "y": 791,
+        "note": null
+      },
+      {
+        "place": "Filarion Filvendorson's House",
+        "kind": "Residence",
+        "x": 254,
+        "y": 761,
+        "note": null
+      },
+      {
+        "place": "Darfin Floshin's Townhouse",
+        "kind": "Residence",
+        "x": 520,
+        "y": 513,
+        "note": null
+      }
+    ]
+  },
+  "display_map": {
+    "file": "Daggerford.png",
+    "width": 1523,
+    "height": 1032,
+    "provenance": "Supplied by the project owner as the map to use. The image names no publisher, artist, edition or date and matches none of the published maps; treat as illustrative, not as a source.",
+    "orientation": "North is up (compass rose)",
+    "scale": "Bar to 400 feet; legend says 1 inch is approximately 50 feet",
+    "important_locations": {
+      "1": "Caravan Gate", "2": "Market Square", "3": "Town Hall", "4": "Shrine of Tymora", "5": "Shrine of Lathander",
+      "6": "Daggerford Inn", "7": "The Yawning Portal (tavern)", "8": "Black Stone Trading Post", "9": "Rivergate Warehouse",
+      "10": "Apothecary of Sune", "11": "The Red Lantern (tavern)", "12": "Smithy and Armory", "13": "St. Audath's Temple",
+      "14": "Ducal Castle", "15": "Mill and Granary", "16": "Fisher's Wharf", "17": "Boatwrights", "18": "Docks",
+      "19": "River Gate", "20": "South Watchtower"
+    },
+    "other_locations": {
+      "21": "North Watchtower", "22": "East Watchtower", "23": "West Watchtower", "24": "Stables", "25": "Barracks",
+      "26": "Training Yard", "27": "Cemetery", "28": "Fields and Orchards", "29": "Quarry",
+      "30": "The Old Road (to Waterdeep), north", "31": "Trade Road (to Secomber), east"
+    },
+    "districts": ["Caravan Quarter", "Farmers' Quarter", "Merchants' Quarter", "Riverfront Quarter", "Ducal Castle & Commons"],
+    "conflicts_with_sources": [
+      "Caravan Gate placed north; the 1996 plan puts it west and has a separate Farmers' Gate",
+      "The Yawning Portal is a Waterdeep tavern",
+      "Quarter names differ from the 1996 plan (Money and Riverman)",
+      "Rivergate Warehouse, Apothecary of Sune, The Red Lantern and St. Audath's Temple are not in the sources read"
+    ]
+  },  "maps": [
+    {"id": "display-map", "title": "Display map supplied by the project owner (provenance unknown)", "edition": null, "url": null, "stored": "Daggerford.png"},
+    {
+      "id": "tsr-1996-town",
+      "title": "Town of Daggerford (TSR 1996 sheet)",
+      "edition": "2nd",
+      "url": "https://d20.pub/assets/uploads/2018/02/Daggerford-Side-View-Expanded-Map-Forgotten-Realms.gif",
+      "stored": ".src/Daggerford-Side-View-Expanded-Map-Forgotten-Realms.gif"
+    },
+    {
+      "id": "hordes-1992-town",
+      "title": "Town map, Hordes of Dragonspear (1992), artist Steve Beck",
+      "edition": "2nd",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Daggerford_map.jpg",
+      "stored": null
+    },
+    {
+      "id": "schley-5e-town",
+      "title": "Town map, Scourge of the Sword Coast / Big Problems (Mike Schley)",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Daggerford_map.png",
+      "stored": null
+    },
+    {
+      "id": "schley-5e-interactive",
+      "title": "Interactive wiki map",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/Map:Daggerford_(14th_Century_DR)",
+      "stored": null
+    },
+    {
+      "id": "atlas-1999",
+      "title": "Forgotten Realms Interactive Atlas town views (1999)",
+      "edition": "2nd",
+      "urls": [
+        "https://forgottenrealms.fandom.com/wiki/File:DaggerfordCity.JPG",
+        "https://forgottenrealms.fandom.com/wiki/File:SouthDaggerford.JPG",
+        "https://forgottenrealms.fandom.com/wiki/File:NWDaggerford.JPG"
+      ],
+      "stored": null
+    },
+    {
+      "id": "delimbiyr-vale-5e",
+      "title": "Delimbiyr Vale (Scourge of the Sword Coast)",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:DelimbiyrVale.png",
+      "stored": null
+    },
+    {
+      "id": "promo-2018",
+      "title": "Darkness over Daggerford promotional map and farmlands",
+      "edition": "video game",
+      "urls": [
+        "https://forgottenrealms.fandom.com/wiki/File:Daggerford_promo_map.jpg",
+        "https://forgottenrealms.fandom.com/wiki/File:Daggerford_Farmlands.png"
+      ],
+      "stored": null
+    },
+    {
+      "id": "working-sketch",
+      "title": "Working sketch drawn 2026-10-07 from the 1996 plan",
+      "edition": null,
+      "url": null,
+      "stored": "daggerford-sketch.svg"
+    }
+  ],
+  "sources": [
+    {
+      "id": "frwiki",
+      "title": "Forgotten Realms Wiki: Daggerford",
+      "kind": "secondary",
+      "url": "https://forgottenrealms.fandom.com/wiki/Daggerford"
+    },
+    {
+      "id": "d20pub",
+      "title": "d20.pub: Daggerford (fan page, 2018)",
+      "kind": "fan",
+      "url": "https://d20.pub/resources/daggerford/"
+    },
+    {
+      "id": "schley-survey",
+      "title": "Engine survey of the Schley map",
+      "kind": "engine",
+      "path": "faerun/data/daggerford_analysis.json"
+    }
+  ],
+  "copyright_note": "Published map images and index text belong to their owners (TSR / Wizards of the Coast). This file records facts and links."
+}

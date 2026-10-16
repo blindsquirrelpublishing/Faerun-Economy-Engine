@@ -1,0 +1,1929 @@
+{
+  "type": "FeatureCollection",
+  "coordinate_system": "LOCAL IMAGE PIXELS; x right, y down; NOT WGS84 and NOT georeferenced",
+  "master_id": "ARRABAR-LW-r01-DRAFT",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "LW-WATER",
+      "properties": {
+        "id": "LW-WATER",
+        "name": "Vilhon Reach",
+        "type": "water",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "One contiguous water surface. No source islands; piers are excluded."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              338,
+              0
+            ],
+            [
+              336,
+              12
+            ],
+            [
+              336,
+              24
+            ],
+            [
+              339,
+              36
+            ],
+            [
+              346,
+              51
+            ],
+            [
+              350,
+              65
+            ],
+            [
+              352,
+              81
+            ],
+            [
+              358,
+              91
+            ],
+            [
+              364,
+              103
+            ],
+            [
+              367,
+              116
+            ],
+            [
+              366,
+              129
+            ],
+            [
+              364,
+              140
+            ],
+            [
+              362,
+              149
+            ],
+            [
+              362,
+              160
+            ],
+            [
+              364,
+              171
+            ],
+            [
+              370,
+              182
+            ],
+            [
+              373,
+              193
+            ],
+            [
+              374,
+              204
+            ],
+            [
+              370,
+              215
+            ],
+            [
+              363,
+              226
+            ],
+            [
+              355,
+              237
+            ],
+            [
+              347,
+              246
+            ],
+            [
+              337,
+              255
+            ],
+            [
+              328,
+              265
+            ],
+            [
+              321,
+              276
+            ],
+            [
+              318,
+              288
+            ],
+            [
+              317,
+              301
+            ],
+            [
+              314,
+              312
+            ],
+            [
+              307,
+              325
+            ],
+            [
+              297,
+              338
+            ],
+            [
+              285,
+              352
+            ],
+            [
+              275,
+              367
+            ],
+            [
+              265,
+              382
+            ],
+            [
+              258,
+              394
+            ],
+            [
+              255,
+              409
+            ],
+            [
+              252,
+              425
+            ],
+            [
+              250,
+              443
+            ],
+            [
+              249,
+              457
+            ],
+            [
+              251,
+              472
+            ],
+            [
+              257,
+              488
+            ],
+            [
+              265,
+              502
+            ],
+            [
+              272,
+              517
+            ],
+            [
+              275,
+              531
+            ],
+            [
+              275,
+              545
+            ],
+            [
+              279,
+              559
+            ],
+            [
+              278,
+              574
+            ],
+            [
+              273,
+              585
+            ],
+            [
+              266,
+              592
+            ],
+            [
+              0,
+              592
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "LW-LAND",
+      "properties": {
+        "id": "LW-LAND",
+        "name": "Continental land",
+        "type": "terrain",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Connected north/east/south; shoreline under small piers interpolated between visible dock bases."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              338,
+              0
+            ],
+            [
+              1000,
+              0
+            ],
+            [
+              1000,
+              592
+            ],
+            [
+              266,
+              592
+            ],
+            [
+              273,
+              585
+            ],
+            [
+              278,
+              574
+            ],
+            [
+              279,
+              559
+            ],
+            [
+              275,
+              545
+            ],
+            [
+              275,
+              531
+            ],
+            [
+              272,
+              517
+            ],
+            [
+              265,
+              502
+            ],
+            [
+              257,
+              488
+            ],
+            [
+              251,
+              472
+            ],
+            [
+              249,
+              457
+            ],
+            [
+              250,
+              443
+            ],
+            [
+              252,
+              425
+            ],
+            [
+              255,
+              409
+            ],
+            [
+              258,
+              394
+            ],
+            [
+              265,
+              382
+            ],
+            [
+              275,
+              367
+            ],
+            [
+              285,
+              352
+            ],
+            [
+              297,
+              338
+            ],
+            [
+              307,
+              325
+            ],
+            [
+              314,
+              312
+            ],
+            [
+              317,
+              301
+            ],
+            [
+              318,
+              288
+            ],
+            [
+              321,
+              276
+            ],
+            [
+              328,
+              265
+            ],
+            [
+              337,
+              255
+            ],
+            [
+              347,
+              246
+            ],
+            [
+              355,
+              237
+            ],
+            [
+              363,
+              226
+            ],
+            [
+              370,
+              215
+            ],
+            [
+              374,
+              204
+            ],
+            [
+              373,
+              193
+            ],
+            [
+              370,
+              182
+            ],
+            [
+              364,
+              171
+            ],
+            [
+              362,
+              160
+            ],
+            [
+              362,
+              149
+            ],
+            [
+              364,
+              140
+            ],
+            [
+              366,
+              129
+            ],
+            [
+              367,
+              116
+            ],
+            [
+              364,
+              103
+            ],
+            [
+              358,
+              91
+            ],
+            [
+              352,
+              81
+            ],
+            [
+              350,
+              65
+            ],
+            [
+              346,
+              51
+            ],
+            [
+              339,
+              36
+            ],
+            [
+              336,
+              24
+            ],
+            [
+              336,
+              12
+            ],
+            [
+              338,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "LW-SHORE",
+      "properties": {
+        "id": "LW-SHORE",
+        "name": "Visible coast / dock-base interpolation",
+        "type": "water",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Manual digitization at source resolution; approximately 2-4 px uncertainty, larger under dock symbols."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            338,
+            0
+          ],
+          [
+            336,
+            12
+          ],
+          [
+            336,
+            24
+          ],
+          [
+            339,
+            36
+          ],
+          [
+            346,
+            51
+          ],
+          [
+            350,
+            65
+          ],
+          [
+            352,
+            81
+          ],
+          [
+            358,
+            91
+          ],
+          [
+            364,
+            103
+          ],
+          [
+            367,
+            116
+          ],
+          [
+            366,
+            129
+          ],
+          [
+            364,
+            140
+          ],
+          [
+            362,
+            149
+          ],
+          [
+            362,
+            160
+          ],
+          [
+            364,
+            171
+          ],
+          [
+            370,
+            182
+          ],
+          [
+            373,
+            193
+          ],
+          [
+            374,
+            204
+          ],
+          [
+            370,
+            215
+          ],
+          [
+            363,
+            226
+          ],
+          [
+            355,
+            237
+          ],
+          [
+            347,
+            246
+          ],
+          [
+            337,
+            255
+          ],
+          [
+            328,
+            265
+          ],
+          [
+            321,
+            276
+          ],
+          [
+            318,
+            288
+          ],
+          [
+            317,
+            301
+          ],
+          [
+            314,
+            312
+          ],
+          [
+            307,
+            325
+          ],
+          [
+            297,
+            338
+          ],
+          [
+            285,
+            352
+          ],
+          [
+            275,
+            367
+          ],
+          [
+            265,
+            382
+          ],
+          [
+            258,
+            394
+          ],
+          [
+            255,
+            409
+          ],
+          [
+            252,
+            425
+          ],
+          [
+            250,
+            443
+          ],
+          [
+            249,
+            457
+          ],
+          [
+            251,
+            472
+          ],
+          [
+            257,
+            488
+          ],
+          [
+            265,
+            502
+          ],
+          [
+            272,
+            517
+          ],
+          [
+            275,
+            531
+          ],
+          [
+            275,
+            545
+          ],
+          [
+            279,
+            559
+          ],
+          [
+            278,
+            574
+          ],
+          [
+            273,
+            585
+          ],
+          [
+            266,
+            592
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R01",
+      "properties": {
+        "id": "R01",
+        "name": "Golden Road / main diagonal",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            435,
+            592
+          ],
+          [
+            465,
+            551
+          ],
+          [
+            493,
+            505
+          ],
+          [
+            516,
+            454
+          ],
+          [
+            530,
+            400
+          ],
+          [
+            539,
+            348
+          ],
+          [
+            550,
+            305
+          ],
+          [
+            583,
+            274
+          ],
+          [
+            625,
+            252
+          ],
+          [
+            673,
+            235
+          ],
+          [
+            721,
+            224
+          ],
+          [
+            754,
+            222
+          ],
+          [
+            803,
+            220
+          ],
+          [
+            852,
+            216
+          ],
+          [
+            899,
+            210
+          ],
+          [
+            951,
+            199
+          ],
+          [
+            1000,
+            184
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R02",
+      "properties": {
+        "id": "R02",
+        "name": "Outer ring road",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            451,
+            12
+          ],
+          [
+            487,
+            12
+          ],
+          [
+            539,
+            18
+          ],
+          [
+            597,
+            31
+          ],
+          [
+            650,
+            52
+          ],
+          [
+            705,
+            79
+          ],
+          [
+            756,
+            108
+          ],
+          [
+            803,
+            149
+          ],
+          [
+            837,
+            185
+          ],
+          [
+            849,
+            216
+          ],
+          [
+            845,
+            251
+          ],
+          [
+            830,
+            284
+          ],
+          [
+            806,
+            312
+          ],
+          [
+            773,
+            339
+          ],
+          [
+            724,
+            362
+          ],
+          [
+            667,
+            379
+          ],
+          [
+            606,
+            399
+          ],
+          [
+            559,
+            424
+          ],
+          [
+            527,
+            439
+          ],
+          [
+            486,
+            441
+          ],
+          [
+            442,
+            440
+          ],
+          [
+            401,
+            437
+          ],
+          [
+            367,
+            426
+          ],
+          [
+            342,
+            409
+          ],
+          [
+            325,
+            388
+          ],
+          [
+            317,
+            366
+          ],
+          [
+            317,
+            348
+          ],
+          [
+            325,
+            331
+          ],
+          [
+            344,
+            310
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R03",
+      "properties": {
+        "id": "R03",
+        "name": "Northwest ring continuation",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            451,
+            12
+          ],
+          [
+            422,
+            20
+          ],
+          [
+            397,
+            35
+          ],
+          [
+            384,
+            48
+          ],
+          [
+            379,
+            61
+          ],
+          [
+            379,
+            76
+          ],
+          [
+            388,
+            97
+          ],
+          [
+            395,
+            119
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R04",
+      "properties": {
+        "id": "R04",
+        "name": "North cross street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            377,
+            108
+          ],
+          [
+            457,
+            108
+          ],
+          [
+            528,
+            108
+          ],
+          [
+            594,
+            108
+          ],
+          [
+            654,
+            108
+          ],
+          [
+            663,
+            109
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R05",
+      "properties": {
+        "id": "R05",
+        "name": "Port spine",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            376,
+            109
+          ],
+          [
+            390,
+            138
+          ],
+          [
+            397,
+            164
+          ],
+          [
+            399,
+            200
+          ],
+          [
+            397,
+            236
+          ],
+          [
+            391,
+            258
+          ],
+          [
+            380,
+            281
+          ],
+          [
+            361,
+            306
+          ],
+          [
+            339,
+            329
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R06",
+      "properties": {
+        "id": "R06",
+        "name": "Warehouse middle street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            363,
+            164
+          ],
+          [
+            400,
+            159
+          ],
+          [
+            532,
+            159
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R07",
+      "properties": {
+        "id": "R07",
+        "name": "Warehouse south street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            348,
+            239
+          ],
+          [
+            396,
+            252
+          ],
+          [
+            535,
+            252
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R08",
+      "properties": {
+        "id": "R08",
+        "name": "West diagonal",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            327,
+            277
+          ],
+          [
+            359,
+            308
+          ],
+          [
+            388,
+            327
+          ],
+          [
+            450,
+            329
+          ],
+          [
+            537,
+            329
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R09",
+      "properties": {
+        "id": "R09",
+        "name": "Southern cross street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            325,
+            342
+          ],
+          [
+            363,
+            309
+          ],
+          [
+            398,
+            280
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R10",
+      "properties": {
+        "id": "R10",
+        "name": "Governor west street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            533,
+            108
+          ],
+          [
+            533,
+            246
+          ],
+          [
+            538,
+            327
+          ],
+          [
+            529,
+            397
+          ],
+          [
+            524,
+            440
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R11",
+      "properties": {
+        "id": "R11",
+        "name": "Governor east street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            596,
+            109
+          ],
+          [
+            596,
+            261
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R12",
+      "properties": {
+        "id": "R12",
+        "name": "Living north-south street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            664,
+            91
+          ],
+          [
+            662,
+            169
+          ],
+          [
+            662,
+            238
+          ],
+          [
+            659,
+            334
+          ],
+          [
+            655,
+            365
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R13",
+      "properties": {
+        "id": "R13",
+        "name": "Southern central street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            436,
+            330
+          ],
+          [
+            439,
+            400
+          ],
+          [
+            442,
+            439
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R14",
+      "properties": {
+        "id": "R14",
+        "name": "Northern west gate street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            466,
+            0
+          ],
+          [
+            467,
+            108
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R15",
+      "properties": {
+        "id": "R15",
+        "name": "Living cross street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            597,
+            176
+          ],
+          [
+            660,
+            176
+          ],
+          [
+            721,
+            176
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R16",
+      "properties": {
+        "id": "R16",
+        "name": "Living south cross street",
+        "type": "road",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Selected major street centerline only; widths not measured; minor streets pending."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            599,
+            294
+          ],
+          [
+            655,
+            294
+          ],
+          [
+            721,
+            294
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W01",
+      "properties": {
+        "id": "W01",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            381,
+            101
+          ],
+          [
+            396,
+            88
+          ],
+          [
+            435,
+            47
+          ],
+          [
+            458,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W02",
+      "properties": {
+        "id": "W02",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            480,
+            46
+          ],
+          [
+            567,
+            46
+          ],
+          [
+            629,
+            108
+          ],
+          [
+            652,
+            108
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W03",
+      "properties": {
+        "id": "W03",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            670,
+            109
+          ],
+          [
+            721,
+            109
+          ],
+          [
+            722,
+            173
+          ],
+          [
+            752,
+            207
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W04",
+      "properties": {
+        "id": "W04",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            752,
+            238
+          ],
+          [
+            722,
+            269
+          ],
+          [
+            722,
+            334
+          ],
+          [
+            671,
+            334
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W05",
+      "properties": {
+        "id": "W05",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            651,
+            334
+          ],
+          [
+            628,
+            334
+          ],
+          [
+            564,
+            397
+          ],
+          [
+            545,
+            397
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W06",
+      "properties": {
+        "id": "W06",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            517,
+            397
+          ],
+          [
+            450,
+            397
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W07",
+      "properties": {
+        "id": "W07",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            429,
+            397
+          ],
+          [
+            373,
+            397
+          ],
+          [
+            333,
+            355
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W08",
+      "properties": {
+        "id": "W08",
+        "name": "Source wall segment",
+        "type": "wall",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Gate gaps preserved. Towers not yet separately digitized."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            319,
+            340
+          ],
+          [
+            307,
+            331
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "B006",
+      "properties": {
+        "id": "B006",
+        "name": "The Generon",
+        "type": "building",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Visible stylized roof/compound bounds; not a measured ground footprint. Source key 6"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              548,
+              136
+            ],
+            [
+              584,
+              136
+            ],
+            [
+              584,
+              174
+            ],
+            [
+              548,
+              174
+            ],
+            [
+              548,
+              136
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "B007",
+      "properties": {
+        "id": "B007",
+        "name": "Temple to Tempus",
+        "type": "building",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Visible stylized roof/compound bounds; not a measured ground footprint. Source key 7"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              489,
+              263
+            ],
+            [
+              528,
+              263
+            ],
+            [
+              528,
+              279
+            ],
+            [
+              489,
+              279
+            ],
+            [
+              489,
+              263
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "B008",
+      "properties": {
+        "id": "B008",
+        "name": "Temple of Silvanus",
+        "type": "building",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Visible stylized roof/compound bounds; not a measured ground footprint. Source key 8"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              431,
+              303
+            ],
+            [
+              475,
+              303
+            ],
+            [
+              475,
+              324
+            ],
+            [
+              431,
+              324
+            ],
+            [
+              431,
+              303
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "B009",
+      "properties": {
+        "id": "B009",
+        "name": "Temple of Lliira",
+        "type": "building",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Visible stylized roof/compound bounds; not a measured ground footprint. Source key 9"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              398,
+              258
+            ],
+            [
+              425,
+              258
+            ],
+            [
+              425,
+              282
+            ],
+            [
+              398,
+              282
+            ],
+            [
+              398,
+              258
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "L006",
+      "properties": {
+        "id": "L006",
+        "name": "The Generon",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Source-keyed landmark 6; Tempus text/plan placement conflict retained in audit."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          565,
+          154
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "L007",
+      "properties": {
+        "id": "L007",
+        "name": "Temple to Tempus",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Source-keyed landmark 7; Tempus text/plan placement conflict retained in audit."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          508,
+          271
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "L008",
+      "properties": {
+        "id": "L008",
+        "name": "Temple of Silvanus",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Source-keyed landmark 8; Tempus text/plan placement conflict retained in audit."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          452,
+          314
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "L009",
+      "properties": {
+        "id": "L009",
+        "name": "Temple of Lliira",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "Source-keyed landmark 9; Tempus text/plan placement conflict retained in audit."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          411,
+          270
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "D01",
+      "properties": {
+        "id": "D01",
+        "name": "Port District",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "District label anchor only, not a district boundary."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          367,
+          211
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "D02",
+      "properties": {
+        "id": "D02",
+        "name": "Warehouse District",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "District label anchor only, not a district boundary."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          462,
+          203
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "D03",
+      "properties": {
+        "id": "D03",
+        "name": "Merchant District",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "District label anchor only, not a district boundary."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          473,
+          367
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "D04",
+      "properties": {
+        "id": "D04",
+        "name": "Governor's District",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "District label anchor only, not a district boundary."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          563,
+          227
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "D05",
+      "properties": {
+        "id": "D05",
+        "name": "Living District",
+        "type": "landmark",
+        "source": "ArrabarIA.webp",
+        "confidence": "estimated",
+        "note": "District label anchor only, not a district boundary."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          689,
+          189
+        ]
+      }
+    }
+  ]
+}

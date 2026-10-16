@@ -30,7 +30,7 @@ This is a model input stored in the catalogue, not a sourced lore claim.
 
 ## Recipe Links
 
-Inputs for one cask: [Fruit](../food/fruit.md) 3.5.
+Inputs for one cask: 6 crates (180 lb) of wine grapes (`grapes`), harvested from `vint` vineyards in late summer/autumn. Grapes are provisionally 0.55 gp per crate (3.30 gp input per cask); fermentation and warehousing continue all year. The historical formulation and observed quotes below predate this change.
 
 Used as an input for: [Brandy and firewine](../drink/brandy.md) (0.08 per unit), [Fine vintage wine](../luxury/wine-fine.md) (0.03 per unit).
 

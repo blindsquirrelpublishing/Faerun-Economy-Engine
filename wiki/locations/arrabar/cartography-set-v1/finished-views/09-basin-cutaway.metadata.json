@@ -1,0 +1,16 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: illustration-story. Create an exquisite detailed watercolor-and-ink architectural cutaway of Arrabar's Netherwaters turning basin. Preserve the composition: a broad elliptical WATER basin under a vaulted stone ceiling, with a much smaller light well overhead; two covered navigation canals join opposite sides. The brown central marker represents a small low wooden cargo barge floating freely on water, not a platform. Water occupies the entire basin center. Stone quays border the water. Remove the front section of vault and ground to reveal interior. A small slice of street with anonymous warehouse cellars above demonstrates covered construction. Warm humid subtropical city, warm daylight through the small circular light well, cool blue-green canal water. Scale of lightwell diameter about one-third basin diameter. Do not add rotation machinery, a turntable, spokes, rails or a circular floor. No secret rooms. Title 'ARRABAR - NETHERWATERS' and subtitle 'Conceptual turning-basin cutaway'. Short callouts 'Small light well', 'Covered canal', 'Maneuvering water', 'Street and cellars above'. Bottom line 'Location, dimensions and structure are inferred.' Architectural detailing is illustrative and unmeasured.",
+  "image_dimensions": [
+    1536,
+    1024
+  ],
+  "sha256": "b239ac7b0b2ce9f62e82696b60aa66df2aa7b133368db711d8847f8cbdbbddfc",
+  "master_id": "ARRABAR-LW-r01-DRAFT",
+  "source_basis": "source-registered camera and reconstruction descriptions; no source raster accepted by the image tool",
+  "fidelity": "illustrative approximation, not geometry-locked",
+  "architecture_and_heights": "conceptual and unverified",
+  "intended_camera_record": "working-geometry/view-camera-manifest-r01.json",
+  "visual_review": "completed; text readable, requested scene present, no mechanical turning platform; facade, lighting, vegetation and incidental detail are artistic",
+  "render_status": "completed and saved"
+}

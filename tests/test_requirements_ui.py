@@ -238,7 +238,7 @@ def run_location_script(body):
     exports = (
         "globalThis.ui = { state, el, renderRequirements, renderRequirementsTable, "
         "materialDetails, toggleMaterial, downloadRequirements, renderTable, renderBusinesses, loadSettlement, "
-        "setMonth, requestHistory, start };"
+        "setMonth, requestHistory, start, renderClimate, renderDemographics };"
     )
     instrumented = LOCATION_JS.replace("  start();\n})();", exports + "\n})();")
     assert instrumented != LOCATION_JS
@@ -249,6 +249,79 @@ def run_location_script(body):
         ["node", "-"], input=script, capture_output=True, text=True, encoding="utf-8", timeout=20
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_climate_panel_renders_sourced_seasons_and_escapes_text():
+    assert 'id="climate-section"' in LOCATION_HTML
+    run_location_script(r"""
+ui.renderClimate({});
+assert.equal(ui.el['climate-section'].hidden, true);
+ui.renderClimate({climate: {
+  label: 'Warm <humid>', summary: 'Rainy winters', current_season: 'Summer',
+  seasons: [{season: 'spring', conditions: 'Up to 80F', onset: ''},
+            {season: 'summer', conditions: 'Heat <110F>', onset: 'After the Long Night'}],
+  scope_note: 'Regional figures', calendar_note: '',
+  local_notes: [{basis: 'inference', text: 'Damp <below>'}],
+  engine_note: 'Model climate class: temperate.',
+  sources: [{title: 'Guide', url: 'https://example.com/?a=1&b=2', kind: 'primary', accessed: '2026-10-14'},
+            {title: 'Bad', url: 'javascript:alert(1)', kind: 'primary', accessed: 'x'}]
+}});
+assert.equal(ui.el['climate-section'].hidden, false);
+assert.ok(ui.el['climate-summary'].innerHTML.includes('Warm &lt;humid&gt;'));
+const seasons = ui.el['climate-seasons'].innerHTML;
+assert.ok(seasons.includes('Heat &lt;110F&gt;'));
+assert.equal(seasons.split('climate-season current').length - 1, 1);
+assert.ok(seasons.includes('summer (current)'));
+assert.ok(ui.el['climate-notes'].innerHTML.includes('<em>Inference:</em> Damp &lt;below&gt;'));
+assert.equal(ui.el['climate-engine'].textContent, 'Model climate class: temperate.');
+const sources = ui.el['climate-sources'].innerHTML;
+assert.ok(sources.includes('a=1&amp;b=2'));
+assert.ok(!sources.includes('javascript:'));
+""")
+
+
+def test_demographics_panel_renders_shares_and_escapes_text():
+    assert 'id="demographics-section"' in LOCATION_HTML
+    run_location_script(r"""
+ui.renderDemographics({});
+assert.equal(ui.el['demographics-section'].hidden, true);
+ui.renderDemographics({demographics: {
+  status: 'quantified', scope: 'City <core>', reference_period: '1372 DR',
+  groups: [{race: 'Human <x>', share_pct: 84, descriptor: 'Majority',
+            subgroups: [{name: 'Chondathan', share_pct: 56}, {name: 'Turami', share_pct: null}]},
+           {race: 'Halfling', share_pct: null, descriptor: 'Under 1%'}],
+  notes: ['A < B'], era_note: 'Dated <note>', model_note: 'Not divided by race.',
+  sources: [{title: 'Wiki', url: 'https://example.com/?a=1&b=2', kind: 'secondary', accessed: '2026-10-03'},
+            {title: 'Bad', url: 'javascript:alert(1)', kind: 'secondary', accessed: 'x'}]
+}});
+assert.equal(ui.el['demographics-section'].hidden, false);
+assert.equal(ui.el['demographics-table'].hidden, false);
+const rows = ui.el['demographics-table'].querySelector('tbody').innerHTML;
+assert.ok(rows.includes('Human &lt;x&gt;'));
+assert.ok(rows.includes('84%'));
+assert.ok(rows.includes('Chondathan 56% of group, Turami'));
+assert.ok(rows.includes('&mdash;'));
+assert.ok(ui.el['demographics-summary'].innerHTML.includes('Sourced percentages.'));
+assert.ok(ui.el['demographics-summary'].innerHTML.includes('City &lt;core&gt;'));
+assert.ok(ui.el['demographics-notes'].innerHTML.includes('A &lt; B'));
+assert.equal(ui.el['demographics-model'].textContent, 'Not divided by race.');
+const sources = ui.el['demographics-sources'].innerHTML;
+assert.ok(sources.includes('a=1&amp;b=2'));
+assert.ok(!sources.includes('javascript:'));
+ui.renderDemographics({demographics: {status: 'estimated', scope: 'Town', reference_period: '1492 DR planning mix',
+  groups: [{race: 'Human', share_pct: null, estimated_share_pct: 49, descriptor: 'About half'},
+           {race: 'Halfling', share_pct: null, estimated_share_pct: 51, descriptor: 'Almost as many'}],
+  notes: ['Illustrative only; no source supplies these percentages.'],
+  era_note: 'Unknown', model_note: 'The model is separate.', sources: []}});
+assert.ok(ui.el['demographics-summary'].innerHTML.includes('Illustrative estimate, not a sourced census.'));
+assert.equal(ui.el['demographics-share-heading'].textContent, 'Estimated share');
+assert.ok(ui.el['demographics-table'].querySelector('tbody').innerHTML.includes('49%'));
+ui.renderDemographics({demographics: {status: 'unresearched', groups: [], notes: [],
+  era_note: 'No racial or ethnic breakdown has been reviewed for this location yet.',
+  model_note: 'x', sources: []}});
+assert.equal(ui.el['demographics-table'].hidden, true);
+assert.ok(ui.el['demographics-summary'].innerHTML.includes('No racial or ethnic breakdown'));
+""")
 
 
 def test_requirements_render_profile_units_filters_and_material_cascade():
@@ -602,6 +675,7 @@ def test_start_honors_month_links_without_overriding_a_new_manual_selection():
 window.location.search = '?settlement=Home&month=95';
 ui.start();
 pending('/api/bootstrap')[0].respond({settlements: [], categories: []});
+await tick();
 pending('/api/chronicle')[0].respond({today: 100});
 await tick();
 assert.equal(ui.state.month, 95);
@@ -619,6 +693,7 @@ ui.loadSettlement('Manually selected');
 pending('/api/location')[0].respond(detail('Manually selected', 100, requirements()));
 await tick();
 pending('/api/bootstrap')[0].respond({settlements: [], categories: []});
+await tick();
 pending('/api/chronicle')[0].respond({today: 100});
 await tick();
 assert.equal(ui.state.settlement, 'Manually selected');
@@ -635,6 +710,7 @@ ui.start();
 assert.equal(ui.el['step-fwd'].disabled, true);
 assert.equal(ui.el['history-chart'].hidden, true);
 pending('/api/bootstrap')[0].respond({settlements: [], categories: []});
+await tick();
 pending('/api/chronicle')[0].respond({today: 100});
 await tick();
 ui.requestHistory();
@@ -703,14 +779,35 @@ URL.createObjectURL = blob => { downloaded = blob; return 'blob:requirements'; }
 URL.revokeObjectURL = url => { revoked = url; };
 document.createElement = () => (link = {click() { this.clicked = true; }, remove() {}});
 ui.downloadRequirements();
-assert.equal(link.download, 'location-requirements-100.json');
+assert.equal(link.download, 'location-home-100.json');
 assert.equal(link.clicked, true);
 assert.equal(downloaded.type, 'application/json');
 assert.deepEqual(JSON.parse(await downloaded.text()), {
-  settlement: 'Home', month: 100, requirements: data
+  settlement: 'Home', month: 100, ...ui.state.detail,
+  businesses: null, price_history: null, price_history_loaded: false
 });
 for (const callback of timers.values()) callback();
 assert.equal(revoked, 'blob:requirements');
+
+ui.state.detail.climate = {label: 'Warm', seasons: []};
+ui.state.detail.guilds = [{name: 'Merchant Guild'}];
+ui.state.detail.market.prices = [{commodity: 'bread', price: 2}];
+ui.state.businesses = {settlement_id: 'home', businesses: [{id: 'b1'}]};
+ui.state.timeline = timeline('Home', 90, 110);
+ui.downloadRequirements();
+const full = JSON.parse(await downloaded.text());
+assert.equal(full.climate.label, 'Warm');
+assert.equal(full.guilds[0].name, 'Merchant Guild');
+assert.equal(full.market.prices[0].commodity, 'bread');
+assert.deepEqual(full.requirements, data);
+assert.equal(full.businesses.businesses[0].id, 'b1');
+assert.equal(full.price_history_loaded, true);
+assert.equal(full.price_history.series.length, 21);
+
+ui.state.detail = null;
+downloaded = undefined;
+ui.downloadRequirements();
+assert.equal(downloaded, undefined, 'nothing to download before a month loads');
 """)
     subprocess.run(
         ["node", "-"],

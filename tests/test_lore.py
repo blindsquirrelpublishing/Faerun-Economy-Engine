@@ -26,6 +26,16 @@ def test_researched_entries_have_sources_and_era_notes():
             assert source["kind"] in {"primary", "secondary"}
 
 
+def test_secomber_tribute_is_dated_lore_not_an_invented_model_adjustment():
+    settlement = World().find_settlement("secomber")
+    result = location_lore(settlement)
+    assert any("1479 DR" in paragraph and "1491 DR" in paragraph
+               for paragraph in result["paragraphs"])
+    assert any("no tribute amount" in paragraph for paragraph in result["paragraphs"])
+    assert settlement.wealth == 0.85
+    assert settlement.security == 0.55
+
+
 def test_unknown_location_does_not_invent_a_source():
     settlement = Settlement("unknown", "Unknown", "Test", "test", 12, 0, 0)
     result = location_lore(settlement)
@@ -107,7 +117,9 @@ def test_triboar_supplements_with_qualified_alternative_source():
     result = location_lore(settlement)
     paragraphs = " ".join(result["paragraphs"])
     assert result["status"] == "researched"
-    assert result["sources"][0]["url"] == "https://thecampaign20xx.blogspot.com/2016/08/dungeons-dragons-guide-to-storm-kings.html"
+    assert result["sources"][0]["url"] == "https://forgottenrealms.fandom.com/wiki/Triboar"
+    assert any(source["url"] == "https://thecampaign20xx.blogspot.com/2016/08/dungeons-dragons-guide-to-storm-kings.html"
+               for source in result["sources"])
     assert result["sources"][0]["kind"] == "secondary"
     for name in ("Othovir", "Northshield House", "Narth Tezrin"):
         assert name in paragraphs

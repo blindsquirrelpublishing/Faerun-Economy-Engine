@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "id": "phandalin",
+  "name": "Phandalin",
+  "summary": "Rebuilt frontier village of farmers, woodcutters, trappers and prospectors in the Lost Hills of the Sword Mountains, resettled from about 1486 DR on the ruins of a 10th-century town; about fifty log and flagstone buildings in 1491 DR.",
+  "evidence_reviewed": "2026-10-09",
+  "wiki_entry": "README.md",
+  "identity": {
+    "region": "Sword Coast North",
+    "subregion": "Lost Hills of the Sword Mountains, south of Neverwinter Wood, north-east of Leilon",
+    "settlement_type": "Village (rebuilt frontier settlement)",
+    "ruler_office": "Annually elected Townmaster (Harbin Wester, 1491 DR); three-member Town Council from the early 1490s DR, year not given",
+    "arms": null,
+    "namesake": null
+  },
+  "periods": {
+    "first_town": "10th century DR, abandoned after 951 DR",
+    "first_resettlement": "before 1374 DR (video game source only)",
+    "snapshot_5e": "1491 DR (Lost Mine of Phandelver), early 1490s DR (Dragon of Icespire Peak, In Volo's Wake), 1496 DR (Acquisitions Incorporated)",
+    "planning_baseline_dr": 1492,
+    "note": "Nothing is verified for 1492 DR itself; 1496 DR details come after the baseline."
+  },
+  "position": {
+    "location_id": "fps-phandalin",
+    "fps": "FPS1:WD:X-000.38:Y+001.27",
+    "x": -0.38,
+    "y": 1.27,
+    "east_miles": -45.0,
+    "north_miles": 152.3,
+    "method": "engine_inferred",
+    "note": "Taken from the 2026-10-01 review of maps/locations.json; not a canonical georeference. The engine trail to Triboar is 86.5 miles against about 225 in the sources (T16, P13)."
+  },
+  "engine_record": {
+    "settlement_id": "phandalin",
+    "region": "Sword Coast North",
+    "zone": "swordcoast_north",
+    "population": 500,
+    "population_note": "Gazetteer estimate with no reference year; no source gives a count. About 50 structures in 1491 DR suggest roughly 160 to 240 in the town core before farms and claims (P10).",
+    "x": 555.0,
+    "y": 1047.7,
+    "wealth": 0.7,
+    "tax": 0.03,
+    "security": 0.5,
+    "port": null,
+    "river": false,
+    "terrain": "hills",
+    "traits": [
+      "frontier",
+      "mining"
+    ],
+    "industries": {
+      "craft": 1.0,
+      "farm": 1.0,
+      "hunt": 1.0,
+      "log": 1.0,
+      "mine_gold": 1.0,
+      "mine_iron": 1.0,
+      "mine_silver": 1.0
+    },
+    "specialties": {
+      "silver_ingot": 1.0
+    },
+    "shortages": [
+      "wine_common",
+      "silk"
+    ],
+    "ruler": "",
+    "businesses": [
+      "barthens_provisions",
+      "lionshield_coster_phandalin",
+      "phandalin_miners_exchange",
+      "edermath_orchard",
+      "stonehill_inn",
+      "sleeping_giant_phandalin"
+    ],
+    "read_from": "faerun/data/store/settlements.json; faerun/data/store/businesses.json (2026-10-09)"
+  },
+  "town_plan": {
+    "source": "Map of Phandalin, Lost Mine of Phandelver (D&D Starter Set, 2014), p. 17, by Mike Schley",
+    "source_url": "https://forgottenrealms.fandom.com/wiki/File:Phandalin.jpg",
+    "stored": "phandalin.jpg",
+    "stored_size_px": [
+      1800,
+      1200
+    ],
+    "full_size_px": [
+      4000,
+      2788
+    ],
+    "date": "1491 DR",
+    "orientation": "North is up (compass rose)",
+    "scale": "Bar from 0 to 500 feet (marks at 20, 50, 100 and 200)",
+    "building_count": null,
+    "building_count_note": "Text gives about fifty structures (Lost Mine of Phandelver, p. 14); not counted from the plan.",
+    "wells": 3,
+    "labels": [
+      "Edermath Orchard",
+      "Sister Garaele's Home",
+      "Shrine of Luck",
+      "Smithy",
+      "Barthen's Provisions",
+      "Barthen's Home",
+      "Stonehill Inn",
+      "Sleeping Giant",
+      "Tresendar Manor",
+      "Town Green",
+      "Linene's Home",
+      "Lionshield Coster",
+      "Townmaster's Hall",
+      "Woodworker",
+      "Harbin Wester's Home",
+      "Alderleaf Farm",
+      "Phandalin Miner's Exchange",
+      "Halia's Home",
+      "To Triboar Trail",
+      "Miners' Trail"
+    ],
+    "layout": [
+      "Town green at the centre, with roads radiating north-east (to the Triboar Trail), east (main street to Tresendar Manor) and south-west (Miners' Trail)",
+      "Edermath Orchard on the north-west edge",
+      "Tresendar Manor on a wooded hill east of town, at the end of the main street",
+      "Alderleaf Farm fields on the south-east edge",
+      "Miner's Exchange on the south-west, beside the Miners' Trail"
+    ],
+    "uncertain_readings": [
+      "The Smithy appears on the 2014 plan but is staffed only in the 1496 DR source",
+      "The wells are not marked on the plan"
+    ]
+  },
+  "interactive_map_markers": {
+    "source": "Forgotten Realms Wiki \"Map:Phandalin (1491 DR)\", drawn on an unlabelled copy of the Lost Mine of Phandelver plan (File:Phandalin-Background, 4000 by 2788)",
+    "source_url": "https://forgottenrealms.fandom.com/wiki/Map:Phandalin_(1491_DR)",
+    "coordinates": "Origin bottom left, x then y, in the map's own units (0 to 4000 by 0 to 2788, equal to the background image's pixels); larger x is east and larger y is north (inferred from the orchard to the west, Tresendar Manor to the east and the Triboar road to the north); no scale",
+    "markers": [
+      {
+        "place": "Stonehill Inn",
+        "kind": "Inn or tavern",
+        "x": 1809,
+        "y": 1679,
+        "note": "1491 DR"
+      },
+      {
+        "place": "Sleeping Giant",
+        "kind": "Inn or tavern",
+        "x": 2468,
+        "y": 1615,
+        "note": "1491 DR"
+      },
+      {
+        "place": "Barthen's Provisions",
+        "kind": "Shop or business",
+        "x": 2114,
+        "y": 2037,
+        "note": "1491 DR; closed late 1495 or early 1496 DR"
+      },
+      {
+        "place": "Smithy",
+        "kind": "Shop or business",
+        "x": 1748,
+        "y": 1959,
+        "note": "1496 DR only"
+      },
+      {
+        "place": "Edermath Orchard",
+        "kind": "Shop or business",
+        "x": 1000,
+        "y": 1987,
+        "note": "Apple orchard and cider mill"
+      },
+      {
+        "place": "Lionshield Coster",
+        "kind": "Shop or business",
+        "x": 1365,
+        "y": 1305,
+        "note": "1491 DR"
+      },
+      {
+        "place": "Woodworker",
+        "kind": "Shop or business",
+        "x": 1558,
+        "y": 1115,
+        "note": "Thel Dendrar, to 1491 DR"
+      },
+      {
+        "place": "Phandalin Miner's Exchange",
+        "kind": "Shop or business",
+        "x": 1304,
+        "y": 918,
+        "note": "Trading post and guildhall"
+      },
+      {
+        "place": "Town Green",
+        "kind": "Landmark",
+        "x": 1146,
+        "y": 1645,
+        "note": null
+      },
+      {
+        "place": "Townmaster's Hall",
+        "kind": "Landmark",
+        "x": 1720,
+        "y": 1371,
+        "note": null
+      },
+      {
+        "place": "Tresendar Manor",
+        "kind": "Landmark",
+        "x": 3492,
+        "y": 1699,
+        "note": "Ruins"
+      },
+      {
+        "place": "Shrine of Luck",
+        "kind": "Temple or shrine",
+        "x": 1552,
+        "y": 1683,
+        "note": "Tymora"
+      },
+      {
+        "place": "Temple of the Coinmaiden",
+        "kind": "Temple or shrine",
+        "x": 2050,
+        "y": 1954,
+        "note": "Waukeen, 1496 DR; in the former Barthen's Provisions building"
+      },
+      {
+        "place": "Elmar Barthen's house",
+        "kind": "Private residence",
+        "x": 2212,
+        "y": 1847,
+        "note": null
+      },
+      {
+        "place": "Sister Garaele's home",
+        "kind": "Private residence",
+        "x": 1452,
+        "y": 1779,
+        "note": null
+      },
+      {
+        "place": "Linene Graywind's home",
+        "kind": "Private residence",
+        "x": 1095,
+        "y": 1343,
+        "note": null
+      },
+      {
+        "place": "Halia Thornton's home",
+        "kind": "Private residence",
+        "x": 1554,
+        "y": 727,
+        "note": null
+      },
+      {
+        "place": "Harbin Wester's home",
+        "kind": "Private residence",
+        "x": 2125,
+        "y": 1226,
+        "note": null
+      },
+      {
+        "place": "Alderleaf Farm",
+        "kind": "Private residence",
+        "x": 2603,
+        "y": 960,
+        "note": "Qelline Alderleaf"
+      },
+      {
+        "place": "Road to Triboar Trail",
+        "kind": "Road",
+        "x": 2252,
+        "y": 2605,
+        "note": "North"
+      },
+      {
+        "place": "Miners' Trail",
+        "kind": "Road",
+        "x": 798,
+        "y": 284,
+        "note": "South-west"
+      }
+    ],
+    "note": "The wiki says the positions come from two sources; the second (adding the Smithy and the 1496 DR temple) is probably Acquisitions Incorporated but was not confirmed. A References marker at (3999, 0) is omitted."
+  },
+  "display_map": {
+    "file": "Phandalin_ A Frontier Village Map.png",
+    "width": 1536,
+    "height": 1024,
+    "provenance": "Supplied by the project owner. The image names no publisher, artist, edition or date. It is a repainted version of the Lost Mine of Phandelver plan with the same labels.",
+    "orientation": "North is up (compass rose)",
+    "scale": "Bar from 0 to 500 feet",
+    "labels": [
+      "Edermath Orchard",
+      "Shrine of Luck",
+      "Smithy",
+      "Barthen's Provisions",
+      "Barthen's Home",
+      "Tresendar Manor",
+      "Sleeping Giant",
+      "Stonehill Inn",
+      "Town Green",
+      "Linene's Home",
+      "Lionshield Coster",
+      "Townmaster's Hall",
+      "Woodworker",
+      "Alderleaf Farm",
+      "Harbin Wester's Home",
+      "Phandalin Miner's Exchange",
+      "Halia's Home",
+      "To Triboar Trail",
+      "Miner's Trail"
+    ],
+    "conflicts_with_sources": [
+      "Sister Garaele's home is not labelled",
+      "Adds a stream along the south and east edges, crossed by a footbridge, that the published plan does not show",
+      "Adds ploughed field strips and a well at Alderleaf Farm"
+    ]
+  },
+  "sketch": {
+    "file": "phandalin-sketch.svg",
+    "drawn": "2026-10-09",
+    "method": "Interactive-map marker positions scaled by 0.225 with y flipped; roads, orchard, farm fields and manor hill placed by eye; houses not drawn",
+    "status": "Working reconstruction, not a copy of the published map"
+  },
+  "maps": [
+    {
+      "id": "display-map",
+      "title": "Phandalin: A Frontier Village Map (provenance unknown)",
+      "edition": null,
+      "url": null,
+      "stored": "Phandalin_ A Frontier Village Map.png"
+    },
+    {
+      "id": "working-sketch",
+      "title": "Phandalin, working sketch (2026-10-09)",
+      "edition": null,
+      "url": null,
+      "stored": "phandalin-sketch.svg"
+    },
+    {
+      "id": "lmop-2014-town",
+      "title": "Map of Phandalin, Lost Mine of Phandelver (2014), p. 17, Mike Schley",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Phandalin.jpg",
+      "stored": "phandalin.jpg"
+    },
+    {
+      "id": "lmop-2014-town-full",
+      "title": "Lost Mine of Phandelver: Phandalin, digital DM and player versions (4000 by 2788), Mike Schley",
+      "edition": "5th",
+      "url": "https://prints.mikeschley.com/p856083253/h18591121",
+      "stored": null
+    },
+    {
+      "id": "pab-2023-town",
+      "title": "Phandelver and Below: The Shattered Obelisk (2023): Phandalin, Mike Schley (not viewed)",
+      "edition": "5th",
+      "url": "https://prints.mikeschley.com/p52230723/hC13D60EB",
+      "stored": null
+    },
+    {
+      "id": "pab-2023-alleys",
+      "title": "Phandelver and Below (2023): Phandalin Alleys, encounter map, 3000 by 4071, Mike Schley (not viewed)",
+      "edition": "5th",
+      "url": "https://prints.mikeschley.com/p57186496/hC13D77AC",
+      "stored": null
+    },
+    {
+      "id": "doip-2019-town",
+      "title": "Dragon of Icespire Peak (Essentials Kit, 2019): Phandalin town map, reported, cartographer not confirmed (not viewed)",
+      "edition": "5th",
+      "url": null,
+      "stored": null
+    },
+    {
+      "id": "phandalin-region",
+      "title": "The Phandalin Region, Lost Mine of Phandelver (2014), remastered for Phandelver and Below (2023), Mike Schley",
+      "edition": "5th",
+      "url": "https://prints.mikeschley.com/p530730153/h3061DC4D",
+      "stored": null
+    },
+    {
+      "id": "triboar-trail-region",
+      "title": "Triboar Trail region, fused from Lost Mine of Phandelver and Dragon of Icespire Peak, Mike Schley",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Triboar_Trail_Region_Map.jpg",
+      "stored": null
+    },
+    {
+      "id": "lmop-environs",
+      "title": "Environs south of Neverwinter, Lost Mine of Phandelver, p. 5, Mike Schley",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Location_of_castle2.jpg",
+      "stored": null
+    },
+    {
+      "id": "lmop-area",
+      "title": "Lost Mine of Phandelver area map, Mike Schley",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:MapLostMine.png",
+      "stored": null
+    },
+    {
+      "id": "scag-leilon-region",
+      "title": "Leilon region, Map of Faerun (Sword Coast Adventurer's Guide), Mike Schley",
+      "edition": "5th",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Leilon_Region.png",
+      "stored": null
+    },
+    {
+      "id": "fr-atlas-vicinity",
+      "title": "Vicinity of Leilon and Phandalin, The Forgotten Realms Atlas (1999), Karen Wynn Fonstad",
+      "edition": "2nd",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:Leilon.jpg",
+      "stored": null
+    },
+    {
+      "id": "the-north-poster",
+      "title": "Mere of Dead Men area, poster map from The North: Guide to the Savage Frontier (1996); Phandalin marking not checked",
+      "edition": "2nd",
+      "url": "https://forgottenrealms.fandom.com/wiki/File:MereOfDeadMen-TheNorth.png",
+      "stored": null
+    },
+    {
+      "id": "dnd-adventurer-region",
+      "title": "Regional map, D&D Adventurer partwork magazine (reported, not viewed)",
+      "edition": "5th",
+      "url": null,
+      "stored": null
+    }
+  ],
+  "sources": [
+    {
+      "id": "frwiki",
+      "title": "Forgotten Realms Wiki: Phandalin",
+      "kind": "secondary",
+      "url": "https://forgottenrealms.fandom.com/wiki/Phandalin"
+    },
+    {
+      "id": "frwiki-imap",
+      "title": "Forgotten Realms Wiki: Map:Phandalin (1491 DR)",
+      "kind": "secondary",
+      "url": "https://forgottenrealms.fandom.com/wiki/Map:Phandalin_(1491_DR)"
+    },
+    {
+      "id": "frwiki-maps",
+      "title": "Forgotten Realms Wiki: Category:Maps of Phandalin",
+      "kind": "secondary",
+      "url": "https://forgottenrealms.fandom.com/wiki/Category:Maps_of_Phandalin"
+    },
+    {
+      "id": "schley",
+      "title": "Prints by Mike Schley: Lost Mine of Phandelver and Phandelver and Below galleries",
+      "kind": "publisher",
+      "url": "https://prints.mikeschley.com/p57186496"
+    },
+    {
+      "id": "alexandrian",
+      "title": "The Alexandrian: Phandalin Region Map label layers",
+      "kind": "secondary",
+      "url": "https://thealexandrian.net/wordpress/50006/roleplaying-games/phandalin-region-map-label-layers"
+    },
+    {
+      "id": "enworld",
+      "title": "EN World: Advent's Amazing Advice, Phandelver and Below part 2a, Phandalin",
+      "kind": "fan",
+      "url": "https://www.enworld.org/threads/advents-amazing-advice-phandelver-and-below-the-shattered-obelisk-a-campaign-fully-prepped-and-ready-to-go-part-2a-phandalin.700657/"
+    }
+  ],
+  "copyright_note": "Published map images and index text belong to their owners (Wizards of the Coast, Mike Schley). This file records facts and links."
+}

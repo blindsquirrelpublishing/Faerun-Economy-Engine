@@ -10,6 +10,7 @@ import threading
 import pytest
 
 from faerun import cli, web
+from faerun.brand import apply_branding
 from faerun.calendar import HarptosDate
 from faerun.models import C, S
 from faerun.orders import TradeStore
@@ -94,7 +95,7 @@ def test_all_pages_get_viewer_presentation_without_changing_editor(listeners):
     for name, (body, content_type) in web.STATIC.items():
         if not content_type.startswith("text/html"):
             continue
-        assert request(editor, "/" + name) == (200, body.encode("utf-8"))
+        assert request(editor, "/" + name) == (200, apply_branding(body).encode("utf-8"))
         status, raw = request(reader, "/" + name)
         if name in web.LORE_ASSETS:
             assert status == 403, name
@@ -123,8 +124,9 @@ def test_lore_is_disabled_only_on_read_only_listener(listeners, monkeypatch):
     assert calls == []
     assert request(editor, "/api/lore-desk")[0] == 200
     assert len(calls) == 1
-    for name, (body, _) in web.LORE_ASSETS.items():
-        assert request(editor, "/" + name) == (200, body.encode("utf-8"))
+    for name, (body, content_type) in web.LORE_ASSETS.items():
+        expected = apply_branding(body) if content_type.startswith("text/html") else body
+        assert request(editor, "/" + name) == (200, expected.encode("utf-8"))
     html = request(reader, "/map.html")[1].decode("utf-8")
     assert 'a[href="lore.html"]' in html
 

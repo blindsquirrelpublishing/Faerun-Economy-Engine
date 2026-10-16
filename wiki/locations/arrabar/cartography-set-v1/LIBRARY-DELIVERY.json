@@ -1,0 +1,68 @@
+[
+  {
+    "filename": "01-land-water-master-v1.8-preview.png",
+    "library_file_id": "libfile_abcf11700e5c8191b20df7f97298d7ff",
+    "file_id": "file_00000000f7ac820e8b77f079ac1954c8"
+  },
+  {
+    "file_name": "09-basin-cutaway.png",
+    "library_file_id": "libfile_b740ffe38f2c819183674b755d244741",
+    "file_id": "file_00000000dc9c81f5ab1eea7d986cbe6c",
+    "path": "/09-basin-cutaway.png"
+  },
+  {
+    "file_name": "10-harbor-eye-level.png",
+    "library_file_id": "libfile_64373504733c8191b0d5bf4f4a938aa7",
+    "file_id": "file_00000000183881f9985061243d7a75e7",
+    "path": "/10-harbor-eye-level.png"
+  },
+  {
+    "file_name": "11-basin-eye-level.png",
+    "library_file_id": "libfile_9438808422d081919fcf5830bbbf036c",
+    "file_id": "file_00000000bb4c81faaa7df68744bdc5b1",
+    "path": "/11-basin-eye-level.png"
+  },
+  {
+    "file_name": "12-street-eye-level.png",
+    "library_file_id": "libfile_cdaa3b4a4b4481918c76bca7261c53e8",
+    "file_id": "file_000000002da4820e862d34a6420cf358",
+    "path": "/12-street-eye-level.png"
+  },
+  {
+    "file_name": "arrabar-completed-maps-contact-sheet.png",
+    "library_file_id": "libfile_cad30a3c4a908191a8b80bf30d079e7e",
+    "file_id": "file_00000000496481f5879701f63b123851",
+    "path": "/arrabar-completed-maps-contact-sheet.png"
+  },
+  {
+    "file_name": "02-cadastral-detailed-v1.8-r02-preview.png",
+    "library_file_id": "libfile_8d2aed773ecc8191a68df7b7a1551e6c",
+    "file_id": "file_0000000003788210bb2178196084d38c",
+    "path": "/02-cadastral-detailed-v1.8-r02-preview.png"
+  },
+  {
+    "file_name": "02-cadastral-detailed-v1.8-r02.png",
+    "library_file_id": "libfile_525f52d2178081918c4537065460904d",
+    "file_id": "file_00000000b6bc820bbf563ba47c0c95f3",
+    "path": "/02-cadastral-detailed-v1.8-r02.png"
+  },
+  {
+    "file_name": "02-cadastral-detailed-v1.8-r02.svg",
+    "library_file_id": "libfile_0bee498bd47c8191be52b497b099417d",
+    "file_id": "file_00000000377881f6a30da8ad7ccd0193",
+    "path": "/02-cadastral-detailed-v1.8-r02.svg"
+  },
+  {
+    "file_name": "07-isometric-registered-reference.png",
+    "library_file_id": "libfile_c49edb27ed4c8191871c8fc69dec0431",
+    "file_id": "file_00000000ef688210a926b594ed779bfb",
+    "path": "/07-isometric-registered-reference.png"
+  },
+  {
+    "filename": "arrabar-cartography-set-v1.zip",
+    "library_file_id": "libfile_5e6d16c454708191847e3cd9f79dcaea",
+    "file_id": "file_0000000017d481f5abb16ebe1eb9d297",
+    "bytes": 49018724,
+    "sha256": "c58400bfdc757128926fc65ac31c2f252db9cfa508d3868afa32acf3811a9878"
+  }
+]

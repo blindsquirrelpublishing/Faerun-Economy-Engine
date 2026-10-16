@@ -96,13 +96,33 @@ LOCATION_HTML = """<!DOCTYPE html>
   </aside>
 
   <section class="content">
+    <section class="climate-board" id="climate-section" aria-labelledby="climate-title" hidden>
+      <h2 id="climate-title">Climate</h2>
+      <p id="climate-summary" class="climate-summary"></p>
+      <div id="climate-seasons" class="climate-seasons"></div>
+      <div id="climate-notes"></div>
+      <p id="climate-engine" class="muted"></p>
+      <div id="climate-sources" class="muted"></div>
+    </section>
+    <section class="climate-board demographics-board" id="demographics-section" aria-labelledby="demographics-title" hidden>
+      <h2 id="demographics-title">Racial makeup</h2>
+      <p id="demographics-summary" class="climate-summary"></p>
+      <table id="demographics-table" class="demographics-table" hidden>
+        <thead><tr><th scope="col">Race</th><th scope="col" id="demographics-share-heading">Share</th><th scope="col">Description</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div id="demographics-notes"></div>
+      <p id="demographics-era" class="muted"></p>
+      <p id="demographics-model" class="muted"></p>
+      <div id="demographics-sources" class="muted"></div>
+    </section>
     <section class="requirements-board" id="requirements-board" aria-labelledby="requirements-title" aria-busy="true">
       <div class="requirements-heading">
         <div>
           <h2 id="requirements-title">Settlement requirements</h2>
           <p class="muted">Estimated people, producers and daily material flows &mdash; not canonical census or named businesses.</p>
         </div>
-        <button id="requirements-download" type="button" class="ghost" disabled>Download requirements JSON</button>
+        <button id="requirements-download" type="button" class="ghost" disabled>Download page data (JSON)</button>
       </div>
       <p id="requirements-status" class="status" role="status" aria-live="polite">Loading requirements...</p>
       <div id="requirements-content" hidden>
@@ -572,6 +592,23 @@ td.up { color: var(--cp-accent); }
 .requirements-card dd { margin: 5px 0 0; font-size: 18px; font-weight: 650; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 .requirements-card small { display: block; color: var(--cp-text-muted); font-size: 10px; font-weight: 400; }
 .guilds-section { margin: 18px 0; }
+.climate-board { margin-bottom: 20px; padding: 22px; border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 7px 20px rgba(25, 35, 45, .07); }
+.climate-board [hidden] { display: none; }
+.climate-board h2 { margin: 0 0 8px; font-size: 22px; }
+.climate-summary { margin: 0 0 12px; line-height: 1.65; }
+.climate-seasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin: 12px 0; }
+.climate-season { min-width: 0; margin: 0; padding: 12px; border: 1px solid var(--cp-border); border-radius: 6px; background: var(--cp-surface-soft); }
+.climate-season.current { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
+.climate-season h3 { margin: 0 0 6px; font-size: 14px; text-transform: capitalize; }
+.climate-season p { margin: 0 0 6px; font-size: 12px; line-height: 1.6; }
+.climate-season .onset { color: var(--cp-text-muted); }
+.climate-board .muted { font-size: 12px; line-height: 1.65; }
+.climate-notes { margin: 8px 0; padding-left: 18px; font-size: 12px; line-height: 1.65; }
+.climate-board a { color: var(--cp-link); }
+.demographics-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+.demographics-table th, .demographics-table td { padding: 6px 8px; border-bottom: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.demographics-table .share { white-space: nowrap; }
+.demographics-table .sub { display: block; margin-top: 3px; color: var(--cp-text-muted); font-size: 12px; }
 .guilds-section h3 { margin: 0 0 10px; font-size: 16px; }
 .guild-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
 .guild-card { min-width: 0; padding: 12px; border: 1px solid var(--cp-border); border-radius: 6px; background: var(--cp-surface-soft); }
@@ -653,6 +690,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
   var state = {
     settlement: null,
     timeline: null,
+    businesses: null,
     detail: null,
     month: null,
     first: 0,
@@ -676,6 +714,10 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
              'requirements-content', 'requirements-status', 'requirements-model',
              'requirements-profile', 'requirements-assumptions',
              'guilds-section', 'guilds',
+             'climate-section', 'climate-summary', 'climate-seasons', 'climate-notes',
+             'climate-engine', 'climate-sources',
+             'demographics-section', 'demographics-summary', 'demographics-table',
+             'demographics-share-heading', 'demographics-notes', 'demographics-era', 'demographics-model', 'demographics-sources',
              'requirements-establishments', 'requirements-wages', 'requirements-summary',
              'requirements-output-section', 'requirements-output',
              'requirements-defense-section', 'requirements-defense',
@@ -1000,6 +1042,80 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
         });
       }
     );
+  }
+
+  function renderClimate(data) {
+    var climate = data && data.climate ? data.climate : null;
+    el['climate-section'].hidden = !climate;
+    if (!climate) {
+      el['climate-seasons'].innerHTML = '';
+      el['climate-notes'].innerHTML = '';
+      el['climate-sources'].innerHTML = '';
+      return;
+    }
+    var seasons = climate.seasons || [];
+    var current = String(climate.current_season || '').toLowerCase();
+    el['climate-summary'].innerHTML = climate.label
+      ? '<strong>' + esc(climate.label) + '.</strong> ' + esc(climate.summary)
+      : esc(climate.era_note);
+    el['climate-seasons'].hidden = !seasons.length;
+    el['climate-seasons'].innerHTML = seasons.map(function (row) {
+      var active = String(row.season).toLowerCase() === current;
+      return '<article class="climate-season' + (active ? ' current' : '') + '"><h3>' +
+        esc(row.season) + (active ? ' (current)' : '') + '</h3><p>' + esc(row.conditions) + '</p>' +
+        (row.onset ? '<p class="onset">' + esc(row.onset) + '</p>' : '') + '</article>';
+    }).join('');
+    var notes = [];
+    if (climate.scope_note) { notes.push(esc(climate.scope_note)); }
+    if (climate.calendar_note) { notes.push(esc(climate.calendar_note)); }
+    (climate.local_notes || []).forEach(function (note) {
+      notes.push((note.basis === 'inference' ? '<em>Inference:</em> ' : '') + esc(note.text));
+    });
+    el['climate-notes'].innerHTML = notes.length
+      ? '<ul class="climate-notes"><li>' + notes.join('</li><li>') + '</li></ul>' : '';
+    el['climate-engine'].textContent = climate.engine_note || '';
+    el['climate-sources'].innerHTML = (climate.sources || []).filter(function (source) {
+      return String(source.url).indexOf('https://') === 0;
+    }).map(function (source) {
+      return 'Source: <a href="' + esc(source.url) + '" target="_blank" rel="noopener noreferrer">' +
+        esc(source.title) + '</a> (' + esc(source.kind) + ', accessed ' + esc(source.accessed) + ')';
+    }).join('<br>');
+  }
+
+  function renderDemographics(data) {
+    var demo = data && data.demographics ? data.demographics : null;
+    el['demographics-section'].hidden = !demo;
+    if (!demo) { return; }
+    var groups = demo.groups || [];
+    var scope = demo.scope ? ' Scope: ' + esc(demo.scope) + '.' : '';
+    var period = demo.reference_period ? ' Reference period: ' + esc(demo.reference_period) + '.' : '';
+    el['demographics-summary'].innerHTML = groups.length
+      ? (demo.status === 'estimated' ? '<strong>Illustrative estimate, not a sourced census.</strong>' :
+         demo.status === 'quantified' ? 'Sourced percentages.' : 'Sourced descriptions; no percentages found.') +
+        scope + period
+      : esc(demo.era_note);
+    el['demographics-table'].hidden = !groups.length;
+    el['demographics-share-heading'].textContent = demo.status === 'estimated' ? 'Estimated share' : 'Share';
+    el['demographics-table'].querySelector('tbody').innerHTML = groups.map(function (group) {
+      var value = demo.status === 'estimated' ? group.estimated_share_pct : group.share_pct;
+      var share = value === null || value === undefined ? '&mdash;' : esc(value) + '%';
+      var subs = (group.subgroups || []).map(function (sub) {
+        return esc(sub.name) + (sub.share_pct === null || sub.share_pct === undefined
+          ? '' : ' ' + esc(sub.share_pct) + '% of group');
+      }).join(', ');
+      return '<tr><th scope="row">' + esc(group.race) + '</th><td class="share">' + share + '</td><td>' +
+        esc(group.descriptor) + (subs ? '<span class="sub">' + subs + '</span>' : '') + '</td></tr>';
+    }).join('');
+    el['demographics-notes'].innerHTML = (demo.notes || []).length
+      ? '<ul class="climate-notes"><li>' + demo.notes.map(esc).join('</li><li>') + '</li></ul>' : '';
+    el['demographics-era'].textContent = groups.length ? (demo.era_note || '') : '';
+    el['demographics-model'].textContent = demo.model_note || '';
+    el['demographics-sources'].innerHTML = (demo.sources || []).filter(function (source) {
+      return String(source.url).indexOf('https://') === 0;
+    }).map(function (source) {
+      return 'Source: <a href="' + esc(source.url) + '" target="_blank" rel="noopener noreferrer">' +
+        esc(source.title) + '</a> (' + esc(source.kind) + ', accessed ' + esc(source.accessed) + ')';
+    }).join('<br>');
   }
 
   function renderGuilds(data) {
@@ -1721,14 +1837,22 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
   }
 
   function downloadRequirements() {
-    var requirements = state.detail && state.detail.requirements;
-    if (!requirements || !requirements.enabled) { return; }
-    var payload = { settlement: state.settlement, month: state.month, requirements: requirements };
+    var detail = state.detail;
+    if (!detail) { return; }
+    /* Everything the page shows: the whole /api/location payload (market prices,
+       events, guilds, climate, lore and requirements), the named businesses, and the
+       seven-year history only when it has been loaded. */
+    var payload = Object.assign({ settlement: state.settlement, month: state.month }, detail, {
+      businesses: state.businesses,
+      price_history: state.timeline,
+      price_history_loaded: !!state.timeline
+    });
     var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
     link.href = url;
-    link.download = 'location-requirements-' + state.month + '.json';
+    link.download = 'location-' + String(state.settlement).toLowerCase().replace(/[^a-z0-9]+/g, '-') +
+      '-' + state.month + '.json';
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -1764,6 +1888,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     el['requirements-content'].hidden = true;
     el['guilds-section'].hidden = true;
     el.guilds.innerHTML = '';
+    el['climate-section'].hidden = true;
+    el['demographics-section'].hidden = true;
     el['requirements-download'].disabled = true;
     el['requirements-table'].querySelector('tbody').innerHTML = '';
     el['requirements-status'].textContent = message;
@@ -1853,8 +1979,11 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
           : 'no event pressure';
         renderActiveEvents(data.events);
         renderGuilds(data);
+        renderClimate(data);
+        renderDemographics(data);
         renderTable();
         renderRequirements(data.requirements);
+        el['requirements-download'].disabled = false;
         showMonth();
         updateHistory();
         say('');
@@ -1869,6 +1998,8 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
         el['requirements-content'].hidden = true;
         el['guilds-section'].hidden = true;
         el.guilds.innerHTML = '';
+        el['climate-section'].hidden = true;
+        el['demographics-section'].hidden = true;
         el['requirements-download'].disabled = true;
         el['requirements-status'].textContent = 'Could not load requirements: ' + err.message;
         el['active-events'].innerHTML = '<p class="muted">Selected month could not be loaded.</p>';
@@ -1896,6 +2027,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     var generation = ++settlementRequest;
     state.settlement = name;
     state.timeline = null;
+    state.businesses = null;
     if (state.month === null) { state.month = state.today; }
     clearDetail('Loading requirements and prices for ' + name + '...');
     setTimelineEnabled(false);
@@ -1915,7 +2047,7 @@ LOCATION_JS = SEASONAL_JS + """/* Location detail: a timeline scrubber over the 
     loadDetail();
     get('/api/businesses?settlement=' + encodeURIComponent(name))
       .then(function (data) {
-        if (generation === settlementRequest) { renderBusinesses(data); }
+        if (generation === settlementRequest) { state.businesses = data; renderBusinesses(data); }
       })
       .catch(function (err) {
         if (generation !== settlementRequest) { return; }

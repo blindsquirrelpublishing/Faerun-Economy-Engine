@@ -1,0 +1,48 @@
+{
+  "status": "draft geometry checked; not a final-plate acceptance",
+  "master_id": "ARRABAR-LW-r01-DRAFT",
+  "geometry_sha256": "7067e0cb9ffa8660eea888d3402510594954e8570e1771b03807da9ca9394b4b",
+  "mask_sha256": "e02e15ef127f9b61c4da5feb6929a3548a210ecf0add4d23e98592ce78f91c3f",
+  "dimensions": [
+    1000,
+    592
+  ],
+  "water_convention": "255/white=water;0/black=land",
+  "water_components": 1,
+  "land_components": 1,
+  "islands": 0,
+  "water_pixels": 185377,
+  "land_pixels": 406623,
+  "land_touches_north_east_south": true,
+  "source_copy_hashes_match": true,
+  "north_rotation_degrees": 0,
+  "source_scale_bar": {
+    "from_px": [
+      777,
+      532
+    ],
+    "to_px": [
+      927,
+      532
+    ],
+    "pixel_length": 150,
+    "distance_feet": 500,
+    "feet_per_px": 3.3333333333333335,
+    "measurement_uncertainty_px": 2
+  },
+  "feature_counts": {
+    "shoreline_vertices": 48,
+    "selected_roads": 16,
+    "wall_segments": 8,
+    "keyed_building_bounds": 4,
+    "district_anchors": 5
+  },
+  "not_passed_or_pending": [
+    "User approval of draft geographic master",
+    "Complete building and parcel tracing",
+    "Detailed district boundaries",
+    "Source-map coast overlay visual inspection",
+    "Original v1.8 frame/spec/validator/seal access on Windows",
+    "No final plate framing, grid or seal checks performed"
+  ]
+}

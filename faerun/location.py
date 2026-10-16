@@ -35,6 +35,9 @@ from .chronicle import (
     _from_absolute,
     month_labels,
 )
+from .climate import location_climate
+from .data.location_metadata import location_metadata
+from .demographics import location_demographics
 from .economy import _commodity_markets, market_report
 from .lore import location_lore
 from .models import Commodity, Settlement
@@ -397,6 +400,9 @@ def location_detail(settlement, world: Optional[World] = None,
         "guilds": [guild.to_dict() for guild in s.guild_chapters()],
         "requirements": requirements,
         "lore": location_lore(s),
+        "climate": location_climate(s, date.season),
+        "demographics": location_demographics(s),
+        "location_metadata": location_metadata(s.id),
         "events": active,
         # The quiet-world price of every good on the report, so the screen can
         # show a counterfactual column on each row rather than only the movers.

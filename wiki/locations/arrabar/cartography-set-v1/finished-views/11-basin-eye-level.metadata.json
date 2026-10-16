@@ -1,0 +1,16 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: illustration-story. Create a detailed watercolor and fine ink eye-level interior view inside the covered turning basin of Arrabar's Netherwaters. Use the following registered conceptual geometry as spatial constraints. Stand at the southwest water-edge quay of the broad oval water basin looking northeast, about 5.5 feet above water, 70-degree horizontal field of view. Show expansive blue-green maneuvering WATER and a small low cargo barge with oars or poles, enclosed by a low stone quay and a high vaulted stone ceiling. A circular lightwell much smaller than the basin admits a focused shaft of humid warm daylight. Covered canal entrances on side walls lead out under the street. Most of this space is covered. Camera anchor source (439,290), direction45 degrees, conceptual basin center (460,282). Architecture, dimensions, canal openings are inferred. The basin is a waterbody in which boats turn; absolutely no turntable, rotary platform, rotating disc, rail machinery or large central platform. Restrained medieval Chondathan materials. Title 'ARRABAR - THE TURNING BASIN' and small footer 'Conceptual interior; underground geometry unverified'.",
+  "image_dimensions": [
+    1536,
+    1024
+  ],
+  "sha256": "8371892712aa7713118d9397800e462e3e1904e8e3d5ec16e797a6caf40a31e3",
+  "master_id": "ARRABAR-LW-r01-DRAFT",
+  "source_basis": "source-registered camera and reconstruction descriptions; no source raster accepted by the image tool",
+  "fidelity": "illustrative approximation, not geometry-locked",
+  "architecture_and_heights": "conceptual and unverified",
+  "intended_camera_record": "working-geometry/view-camera-manifest-r01.json",
+  "visual_review": "completed; text readable, requested scene present, no mechanical turning platform; facade, lighting, vegetation and incidental detail are artistic",
+  "render_status": "completed and saved"
+}

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" width="1200" height="850" role="img" aria-labelledby="title description">
+  <title id="title">Red Larch working sketch</title>
+  <desc id="description">Original schematic village map showing the Long Road, Cairn Road, Kheldell trail, nearby quarries, a spring-fed pond and relative positions of documented village landmarks. Not to scale.</desc>
+  <defs>
+    <pattern id="paper" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M0 34L34 0" stroke="#eadfc4" stroke-width="0.6" opacity=".5"/></pattern>
+    <g id="house" fill="#98725a" stroke="#594838" stroke-width="1.5"><rect x="-11" y="-8" width="22" height="16" rx="2"/></g>
+    <g id="tree" fill="#8caa71" stroke="#536b4c" stroke-width="1.2"><circle r="9"/></g>
+    <g id="pit" fill="#c1ae90" stroke="#806d56" stroke-width="2"><ellipse rx="27" ry="16"/><path d="M-19 2Q0 -12 18 3M-12 9Q0 1 12 10" fill="none"/></g>
+    <style>
+      text { font-family: Georgia, 'DejaVu Serif', serif; fill: #3c3129; }
+      .small { font-size: 13px; }
+      .label { font-size: 15px; font-weight: bold; paint-order: stroke; stroke: #f5eedc; stroke-width: 4px; stroke-linejoin: round; }
+      .road { fill: none; stroke: #b69970; stroke-width: 23; stroke-linecap: round; stroke-linejoin: round; }
+      .track { fill: none; stroke: #c6ae8a; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
+      .landmark { fill: #8e4c35; stroke: #f5eedc; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="1200" height="850" fill="#f5eedc"/>
+  <rect width="1200" height="850" fill="url(#paper)"/>
+  <text x="454" y="42" font-size="26" font-weight="bold" text-anchor="middle">Red Larch · working sketch</text>
+  <text x="454" y="65" font-size="14" font-style="italic" text-anchor="middle">1491 DR landmarks with older outlying sites · schematic, not to scale</text>
+  <rect x="36" y="90" width="835" height="710" rx="12" fill="#eee5cb" stroke="#887761" stroke-width="2"/>
+  <path d="M49 366 Q143 340 235 380 T402 355 M630 310 Q744 285 855 312 M650 650 Q754 616 858 650" fill="none" stroke="#d9cbab" stroke-width="20" opacity=".7"/>
+  <path class="road" d="M435 94 Q424 195 439 283 Q451 365 433 447 Q418 540 443 642 L430 795"/>
+  <path class="road" d="M440 418 Q537 408 614 438 Q701 454 866 433"/>
+  <path class="track" d="M425 363 Q332 357 228 338 Q128 328 38 315"/>
+  <path class="track" d="M428 179 Q527 177 601 159 Q679 139 774 164"/>
+  <path class="track" d="M633 437 Q674 348 753 294" stroke-dasharray="9 7"/>
+  <path d="M337 675 Q323 654 329 628 Q341 604 359 589" fill="none" stroke="#6b9cb0" stroke-width="5"/>
+  <ellipse cx="352" cy="686" rx="49" ry="29" fill="#8db6bd" stroke="#577f88" stroke-width="2"/>
+  <path d="M319 685 Q351 671 383 686" fill="none" stroke="#d7e5d7" stroke-width="2"/>
+  <g opacity=".9">
+    <use href="#tree" x="178" y="203"/><use href="#tree" x="201" y="223"/><use href="#tree" x="170" y="242"/>
+    <use href="#tree" x="692" y="222"/><use href="#tree" x="714" y="213"/><use href="#tree" x="706" y="240"/>
+    <use href="#tree" x="234" y="618"/><use href="#tree" x="256" y="599"/><use href="#tree" x="260" y="636"/>
+  </g>
+  <g opacity=".85">
+    <use href="#house" x="333" y="256"/><use href="#house" x="360" y="276"/><use href="#house" x="483" y="274"/><use href="#house" x="507" y="298"/>
+    <use href="#house" x="296" y="304"/><use href="#house" x="345" y="312"/><use href="#house" x="520" y="344"/><use href="#house" x="548" y="367"/>
+    <use href="#house" x="314" y="395"/><use href="#house" x="347" y="414"/><use href="#house" x="518" y="387"/>
+    <use href="#house" x="280" y="466"/><use href="#house" x="322" y="482"/><use href="#house" x="358" y="457"/><use href="#house" x="535" y="477"/>
+    <use href="#house" x="304" y="544"/><use href="#house" x="350" y="570"/><use href="#house" x="510" y="577"/><use href="#house" x="543" y="607"/>
+    <use href="#house" x="278" y="574"/><use href="#house" x="480" y="638"/><use href="#house" x="521" y="661"/><use href="#house" x="341" y="743"/>
+  </g>
+  <g>
+    <circle class="landmark" cx="379" cy="316" r="8"/><text class="label" x="135" y="290">Swinging Sword</text><path d="M285 294L371 315" stroke="#8e4c35" fill="none"/>
+    <circle class="landmark" cx="383" cy="396" r="8"/><text class="label" x="136" y="406">Allfaiths Shrine</text><path d="M276 401L375 396" stroke="#8e4c35" fill="none"/>
+    <circle class="landmark" cx="488" cy="523" r="8"/><text class="label" x="521" y="521">Mhandyvver's Poultry</text><path d="M496 523L514 523" stroke="#8e4c35" fill="none"/>
+    <circle class="landmark" cx="490" cy="559" r="8"/><text class="label" x="522" y="554">Luruth's Tannery</text><path d="M498 559L515 556" stroke="#8e4c35" fill="none"/>
+    <circle class="landmark" cx="382" cy="540" r="8"/><text class="label" x="176" y="529">Vallivoe's Sundries</text><path d="M322 531L374 540" stroke="#8e4c35" fill="none"/>
+    <circle class="landmark" cx="761" cy="163" r="8"/><text class="label" x="575" y="126">Old Angrath's Smokehouse</text><path d="M757 134L761 154" stroke="#8e4c35" fill="none"/>
+  </g>
+  <use href="#house" x="457" y="133"/><text class="small" x="480" y="141">Nurnath's barn</text>
+  <path d="M530 188 Q581 201 618 183 M533 200 Q575 211 616 197" fill="none" stroke="#ad975d" stroke-width="3"/>
+  <text class="small" x="547" y="229">orchard · pasture</text>
+  <use href="#pit" x="720" y="323"/><use href="#pit" x="782" y="352"/><use href="#pit" x="732" y="382"/><use href="#pit" x="797" y="390"/>
+  <text class="label" x="658" y="281">Oneshield Quarries</text>
+  <text class="small" x="260" y="730">spring-fed pond*</text>
+  <text class="label" x="448" y="760" transform="rotate(-86 448 760)">Long Road</text>
+  <text class="small" x="452" y="112">↑ to Triboar</text>
+  <text class="small" x="448" y="787">↓ to Amphail / Waterdeep</text>
+  <text class="label" x="660" y="424">Cairn Road →</text>
+  <text class="small" x="690" y="473">to Bargewright Inn</text>
+  <text class="label" x="69" y="302">← Kheldell trail</text>
+  <text class="small" x="59" y="759">← Lance Rock, ~15 miles SW (off map)</text>
+  <rect x="889" y="90" width="278" height="710" rx="12" fill="#f9f4e5" stroke="#887761" stroke-width="2"/>
+  <text x="913" y="130" font-size="21" font-weight="bold">Key &amp; limits</text>
+  <path class="road" d="M920 167H971"/><text class="small" x="991" y="173">major road</text>
+  <path class="track" d="M920 207H971"/><text class="small" x="991" y="213">track / trail</text>
+  <use href="#house" x="944" y="246"/><text class="small" x="991" y="251">illustrative building</text>
+  <circle class="landmark" cx="944" cy="289" r="8"/><text class="small" x="991" y="294">named landmark</text>
+  <use href="#pit" x="944" y="332"/><text class="small" x="991" y="338">quarry pit</text>
+  <path d="M914 372H1141" stroke="#b8a68b"/>
+  <text x="913" y="402" font-size="15" font-weight="bold">Source boundaries</text>
+  <text class="small" x="913" y="433">Relative locations and road</text>
+  <text class="small" x="913" y="454">directions follow the location</text>
+  <text class="small" x="913" y="475">page's cited descriptions.</text>
+  <text class="small" x="913" y="516">* Pond location, side of road</text>
+  <text class="small" x="913" y="537">for inns other than the</text>
+  <text class="small" x="913" y="558">Swinging Sword, road bends,</text>
+  <text class="small" x="913" y="579">buildings and plot shapes are</text>
+  <text class="small" x="913" y="600">illustrative, not surveyed.</text>
+  <text class="small" x="913" y="653">Older outlying sites are shown</text>
+  <text class="small" x="913" y="674">for context, not as confirmed</text>
+  <text class="small" x="913" y="695">1491 DR businesses.</text>
+  <text x="913" y="765" font-size="13" font-style="italic">Original schematic · 2026-10-15</text>
+</svg>

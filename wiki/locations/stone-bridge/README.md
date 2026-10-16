@@ -54,6 +54,11 @@ No population is recorded for the bridge in any source read. The infobox
 has no population field filled, and the wiki has no "Inhabitants of Stone
 Bridge" category.
 
+Demographics standard update (2026-10-15): no resident racial or ethnic
+breakdown was found because Stone Bridge is documented as a bridge and temple
+site rather than a settlement. Runtime demographics remains `unresearched` with
+that checked-source note in `faerun/data/demographics.py`.
+
 **Engine:** 80 residents. This is the surveyed-market floor: the generator
 copies the nearest established city (Red Larch, 1,100) at 1/25 of its
 population (44) and raises it to the minimum of 80. It has no source

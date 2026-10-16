@@ -85,11 +85,12 @@ def test_rich_diets_include_weight_consistent_exotic_foods_even_outside_food_cat
 
 def test_food_classification_includes_edible_luxury_exotics_and_drinks_only():
     assert isinstance(FOOD_COMMODITIES, frozenset)
-    assert {c.id for c in COMMODITIES if c.category in {"food", "drink"}} <= FOOD_COMMODITIES
+    assert {c.id for c in COMMODITIES if c.category in {"food", "drink"}
+            and c.id not in {"animal_feed", "coffee_green"}} <= FOOD_COMMODITIES
     assert {"coffee", "tea", "cocoa", "chultan_fruit", "spices_exotic", "saffron",
             "wine_fine", "dwarven_spirits", "elverquisst"} <= FOOD_COMMODITIES
     assert not FOOD_COMMODITIES.intersection({
-        "incense", "perfume", "spell_components", "faerzress_crystal",
+        "animal_feed", "coffee_green", "incense", "perfume", "spell_components", "faerzress_crystal",
         "teak", "dinosaur_hide", "whale_oil", "herbs_healing",
     })
 
@@ -100,9 +101,9 @@ def test_diet_diversification_conserves_original_food_family_mass():
     rows = final_requirements(s, COMMODITIES)
     for source, family in (
         ("meat_fresh", ("meat_fresh", "fish_fresh", "meat_salt", "fish_salt")),
-        ("fruit", ("fruit", "chultan_fruit", "nuts")),
+        ("fruit", ("fruit", "grapes", "chultan_fruit", "nuts")),
         ("cheese", ("cheese", "butter")),
-        ("grain", ("grain", "corn", "rice")),
+        ("grain", ("grain", "barley", "corn", "rice")),
     ):
         pounds = sum(rows[cid].get("household", 0) * COMMODITIES_BY_ID[cid].weight
                      for cid in family)
@@ -176,15 +177,48 @@ def test_growth_needs_additional_builders_and_materials_but_stable_towns_repair(
             final_requirements(stable, COMMODITIES)[cid]["construction"]) > 0
 
 
-def test_waterdeep_has_small_local_farms_and_surplus_fisheries_without_industry_tags():
-    waterdeep = next(s for s in SETTLEMENTS if s.id == "waterdeep")
-    assert waterdeep.industry_level("farm") == waterdeep.industry_level("fish") == 0
-    demand = final_requirements(waterdeep, COMMODITIES)
-    assert 0 < output(waterdeep, "grain") < total(demand, "grain")
-    assert output(waterdeep, "fish_fresh") > total(demand, "fish_fresh")
-    assert output(waterdeep, "vegetables") > 0
-    assert output(waterdeep, "eggs") > 0
-    assert settlement_profile(waterdeep)["farm_workers"] > 0
+def test_large_port_has_small_inferred_hinterland_farms_and_fisheries_without_industry_tags():
+    port = deepcopy(next(s for s in SETTLEMENTS if s.id == "waterdeep"))
+    port.industries.pop("fish", None)
+    assert port.industry_level("farm") == port.industry_level("fish") == 0
+    demand = final_requirements(port, COMMODITIES)
+    assert 0 < output(port, "grain") < total(demand, "grain")
+    assert output(port, "fish_fresh") > total(demand, "fish_fresh")
+    assert output(port, "vegetables") > 0
+    assert output(port, "eggs") > 0
+    assert settlement_profile(port)["farm_workers"] > 0
+
+
+def test_orlumbor_has_no_invented_offshore_crops_but_retains_fishing():
+    island = next(s for s in SETTLEMENTS if s.id == "orlumbor")
+    r = resource_assumptions(island)
+    assert r["land_scope"] == "no inferred offshore cropland"
+    assert r["farm_acres"] == 0
+    assert all(acres == 0 for acres in r["land_acres"].values())
+    for cid in ("grain", "corn", "fruit", "nuts", "eggs", "tea", "herbs_healing"):
+        assert output(island, cid) == 0
+    assert output(island, "fish_fresh") > 0
+    assert resource_assumptions(next(s for s in SETTLEMENTS if s.id == "neverwinter"))[
+        "land_scope"] == "settlement plus inferred accessible hinterland"
+
+
+def test_inferred_herb_yield_includes_daggerford_hinterland_until_sources_are_separated():
+    town = next(s for s in SETTLEMENTS if s.id == "daggerford")
+    assert output(town, "tea") > 0
+    assert output(town, "herbs_healing") > 0
+    assert output(town, "grain") > 0
+    assert resource_assumptions(town)["land_scope"] == "settlement plus inferred accessible hinterland"
+
+
+def test_sourced_island_farming_is_preserved():
+    for sid in ("caer_calidyrr", "caer_corwell"):
+        settlement = next(s for s in SETTLEMENTS if s.id == sid)
+        assert settlement.landmass != "faerun" and settlement.industry_level("farm") > 0
+        assert resource_assumptions(settlement)["farm_acres"] > 0
+        assert output(settlement, "grain") > 0
+    explicitly_farmed_orlumbor = deepcopy(next(s for s in SETTLEMENTS if s.id == "orlumbor"))
+    explicitly_farmed_orlumbor.industries["farm"] = 1
+    assert output(explicitly_farmed_orlumbor, "grain") > 0
 
 
 def test_small_surveyed_markets_have_farm_surplus_without_declared_industries():
@@ -247,6 +281,30 @@ def test_one_land_budget_and_finite_raw_only_production_independent_of_requireme
     assert local_resource_capacity(s, altered) == output(s, "grain")
     altered.requires = ["jungle"]
     assert local_resource_capacity(s, altered) == 0
+
+
+def test_ship_hulls_need_explicit_orders_not_daily_household_fallback():
+    secomber = next(s for s in SETTLEMENTS if s.id == "secomber")
+    rows = final_requirements(secomber, COMMODITIES)
+    assert rows["war_galley"] == {}
+    assert rows["trade_galleon"] == {}
+    assert rows["longship"] == {}
+    assert rows["ship_boat"]["agriculture"] > 0
+    assert rows["pineapple"]["household"] > 0
+
+
+@pytest.mark.parametrize("settlement_id", ["secomber", "orlumbor", "neverwinter", "waterdeep"])
+def test_unmodeled_livestock_and_large_durables_need_explicit_orders(settlement_id):
+    settlement = next(s for s in SETTLEMENTS if s.id == settlement_id)
+    rows = final_requirements(settlement, COMMODITIES)
+    for cid in ("yak", "war_elephant", "war_charger", "falcon_trained",
+                "wooly_mammoth", "flying_carpet", "chariot", "carriage",
+                "barding", "canoe", "raft"):
+        assert rows[cid] == {}
+    assert rows["ox"].get("agriculture", 0) == pytest.approx(
+        settlement_profile(settlement)["resource_assumptions"]["draft_oxen"] * .08 / DAYS_PER_YEAR)
+    for cid in ("mule", "ship_boat", "sword", "pineapple"):
+        assert sum(rows[cid].values()) > 0
 
 
 def test_final_uses_exclude_intermediates_but_finished_goods_keep_finite_baseline():

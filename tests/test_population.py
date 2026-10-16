@@ -6,7 +6,7 @@ import pytest
 from faerun import web
 from faerun.calendar import HarptosDate
 from faerun.data.commodities import COMMODITIES
-from faerun.data.populations import WATERDEEP_POPULATION
+from faerun.data.populations import SECOMBER_POPULATION, WATERDEEP_POPULATION
 from faerun.data.settlements import SETTLEMENTS
 from faerun.economy import market_report
 from faerun.models import S
@@ -110,6 +110,71 @@ def test_comparison_and_overrides_report_actual_input_without_mutating_default(w
     assert ordinary["resident_population"] == 17
     assert ordinary["reference_year_dr"] is None
     assert not ordinary["evidence"]
+
+
+@pytest.mark.parametrize("sid,residents,historical", [
+    ("daggerford", 900, "1,200"), ("goldenfields", 3_000, "5,000"),
+    ("neverwinter", 23_000, "23,192"), ("yartar", 3_800, "6,000"),
+    ("leilon", 900, "200"), ("phandalin", 500, "50 buildings"),
+])
+def test_retained_settlement_estimates_have_dated_evidence_without_recalibration(sid, residents, historical):
+    settlement = next(s for s in SETTLEMENTS if s.id == sid)
+    report = population_report(settlement)
+    assert settlement.population == report["resident_population"] == report["comparison_residents"] == residents
+    assert report["status"] == "scenario_estimate"
+    assert report["reference_year_dr"] == 1492
+    assert "not a census" in report["rationale"]
+    assert any(historical in row["description"] for row in report["evidence"])
+    assert all(row["kind"] == "secondary" and row["url"].startswith("https://") for row in report["evidence"])
+
+
+def test_researched_rulers_and_late_period_fishing_are_loaded():
+    by_id = {s.id: s for s in SETTLEMENTS}
+    assert "Dagult Neverember" in by_id["neverwinter"].ruler
+    assert "identity disputed" in by_id["daggerford"].ruler
+    assert by_id["goldenfields"].ruler == "Abbot Ellardin Darovik"
+    assert by_id["yartar"].ruler == "Waterbaron Nestra Ruthiol"
+    assert by_id["waterdeep"].ruler == "Open Lord Laeral Silverhand and the Lords of Waterdeep"
+    assert "Town council" in by_id["leilon"].ruler
+    assert by_id["phandalin"].ruler == ""  # 1492 succession remains disputed
+    assert by_id["leilon"].industries["fish"] == 1
+    assert by_id["waterdeep"].industries["fish"] == 2
+    assert "fish" not in by_id["goldenfields"].industries
+
+
+def test_fishing_correction_produces_existing_good_without_new_commodities():
+    from faerun.data.commodities import COMMODITIES_BY_ID
+    from faerun.economy import price_for
+
+    fish = COMMODITIES_BY_ID["fish_fresh"]
+    assert "fish" in fish.produced_by
+    for sid in ("leilon", "waterdeep"):
+        settlement = next(s for s in SETTLEMENTS if s.id == sid)
+        quote = price_for(settlement, fish)
+        assert quote.production_per_day > 0
+        assert quote.production_capacity_per_day > 0
+
+
+def test_secomber_removes_unsupported_gem_output_but_retains_quarry():
+    settlement = next(s for s in SETTLEMENTS if s.id == "secomber")
+    assert "mine_gem" not in settlement.industries
+    assert "mining" not in settlement.traits
+    assert "gem_agate" not in settlement.specialties
+    assert "gem_moonstone" not in settlement.specialties
+    assert settlement.industries["quarry"] == 1
+
+
+def test_secomber_keeps_estimate_and_dates_comparison_evidence():
+    settlement = next(s for s in SETTLEMENTS if s.id == "secomber")
+    report = population_report(settlement)
+    assert settlement.population == SECOMBER_POPULATION.residents == 1_300
+    assert report["status"] == "scenario_estimate"
+    assert report["reference_year_dr"] == 1492
+    assert report["comparison_residents"] == 900
+    assert "not a verified 1492 census" in report["rationale"]
+    assert any("1,417" in source["description"] for source in report["evidence"])
+    assert any("700 in surrounding hamlets" in source["description"] for source in report["evidence"])
+    assert report["resident_population"] == 1_300
 
 
 @pytest.mark.parametrize("value", [-1, True, 1.5, float("nan"), float("inf")])

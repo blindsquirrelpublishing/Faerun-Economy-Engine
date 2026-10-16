@@ -31,7 +31,7 @@ This is a model input stored in the catalogue, not a sourced lore claim.
 
 ## Recipe Links
 
-Inputs for one keg: [Grain (wheat)](../food/grain.md) 0.8.
+Inputs for one keg: [Barley](../food/barley.md) 0.8 bushel. The proposed formulation below predates the barley substitution; other fuel/malt proposals remain open.
 
 ## Formulation (Proposed)
 
@@ -122,12 +122,12 @@ pay; ale is the producer gate price, before merchant markup.
 | --- | --- | --- | --- | --- | --- | --- |
 | Beregost | 0.378 gp | 0.302 gp | 1.000 gp | 30% | 0.698 gp | 1.313 gp |
 | Goldenfields | 0.405 gp | 0.324 gp | 1.064 gp | 30% | 0.740 gp | 1.380 gp |
-| [Amphail](../../locations/amphail.md) | 0.546 gp | 0.437 gp | 1.600 gp | 27% | 1.163 gp | 2.612 gp |
+| [Amphail](../../locations/amphail/README.md) | 0.546 gp | 0.437 gp | 1.600 gp | 27% | 1.163 gp | 2.612 gp |
 | Purskul | 0.643 gp | 0.514 gp | 1.067 gp | 48% | 0.553 gp | 1.261 gp |
 | Lyrabar | 0.668 gp | 0.534 gp | 1.262 gp | 42% | 0.728 gp | 1.411 gp |
 | Baldur's Gate | 1.811 gp | 1.449 gp | 1.515 gp | 96% | 0.066 gp | 1.750 gp |
 | Ravens Bluff | 3.839 gp | 3.071 gp | 1.194 gp | 257% | **minus 1.877 gp** | 1.431 gp |
-| [Waterdeep](../../locations/waterdeep.md) | 7.072 gp | 5.658 gp | 6.552 gp | 86% | 0.894 gp | 7.458 gp |
+| [Waterdeep](../../locations/waterdeep/README.md) | 7.072 gp | 5.658 gp | 6.552 gp | 86% | 0.894 gp | 7.458 gp |
 | Base prices | 0.6 gp | 0.48 gp | 1.6 gp | 30% | 1.12 gp | |
 
 What the table shows:

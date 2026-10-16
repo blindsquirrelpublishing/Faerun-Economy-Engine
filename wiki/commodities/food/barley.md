@@ -2,9 +2,15 @@
 
 [Commodity index](../README.md) · [Food](README.md)
 
-**Status:** Proposed; not in the engine  
-**Suggested engine category:** food  
-**Closest engine commodity:** [Grain (wheat)](../food/grain.md)  
+| Engine field | Value |
+| --- | --- |
+| Status | In the engine (`barley`) |
+| Category | food |
+| Trade unit | 60 lb bushel |
+| Base price | 0.6 gp per bushel (model assumption) |
+| Producer/harvest | `farm`; late summer/autumn; stores up to 400 days |
+| Used by | [Ale](../drink/ale.md), 0.8 bushel per keg |
+| Closest existing good | [Grain (wheat)](../food/grain.md) |
 **Catalogue group:** Grains and pulses  
 **Source:** *Aurora's Whole Realms Catalogue* (TSR 9358, 1992, AD&D 2nd edition)
 
@@ -20,12 +26,9 @@ Listed in Aurora's Larder, under *Grains and pulses*. The catalogue gives a pric
 
 **Scaled estimate** multiplies the catalogue price by 0.005, the median engine-to-catalogue price ratio for grains, flours and breads (see [method](../README.md#price-scaling)). It is an illustrative starting point for review, not an engine value and not canon.
 
-## Before It Enters the Engine
+## Engine Decision
 
-- Decide whether it is a separate commodity or a variant of the closest engine good.
-- Choose a trade unit, weight and base price; the scaled estimate above is only a starting point.
-- Assign producer tags and any regional sources supported by evidence beyond this catalogue.
-- Record the decision in [the location inventory](../../inventory.md#proposed-new-commodities) when one is made.
+A distinct barley crop replaces wheat in the ale recipe. The 0.6 gp/bushel anchor and existing wheat harvest profile are economic assumptions; the catalogue's scaled retail estimate is not the engine price. Goldenfields' barley is recorded in [the location inventory](../../inventory.md#proposed-new-commodities).
 
 ## Sources
 

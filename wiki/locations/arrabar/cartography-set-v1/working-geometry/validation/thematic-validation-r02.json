@@ -1,0 +1,11 @@
+{
+  "source_roof_components": 403,
+  "coordinates_within_source_bounds": true,
+  "building_mask_water_overlap_pixels": 1,
+  "unchanged_water_mask_sha256": "e02e15ef127f9b61c4da5feb6929a3548a210ecf0add4d23e98592ce78f91c3f",
+  "districts": 5,
+  "piers": 9,
+  "footprint_claim": "source roof silhouettes, not surveyed footprints or house count",
+  "parcel_claim": "explicitly inferred nearest-structure subdivision",
+  "pending_visual_qa": true
+}

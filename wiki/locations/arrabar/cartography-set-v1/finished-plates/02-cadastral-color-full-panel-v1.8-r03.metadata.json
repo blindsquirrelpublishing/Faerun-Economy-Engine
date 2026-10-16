@@ -1,0 +1,70 @@
+{
+  "plat_standard_version": "1.8",
+  "sheet_width_in": 19,
+  "sheet_height_in": 13,
+  "left_panel_width_in": 3.8,
+  "left_sections_pct": [
+    15,
+    15,
+    60,
+    10
+  ],
+  "grid_cols": "ABCDEFGHIJKLMNOPQ",
+  "grid_rows": 16,
+  "grid_cell_width_in": 0.72,
+  "grid_cell_height_in": 0.72,
+  "compass_diameter_pt": 72,
+  "seal_width_in": 1.18,
+  "seal_height_in": 1.18,
+  "scale_feet_per_cell": 123.33333333333334,
+  "scale_bar_feet": 250,
+  "scale_bar_length_in": 1.4594594594594594,
+  "scale_tick_feet": [
+    0,
+    125,
+    250
+  ],
+  "scale_tick_positions_in": [
+    0,
+    0.7297297297297297,
+    1.4594594594594594
+  ],
+  "extent_source_pixels": [
+    220,
+    0,
+    629,
+    592
+  ],
+  "source_to_plate_transform": {
+    "uniform_scale": 1.945945945945946,
+    "translate": [
+      99.89189189189187,
+      74
+    ]
+  },
+  "source_scale": {
+    "feet": 500,
+    "pixels": 150,
+    "basis": "source stated, not surveyed"
+  },
+  "master_id": "ARRABAR-LW-r01-DRAFT",
+  "geometry_sha256": "7067e0cb9ffa8660eea888d3402510594954e8570e1771b03807da9ca9394b4b",
+  "raster_dimensions": [
+    5700,
+    3900
+  ],
+  "embedded_dpi": [
+    299.9994,
+    299.9994
+  ],
+  "source_building_components": 475,
+  "proposed_parcels": 452,
+  "user_style_reference_library_id": "libfile_bdad89a968288191887006cb6a8ed30c",
+  "latest_user_direction": "top-down building footprints and strongly colored regions; no perspective roofs; fill map panel",
+  "source_crop_authorization": "User explicitly requested full-panel framing; uniform crop retains entire mapped city and keyed landmarks, trims distant map margins.",
+  "map_artwork_fills_entire_grid_viewport": true,
+  "scenic_image_generation": "not used for this orthographic footprint proof; vector geometry and color layers provide the requested cadastral content",
+  "render_status": "Complete: template validator, actual SVG measurements, rendered-pixel checks and visual inspection passed.",
+  "actual_qa_file": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\working-geometry\\validation\\02-cadastral-color-full-panel-v1.8-r03-actual-qa.json",
+  "preview_library_file_id": "libfile_083b1f3b8c1c819192baf9ffaf27bdab"
+}

@@ -57,7 +57,10 @@ def save_commodities(commodities: Iterable[Commodity]) -> None:
 
 def load_settlements() -> List[Settlement]:
     from .data.populations import (
-        AMPHAIL_POPULATION, ARRABAR_POPULATION, HLONDETH_POPULATION, WATERDEEP_POPULATION,
+        AMPHAIL_POPULATION, ARRABAR_POPULATION, DAGGERFORD_POPULATION,
+        GOLDENFIELDS_POPULATION, HLONDETH_POPULATION, LEILON_POPULATION,
+        NEVERWINTER_POPULATION, PHANDALIN_POPULATION, SECOMBER_POPULATION,
+        TRIBOAR_POPULATION, WATERDEEP_POPULATION, YARTAR_POPULATION,
     )
 
     bases = {
@@ -65,6 +68,14 @@ def load_settlements() -> List[Settlement]:
         "hlondeth": HLONDETH_POPULATION,
         "arrabar": ARRABAR_POPULATION,
         "amphail": AMPHAIL_POPULATION,
+        "triboar": TRIBOAR_POPULATION,
+        "secomber": SECOMBER_POPULATION,
+        "daggerford": DAGGERFORD_POPULATION,
+        "goldenfields": GOLDENFIELDS_POPULATION,
+        "neverwinter": NEVERWINTER_POPULATION,
+        "yartar": YARTAR_POPULATION,
+        "leilon": LEILON_POPULATION,
+        "phandalin": PHANDALIN_POPULATION,
     }
 
     settlements = []

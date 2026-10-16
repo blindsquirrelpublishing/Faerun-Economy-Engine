@@ -1,0 +1,56 @@
+[
+  {
+    "file": "Arrabar_map.webp",
+    "original_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\Arrabar_map.webp",
+    "copy_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\source-maps\\Arrabar_map.webp",
+    "sha256": "27a851885012b846bae57cd815f3de669eed0f08a0229d6ff0d42ec5faa92f08",
+    "size_bytes": 72652,
+    "pixel_size": [
+      502,
+      310
+    ]
+  },
+  {
+    "file": "ArrabarIA.webp",
+    "original_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\ArrabarIA.webp",
+    "copy_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\source-maps\\ArrabarIA.webp",
+    "sha256": "259f70093720d94e9221b0a2fb2cb3cef1e371c217e6ce61f42a21a5d73e33ef",
+    "size_bytes": 107580,
+    "pixel_size": [
+      1000,
+      592
+    ]
+  },
+  {
+    "file": "OIP.webp",
+    "original_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\OIP.webp",
+    "copy_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\source-maps\\OIP.webp",
+    "sha256": "9c033e56085840bd44a28056e5bffa8d3982e6afc78dcb153c5591f501c378dd",
+    "size_bytes": 21490,
+    "pixel_size": [
+      474,
+      255
+    ]
+  },
+  {
+    "file": "arrabar-sketch.svg",
+    "original_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\arrabar-sketch.svg",
+    "copy_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\source-maps\\arrabar-sketch.svg",
+    "sha256": "5dccdba06380ea7b2784870777f82906067493e09441ea46dd72da296461af62",
+    "size_bytes": 11259
+  },
+  {
+    "file": "arrabar.json",
+    "original_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\arrabar.json",
+    "copy_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\source-maps\\arrabar.json",
+    "sha256": "1d6340d39a4fd848d02fb9457774edb8e1a7017c2181d1df27508b9d670b8b2e",
+    "size_bytes": 34162
+  },
+  {
+    "file": "README.md",
+    "original_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\README.md",
+    "copy_path": "C:\\repos\\Source\\Faerun-Economy-Engine\\wiki\\locations\\arrabar\\cartography-set-v1\\source-maps\\README.md",
+    "sha256": "dcf86daaf01f5903f7d366f5878a2892efc028128759c17e7e256f97cede0505",
+    "size_bytes": 41025
+  }
+]

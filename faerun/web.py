@@ -82,6 +82,7 @@ from .waterdeepassets import WATERDEEP_ASSETS
 from .loreassets import LORE_ASSETS
 from .loredesk import read_desk, post_desk
 from .readonlyassets import READ_ONLY_HEAD, READ_ONLY_NOTICE
+from .brand import BRAND_ASSETS, BRAND_BINARY_ASSETS, apply_branding
 
 # Static files are served from a single flat lookup keyed by bare filename.
 STATIC: Dict[str, Tuple[str, str]] = dict(ASSETS)
@@ -96,8 +97,10 @@ STATIC.update(WATERDEEP_ASSETS)
 STATIC.update(DAGGERFORD_ASSETS)
 STATIC.update(MOBILE_ASSETS)
 STATIC.update(LORE_ASSETS)
+STATIC.update(BRAND_ASSETS)
 
 BINARY_STATIC: Dict[str, Tuple[Path, str]] = {
+    **BRAND_BINARY_ASSETS,
     "daggerford-map.jpg": (DAGGERFORD_PREVIEW, "image/jpeg"),
     "waterdeep-map.jpg": (
         Path(__file__).resolve().parent.parent / "maps" / "waterdeep-map.jpg",
@@ -1376,6 +1379,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send_bytes(body.encode("utf-8"), "text/html; charset=utf-8", 404)
             return
         body, ctype = asset
+        if ctype.startswith("text/html"):
+            body = apply_branding(body)
         if self.read_only and ctype.startswith("text/html"):
             body = body.replace("</head>", READ_ONLY_HEAD + "</head>", 1)
             body = re.sub(r"(<body\b[^>]*>)", lambda match: match[0] + READ_ONLY_NOTICE,

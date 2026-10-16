@@ -100,6 +100,19 @@ data, not an indiscriminate encyclopedia dump.
    Respect access restrictions; report inaccessible evidence instead of inventing it.
 7. Preserve disputed facts and unknowns. Unknown is not zero. Qualitative claims such
    as "major exporter" do not establish numeric population, yields, prices, or capacity.
+8. **Racial makeup is a standard part of every location.** While researching a
+   settlement, record who lives there: races, ethnic subgroups, and any sourced
+   percentages, with the reference period and scope (city only or including its
+   environs). Keep qualitative descriptors ("mostly human", "some dwarves") apart
+   from percentages, and never invent a sourced share from a word. Explicit
+   scenario estimates belong in `estimated_share_pct` with status `estimated`,
+   distinct from sourced `share_pct`. A race not named is not evidence that none
+   lives there. Record it in `faerun/data/demographics.py`
+   (`SETTLEMENT_DEMOGRAPHICS`, status `quantified`, `estimated`, `qualitative` or `unresearched`)
+   and in the population section of the location's wiki page. It is reference only:
+   do not change workers, demand, or production from it without a separate,
+   documented economic change. When revisiting a location whose record is
+   `unresearched`, fill it in.
 
 ### Source Fallback Procedure
 
@@ -128,13 +141,18 @@ data, not an indiscriminate encyclopedia dump.
 
 ## Integration Boundaries
 
-- Local wiki: use lowercase hyphenated pages in `wiki/locations/`, following
-  `wiki/locations/phandalin.md`, and update the index in `wiki/README.md`.
+- Local wiki: give each location its own lowercase hyphenated folder in
+  `wiki/locations/<slug>/` with the page as `README.md` and every map, sketch,
+  image and metadata file for that location beside it, following
+  `wiki/locations/phandalin/README.md`, and update the index in `wiki/README.md`.
   Omit unsupported sections. Link engine claims to their owning files and keep an
   actionable discrepancies/proposals section with evidence, impact, and open questions.
 - Runtime lore: curate `faerun/data/lore.py` alongside reviewed wiki updates. Preserve
   the current entry and citation schemas and the separation enforced by `faerun/lore.py`
   between sourced paragraphs and model context. Unreviewed entries stay unresearched.
+- Demographics: every researched lore entry needs a matching record in
+  `faerun/data/demographics.py`; `tests/test_demographics.py` fails otherwise. Use
+  `unresearched()` only as a placeholder, and say so in the report.
 - Economic catalogue: inspect the relevant record under `faerun/data/store/` and its
   loader in `faerun/data_store.py` before changing it. Check calibration and consumers
   where relevant, including `faerun/data/settlements.py`. Reuse existing IDs, units,

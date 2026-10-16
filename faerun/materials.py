@@ -74,6 +74,12 @@ def _baseline_plan(world: World) -> Dict:
             allowed = _region_allows(s, c)
             established = (_daily_market_volume(s, c) * supply_index(world, s, c, include_events=False)
                            if allowed else 0.0)
+            if not c.bom and cid in {"copper_ingot", "tin_ingot"} and s.id in {
+                "neverwinter", "daggerford"
+            } and not any(s.industry_level(tag) > 0 for tag in c.produced_by
+                          if tag.startswith("mine_")):
+                # These smiths work purchased metal; no local extraction is recorded.
+                established = 0.0
             inferred = local_resource_capacity(s, c) if allowed else 0.0
             if cid in s.shortages:
                 inferred *= 0.12

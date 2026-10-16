@@ -412,6 +412,18 @@ MULTILEG_CARRIER_SERVICES = {
         "service_id": "sword-coast-overland-exchange",
         "service_class": "ground",
     },
+    "The Long Road": {
+        "carrier": "Horse freight wagon",
+        "name": "The Triboar Travelers (Waterdeep Run)",
+        "service_id": "triboar-travelers-waterdeep",
+        "service_class": "ground",
+    },
+    "The Evermoor Way": {
+        "carrier": "Horse freight wagon",
+        "name": "The Triboar Travelers (Everlund Run)",
+        "service_id": "triboar-travelers-everlund",
+        "service_class": "ground",
+    },
     # A route may list several services; each replaces the generic vessel it names.
     # Red Cask Hulls (red-cask-wine-run) carries only its own wine, so it is not offered here.
     "Hlondeth to Arrabar Sea Lane": [

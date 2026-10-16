@@ -32,11 +32,14 @@ include = ["faerun*"]
 
 [tool.setuptools.package-data]
 faerun = [
+    "data/red_larch_location.json",
     "data/waterdeep_buildings.json",
     "data/waterdeep_hires_survey.json",
     "data/waterdeep_housing_evidence.json",
     "data/waterdeep_streets.json",
     "data/daggerford_analysis.json",
+    "static/*.png",
+    "static/*.ico",
 ]
 
 [tool.pytest.ini_options]

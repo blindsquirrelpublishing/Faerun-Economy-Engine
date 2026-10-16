@@ -1,0 +1,43 @@
+{
+  "status": "Completed visual inspection of full preview: landmark numbers are legible, illustrated map fills grid, title and legend fit, and original r03 compass/seal/scale/grid are unchanged.",
+  "generation_method": "Built-in image_gen with3 recent image references, including latest direct user target attachment",
+  "art_dimensions": [
+    1293,
+    1217
+  ],
+  "page_inches": [
+    19,
+    13
+  ],
+  "png_pixels": [
+    5700,
+    3900
+  ],
+  "embedded_dpi": [
+    299.9994,
+    299.9994
+  ],
+  "sidebar_percent": 20,
+  "sidebar_sections_percent": [
+    15,
+    15,
+    60,
+    10
+  ],
+  "original_r03_elements_preserved": {
+    "original-compass": true,
+    "official-seal": true,
+    "verified-scale-bar": true,
+    "reference-grid": true
+  },
+  "geography_status": "Illustrative source-based conversion; generated surface details and individual footprints are not exact coordinate-verified vectors. Original source and r03 geometry remain unchanged.",
+  "landmark_annotation_basis": "Placed at visible illustrated districts and landmarks; stored in render coordinates, not survey coordinates.",
+  "no_saved_skill_changes": true,
+  "previous_r04_status": "Unapproved containment experiment remains separate; not used or uploaded.",
+  "frame_notes": "Original template seal overlap and compass N-label position retained, as explicitly requested. Required square-grid coordinate margins retained.",
+  "r03_library_ids": {
+    "preview": "libfile_083b1f3b8c1c819192baf9ffaf27bdab",
+    "png": "libfile_ea5588086c248191865f2fba3f0ae8c0",
+    "svg": "libfile_3dd335726f6c8191ba37e4d0b0af4a98"
+  }
+}

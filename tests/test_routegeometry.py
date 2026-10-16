@@ -99,6 +99,41 @@ def test_saved_map_preserves_only_undeleted_special_links():
     assert {edge.kind for edge in graph["west"]} == {"skyship", "teleport"}
 
 
+def test_secomber_saved_delimbiyr_route_uses_existing_traces_and_trade_way():
+    from faerun.world import World
+
+    payload = routegeometry.load_route_edits()
+    corrected = {
+        "custom:def02f1d-05d3-44d6-93de-3c1ea54305c6": ("Trade Way junction to Secomber", [675.4497612847224, 1248.1415521530878], [848, 1194.4]),
+        "custom:27ce2d24-fd12-4c67-8a89-71693912047f": ("Secomber to Loudwater", [848, 1194.4], [960.4, 1145.8]),
+        "custom:8ef0ca78-e896-443b-9cc8-6ead3909f058": ("Loudwater to Llorkh", [960.4, 1145.8], [1057.7, 1130.6]),
+    }
+    for identifier, (suffix, start, end) in corrected.items():
+        leg = payload["legs"][identifier]
+        assert leg["name"] == f"The Delimbiyr Route: {suffix}"
+        assert leg["kind"] == "trail"
+        assert leg["points"][0] == start and leg["points"][-1] == end
+        assert leg["path"] == leg["points"]
+    junction = payload["junctions"]["a6d74025-4a28-4dfb-a704-41bca567d952"]
+    assert junction["name"] == "Delimbiyr Route/Trade Way Junction"
+    assert set(junction["legs"]) == {
+        "custom:a0048460-e909-4043-8781-84751a02a197",
+        "custom:def02f1d-05d3-44d6-93de-3c1ea54305c6",
+    }
+
+    world = World()
+    west = world.route("daggerford", "secomber", route_types={"road", "trail", "track"})
+    east = world.route("secomber", "loudwater", route_types={"road", "trail", "track"})
+    assert west["reachable"] and east["reachable"]
+    assert west["legs"][-1]["id"] == next(iter(corrected))
+    assert [leg["mode"] for leg in west["legs"]] == ["road", "road", "trail"]
+    assert east["legs"][0]["id"] == "custom:27ce2d24-fd12-4c67-8a89-71693912047f"
+    assert east["legs"][0]["via"] == "The Delimbiyr Route: Secomber to Loudwater"
+    assert not any(edge.kind == "river+portage" for edge in world._edges["secomber"])
+    assert not any("The Black Road" in edge.name for edges in world._edges.values() for edge in edges
+                   if edge.map_leg_id in corrected)
+
+
 def test_current_saved_world_route_and_freight_agree():
     from faerun.world import World
     from faerun.transport import plan_shipment

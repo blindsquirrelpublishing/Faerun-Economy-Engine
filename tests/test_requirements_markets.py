@@ -44,6 +44,39 @@ def test_all_locations_and_goods_have_finite_conserved_requirements(world):
                 assert row["consumed_per_day"] <= row["reserved_per_day"] + 1e-7
 
 
+def test_named_resource_origins_do_not_turn_smiths_or_farms_into_extraction(world):
+    from faerun.materials import _baseline_plan
+
+    plan = _baseline_plan(world)
+    for sid in ("neverwinter", "daggerford"):
+        for cid in ("copper_ingot", "tin_ingot"):
+            assert plan["capacity"][cid][sid] == 0
+    for cid in ("tea", "herbs_healing"):
+        assert plan["capacity"][cid]["daggerford"] > 0  # Inferred hinterland, not surveyed local fields.
+    assert plan["capacity"]["grain"]["daggerford"] > 0
+    assert plan["capacity"]["grain"]["neverwinter"] > 0
+    assert plan["capacity"]["fish_fresh"]["orlumbor"] > 0
+    for cid in ("grain", "corn", "fruit", "nuts", "eggs", "tea", "herbs_healing"):
+        assert plan["capacity"][cid]["orlumbor"] == 0
+
+
+def test_secomber_ship_orders_are_explicit_not_daily_imports(world):
+    for cid in ("war_galley", "trade_galleon", "longship"):
+        quote = price_for("Secomber", cid, world=world)
+        assert quote.demand_per_day == quote.imports_per_day == 0
+    boat = price_for("Secomber", "ship_boat", world=world)
+    assert boat.demand_sectors["agriculture"] > 0
+    assert boat.demand_per_day < 1
+
+
+def test_waterdeep_has_no_flat_unmodeled_durable_import_orders(world):
+    for cid in ("flying_carpet", "war_elephant", "war_charger", "chariot", "raft"):
+        q = price_for("Waterdeep", cid, world=world)
+        assert q.final_demand_per_day == 0
+        assert q.imports_per_day == 0
+    assert price_for("Waterdeep", "citrus", world=world).final_demand_per_day > 0
+
+
 def test_weapons_cascade_to_smelters_ore_and_fuel(world):
     sword = price_for("Waterdeep", "sword", world=world)
     steel = price_for("Waterdeep", "steel_ingot", world=world)

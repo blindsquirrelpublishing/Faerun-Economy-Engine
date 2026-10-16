@@ -147,14 +147,14 @@ reported as metadata. The existing Sword Coast carriers follow the same pattern.
   engine generated it as a surveyed market that copies the nearest established
   city (Arrabar) at one twenty-fifth of its population, which gave 1,680
   residents, the Chondath region, copied traits and no industries. It is now a
-  full record: see [Hlondeth](../locations/hlondeth.md).
+  full record: see [Hlondeth](../locations/hlondeth/README.md).
 - **Hlondeth port field.** Surveyed markets only get a port from
   `SURVEYED_MARKET_PORTS` in `world.py`, and Hlondeth was not listed, so the
   engine treated it as inland and never generated coasting runs to it. That is
   why this hand-drawn lane was its only sea link. The new record sets `port` to
   Sea of Fallen Stars. A generated Hlondeth to Arrabar coasting run is blocked in
   `BLOCKED_COASTING_LEGS` so it cannot duplicate this lane and its carriers.
-- **1492 DR applicability.** The [Arrabar](../locations/arrabar.md) article says
+- **1492 DR applicability.** The [Arrabar](../locations/arrabar/README.md) article says
   that after the Second Sundering the land was healed and by the late 15th
   century DR Arrabar was a port stop on the Reach and the Golden Road, citing
   *Foreign Affairs* (DDAL-DRW04, 2020), p. 5. The lane can operate. Hlondeth's

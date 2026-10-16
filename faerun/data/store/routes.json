@@ -675,5 +675,14 @@
     ],
     "quality": 1.0,
     "kind": "road+trail"
+  },
+  {
+    "name": "The Triboar Trail",
+    "stops": [
+      "phandalin",
+      "triboar"
+    ],
+    "quality": 0.75,
+    "kind": "trail"
   }
 ]

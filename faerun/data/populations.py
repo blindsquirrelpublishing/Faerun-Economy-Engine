@@ -128,3 +128,159 @@ AMPHAIL_POPULATION = PopulationBasis(
         ),
     ),
 )
+
+
+SECOMBER_POPULATION = PopulationBasis(
+    residents=1_300,
+    reference_year=1492,
+    comparison_residents=900,
+    scope="Secomber town and surrounding hamlets; visitors excluded",
+    rationale=(
+        "The existing 1,300 is retained as an undated engine estimate used for the "
+        "1492 DR planning scenario, not a verified 1492 census or a measured decline. "
+        "Volo's Guide to the Sword Coast reports 900 in 1367 DR; The North divides "
+        "900 between about 200 in the village and 700 in surrounding hamlets. "
+        "The 1372 DR count is 1,417. Neither is a known late-15th-century total; "
+        "the comparison is historical, not a recommended population change."
+    ),
+    evidence=(
+        PopulationEvidence(
+            title="Volo's Guide to the Sword Coast (1994), Secomber, p. 79",
+            url="https://housegriffon.com/RPG/Games/DnD/add2/ForgottenRealms/Volo%27s%20Guide%20to%20the%20Sword%20Coast.pdf",
+            scope="Secomber village and surrounding residents",
+            period="1367 DR",
+            description="900 inhabitants; no 1492 DR count.",
+            kind="primary",
+            accessed="2026-10-15",
+        ),
+        PopulationEvidence(
+            title="The North: Guide to the Savage Frontier (1996), Secomber, p. 63",
+            url="https://housegriffon.com/RPG/Games/DnD/add2/ForgottenRealms/The%20North%20-%20Guide%20to%20the%20Savage%20Frontier.pdf",
+            scope="Village and surrounding hamlets",
+            period="14th century DR",
+            description="About 200 in the village and 700 in surrounding hamlets.",
+            kind="primary",
+            accessed="2026-10-15",
+        ),
+        PopulationEvidence(
+            title="Forgotten Realms Wiki: Secomber, population history",
+            url="https://forgottenrealms.fandom.com/wiki/Secomber",
+            scope="Town",
+            period="1358 and 1372 DR",
+            description="900 in 1358 DR; 1,417 in 1372 DR. The cited sourcebooks were not independently checked for these figures.",
+            accessed="2026-10-14",
+        ),
+    ),
+)
+
+
+TRIBOAR_POPULATION = PopulationBasis(
+    residents=2_500,
+    reference_year=1492,
+    comparison_residents=2_500,
+    scope="Triboar town and its outlying farms and ranches; visitors and caravan crews excluded",
+    rationale=(
+        "Keeps the engine's existing 2,500 as a planning scenario for 1492 DR, now with an "
+        "evidence entry. The wiki infobox gives about 2,500 for 1357, 1368 and 1370 DR, and "
+        "the article says nearly half of residents lived on outlying farms and ranches in the "
+        "late 15th century DR, mostly north and east. No later census was found, so this is "
+        "not a verified 1492 DR count."
+    ),
+    evidence=(
+        PopulationEvidence(
+            title="Forgotten Realms Wiki: Triboar",
+            url="https://forgottenrealms.fandom.com/wiki/Triboar",
+            scope="Town and outlying farms and ranches",
+            period="1357, 1368 and 1370 DR counts; late 15th century DR note on outlying residents",
+            description=(
+                "Infobox gives about 2,500 for 1357, 1368 and 1370 DR, citing the article's "
+                "reference group. The text says nearly half of residents live on outlying "
+                "farms and ranches, citing Storm King's Thunder. Underlying publications "
+                "not consulted directly."
+            ),
+            accessed="2026-10-08",
+        ),
+    ),
+)
+
+
+# These baselines are retained, not adopted from historical infobox counts.
+# A comparison equal to residents records no authorized demographic recalibration.
+DAGGERFORD_POPULATION = PopulationBasis(
+    residents=900, reference_year=1492, comparison_residents=900,
+    scope="Daggerford town residents; duchy population excluded",
+    rationale=("Existing undated 900-person estimate retained for 1492 DR planning, not a census. "
+               "The wiki lists 1,200 in 1485 DR with unspecified town scope; the book behind "
+               "that particular infobox figure is not individually identified."),
+    evidence=(PopulationEvidence(
+        title="Forgotten Realms Wiki: Daggerford", url="https://forgottenrealms.fandom.com/wiki/Daggerford",
+        scope="Town (1485 DR infobox scope not further specified)", period="1372 and 1485 DR",
+        description="Infobox lists 891 in 1372 DR and 1,200 in 1485 DR; citations are grouped, not individually verified.",
+        accessed="2026-10-07",
+    ),),
+)
+
+GOLDENFIELDS_POPULATION = PopulationBasis(
+    residents=3_000, reference_year=1492, comparison_residents=3_000,
+    scope="Goldenfields settlement residents; temple complex and surrounding farmland boundaries uncertain",
+    rationale=("Existing undated 3,000-person estimate retained for 1492 DR planning, not a census. "
+               "The closer 1491 DR reference is about 5,000; changing the model count needs a separate decision."),
+    evidence=(PopulationEvidence(
+        title="Forgotten Realms Wiki: Goldenfields", url="https://forgottenrealms.fandom.com/wiki/Goldenfields",
+        scope="Settlement", period="1491 DR",
+        description="About 5,000 in 1491 DR, attributed by the wiki to Princes of the Apocalypse, p. 33; book not independently checked.",
+        accessed="2026-10-05",
+    ),),
+)
+
+NEVERWINTER_POPULATION = PopulationBasis(
+    residents=23_000, reference_year=1492, comparison_residents=23_000,
+    scope="Neverwinter city residents; post-eruption rebuilt city",
+    rationale=("Existing undated 23,000-person estimate retained for 1492 DR planning, not a census. "
+               "The 23,192 reference predates the 1451 DR eruption and does not establish a rebuilt-city count."),
+    evidence=(PopulationEvidence(
+        title="Realms Helps: The North, Neverwinter", url="https://www.realmshelps.net/faerun/north.shtml",
+        scope="Historical city", period="Nasher-era account; circa 1372 DR inferred",
+        description="Reports 23,192 inhabitants before the eruption; no verified rebuilt-city population.",
+        accessed="2026-10-01",
+    ),),
+)
+
+YARTAR_POPULATION = PopulationBasis(
+    residents=3_800, reference_year=1492, comparison_residents=3_800,
+    scope="Yartar city residents",
+    rationale=("Existing undated 3,800-person estimate retained for 1492 DR planning, not a census. "
+               "The documented 6,000 is a historical 1366 DR count; late-period crowding gives no numeric total."),
+    evidence=(PopulationEvidence(
+        title="Forgotten Realms Wiki: Yartar", url="https://forgottenrealms.fandom.com/wiki/Yartar",
+        scope="City", period="1366 DR; late-15th-century qualitative note",
+        description="Infobox lists 6,000 in 1366 DR; later text describes crowding without a new count. Sourcebooks not independently checked.",
+        accessed="2026-10-12",
+    ),),
+)
+
+LEILON_POPULATION = PopulationBasis(
+    residents=900, reference_year=1492, comparison_residents=900,
+    scope="Leilon settlement residents after resettlement",
+    rationale=("Existing undated 900-person estimate retained for 1492 DR planning, not a census. "
+               "A resettled-town figure of 200 in 1491 DR is not interchangeable with the pre-abandonment 3,000."),
+    evidence=(PopulationEvidence(
+        title="Forgotten Realms Wiki: Leilon", url="https://forgottenrealms.fandom.com/wiki/Leilon",
+        scope="Resettled town (1491); older town (1357 and 1370)", period="1357, 1370 and 1491 DR",
+        description="Infobox gives 200 for the 1491 DR resettlement versus 3,000 before abandonment; individual book attribution not established.",
+        accessed="2026-10-11",
+    ),),
+)
+
+PHANDALIN_POPULATION = PopulationBasis(
+    residents=500, reference_year=1492, comparison_residents=500,
+    scope="Phandalin town and assumed nearby farms and claims; exact boundary unknown",
+    rationale=("Existing undated 500-person estimate retained for 1492 DR planning, not a census. "
+               "About 50 structures in 1491 DR do not determine a resident count."),
+    evidence=(PopulationEvidence(
+        title="Forgotten Realms Wiki: Phandalin", url="https://forgottenrealms.fandom.com/wiki/Phandalin",
+        scope="Rebuilt town structures, not residents", period="1491 DR",
+        description="About 50 buildings; no sourced resident total or defensible household conversion.",
+        accessed="2026-10-09",
+    ),),
+)

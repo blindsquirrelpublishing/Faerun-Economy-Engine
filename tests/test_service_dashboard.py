@@ -318,7 +318,8 @@ URL.createObjectURL = blob => { downloaded = blob; return 'blob:economy'; };
 ui.downloadRequirements();
 assert.equal(downloaded.type, 'application/json');
 assert.deepEqual(JSON.parse(await downloaded.text()), {
-  settlement: 'Home & city', month: 100, requirements: data
+  settlement: 'Home & city', month: 100, ...ui.state.detail,
+  businesses: null, price_history: null, price_history_loaded: false
 });
 """)
 
