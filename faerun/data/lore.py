@@ -494,4 +494,34 @@ LORE = {
         }],
         "era_note": "Population, exports, government and the 1358 DR ruler come from The Savage Frontier (1988) and Volo's Guide to the North (1993), 1358 to 1368 DR; the businesses from Volo's Guide to the North and The North: Guide to the Savage Frontier (1996), circa 1367 DR; Perfectone Mercantile from The North and Cloak & Dagger (2000), 1360s to 1370 DR. Dowell Harpell's role comes from the Sword Coast Adventurer's Guide (2015), 1489 DR, Lords' Alliance membership from Storm King's Thunder (2016), circa 1491 DR, and the Bidderdoos and Catti-brie from the novel The Companions (2013), 1479 to 1482 DR. Verified for 1492 DR: nothing; no population is given after 1368 DR and no business is shown operating near 1492 DR. The engine's 700 residents have no source. Underlying publications were not independently consulted.",
     },
+    "port_llast": {
+        "status": "researched",
+        "paragraphs": [
+            "Port Llast is a small town of low stone houses and narrow streets on the High Road north of Neverwinter, on the Sword Coast North. Founded as Grath's Hold by the Northman Grath Erlkar in 127 DR and later called Last Port, it was sacked by orcs in 175 DR, served as Witch-Queen Laeral's capital of Stornanter from 806 to 841 DR, and took its present name after its last noble line, the Adreum family, was killed by its own townsfolk following an orc siege in the late 11th century DR. Around 1365 DR it held about 700 people and was known for skilled stonecutters and an excellent harbour, a small bay sheltered by a high rocky spit.",
+            "Stone is its recorded export: the main land industry was stonecutting in quarries on the coastal headlands just south of town. Twelve fishing boats, two in poor repair, worked the harbour around 1365 DR, and by the 1480s DR most of the townsfolk were fishers. The town was once famed for an ale called the finest in the North, but production had stopped by the mid to late 15th century DR. A tanner, Bannaeras Thaelok, ran Thaelok's Fine Leathers in a small bay south of the main harbour in the late 15th century DR.",
+            "A First Captain rules: the retired stonemason Haeromos Dothwintyl around 1365 DR until his death fighting sahuagin in 1369 DR, and his descendant Dovos Dothwintyl in 1463 DR. The town was closely allied to Neverwinter and a member of the Lords' Alliance, and around 1365 DR a local militia of 50 was backed by 50 Neverwinter men-at-arms and 30 Alliance troops against Luskan, which coveted the harbour. After the Spellplague of 1385 DR silt filled the harbour, trade died and raids by bandits and sahuagin left only holdouts, until lost districts were retaken and resettled in 1463 DR. Tidescourge Pirates held the town in 1479 DR, drow raiders struck in 1484 DR, and frost giants raided it twice after the War of the Silver Marches of 1485 to 1486 DR.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Port Llast",
+            "url": "https://forgottenrealms.fandom.com/wiki/Port_Llast",
+            "accessed": "2026-10-17",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Category: Inhabitants of Port Llast",
+            "url": "https://forgottenrealms.fandom.com/wiki/Category:Inhabitants_of_Port_Llast",
+            "accessed": "2026-10-17",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Haeromos Dothwintyl",
+            "url": "https://forgottenrealms.fandom.com/wiki/Haeromos_Dothwintyl",
+            "accessed": "2026-10-17",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Bannaeras Thaelok",
+            "url": "https://forgottenrealms.fandom.com/wiki/Bannaeras_Thaelok",
+            "accessed": "2026-10-17",
+            "kind": "secondary",
+        }],
+        "era_note": "The 700 population, stone export, stonecutting, fishing fleet, militia and First Captain Haeromos Dothwintyl come from The Savage Frontier (1988), Volo's Guide to the North (1993), City of Splendors (1994) and The North: Guide to the Savage Frontier (1996), circa 1358 to 1369 DR; early history from The Grand History of the Realms (2007); the 1385 DR silting from the Neverwinter Campaign Setting (2011); the 1463 DR resettlement and Dovos Dothwintyl from The Last Threshold (2013); the 1479 and 1484 DR events from Talon of Umberlee (2011) and Night of the Hunter (2014); the fishers majority and frost giant raids from Storm King's Thunder (2016), p. 104; Thaelok's tannery from Forging the Realms (2013). Verified for 1492 DR: nothing directly; the latest facts describe the town just before the planning baseline. No population after 1374 DR was found, and the engine's 800 residents have no source. Underlying publications were not independently consulted.",
+    },
 }

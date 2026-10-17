@@ -335,4 +335,28 @@ SETTLEMENT_DEMOGRAPHICS = {
             "kind": "secondary",
         }],
     },
+    "port_llast": {
+        "status": "qualitative",
+        "reference_period": "Circa 1365 to 1374 DR (infobox); 1463 DR resettlement and 1480s DR description",
+        "scope": "Town of Port Llast",
+        "groups": [
+            {"race": "Human", "share_pct": None, "descriptor": "The wiki infobox says mostly humans; by the 1480s DR most humans of the town were fishers"},
+        ],
+        "notes": [
+            "Named individuals of other races (the dwarf smith Haljal Throndor, circa 1365 DR; a half-elf herbalist in 1374 DR from a video game) are not treated as population shares.",
+            "Settlers from the northern Neverwinter Wood and the farmland around Luskan joined the town in 1463 DR; their race is not stated.",
+            "No percentages were found. A race that is not named is not evidence of absence.",
+        ],
+        "era_note": (
+            "The infobox description of mostly humans cites City of Splendors (1994), Volo's Guide to the North (1993), "
+            "The Savage Frontier (1988), The Last Threshold (2013), Realms of the Deep (2000) and Neverwinter Nights (2002). "
+            "No later description of the population was found."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Port Llast",
+            "url": WIKI + "Port_Llast",
+            "accessed": "2026-10-17",
+            "kind": "secondary",
+        }],
+    },
 }

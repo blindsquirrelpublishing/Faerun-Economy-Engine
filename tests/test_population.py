@@ -112,6 +112,30 @@ def test_comparison_and_overrides_report_actual_input_without_mutating_default(w
     assert not ordinary["evidence"]
 
 
+def test_longsaddle_uses_historical_hamlet_count_without_adding_hinterland():
+    from faerun.data_store import load_settlements
+
+    settlement = next(s for s in load_settlements() if s.id == "longsaddle")
+    report = population_report(settlement)
+    assert settlement.population == report["resident_population"] == 130
+    assert next(s for s in SETTLEMENTS if s.id == "longsaddle").population == 130
+    assert report["status"] == "scenario_estimate"
+    assert report["reference_year_dr"] == 1366
+    assert report["comparison_residents"] == 700
+    assert report["resident_change"] == -570
+    assert report["household_demand_multiplier"] == pytest.approx(130 / 700)
+    assert report["regional_population_added_to_demand"] == 0
+    assert "countryside and visitors excluded" in report["scope"]
+    assert "not a verified 1492 census" in report["rationale"]
+    assert "1,100" in report["evidence"][0]["description"]
+    assert "1,000" in report["evidence"][0]["description"]
+    assert report["evidence"][0]["kind"] == "secondary"
+    assert report["evidence"][0]["accessed"] == "2026-10-16"
+    assert json.loads(json.dumps(settlement.to_dict()))["population_model"] == report
+    assert population_report(replace(settlement, population=700))["status"] == "comparison_baseline"
+    assert population_report(replace(settlement, population=150))["status"] == "scenario_override"
+
+
 @pytest.mark.parametrize("sid,residents,historical", [
     ("daggerford", 900, "1,200"), ("goldenfields", 3_000, "5,000"),
     ("neverwinter", 23_000, "23,192"), ("yartar", 3_800, "6,000"),

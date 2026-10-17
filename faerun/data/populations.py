@@ -42,6 +42,40 @@ WATERDEEP_POPULATION = PopulationBasis(
 )
 
 
+LONGSADDLE_POPULATION = PopulationBasis(
+    residents=130,
+    reference_year=1366,
+    comparison_residents=700,
+    scope="Longsaddle hamlet residents; surrounding ranching countryside and visitors excluded",
+    rationale=(
+        "User-selected adoption of the historical 130-resident hamlet count for 1492 DR "
+        "planning, not a verified 1492 census. The count is recorded for 1358 and 1366 DR; "
+        "no figure after 1368 DR was found. The previous undated 700-person engine estimate "
+        "is retained only as the comparison, not as historical evidence. The 1,100 total "
+        "in 1358 DR and about 1,000 in 1368 DR include the surrounding countryside; "
+        "they are not additional hamlet residents and are not added to demand. "
+        "The map's 23 keyed landmarks are not a household or population count."
+    ),
+    evidence=(
+        PopulationEvidence(
+            title="Forgotten Realms Wiki: Longsaddle",
+            url="https://forgottenrealms.fandom.com/wiki/Longsaddle",
+            scope="Hamlet, separately from hamlet and surrounding countryside",
+            period="1358 and 1366 DR hamlet counts; 1358 and 1368 DR area totals",
+            description=(
+                "Infobox records 130 hamlet residents in 1358 and 1366 DR and 1,100 "
+                "including the surrounding area in 1358 DR. Article text reports about "
+                "1,000 with the countryside in 1368 DR. The wiki cites The Savage "
+                "Frontier, p. 30, and Volo's Guide to the North, pp. 52-53; "
+                "the individual figure-to-page pairing and primary books were not "
+                "independently verified. No later count was found."
+            ),
+            accessed="2026-10-16",
+        ),
+    ),
+)
+
+
 HLONDETH_POPULATION = PopulationBasis(
     residents=60_000,
     reference_year=1492,
