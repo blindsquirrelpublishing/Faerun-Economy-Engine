@@ -2132,6 +2132,7 @@ def test_route_inspector_summarizes_all_legs_and_can_clear_selection():
 const assert = require('node:assert/strict');
 const panel = {hidden: true, innerHTML: ''};
 const document = {getElementById: () => panel};
+let MAP_VIEW = 'overlay';
 const state = {selectedRoute: 0};
 const routeLines = [
     {details: {name: 'Coastal service', start: 'Alpha', end: 'Bravo',
@@ -2152,7 +2153,7 @@ updateRouteSelection();
 assert.equal(panel.hidden, false);
 assert.ok(panel.innerHTML.includes('96 mi'));
 assert.ok(panel.innerHTML.includes('<b>2 days</b>'));
-assert.ok(panel.innerHTML.includes('<span>Legs</span><b>2</b>'));
+assert.ok(panel.innerHTML.includes('<span>Daily hops</span><b>2</b>'));
 const modes = panel.innerHTML.match(/<p class="routemodes">(.*?)<\\/p>/)[1];
 assert.equal((modes.match(/road/g) || []).length, 1);
 assert.ok(modes.includes('sea'));
@@ -2186,6 +2187,7 @@ const state = {posterOnly: true, routes: true, labels: true, selected: 'daggerfo
 let MAP_VIEW = 'overlay';
 const calls = [];
 const updateCamera = () => calls.push('camera');
+const updateViewWindow = () => calls.push('view-window');
 const drawSky = () => calls.push('sky');
 const drawUnderlay = () => calls.push('poster');
 const drawPlaces = () => calls.push('places');
@@ -2194,14 +2196,14 @@ const drawPins = () => calls.push('pins');
 const ctx = {save: () => calls.push('save'), restore: () => calls.push('restore')};
 """ + helper + draw + """
 draw();
-assert.deepEqual(calls, ['camera', 'sky', 'save', 'poster', 'places', 'routes', 'pins', 'restore']);
+assert.deepEqual(calls, ['camera', 'view-window', 'sky', 'save', 'poster', 'places', 'routes', 'pins', 'restore']);
 assert.equal(state.routes, true);
 assert.equal(state.labels, true);
 assert.equal(state.selected, 'daggerford');
 calls.length = 0;
 state.routes = false;
 draw();
-assert.deepEqual(calls, ['camera', 'sky', 'save', 'poster', 'places', 'pins', 'restore']);
+assert.deepEqual(calls, ['camera', 'view-window', 'sky', 'save', 'poster', 'places', 'pins', 'restore']);
 MAP_VIEW = 'terrain';
 assert.equal(posterOnlyActive(), false);
 """

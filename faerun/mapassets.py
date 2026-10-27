@@ -3927,9 +3927,13 @@ function drawRoutes() {
           : (planFocus ? planRouteMatches(line) : (supplyFocus ? supplyRouteMatches(line) : !!(locationHasRoutes && line.details
             && (line.details.a === selectedLocation || line.details.b === selectedLocation)))));
       if (focusOn && !active) { continue; }
+      var selectedExact = selected >= 0 && routeLines[selected] === line;
+      var selectedSibling = selected >= 0 && active && !selectedExact;
       var width = ROUTE_WIDTH[line.kind] || 2.1;
       if (planFocus && active) { width *= 2; }
       if (flowFocus && active) { width = commodityFlowLineWidth(line); }
+      if (selectedSibling) { width *= 1.15; }
+      if (selectedExact) { width *= 1.6; }
       ctx.setLineDash(routeLineDash(line));
       var curves = projectedRouteCurves(line);
       ctx.beginPath();
@@ -4018,10 +4022,13 @@ function drawRoutes() {
       }
       if (curves.length) {
         var dimmed = false;
-        ctx.strokeStyle = dimmed ? 'rgba(238, 238, 238, .72)' : 'rgba(255, 248, 224, .90)';
-        ctx.lineWidth = width + 2.4;
+        var glow = selectedExact ? 'rgba(255, 238, 120, .96)'
+          : (selectedSibling ? 'rgba(255, 248, 224, .92)' : 'rgba(255, 248, 224, .90)');
+        ctx.strokeStyle = dimmed ? 'rgba(238, 238, 238, .72)' : glow;
+        ctx.lineWidth = width + (selectedExact ? 5.6 : (selectedSibling ? 3.2 : 2.4));
         ctx.stroke();
-        ctx.strokeStyle = dimmed ? 'rgba(116, 116, 116, .52)' : routeDisplayColor(line);
+        ctx.strokeStyle = selectedExact ? '#ffd21a'
+          : (dimmed ? 'rgba(116, 116, 116, .52)' : routeDisplayColor(line));
         ctx.lineWidth = dimmed ? Math.max(1.4, width - 0.5) : width;
         ctx.stroke();
         if (((planFocus && active) || (flowFocus && active)) && routeAnimationActive()) {
@@ -5208,9 +5215,15 @@ function drawPlanarLegs() {
       var screen = planarPoint(point[0], point[1]);
       if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
     });
-    var baseWidth = state.selectedRoute >= 0 && routeLines[state.selectedRoute] === line ? 6 : 4;
+    var selectedExact = state.selectedRoute >= 0 && routeLines[state.selectedRoute] === line;
+    var selectedSibling = state.selectedRoute >= 0 && !selectedExact
+      && selectedRouteGroup().indexOf(line) >= 0;
+    var baseWidth = selectedExact ? 7 : (selectedSibling ? 5 : 4);
     var width = activeFlow ? commodityFlowLineWidth(line) : baseWidth;
-    strokePlanarLeg(routeDisplayColor(line), width, routeLineDash(line), line.kind === 'trail' ? 0.5 : 1);
+    var color = selectedExact ? '#ffd21a' : routeDisplayColor(line);
+    var widthScale = line.kind === 'trail' ? 0.5 : 1;
+    if (selectedExact) { widthScale *= 1.15; }
+    strokePlanarLeg(color, width, routeLineDash(line), widthScale);
     if (activeFlow) {
       var flowLanes = commodityFlowLaneEntries(line);
       var planarLabels = [];

@@ -1,5 +1,5 @@
 {
-  "revision": 57,
+  "revision": 58,
   "locations": {
     "waterdeep": {
       "name": "Waterdeep",
@@ -177,11 +177,14 @@
     },
     "ruathym": {
       "name": "Ruathym",
-      "x": 84.1,
-      "y": 819.6,
+      "x": 108.1,
+      "y": 1316.0565,
       "mapPositionEdited": true,
       "verified": false,
-      "placeType": "location"
+      "placeType": "location",
+      "isPort": true,
+      "portalGate": false,
+      "gryphonPort": false
     },
     "chethel": {
       "name": "Chethel",

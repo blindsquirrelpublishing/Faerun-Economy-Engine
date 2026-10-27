@@ -693,14 +693,5 @@
     ],
     "quality": 0.95,
     "kind": "river+road"
-  },
-  {
-    "name": "Yartar to Everlund Road",
-    "stops": [
-      "yartar",
-      "everlund"
-    ],
-    "quality": 0.9,
-    "kind": "road"
   }
 ]
