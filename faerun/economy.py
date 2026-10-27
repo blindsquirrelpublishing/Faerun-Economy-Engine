@@ -160,6 +160,16 @@ def demand_index(world: World, s: Settlement, c: Commodity, *, include_events: b
     # appetite for niche goods is scaled down against the staples.
     multiplier *= max(0.05, c.demand) ** 0.5
     multiplier *= s.wealth ** (0.6 + 1.8 * c.luxury)
+
+    # Trim implausible baseline demand for rare luxury/exotic goods in small
+    # markets while keeping large rich ports active buyers.
+    if c.luxury >= 0.6 and c.demand <= 0.08:
+        pop = max(float(s.population), 80.0)
+        pop_factor = min(1.0, (pop / 12000.0) ** 0.5)
+        trait_factor = 1.0
+        if not (s.has_trait("cosmopolitan") or s.has_trait("port") or s.has_trait("noble")):
+            trait_factor = 0.7
+        multiplier *= max(0.12, pop_factor * trait_factor)
     if c.id in s.shortages:
         multiplier *= 1.15
     if include_events:
@@ -527,6 +537,9 @@ def _commodity_markets(world: World, c: Commodity, *, _material=None) -> Dict[st
 
         if unmet > 1e-6:
             notes.append(f"unmet demand: {unmet:.1f} {c.unit}/day")
+
+        if _material is not None:
+            core = min(core, c.base_price * cfg.shortage_ceiling)
 
         size = _size_norm(s.population)
         markup = cfg.market_markup_small * (1.0 - size)

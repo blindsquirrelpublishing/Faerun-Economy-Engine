@@ -101,3 +101,74 @@ def test_terrain_cell_endpoint_saves_and_returns_refreshed_map(monkeypatch):
 
     assert saved == [(12, 34, "o")]
     assert payload == {"grid": [96, 146], "terrainOverrideCount": 3}
+
+
+def test_commodity_flows_endpoint_returns_sorted_import_paths():
+    payload = web.api_commodity_flows(web.get_world(), {"commodity": ["grain"]})
+
+    assert payload["commodity"] == "grain"
+    assert payload["unit"]
+    assert "/api/commodity-flows" in web.GET_ROUTES
+    assert web.GET_ROUTES["/api/commodity-flows"] is web.api_commodity_flows
+    flows = payload["flows"]
+    assert isinstance(flows, list)
+    if len(flows) > 1:
+        assert flows[0]["quantity_per_day"] >= flows[1]["quantity_per_day"]
+    if flows:
+        row = flows[0]
+        assert row["source_id"] != row["destination_id"]
+        assert row["quantity_per_day"] > 0
+        assert row["source"]
+        assert row["destination"]
+        assert row["route"]["reachable"] is True
+        assert isinstance(row["route"]["legs"], list)
+    totals = payload["totals"]
+    assert all("exports_per_day" in totals[sid] and "imports_per_day" in totals[sid] for sid in totals)
+    assert "leg_flows" in payload
+    assert "node_flows" in payload
+    if payload["leg_flows"]:
+        leg = payload["leg_flows"][0]
+        assert "from" in leg and "to" in leg
+        assert leg["quantity_per_day"] > 0
+    if payload["node_flows"]:
+        node = payload["node_flows"][0]
+        assert "cross_docked_per_day" in node
+        assert "consumed_per_day" in node
+        assert "modeled_local_consumption_per_day" in node
+    assert payload["tiered_plan"] is None
+
+def test_commodity_flows_can_return_tiered_plan_for_origin():
+    payload = web.api_commodity_flows(web.get_world(), {"commodity": ["coffee"], "origin": ["Port Nyanzaru"]})
+
+    plan = payload["tiered_plan"]
+    assert plan is not None
+    assert plan["origin"] == "Port Nyanzaru"
+    assert plan["total_export_per_day"] >= 0
+    assert isinstance(plan["tier1_hubs"], list)
+    assert isinstance(plan["tier2_feeders"], list)
+    assert isinstance(plan["tier3_tail_markets"], list)
+    assert isinstance(plan["top_legs"], list)
+
+
+def test_network_overlay_endpoint_reads_transport_geojson(tmp_path, monkeypatch):
+    transport = tmp_path / "reference" / "transport"
+    transport.mkdir(parents=True)
+    sample = transport / "sample-overlay.geojson"
+    sample.write_text('{"type":"FeatureCollection","features":[]}', encoding="utf-8")
+
+    monkeypatch.setattr(web, "transport_reference_dir", lambda: transport)
+
+    payload = web.api_network_overlay(web.get_world(), {"name": ["sample-overlay"]})
+
+    assert payload["name"] == "sample-overlay.geojson"
+    assert payload["overlay"]["type"] == "FeatureCollection"
+    assert "/api/network-overlay" in web.GET_ROUTES
+    assert web.GET_ROUTES["/api/network-overlay"] is web.api_network_overlay
+
+
+def test_network_overlay_endpoint_rejects_invalid_name(tmp_path, monkeypatch):
+    monkeypatch.setattr(web, "transport_reference_dir", lambda: tmp_path / "missing")
+
+    with pytest.raises(web.ApiError, match="overlay name must use"):
+        web.api_network_overlay(web.get_world(), {"name": ["../bad"]})
+

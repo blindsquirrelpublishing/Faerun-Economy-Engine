@@ -147,20 +147,26 @@ SETTLEMENT_DEMOGRAPHICS = {
     },
     "griffon_s_nest": {
         "status": "qualitative",
-        "reference_period": "Undated in the reviewed summary; latest documented snapshot is 1485 DR",
-        "scope": "Settlement of Griffon's Nest",
+        "reference_period": "1358 to 1485 DR descriptions; latest documented snapshot is 1485 DR (about 300 inhabitants); not a 1492 DR census",
+        "scope": "Settlement of Griffon's Nest (the Griffon tribe's permanent village)",
         "groups": [
-            {"race": "Human", "share_pct": None, "descriptor": "Described inhabitants are human Uthgardt",
-             "subgroups": [{"name": "Uthgardt", "share_pct": None}]},
+            {"race": "Human", "share_pct": None, "descriptor": "Inhabitants described as human Uthgardt of the Griffon tribe who worship Uthgar",
+             "subgroups": [{"name": "Uthgardt (Griffon tribe)", "share_pct": None}]},
         ],
         "notes": [
             "No other race is named; that is not evidence that none lives there.",
+            "The half-orc bandits under Azglyn who held the site before the Uthgardt were destroyed by them and are not a resident group.",
         ],
-        "era_note": "The wiki describes the inhabitants as human Uthgardt who worship Uthgar. Not verified for 1492 DR.",
+        "era_note": "The wiki infobox and person pages describe the inhabitants as human Uthgardt who worship Uthgar, in sources dated 1358 to 1485 DR. No percentages exist. Not verified for 1492 DR.",
         "sources": [{
             "title": "Forgotten Realms Wiki: Griffon's Nest",
             "url": WIKI + "Griffon%27s_Nest",
-            "accessed": "2026-10-01",
+            "accessed": "2026-10-21",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Halric Bonesnapper",
+            "url": WIKI + "Halric_Bonesnapper",
+            "accessed": "2026-10-21",
             "kind": "secondary",
         }],
     },
@@ -356,6 +362,225 @@ SETTLEMENT_DEMOGRAPHICS = {
             "title": "Forgotten Realms Wiki: Port Llast",
             "url": WIKI + "Port_Llast",
             "accessed": "2026-10-17",
+            "kind": "secondary",
+        }],
+    },
+    "warlock_s_crypt": {
+        "status": "qualitative",
+        "reference_period": "Circa 1351 to 1374 DR (infobox and article); Orbedal before -339 DR noted as former",
+        "scope": "Warlock's Crypt (city of undead in the Troll Hills)",
+        "groups": [
+            {"race": "Undead", "share_pct": None, "descriptor": "Liches (about sixty by 1374 DR, many Netherese survivors), vampires, wraiths, wights, crawling claws, zombies and other undead"},
+            {"race": "Troll", "share_pct": None, "descriptor": "A troop of trolls guarding the city"},
+        ],
+        "notes": [
+            "Kastighur demons were sometimes summoned by Larloch; they are not treated as residents.",
+            "Netherese humans lived in Orbedal before it fell in -339 DR; no living residents are recorded at the crypt.",
+            "No percentages were found. A race that is not named is not evidence of absence.",
+        ],
+        "era_note": (
+            "The infobox lists liches, vampires, wraiths, wights, crawling claws, zombies and other undead, and trolls, "
+            "citing the Forgotten Realms Campaign Setting, 2nd edition revised (1993), Volo's Guide to the Sword Coast (1994), "
+            "Lords of Darkness (2001) and the 3rd-edition Forgotten Realms Campaign Setting (2001). "
+            "No description later than 1374 DR was found."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Warlock's Crypt",
+            "url": WIKI + "Warlock%27s_Crypt",
+            "accessed": "2026-10-18",
+            "kind": "secondary",
+        }],
+    },
+    "dragonspear_castle": {
+        "status": "qualitative",
+        "reference_period": "1255 to circa 1485 DR (infobox occupants and article); 1492 DR not described",
+        "scope": "Occupants of Dragonspear Castle (a ruined fortress, not a settled community)",
+        "groups": [
+            {"race": "Undead", "share_pct": None, "descriptor": "Undead led by the boneclaw Born held the castle some time before 1479 DR; a coven of Shar-worshipping vampires (the Szarlnaxi) laired there around 1484 to 1485 DR"},
+            {"race": "Human", "share_pct": None, "descriptor": "Soldiers and mercenaries of the Shining Crusade occupied the castle in 1368 DR (historical; from a video game)"},
+            {"race": "Goblinoid", "share_pct": None, "descriptor": "Hobgoblins held the castle from 1305 to 1315 DR; orcs, goblins, kobolds, bugbears and ogres formed the Hordes of Dragonspear in 1363 DR (historical)"},
+            {"race": "Devil", "share_pct": None, "descriptor": "Devils from Avernus held the castle in 1354 to 1356 DR and again in 1363 DR (historical)"},
+            {"race": "Dwarf", "share_pct": None, "descriptor": "Dwarves sheltered there under the half-dwarf Daeros Dragonspear, 1255 to 1290 DR (historical)"},
+        ],
+        "notes": [
+            "The infobox lists the notable occupants as dwarves and a dragon, goblinoids and devils; the undead and vampires come from the article's history.",
+            "No living residents are recorded after 1368 DR. The groups describe successive occupiers, not a population mix.",
+            "No percentages were found. A race that is not named is not evidence of absence.",
+        ],
+        "era_note": (
+            "The infobox cites the Sword Coast Adventurer's Guide (2015), p. 83; the vampires come from Ghosts of Dragonspear Castle (2013), "
+            "the undead under Born from the Forgotten Realms Campaign Guide (2008), p. 36, and the earlier occupiers from Volo's Guide to the "
+            "Sword Coast (1994), Hordes of Dragonspear (1992), The Grand History of the Realms (2007) and Baldur's Gate: Siege of Dragonspear (2016). "
+            "No description later than about 1485 DR was found."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Dragonspear Castle",
+            "url": WIKI + "Dragonspear_Castle",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Szarlnaxi",
+            "url": WIKI + "Szarlnaxi",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }],
+    },
+    "loudwater": {
+        "status": "quantified",
+        "reference_period": "1372 DR (Forgotten Realms Campaign Setting, 3rd edition, p. 169, and Legacy of the Green Regent: Extermination, pp. 20 to 21, as cited by the wiki); not valid for 1492 DR",
+        "scope": "Town of Loudwater, 8,137 residents in 1372 DR; whether the figure covers the town alone or its claimed lands is not stated",
+        "groups": [
+            {"race": "Human", "share_pct": 37.0, "descriptor": "3,010 people in 1372 DR"},
+            {"race": "Half-elf", "share_pct": 20.0, "descriptor": "1,627 people; almost a quarter of the 4,000 people in 1357 to 1370 DR were half-elves, mostly descended from Eaerlann"},
+            {"race": "Elf", "share_pct": 18.0, "descriptor": "1,465 people, mostly moon elf ancestry; the nine chief elven families formed the noble houses"},
+            {"race": "Halfling", "share_pct": 10.0, "descriptor": "814 people"},
+            {"race": "Gnome", "share_pct": 7.0, "descriptor": "570 people"},
+            {"race": "Dwarf", "share_pct": 5.0, "descriptor": "407 people"},
+            {"race": "Half-orc", "share_pct": 3.0, "descriptor": "244 people; High Forest orcs also settled outside the Forestview Gate in 1372 DR"},
+        ],
+        "notes": [
+            "Shares are the wiki infobox percentages for 1372 DR and match its counts.",
+            "By 1479 DR about 2,000 people remained, the majority humans and half-elves (Forgotten Realms Campaign Guide, 2008); by the late 1480s DR the town was largely human and the elves long gone (Storm King's Thunder, 2016, p. 97). No later percentages were found, so the 1372 DR mix is not a 1492 DR census.",
+        ],
+        "era_note": (
+            "The 1372 DR counts come from the 3rd-edition Forgotten Realms Campaign Setting (2001) and Legacy of the Green Regent: "
+            "Extermination (2003), cited by the Forgotten Realms Wiki and not independently consulted. The 1479 DR and late 1480s DR "
+            "descriptions are qualitative."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Loudwater",
+            "url": WIKI + "Loudwater",
+            "accessed": "2026-10-22",
+            "kind": "secondary",
+        }],
+    },
+    "grandfather_tree": {
+        "status": "quantified",
+        "reference_period": "1372 DR (Silver Marches, 2002, p. 27, as cited by the wiki); not valid for 1492 DR",
+        "scope": "Ghostand, the Tree Ghost hamlet beside the Grandfather Tree, 224 residents in mid-1372 DR; the tree itself has no residents",
+        "groups": [
+            {"race": "Human", "share_pct": 86.0, "descriptor": "Uthgardt barbarians of the Tree Ghost tribe (Illuskan descent), joined in the late 15th century DR by Uthgardt from other tribes"},
+            {"race": "Elf", "share_pct": 9.0, "descriptor": "Wood elves; wild elves are also described around the village", "subgroups": [{"name": "Wood elf", "share_pct": None}]},
+            {"race": "Half-elf", "share_pct": 4.0, "descriptor": "Half-elves found around the village"},
+            {"race": "Other", "share_pct": 1.0, "descriptor": "Not specified"},
+        ],
+        "notes": [
+            "Shares are the wiki infobox percentages for Ghostand, citing Silver Marches, p. 27; Mintiper's Chapbook part 8 gives more than 350 people in the same year.",
+            "No later breakdown was found; the 1372 DR mix is not a 1492 DR census.",
+        ],
+        "era_note": (
+            "The 1372 DR figures come from Silver Marches (2002) and Mintiper's Chapbook (2001), cited by the Forgotten Realms Wiki "
+            "and not independently consulted. Storm King's Thunder (2016) adds Uthgardt from other tribes living with the Tree Ghosts "
+            "in the late 15th century DR, without numbers."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Ghostand",
+            "url": WIKI + "Ghostand",
+            "accessed": "2026-10-23",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Grandfather Tree",
+            "url": WIKI + "Grandfather_Tree",
+            "accessed": "2026-10-23",
+            "kind": "secondary",
+        }],
+    },
+    "mintarn": {
+        "status": "qualitative",
+        "reference_period": "Late 14th century DR descriptions (Races of Faerun, 2003; Realms of the Deep, 2000) with 15th century DR individuals; not a 1492 DR census",
+        "scope": "Island of Mintarn as a whole; no population figure is recorded for any period",
+        "groups": [
+            {"race": "Human", "share_pct": None, "descriptor": "Illuskan humans, listed as the island's people (Races of Faerun, p. 92)"},
+            {"race": "Merfolk", "share_pct": None, "descriptor": "A merfolk population, fond of imported Mabadann oysters (Realms of the Deep, 2000)"},
+            {"race": "Dwarf", "share_pct": None, "descriptor": "A small dwarven population at Mintarn Mountain with remnants of Clan Ironstar (Crown of Fire; Dwarves Deep, p. 13, as a rumour of a secret cave hold)"},
+        ],
+        "notes": [
+            "No percentages or counts were found. Individuals tied to the island in the 15th century DR include a red dragonborn White Sails sailor (Rayonde) and a dwarf soldier in Neverwinter (Muln Horan); single people are not evidence of a community.",
+        ],
+        "era_note": (
+            "Groups come from the Mintarn article's infobox and text on the Forgotten Realms Wiki, citing Races of Faerun (2003), "
+            "Realms of the Deep (2000), Dwarves Deep (1990) and Crown of Fire; not independently consulted. "
+            "Nothing describes the island's makeup in 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Mintarn",
+            "url": WIKI + "Mintarn",
+            "accessed": "2026-10-24",
+            "kind": "secondary",
+        }],
+    },
+    "luskan": {
+        "status": "qualitative",
+        "reference_period": "Circa 1360s to 1370 DR descriptions (A Reader's Guide to R. A. Salvatore's The Legend of Drizzt, 2008; Volo's Guide to the North, 1993) with late 15th century DR drow (Night of the Hunter, 2014); not a 1492 DR census",
+        "scope": "City of Luskan; 15,000 to 16,000 people in the 1360s and 1370 DR, 4,000 in 1480 DR, no later figure",
+        "groups": [
+            {"race": "Human", "share_pct": None, "descriptor": "Mostly humans (A Reader's Guide, pp. 142 to 143); the city was hostile to non-humans and let few past its gates around 1370 DR"},
+            {"race": "Drow", "share_pct": None, "descriptor": "Drow of Bregan D'aerthe and visitors at One-Eyed Jax in the late 15th century DR (Night of the Hunter, pp. 309 to 310)"},
+        ],
+        "notes": [
+            "No percentages or counts by race were found. After the Spellplague the city also sheltered goblins, kobolds and aquatic monsters in the bog; these are not counted as residents here.",
+        ],
+        "era_note": (
+            "Groups come from the Luskan article's infobox and text on the Forgotten Realms Wiki, citing A Reader's Guide to R. A. Salvatore's "
+            "The Legend of Drizzt (2008), Volo's Guide to the North (1993) and Night of the Hunter (2014); not independently consulted. "
+            "Nothing describes the city's makeup in 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Luskan",
+            "url": WIKI + "Luskan",
+            "accessed": "2026-10-25",
+            "kind": "secondary",
+        }],
+    },
+    "nesme": {
+        "status": "quantified",
+        "reference_period": "1372 DR (The City of Nesme, 2001), with a circa 1371 DR table in the notes; not a 1492 DR census",
+        "scope": "Town of Nesme; 6,140 or 1,966 people in 1372 DR depending on the source; in ruins in 1485 DR",
+        "groups": [
+            {"race": "Human", "share_pct": 79, "descriptor": "79% in 1372 DR"},
+            {"race": "Halfling", "share_pct": 9, "descriptor": "9% in 1372 DR"},
+            {"race": "Dwarf", "share_pct": 5, "descriptor": "5% in 1372 DR"},
+            {"race": "Half-elf", "share_pct": 4, "descriptor": "4% in 1372 DR"},
+            {"race": "Gnome", "share_pct": 2, "descriptor": "2% in 1372 DR"},
+            {"race": "Elf", "share_pct": 1, "descriptor": "1% in 1372 DR"},
+        ],
+        "notes": [
+            "A second table, given by the wiki for 1371 DR from Dungeon 144, p. 19, reads humans 67%, halflings 10%, half-elves 8%, shield dwarves 6%, moon elves 5%, rock gnomes 3%, others 1%.",
+            "Neither table describes the town after it fell to Many-Arrows in 1484 DR; the 600 survivors were held prisoner and the town was a ruin in 1485 DR.",
+        ],
+        "era_note": (
+            "Both tables come from the Nesme article's infobox on the Forgotten Realms Wiki, citing The City of Nesme (2001) and "
+            "Dungeon 144 (2007); not independently consulted. Nothing describes who, if anyone, lives in Nesme in 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Nesme",
+            "url": WIKI + "Nesm%C3%A9",
+            "accessed": "2026-10-26",
+            "kind": "secondary",
+        }],
+    },
+    "jalanthar": {
+        "status": "quantified",
+        "reference_period": "Circa 1372 DR (Silver Marches, 2002, p. 19); not a 1492 DR census",
+        "scope": "Hamlet of Jalanthar, 226 residents, not counting the Argent Legion company stationed there",
+        "groups": [
+            {"race": "Human", "share_pct": 89, "descriptor": "89% circa 1372 DR"},
+            {"race": "Halfling", "share_pct": 6, "descriptor": "6% circa 1372 DR",
+             "subgroups": [{"name": "Lightfoot", "share_pct": 100}]},
+            {"race": "Half-elf", "share_pct": 4, "descriptor": "4% circa 1372 DR"},
+            {"race": "Other", "share_pct": 1, "descriptor": "1% circa 1372 DR"},
+        ],
+        "notes": [
+            "Storm King's Thunder (2016), p. 94, as cited by the wiki, names two Damaran human residents after 1485 DR (Quinn Nardrosz and Myles Heldruin); it gives no proportions.",
+        ],
+        "era_note": (
+            "The table comes from the Jalanthar article's infobox on the Forgotten Realms Wiki, citing Silver Marches (2002), "
+            "p. 19; not independently consulted. Nothing gives the hamlet's makeup in 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Jalanthar",
+            "url": WIKI + "Jalanthar",
+            "accessed": "2026-10-27",
             "kind": "secondary",
         }],
     },

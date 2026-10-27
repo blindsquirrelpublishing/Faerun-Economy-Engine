@@ -1607,6 +1607,11 @@ on the poster. **Land opacity** adjusts the blend; the color legend appears whil
 the overlay is enabled. Grid lines, routes, and location dots stay above the
 overlay. These colors use the current rendered terrain grid, not a new survey.
 
+In **2D map**, enable **Coffee network overlay** to draw
+`reference/transport/coffee-feeder-network-port-nyanzaru.geojson` over the
+current map view. It renders producer/market points and route legs, with wider
+strokes for larger commodity flow quantities.
+
 ### Editing map locations
 
 Travelling companies appear as a dot with a covered-wagon icon. Encamped companies
@@ -1885,7 +1890,7 @@ The full resolution order, first hit wins:
 
 City maps, the known elevation/ground-cover/topographical/political reference images,
 and unrelated images are excluded from automatic poster selection, even
-inside `maps\`. In this workspace, the world background is `maps\Faerun Hires.jpg`;
+inside `maps\`. In this workspace, the world background is `maps\Faerun Hires.jpg`; any other poster images should be kept under `maps\reference\non-canonical\` to avoid selecting the wrong base image;
 the Waterdeep atlas independently uses `maps\waterdeep-map-hires.jpg`. Adding or
 updating a city map or `Faerun Political Map.png` cannot replace the original
 high-resolution poster. Explicit overrides,

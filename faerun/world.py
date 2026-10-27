@@ -153,6 +153,19 @@ def _surveyed_markets(established: Sequence[Settlement]) -> List[Settlement]:
             surface,
             key=lambda s: math.dist((x, y), (s.x, s.y)),
         )
+
+        # Survey points near coastlines can be closer to an offshore island hub
+        # than to their intended mainland anchor. Prefer a mainland donor when
+        # it is comparably close, which avoids cross-water profile inheritance
+        # while preserving true island feeders.
+        nearest_distance = math.dist((x, y), (nearest.x, nearest.y))
+        mainland = [s for s in surface if (getattr(s, "landmass", "faerun") or "faerun") == "faerun"]
+        if (getattr(nearest, "landmass", "faerun") or "faerun") != "faerun" and mainland:
+            mainland_nearest = min(mainland, key=lambda s: math.dist((x, y), (s.x, s.y)))
+            mainland_distance = math.dist((x, y), (mainland_nearest.x, mainland_nearest.y))
+            if mainland_distance <= nearest_distance * 1.35:
+                nearest = mainland_nearest
+
         population = max(80, min(2000, nearest.population // 25))
         traits = list(dict.fromkeys(list(nearest.traits) + [SURVEYED_MARKET_TRAIT]))
         market = Settlement(

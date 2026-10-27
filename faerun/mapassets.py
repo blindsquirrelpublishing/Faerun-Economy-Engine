@@ -100,6 +100,7 @@ MAP_HTML = r"""<!DOCTYPE html>
           <label>Poster opacity <input id="planar-poster-alpha" type="range" min="0" max="100" value="100" aria-label="Poster opacity"></label>
           <label><input id="planar-terrain" type="checkbox"> Inferred land type</label>
           <label>Land opacity <input id="planar-terrain-alpha" type="range" min="0" max="100" value="50" aria-label="Land type opacity" disabled></label>
+          <label title="Show the coffee feeder network overlay from reference/transport/"><input id="planar-network-overlay" type="checkbox"> Coffee network overlay</label>
           <div class="routefilter"><span>Leg types</span><details id="planar-leg-type">
             <summary id="planar-leg-summary">All types</summary>
             <div class="routefiltermenu" id="planar-leg-options"><label><input id="planar-leg-all" type="checkbox" checked> All types</label></div>
@@ -319,6 +320,7 @@ MAP_HTML = r"""<!DOCTYPE html>
     <div id="place-stats" class="statgrid"></div>
     <div id="place-notes" class="placenotes"></div>
     <section id="supply-chain" class="supplychain" hidden aria-live="polite"></section>
+    <section id="commodity-flow" class="commodityflow" hidden aria-live="polite"></section>
     <div class="panelctl">
       <input id="goods-search" type="search" placeholder="Filter goods..." autocomplete="off">
       <select id="goods-category"><option value="">All categories</option></select>
@@ -639,6 +641,7 @@ TERRAIN_HTML = r"""<!DOCTYPE html>
     <div id="place-stats" class="statgrid"></div>
     <div id="place-notes" class="placenotes"></div>
     <section id="supply-chain" class="supplychain" hidden aria-live="polite"></section>
+    <section id="commodity-flow" class="commodityflow" hidden aria-live="polite"></section>
     <div class="panelctl">
       <input id="goods-search" type="search" placeholder="Filter goods..." autocomplete="off">
       <select id="goods-category"><option value="">All categories</option></select>
@@ -935,6 +938,14 @@ body[data-map-view="terrain"] #calib-help-row { display: none !important; }
 .supplychain small { display: block; color: var(--muted); }
 .supplychain .raw { color: #39724c; }
 .supplychain .processed { color: #9a4d26; }
+.commodityflow { padding: 10px 14px; border-block: 1px solid var(--line); background: var(--panel); }
+.commodityflow h2 { margin: 0 0 7px; font-size: 15px; color: var(--ink); }
+.commodityflow h3 { margin: 10px 0 6px; font-size: 13px; color: var(--ink); }
+.commodityflow ol { margin: 0; padding-left: 20px; }
+.commodityflow li { padding: 3px 0; font-size: 12px; color: var(--ink); }
+.commodityflow small { display: block; color: var(--muted); }
+.commodityflow .muted { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.commodityflow .flowtoggle { margin: 8px 0; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
 .routeplan { padding: 10px 14px; border-block: 1px solid var(--line); background: var(--panel); }
 .routeplan h2 { margin: 0 0 7px; font-size: 15px; color: var(--ink); }
 .routeplan form { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
@@ -1093,6 +1104,7 @@ body[data-poster-only="true"] .worldviewcontrol { display: none; }
 .supplychain { padding: 14px 0; background: transparent; }
 .supplychain .raw { color: var(--cp-text-muted); }
 .supplychain .processed { color: var(--cp-accent); }
+.commodityflow { padding: 14px 0; background: transparent; }
 .routeplan { padding: 14px 0; background: transparent; border-block: 0; border-bottom: 1px solid var(--cp-border); }
 .routeplan input[type="search"], .routeplan button { border-color: var(--cp-border); background: var(--cp-surface); color: var(--cp-text); }
 .routeplan label { color: var(--cp-text-muted); }
@@ -1292,6 +1304,7 @@ var state = {
   selected: null,
   selectedRoute: -1,
   selectedCarrierService: '',
+  flowLaneSelection: null,
   detailId: '',
   detailRequest: 0,
   hover: -1,
@@ -1302,6 +1315,12 @@ var state = {
   market: null,
   supplyChain: null,
   supplyRouteKeys: {},
+  commodityFlowCommodity: '',
+  commodityFlow: null,
+  commodityFlowRouteKeys: {},
+  commodityFlowRouteMeta: {},
+  commodityFlowLinePaths: {},
+  commodityFlowFlowOnly: false,
   planRoute: null,
   planRouteKeys: {},
   planRequest: 0,
@@ -1319,6 +1338,10 @@ var state = {
   planarPosterAlpha: 1,
   planarTerrain: false,
   planarTerrainAlpha: 0.5,
+  networkOverlayOn: false,
+  networkOverlayData: null,
+  networkOverlayPathCache: {},
+  networkOverlayName: 'coffee-feeder-network-port-nyanzaru.geojson',
   hexStep: 2,
   globe: false,
   globeTilt: GLOBE_HOME_TILT,
@@ -3823,6 +3846,59 @@ function routeBezierPoint(segment, progress) {
   });
 }
 
+function flowQuantityLabel(quantity, direction, fromName, toName) {
+  var value = Number(quantity || 0).toLocaleString(undefined, {maximumFractionDigits: 2});
+  var unit = state.commodityFlow && state.commodityFlow.unit ? state.commodityFlow.unit : 'units';
+  if (direction === 'export' && fromName && toName) {
+    return 'Export ' + fromName + ' → ' + toName + ': ' + value + ' ' + unit + '/day';
+  }
+  return (direction === 'export' ? 'Export ' : 'Import ') + value + ' ' + unit + '/day';
+}
+
+function drawFlowLabel(x, y, text, color) {
+  ctx.save();
+  ctx.font = '11px "Segoe UI", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  var pad = 4;
+  var width = ctx.measureText(text).width + pad * 2;
+  var height = 16;
+  ctx.fillStyle = 'rgba(255,255,255,.92)';
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.rect(x - width / 2, y - height / 2, width, height);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#1b2730';
+  ctx.fillText(text, x, y + 0.5);
+  ctx.restore();
+}
+
+function pathPointAtFraction(path, fraction) {
+  if (!path || !path.length) { return null; }
+  if (path.length === 1) { return path[0]; }
+  var clamped = clamp(Number(fraction || 0.5), 0, 1);
+  var total = 0;
+  for (var i = 1; i < path.length; i++) {
+    total += Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
+  }
+  if (!total) { return path[Math.floor((path.length - 1) * clamped)] || path[0]; }
+  var target = total * clamped;
+  var run = 0;
+  for (var j = 1; j < path.length; j++) {
+    var ax = path[j - 1][0], ay = path[j - 1][1];
+    var bx = path[j][0], by = path[j][1];
+    var seg = Math.hypot(bx - ax, by - ay);
+    if (run + seg >= target) {
+      var local = seg ? (target - run) / seg : 0;
+      return [ax + (bx - ax) * local, ay + (by - ay) * local];
+    }
+    run += seg;
+  }
+  return path[path.length - 1] || null;
+}
+
 function drawRoutes() {
   if (!routeLines) { return; }
   var exag = state.exag;
@@ -3830,28 +3906,102 @@ function drawRoutes() {
   ctx.lineJoin = 'round';
   var selected = state.selectedRoute;
   var selectedGroup = selectedRouteGroup();
-  var planFocus = selected < 0 && Object.keys(state.planRouteKeys).length > 0;
-  var supplyFocus = selected < 0 && !planFocus && Object.keys(state.supplyRouteKeys).length > 0;
-  var selectedLocation = selected < 0 && !planFocus && !supplyFocus ? state.selected : null;
+  var flowFocus = selected < 0 && !state.planRoute && !!(state.commodityFlow
+    && state.commodityFlowCommodity && Object.keys(state.commodityFlowRouteKeys).length > 0);
+  var flowOnly = flowFocus && !!state.commodityFlowFlowOnly;
+  var planFocus = selected < 0 && !flowFocus && Object.keys(state.planRouteKeys).length > 0;
+  var supplyFocus = selected < 0 && !planFocus && !flowFocus && Object.keys(state.supplyRouteKeys).length > 0;
+  var selectedLocation = selected < 0 && !planFocus && !supplyFocus && !flowFocus ? state.selected : null;
   var locationHasRoutes = selectedLocation && routeLines.some(function (line) {
     return routeMatchesFilter(line) && line.details
       && (line.details.a === selectedLocation || line.details.b === selectedLocation);
   });
-  var focusOn = selected >= 0 || planFocus || supplyFocus || locationHasRoutes;
+  var focusOn = selected >= 0 || planFocus || supplyFocus || (flowFocus && flowOnly) || locationHasRoutes;
   for (var pass = 0; pass < 1; pass++) {
     for (var r = 0; r < routeLines.length; r++) {
       var line = routeLines[r];
+      if (flowOnly && !commodityFlowRouteMatches(line)) { continue; }
       if (!routeMatchesFilter(line, planFocus && planRouteMatches(line))) { continue; }
       var active = selected >= 0 ? selectedGroup.indexOf(line) >= 0
-        : (planFocus ? planRouteMatches(line) : (supplyFocus ? supplyRouteMatches(line) : !!(locationHasRoutes && line.details
-          && (line.details.a === selectedLocation || line.details.b === selectedLocation))));
+        : (flowFocus ? commodityFlowRouteMatches(line)
+          : (planFocus ? planRouteMatches(line) : (supplyFocus ? supplyRouteMatches(line) : !!(locationHasRoutes && line.details
+            && (line.details.a === selectedLocation || line.details.b === selectedLocation)))));
       if (focusOn && !active) { continue; }
       var width = ROUTE_WIDTH[line.kind] || 2.1;
       if (planFocus && active) { width *= 2; }
+      if (flowFocus && active) { width = commodityFlowLineWidth(line); }
       ctx.setLineDash(routeLineDash(line));
       var curves = projectedRouteCurves(line);
       ctx.beginPath();
-      if (line.kind === 'air') {
+      if (flowFocus && active) {
+        var lanes = commodityFlowLaneEntries(line);
+        var flowLabels = [];
+        if (lanes.length) {
+          ctx.save();
+          lanes.forEach(function (lane) {
+            lane.import_paths.forEach(function (path) {
+              if (!path || path.length < 2) { return; }
+              var projectedImport = path.map(function (point) {
+                var scenePoint = toScene(point[0], point[1]);
+                var height = Math.max(0, sampleHeight(point[0], point[1]));
+                var projected = project(scenePoint[0], height * state.exag + 0.0045, scenePoint[1]);
+                return projected ? [projected[0], projected[1]] : null;
+              }).filter(Boolean);
+              if (projectedImport.length < 2) { return; }
+              var importSegments = routeBezierSegments(projectedImport);
+              if (!importSegments.length) { return; }
+              ctx.beginPath();
+              ctx.moveTo(importSegments[0][0][0], importSegments[0][0][1]);
+              importSegments.forEach(function (segment) {
+                ctx.bezierCurveTo(segment[1][0], segment[1][1], segment[2][0], segment[2][1], segment[3][0], segment[3][1]);
+              });
+              ctx.strokeStyle = 'rgba(82, 157, 226, .94)';
+              ctx.lineWidth = Math.max(1.6, width * 0.55);
+              ctx.stroke();
+              var importMid = pathPointAtFraction(projectedImport, 1 / 3);
+              if (importMid) {
+                flowLabels.push({
+                  x: importMid[0], y: importMid[1],
+                  text: flowQuantityLabel(lane.quantity_per_day, 'import', lane.from, lane.to),
+                  color: 'rgba(82, 157, 226, .94)'
+                });
+              }
+            });
+            lane.export_paths.forEach(function (path) {
+              if (!path || path.length < 2) { return; }
+              var projectedExport = path.map(function (point) {
+                var scenePoint = toScene(point[0], point[1]);
+                var height = Math.max(0, sampleHeight(point[0], point[1]));
+                var projected = project(scenePoint[0], height * state.exag + 0.0045, scenePoint[1]);
+                return projected ? [projected[0], projected[1]] : null;
+              }).filter(Boolean);
+              if (projectedExport.length < 2) { return; }
+              var exportSegments = routeBezierSegments(projectedExport);
+              if (!exportSegments.length) { return; }
+              ctx.beginPath();
+              ctx.moveTo(exportSegments[0][0][0], exportSegments[0][0][1]);
+              exportSegments.forEach(function (segment) {
+                ctx.bezierCurveTo(segment[1][0], segment[1][1], segment[2][0], segment[2][1], segment[3][0], segment[3][1]);
+              });
+              ctx.strokeStyle = 'rgba(230, 140, 66, .94)';
+              ctx.lineWidth = Math.max(1.6, width * 0.55);
+              ctx.stroke();
+              var exportMid = pathPointAtFraction(projectedExport, 2 / 3);
+              if (exportMid) {
+                flowLabels.push({
+                  x: exportMid[0], y: exportMid[1],
+                  text: flowQuantityLabel(lane.quantity_per_day, 'export', lane.from, lane.to),
+                  color: 'rgba(230, 140, 66, .94)'
+                });
+              }
+            });
+          });
+          ctx.restore();
+          flowLabels.slice(0, 6).forEach(function (label) {
+            drawFlowLabel(label.x, label.y, label.text, label.color);
+          });
+        }
+      } else if (line.kind === 'air') {
         projectedFlightHops(line).forEach(function (hop) {
           var midX = (hop[0][0] + hop[1][0]) / 2;
           var midY = (hop[0][1] + hop[1][1]) / 2 - 18;
@@ -3874,7 +4024,7 @@ function drawRoutes() {
         ctx.strokeStyle = dimmed ? 'rgba(116, 116, 116, .52)' : routeDisplayColor(line);
         ctx.lineWidth = dimmed ? Math.max(1.4, width - 0.5) : width;
         ctx.stroke();
-        if (planFocus && active && routeAnimationActive()) {
+        if (((planFocus && active) || (flowFocus && active)) && routeAnimationActive()) {
           ctx.save(); ctx.setLineDash([10, 18]); ctx.lineDashOffset = -performance.now() / 45;
           ctx.lineWidth = width / 2; ctx.strokeStyle = '#ffffff'; ctx.stroke(); ctx.restore();
         }
@@ -3886,10 +4036,12 @@ function drawRoutes() {
     for (var iconPass = 0; iconPass < 1; iconPass++) {
       for (var iconIndex = 0; iconIndex < routeLines.length; iconIndex++) {
         var iconLine = routeLines[iconIndex];
+        if (flowOnly && !commodityFlowRouteMatches(iconLine)) { continue; }
         if (!routeMatchesFilter(iconLine, planFocus && planRouteMatches(iconLine))) { continue; }
         var iconActive = selected >= 0 ? selectedGroup.indexOf(iconLine) >= 0
-          : (planFocus ? planRouteMatches(iconLine) : (supplyFocus ? supplyRouteMatches(iconLine) : !!(locationHasRoutes && iconLine.details
-            && (iconLine.details.a === selectedLocation || iconLine.details.b === selectedLocation))));
+          : (flowFocus ? commodityFlowRouteMatches(iconLine)
+            : (planFocus ? planRouteMatches(iconLine) : (supplyFocus ? supplyRouteMatches(iconLine) : !!(locationHasRoutes && iconLine.details
+              && (iconLine.details.a === selectedLocation || iconLine.details.b === selectedLocation)))));
         if (focusOn && !iconActive) { continue; }
         var iconPoint = routeIconPoint(iconLine, exag);
         if (iconPoint) { drawRouteIcon(iconPoint[0], iconPoint[1], iconLine, focusOn && !iconActive); }
@@ -4007,7 +4159,10 @@ function routeAnimationsEnabled() {
 }
 
 function routeAnimationActive() {
-  return !!(state.planRoute && !legEditor.enabled && routeAnimationsEnabled());
+  var hasPlanned = !!(state.planRoute && !legEditor.enabled);
+  var hasCommodityFlow = !!(state.commodityFlow && state.commodityFlowCommodity
+    && Object.keys(state.commodityFlowRouteKeys).length > 0);
+  return !!((hasPlanned || hasCommodityFlow) && routeAnimationsEnabled());
 }
 
 function wireRouteAnimation() {
@@ -5036,18 +5191,71 @@ function strokePlanarLeg(color, width, dash, widthScale) {
 
 function drawPlanarLegs() {
   ctx.save();
+  var flowFocus = !!(state.commodityFlow && state.commodityFlowCommodity
+    && Object.keys(state.commodityFlowRouteKeys).length > 0);
+  var flowOnly = flowFocus && !!state.commodityFlowFlowOnly;
   var draft = legEditor.enabled && legEditor.draft;
   ctx.save();
   if (draft || (!legEditor.enabled && state.planRoute && state.planRoute.mapRoads)) { ctx.globalAlpha *= 0.2; }
   routeLines.forEach(function (line) {
-    if (!line.sourcePoints || !planarLegVisible(line)) { return; }
+    if (!line.sourcePoints) { return; }
     if (legEditor.enabled && legEditor.draft && line.editId === legEditor.draft.id) { return; }
+    if (flowOnly && !commodityFlowRouteMatches(line)) { return; }
+    var activeFlow = flowFocus && commodityFlowRouteMatches(line);
+    if (!planarLegVisible(line) && !(flowOnly && activeFlow)) { return; }
     ctx.beginPath();
     line.sourcePoints.forEach(function (point, index) {
       var screen = planarPoint(point[0], point[1]);
       if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
     });
-    strokePlanarLeg(routeDisplayColor(line), state.selectedRoute >= 0 && routeLines[state.selectedRoute] === line ? 6 : 4, routeLineDash(line), line.kind === 'trail' ? 0.5 : 1);
+    var baseWidth = state.selectedRoute >= 0 && routeLines[state.selectedRoute] === line ? 6 : 4;
+    var width = activeFlow ? commodityFlowLineWidth(line) : baseWidth;
+    strokePlanarLeg(routeDisplayColor(line), width, routeLineDash(line), line.kind === 'trail' ? 0.5 : 1);
+    if (activeFlow) {
+      var flowLanes = commodityFlowLaneEntries(line);
+      var planarLabels = [];
+      function drawPlanarFlow(paths, color, lane, direction) {
+        paths.forEach(function (path) {
+          if (!path || path.length < 2) { return; }
+          ctx.beginPath();
+          var projected = [];
+          path.forEach(function (point, index) {
+            var screen = planarPoint(point[0], point[1]);
+            projected.push(screen);
+            if (!index) { ctx.moveTo(screen[0], screen[1]); }
+            else { ctx.lineTo(screen[0], screen[1]); }
+          });
+          strokePlanarLeg(color, Math.max(1.4, width * 0.55), [], 1);
+          var midpoint = pathPointAtFraction(projected, direction === 'import' ? 1 / 3 : 2 / 3);
+          if (midpoint) {
+            planarLabels.push({
+              x: midpoint[0], y: midpoint[1],
+              text: flowQuantityLabel(lane.quantity_per_day, direction, lane.from, lane.to),
+              color: color
+            });
+          }
+        });
+      }
+      flowLanes.forEach(function (lane) {
+        drawPlanarFlow(lane.import_paths || [], 'rgba(82, 157, 226, .94)', lane, 'import');
+        drawPlanarFlow(lane.export_paths || [], 'rgba(230, 140, 66, .94)', lane, 'export');
+      });
+      planarLabels.slice(0, 6).forEach(function (label) {
+        drawFlowLabel(label.x, label.y, label.text, label.color);
+      });
+    }
+    if (activeFlow && routeAnimationActive()) {
+      ctx.save();
+      var zoom = 200 / state.planarRadius;
+      ctx.setLineDash([10 * zoom, 18 * zoom]);
+      ctx.lineDashOffset = -performance.now() / 45;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = Math.max(1.2, width * zoom * 0.5);
+      ctx.strokeStyle = '#ffffff';
+      ctx.stroke();
+      ctx.restore();
+    }
     if (legEditor.enabled) {
       ctx.setLineDash([]); ctx.lineWidth = 1; ctx.fillStyle = '#ffffff';
       (line.waypoints || line.sourcePoints).forEach(function (point) {
@@ -5056,7 +5264,7 @@ function drawPlanarLegs() {
         ctx.beginPath(); ctx.arc(screen[0], screen[1], 3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       });
     }
-    if (state.routeIcons && !legEditor.enabled) {
+      if (state.routeIcons && !legEditor.enabled) {
       var middle = line.sourcePoints[Math.floor(line.sourcePoints.length / 2)];
       var icon = planarPoint(middle[0], middle[1]);
       if (icon[0] >= 0 && icon[0] <= cam.cx * 2 && icon[1] >= 0 && icon[1] <= cam.cy * 2) {
@@ -5147,6 +5355,230 @@ function drawPlanarRuler() {
   ctx.textAlign = 'left'; ctx.fillText('0', left, bottom - 10);
   ctx.textAlign = 'center'; ctx.fillText(Number((ruler.miles / 2).toPrecision(6)), left + ruler.pixels / 2, bottom - 10);
   ctx.textAlign = 'right'; ctx.fillText(Number(ruler.miles.toPrecision(6)) + ' mi', left + ruler.pixels, bottom - 10);
+  ctx.restore();
+}
+
+function networkOverlayNormaliseName(value) {
+  return String(value || '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, '')
+    .replace(/(.)\1+/g, '$1');
+}
+
+function lineNamedRouteId(line) {
+  if (!line || typeof line.editId !== 'string' || line.editId.indexOf('survey:') !== 0) { return ''; }
+  try {
+    var surveyId = JSON.parse(line.editId.slice(7))[0];
+    return typeof surveyId === 'string' ? surveyId : '';
+  } catch (_error) {
+    return '';
+  }
+}
+
+function networkOverlayLineWeight(line) {
+  if (!line || !line.details) { return Infinity; }
+  var days = Number(line.details.days);
+  if (Number.isFinite(days) && days > 0) { return days; }
+  var distance = Number(line.details.distance);
+  if (!(Number.isFinite(distance) && distance > 0) && line.sourcePoints && line.sourcePoints.length > 1) {
+    distance = polylineMiles(line.sourcePoints);
+  }
+  if (!(distance > 0)) { distance = 1; }
+  return distance / 120;
+}
+
+function networkOverlayFastestPath(fromName, toName, expectedKind) {
+  if (!routeLines || !fromName || !toName) { return null; }
+  var graph = {};
+  var byNormalised = {};
+  function touch(name) {
+    if (!name) { return; }
+    if (!graph[name]) { graph[name] = []; }
+    var key = networkOverlayNormaliseName(name);
+    if (key && !byNormalised[key]) { byNormalised[key] = name; }
+  }
+  routeLines.forEach(function (line) {
+    if (!line || !line.details || !line.sourcePoints || line.sourcePoints.length < 2) { return; }
+    if (expectedKind && line.kind !== expectedKind) { return; }
+    var start = String(line.details.start || '').trim();
+    var end = String(line.details.end || '').trim();
+    if (!start || !end) { return; }
+    touch(start); touch(end);
+    var weight = networkOverlayLineWeight(line);
+    graph[start].push({to: end, line: line, reverse: false, weight: weight});
+    graph[end].push({to: start, line: line, reverse: true, weight: weight});
+  });
+  function resolveNode(name) {
+    if (graph[name]) { return name; }
+    return byNormalised[networkOverlayNormaliseName(name)] || '';
+  }
+  var source = resolveNode(String(fromName || '').trim());
+  var target = resolveNode(String(toName || '').trim());
+  if (!source || !target) { return null; }
+  var dist = {};
+  var prev = {};
+  var pending = [source];
+  dist[source] = 0;
+  while (pending.length) {
+    pending.sort(function (left, right) { return (dist[left] || Infinity) - (dist[right] || Infinity); });
+    var current = pending.shift();
+    if (current === target) { break; }
+    (graph[current] || []).forEach(function (edge) {
+      var candidate = (dist[current] || 0) + edge.weight;
+      if (dist[edge.to] === undefined || candidate < dist[edge.to]) {
+        dist[edge.to] = candidate;
+        prev[edge.to] = {node: current, edge: edge};
+        if (pending.indexOf(edge.to) < 0) { pending.push(edge.to); }
+      }
+    });
+  }
+  if (dist[target] === undefined) { return null; }
+  var path = [];
+  for (var at = target; at !== source;) {
+    var step = prev[at];
+    if (!step) { return null; }
+    path.push(step.edge);
+    at = step.node;
+  }
+  path.reverse();
+  var stitched = [];
+  path.forEach(function (edge, index) {
+    var points = edge.line.sourcePoints.map(function (point) { return [Number(point[0]), Number(point[1])]; });
+    if (edge.reverse) { points.reverse(); }
+    if (index) { points = points.slice(1); }
+    stitched.push.apply(stitched, points);
+  });
+  return stitched.length > 1 ? stitched : null;
+}
+
+function networkOverlayLinePoints(feature) {
+  if (!feature || !feature.geometry || feature.geometry.type !== 'LineString') { return []; }
+  var geometry = feature.geometry;
+  var properties = feature.properties || {};
+  var fallback = (Array.isArray(geometry.coordinates) ? geometry.coordinates : []).filter(function (point) {
+    return Array.isArray(point) && Number.isFinite(Number(point[0])) && Number.isFinite(Number(point[1]));
+  }).map(function (point) { return [Number(point[0]), Number(point[1])]; });
+  if (!fallback.length || !routeLines || !properties.from || !properties.to) { return fallback; }
+  var cacheKey = [
+    String(properties.route_id || ''), String(properties.leg_index || ''),
+    String(properties.from || ''), String(properties.to || ''), String(properties.kind || '')
+  ].join('|');
+  state.networkOverlayPathCache = state.networkOverlayPathCache || {};
+  if (state.networkOverlayPathCache[cacheKey]) { return state.networkOverlayPathCache[cacheKey]; }
+
+  var routeKey = supplyRouteKey(properties.from, properties.to);
+  var expectedKind = properties.kind ? String(properties.kind) : '';
+  var preferredRouteId = properties.route_id ? String(properties.route_id).trim() : '';
+  var preferredLegIndex = Number(properties.leg_index || 0);
+
+  var candidates = routeLines.filter(function (line) {
+    if (!line || !line.details || !line.sourcePoints || line.sourcePoints.length < 2) { return false; }
+    if (expectedKind && line.kind !== expectedKind) { return false; }
+    return supplyRouteKey(line.details.start, line.details.end) === routeKey;
+  });
+
+  if (preferredRouteId && preferredLegIndex > 0 && candidates.length) {
+    var preferred = preferredRouteId + '-leg-' + preferredLegIndex;
+    var exact = candidates.find(function (line) { return lineNamedRouteId(line) === preferred; });
+    if (exact) {
+      var exactPoints = exact.sourcePoints.map(function (point) { return [Number(point[0]), Number(point[1])]; });
+      var fromName = String(properties.from || '').toLowerCase();
+      var toName = String(properties.to || '').toLowerCase();
+      if (String(exact.details.start || '').toLowerCase() === toName
+        && String(exact.details.end || '').toLowerCase() === fromName) {
+        exactPoints.reverse();
+      }
+      state.networkOverlayPathCache[cacheKey] = exactPoints;
+      return exactPoints;
+    }
+  }
+
+  var fastest = networkOverlayFastestPath(properties.from, properties.to, expectedKind);
+  if (fastest) {
+    state.networkOverlayPathCache[cacheKey] = fastest;
+    return fastest;
+  }
+
+  if (candidates.length) {
+    var fromNameFallback = String(properties.from || '').toLowerCase();
+    var toNameFallback = String(properties.to || '').toLowerCase();
+    var start = fallback[0];
+    var end = fallback[fallback.length - 1];
+    var best = null;
+    var bestScore = Infinity;
+    candidates.forEach(function (line) {
+      var points = line.sourcePoints.map(function (point) { return [Number(point[0]), Number(point[1])]; });
+      if (String(line.details.start || '').toLowerCase() === toNameFallback
+        && String(line.details.end || '').toLowerCase() === fromNameFallback) {
+        points = points.slice().reverse();
+      }
+      var namedRouteLegId = lineNamedRouteId(line);
+      var score = 0;
+      if (preferredRouteId) {
+        score += namedRouteLegId.indexOf(preferredRouteId + '-leg-') === 0 ? -500 : 100;
+      } else if (namedRouteLegId.indexOf('named-route-') === 0) {
+        score -= 75;
+      }
+      var first = points[0];
+      var last = points[points.length - 1];
+      score += Math.hypot(first[0] - start[0], first[1] - start[1])
+        + Math.hypot(last[0] - end[0], last[1] - end[1]);
+      if (score < bestScore) {
+        bestScore = score;
+        best = points;
+      }
+    });
+    if (best) {
+      state.networkOverlayPathCache[cacheKey] = best;
+      return best;
+    }
+  }
+
+  state.networkOverlayPathCache[cacheKey] = fallback;
+  return fallback;
+}
+
+function drawPlanarNetworkOverlay() {
+  if (!state.networkOverlayOn || !state.networkOverlayData || legEditor.enabled) { return; }
+  var features = state.networkOverlayData.features || [];
+  if (!features.length) { return; }
+  var zoom = 200 / state.planarRadius;
+  ctx.save();
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  features.forEach(function (feature) {
+    if (!feature || !feature.geometry) { return; }
+    var geometry = feature.geometry;
+    var properties = feature.properties || {};
+    if (geometry.type === 'LineString') {
+      var coordinates = networkOverlayLinePoints(feature);
+      if (coordinates.length < 2) { return; }
+      var quantity = Number(properties.quantity_per_day || 0);
+      var width = Math.max(4.0, Math.log10(Math.max(quantity, 1) + 1) * 4.4) * zoom;
+      ctx.beginPath();
+      coordinates.forEach(function (point, index) {
+        var screen = planarPoint(point[0], point[1]);
+        if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
+      });
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+      ctx.lineWidth = width + 1.4;
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(204, 51, 153, 0.85)';
+      ctx.lineWidth = width;
+      ctx.stroke();
+    } else if (geometry.type === 'Point') {
+      var pointCoords = geometry.coordinates || [];
+      if (pointCoords.length < 2) { return; }
+      var point = planarPoint(pointCoords[0], pointCoords[1]);
+      var radius = properties.is_producer ? 4.5 * zoom : 3.2 * zoom;
+      ctx.beginPath();
+      ctx.arc(point[0], point[1], Math.max(2, radius), 0, Math.PI * 2);
+      ctx.fillStyle = properties.is_producer ? 'rgba(255, 150, 0, 0.95)' : 'rgba(124, 58, 237, 0.9)';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  });
   ctx.restore();
 }
 
@@ -5373,6 +5805,7 @@ function drawPlanar() {
     drawPlaces(); drawPins(); drawMapJunctions();
   }
   if (state.routes || legEditor.enabled) { drawPlanarLegs(); }
+  drawPlanarNetworkOverlay();
   drawPlanarItinerary();
   if (!legEditor.enabled) {
     drawPlaces(); drawPins(); drawMapJunctions();
@@ -5912,6 +6345,14 @@ function endDrag(ev) {
       handleCalibClick(hit, mx, my);
     } else {
       if (hit < 0) {
+        var flowHit = flowLaneHitAt(mx, my);
+        if (flowHit) {
+          selectFlowLane(flowHit);
+          recentMarketClick = null;
+          drag = null;
+          endInteract();
+          return;
+        }
         var routeHit = pickRoute(mx, my);
         if (routeHit < 0) { state.selected = null; }
         selectRoute(routeHit);
@@ -6154,6 +6595,24 @@ function orderedRouteLegs(group) {
 
 function updateRouteSelection() {
   var panel = document.getElementById('route-selection');
+  if (state.flowLaneSelection) {
+    var lane = state.flowLaneSelection;
+    panel.hidden = false;
+    var unit = state.commodityFlow && state.commodityFlow.unit ? state.commodityFlow.unit : 'units';
+    panel.innerHTML = '<div class="routeheading"><h2>Commodity flow leg</h2>' +
+      '<button type="button" class="routeclose" aria-label="Clear flow selection" title="Clear flow selection" onclick="clearFlowLaneSelection()">&times;</button></div>' +
+      '<div class="routeendpoints"><div><span>From</span><b>' + esc(lane.from || '-') + '</b></div>' +
+      '<span aria-hidden="true">&rarr;</span><div><span>To</span><b>' + esc(lane.to || '-') + '</b></div></div>' +
+      '<div class="routesummary"><div><span>Direction</span><b>' + esc(lane.direction || '-') + '</b></div>' +
+      '<div><span>Product</span><b>' + esc(lane.product || '-') + '</b></div>' +
+      '<div><span>Quantity</span><b>' + Number(lane.quantity_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+      ' ' + esc(unit) + '/day</b></div></div>' +
+      '<div class="routesummary"><div><span>Primary source</span><b>' + esc(lane.primary_source || '-') + '</b></div>' +
+      '<div><span>Source available/day</span><b>' + Number(lane.primary_source_available_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) + ' ' + esc(unit) + '</b></div>' +
+      '<div><span>Source allocated/day</span><b>' + Number(lane.primary_source_allocated_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) + ' ' + esc(unit) + '</b></div></div>' +
+      '<p class="muted">Source utilization: ' + Number(lane.primary_source_utilization_pct || 0).toLocaleString(undefined, {maximumFractionDigits: 2}) + '%; contributing sources on this leg: ' + Number(lane.source_count || 0) + '.</p>';
+    return;
+  }
   var line = routeLines && state.selectedRoute >= 0 ? routeLines[state.selectedRoute] : null;
   if (!line || !line.details) { panel.hidden = true; panel.innerHTML = ''; return; }
   var group = selectedRouteGroup();
@@ -6204,7 +6663,24 @@ function updateRouteSelection() {
     '&destination=' + encodeURIComponent(end) + '">Plan shipment cost &rarr;</a>';
 }
 
+function clearFlowLaneSelection() {
+  state.flowLaneSelection = null;
+  updateRouteSelection();
+  invalidate();
+}
+
+function selectFlowLane(hit) {
+  state.flowLaneSelection = hit || null;
+  if (hit) {
+    state.selectedRoute = routeLines ? routeLines.indexOf(hit.line) : -1;
+    state.selectedCarrierService = '';
+  }
+  updateRouteSelection();
+  invalidate();
+}
+
 function selectRoute(index) {
+  state.flowLaneSelection = null;
   state.selectedRoute = index;
   var service = routeLines && index >= 0 ? multilegService(routeLines[index]) : null;
   state.selectedCarrierService = service ? service.service_id : '';
@@ -6227,6 +6703,100 @@ function supplyRouteMatches(line) {
   return !!(line.details && state.supplyRouteKeys[
     supplyRouteKey(line.details.start, line.details.end)
   ]);
+}
+
+function commodityFlowRouteMatches(line) {
+  if (!line || !line.details) { return false; }
+  if (state.commodityFlowRouteKeys[line.editId]) { return true; }
+  var key = supplyRouteKey(line.details.start, line.details.end);
+  return !!state.commodityFlowRouteKeys[key];
+}
+
+function commodityFlowLineWidth(line) {
+  var defaults = {
+    road: 2.8,
+    trail: 2.2,
+    track: 2.2,
+    sea: 3.2,
+    river: 2.8,
+    barge: 2.8,
+    ferry: 2.6,
+    portage: 2.6,
+    tunnel: 2.6,
+    air: 2.8,
+    skyship: 2.8,
+    teleport: 2.8
+  };
+  var meta = line && line.details ? state.commodityFlowRouteMeta[line.editId]
+    || state.commodityFlowRouteMeta[supplyRouteKey(line.details.start, line.details.end)] : null;
+  var fallback = defaults[line && line.kind] || 2.4;
+  var quantity = Number(meta && meta.quantity_per_day || 0);
+  if (!quantity || !state.commodityFlow || !Number(state.commodityFlow.maxQuantity || 0)) { return fallback; }
+  var ratio = clamp(quantity / state.commodityFlow.maxQuantity, 0, 1);
+  return fallback + ratio * 6.5;
+}
+
+function commodityFlowLaneEntries(line) {
+  if (!line || !line.details) { return []; }
+  var routeKey = supplyRouteKey(line.details.start, line.details.end);
+  return Object.keys(state.commodityFlowLinePaths || {}).map(function (key) {
+    return state.commodityFlowLinePaths[key];
+  }).filter(function (entry) {
+    return entry && entry.route_key === routeKey;
+  }).sort(function (a, b) {
+    return Number(a.order || 0) - Number(b.order || 0);
+  });
+}
+
+function flowLaneHitAt(mx, my) {
+  if (!state.commodityFlow || !state.commodityFlowCommodity || !routeLines) { return null; }
+  var best = null;
+  var bestDistance = 12 * 12;
+  routeLines.forEach(function (line) {
+    if (!commodityFlowRouteMatches(line) || !routeMatchesFilter(line, false)) { return; }
+    var lanes = commodityFlowLaneEntries(line);
+    lanes.forEach(function (lane) {
+      function check(paths, direction) {
+        paths.forEach(function (path) {
+          if (!path || path.length < 2) { return; }
+          var projected = path.map(function (point) {
+            if (MAP_VIEW === 'planar') { return planarPoint(point[0], point[1]); }
+            var scenePoint = toScene(point[0], point[1]);
+            var height = Math.max(0, sampleHeight(point[0], point[1]));
+            var p = project(scenePoint[0], height * state.exag + 0.0045, scenePoint[1]);
+            return p ? [p[0], p[1]] : null;
+          }).filter(Boolean);
+          if (projected.length < 2) { return; }
+          for (var i = 1; i < projected.length; i++) {
+            var d = pointSegmentDistanceSquared(mx, my,
+              projected[i - 1][0], projected[i - 1][1], projected[i][0], projected[i][1]);
+            if (d < bestDistance) {
+              bestDistance = d;
+              var legMeta = state.commodityFlowRouteMeta[lane.route_key] || {};
+              best = {
+                line: line,
+                lane: lane,
+                direction: direction,
+                distance: d,
+                from: lane.from,
+                to: lane.to,
+                quantity_per_day: lane.quantity_per_day,
+                product: state.commodityFlow && state.commodityFlow.commodity_name ? state.commodityFlow.commodity_name : '',
+                source_count: Number(legMeta.source_count || 0),
+                primary_source: legMeta.primary_source || '',
+                primary_source_available_per_day: Number(legMeta.primary_source_available_per_day || 0),
+                primary_source_allocated_per_day: Number(legMeta.primary_source_allocated_per_day || 0),
+                primary_source_utilization_pct: Number(legMeta.primary_source_utilization_pct || 0)
+              };
+            }
+          }
+        });
+      }
+      check(lane.import_paths || [], 'import');
+      check(lane.export_paths || [], 'export');
+    });
+  });
+  return best;
 }
 
 function planRouteMatches(line) {
@@ -6310,6 +6880,271 @@ function clearPlannedRoute() {
   state.planRouteKeys = {};
   document.getElementById('route-plan-result').innerHTML = '';
   invalidate();
+}
+
+function resetCommodityFlow() {
+  state.commodityFlow = null;
+  state.commodityFlowRouteKeys = {};
+  state.commodityFlowRouteMeta = {};
+  state.commodityFlowLinePaths = {};
+  state.commodityFlowCommodity = '';
+  var panel = document.getElementById('commodity-flow');
+  if (panel) {
+    panel.hidden = true;
+    panel.innerHTML = '';
+  }
+}
+
+function flowRouteKey(idA, idB) {
+  return [String(idA || ''), String(idB || '')].sort().join('|');
+}
+
+function flowPathPoint(point) {
+  return [Number(point[0]), Number(point[1])];
+}
+
+function loadFlowRouteShapes(flow, line, options) {
+  options = options || {};
+  var reverse = !!options.reverse;
+  var shapes = [];
+  if (flow && flow.route && flow.route.reachable && Array.isArray(flow.route.legs) && flow.route.legs.length) {
+    flow.route.legs.forEach(function (leg) {
+      if (!Array.isArray(leg.points) || leg.points.length < 2) { return; }
+      shapes.push(leg.points.map(flowPathPoint));
+    });
+  }
+  if (!shapes.length && line && line.sourcePoints && line.sourcePoints.length > 1) {
+    shapes = [line.sourcePoints.map(flowPathPoint)];
+  }
+  if (!shapes.length) { return []; }
+  if (reverse) {
+    shapes = shapes.slice().reverse().map(function (shape) { return shape.slice().reverse(); });
+  }
+  return shapes;
+}
+
+function offsetFlowPath(points, offsetMiles) {
+  if (!points || points.length < 2 || !offsetMiles) { return points ? points.slice() : []; }
+  var shifted = [];
+  for (var index = 0; index < points.length; index++) {
+    var current = points[index];
+    var previous = points[index - 1] || current;
+    var next = points[index + 1] || current;
+    var dx = next[0] - previous[0];
+    var dy = next[1] - previous[1];
+    var length = Math.hypot(dx, dy) || 1;
+    var nx = -dy / length;
+    var ny = dx / length;
+    shifted.push([current[0] + nx * offsetMiles, current[1] + ny * offsetMiles]);
+  }
+  return shifted;
+}
+
+async function showCommodityFlow(commodityId) {
+  var panel = document.getElementById('commodity-flow');
+  if (!commodityId) {
+    resetCommodityFlow();
+    invalidate();
+    return;
+  }
+  panel.hidden = false;
+  panel.innerHTML = '<h2>Loading commodity flows&#8230;</h2>';
+  state.flowLaneSelection = null;
+  state.selectedRoute = -1;
+  state.selectedCarrierService = '';
+  updateRouteSelection();
+  try {
+    var selectedSettlementId = state.selected || '';
+    var flowUrl = '/api/commodity-flows?commodity=' + encodeURIComponent(commodityId);
+    if (selectedSettlementId && state.map && Array.isArray(state.map.settlements)) {
+      var selectedSettlement = state.map.settlements.find(function (item) { return item.id === selectedSettlementId; });
+      if (selectedSettlement && selectedSettlement.name) {
+        flowUrl += '&origin=' + encodeURIComponent(selectedSettlement.name);
+      }
+    }
+    var data = await getJson(flowUrl);
+    state.commodityFlowCommodity = commodityId;
+    state.commodityFlow = {
+      commodity: data.commodity,
+      commodity_name: data.commodity_name,
+      unit: data.unit,
+      maxQuantity: 0,
+      pairs: {}
+    };
+    state.commodityFlowRouteKeys = {};
+    state.commodityFlowRouteMeta = {};
+    state.commodityFlowLinePaths = {};
+    var flows = data.flows || [];
+    var scopedFlows = flows.filter(function (flow) {
+      if (!selectedSettlementId) { return true; }
+      return flow.destination_id === selectedSettlementId || flow.source_id === selectedSettlementId;
+    });
+    var legFlows = data.leg_flows || [];
+    var nodeFlows = data.node_flows || [];
+    var scopedLegKeys = null;
+    if (selectedSettlementId) {
+      scopedLegKeys = new Set();
+      scopedFlows.forEach(function (flow) {
+        var route = flow.route || {};
+        var legs = Array.isArray(route.legs) ? route.legs : [];
+        legs.forEach(function (leg) {
+          if (!leg || !leg.from || !leg.to) { return; }
+          scopedLegKeys.add(supplyRouteKey(leg.from, leg.to));
+        });
+      });
+    }
+    var maxQuantity = 0;
+    scopedFlows.forEach(function (flow) {
+      var key = flowRouteKey(flow.source_id, flow.destination_id);
+      var pair = state.commodityFlow.pairs[key] || {
+        source_id: flow.source_id,
+        destination_id: flow.destination_id,
+        source: flow.source,
+        destination: flow.destination,
+        import_quantity_per_day: 0,
+        export_quantity_per_day: 0
+      };
+      var quantity = Number(flow.quantity_per_day || 0);
+      pair.import_quantity_per_day += quantity;
+      pair.export_quantity_per_day += quantity;
+      state.commodityFlow.pairs[key] = pair;
+      maxQuantity = Math.max(maxQuantity, pair.import_quantity_per_day);
+    });
+
+    var selectedNodeNames = [];
+    if (selectedSettlementId && state.map && Array.isArray(state.map.settlements)) {
+      var match = state.map.settlements.find(function (item) { return item.id === selectedSettlementId; });
+      if (match && match.name) { selectedNodeNames.push(String(match.name).toLowerCase()); }
+    }
+
+    legFlows.forEach(function (leg, legIndex) {
+      var fromName = String(leg.from || '');
+      var toName = String(leg.to || '');
+      if (!fromName || !toName) { return; }
+      var legKey = supplyRouteKey(fromName, toName);
+      if (scopedLegKeys && !scopedLegKeys.has(legKey)) { return; }
+      state.commodityFlowRouteKeys[legKey] = true;
+      var quantity = Number(leg.quantity_per_day || 0);
+      state.commodityFlowRouteMeta[legKey] = {
+        quantity_per_day: quantity,
+        commodity: data.commodity,
+        from: fromName,
+        to: toName,
+        primary_source: leg.primary_source || '',
+        primary_source_available_per_day: Number(leg.primary_source_available_per_day || 0),
+        primary_source_allocated_per_day: Number(leg.primary_source_allocated_per_day || 0),
+        primary_source_utilization_pct: Number(leg.primary_source_utilization_pct || 0),
+        source_count: Number(leg.source_count || 0)
+      };
+      maxQuantity = Math.max(maxQuantity, quantity);
+
+      var anchorLine = (routeLines || []).find(function (line) {
+        if (!line || !line.details) { return false; }
+        return supplyRouteKey(line.details.start, line.details.end) === legKey;
+      }) || null;
+      var offset = Math.max(3.5, (anchorLine ? commodityFlowLineWidth(anchorLine) : 3.0) * 1.25);
+      var pseudoFlow = {
+        route: {
+          reachable: true,
+          legs: [{
+            from: fromName,
+            to: toName,
+            points: Array.isArray(leg.points) ? leg.points : []
+          }]
+        }
+      };
+      var importPaths = loadFlowRouteShapes(pseudoFlow, anchorLine, {reverse: false});
+      var exportPaths = loadFlowRouteShapes(pseudoFlow, anchorLine, {reverse: true});
+      state.commodityFlowLinePaths[legKey + '|' + legIndex] = {
+        quantity_per_day: quantity,
+        route_key: legKey,
+        from: fromName,
+        to: toName,
+        import_paths: importPaths.map(function (shape) { return offsetFlowPath(shape, offset); }),
+        export_paths: exportPaths.map(function (shape) { return offsetFlowPath(shape, offset); }),
+        order: legIndex
+      };
+    });
+
+    state.commodityFlow.maxQuantity = maxQuantity;
+
+    if (!state.commodityFlowFlowOnly) {
+      state.commodityFlowFlowOnly = true;
+    }
+
+    var pairRows = Object.values(state.commodityFlow.pairs)
+      .sort(function (a, b) { return b.import_quantity_per_day - a.import_quantity_per_day; })
+      .slice(0, 10)
+      .map(function (pair) {
+        return '<li><b>' + esc(pair.source) + ' &rarr; ' + esc(pair.destination) + '</b><small>' +
+          Number(pair.import_quantity_per_day).toLocaleString(undefined, {maximumFractionDigits: 3}) + ' ' +
+          esc(data.unit) + '/day</small></li>';
+      }).join('');
+
+    var activeNodes = nodeFlows.filter(function (node) {
+      if (!selectedNodeNames.length) { return true; }
+      return selectedNodeNames.includes(String(node.name || '').toLowerCase());
+    });
+    var crossDockRows = activeNodes
+      .sort(function (a, b) { return Number(b.cross_docked_per_day || 0) - Number(a.cross_docked_per_day || 0); })
+      .slice(0, 8)
+      .map(function (node) {
+        return '<li><b>' + esc(node.name) + '</b><small>' +
+          'Import ' + Number(node.imports_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+          ' / Export ' + Number(node.exports_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+          ' / Consumed ' + Number(node.consumed_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+          ' / Cross-docked ' + Number(node.cross_docked_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+          ' ' + esc(data.unit) + '/day</small></li>';
+      }).join('');
+
+    var scopeText = selectedSettlementId
+      ? 'Showing flows connected to the selected settlement.'
+      : 'Showing flows across all settlements.';
+
+    var tier = data.tiered_plan;
+    var tierHtml = '';
+    if (tier) {
+      function tierList(rows) {
+        return '<ol>' + (rows || []).map(function (row) {
+          return '<li><b>' + esc(row.name || row.leg || '-') + '</b><small>' +
+            Number(row.quantity_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+            ' ' + esc(data.unit) + '/day</small></li>';
+        }).join('') + '</ol>';
+      }
+      tierHtml = '<h3>Tiered network plan from ' + esc(tier.origin || '') + '</h3>' +
+        '<p class="muted">Reach: ' + Number(tier.reachable_markets || 0).toLocaleString() +
+        ' markets; total planned exports ' + Number(tier.total_export_per_day || 0).toLocaleString(undefined, {maximumFractionDigits: 3}) +
+        ' ' + esc(data.unit) + '/day.</p>' +
+        '<h3>Tier 1 hubs</h3>' + tierList(tier.tier1_hubs) +
+        '<h3>Tier 2 feeders</h3>' + tierList(tier.tier2_feeders) +
+        '<h3>Tier 3 tail markets</h3>' + tierList(tier.tier3_tail_markets);
+    }
+
+    panel.innerHTML = '<h2>' + esc(data.commodity_name) + ' import/export paths</h2>' +
+      '<p class="muted">' + esc(scopeText) + '</p>' +
+      '<label class="flowtoggle"><input id="commodity-flow-only" type="checkbox"' +
+      (state.commodityFlowFlowOnly ? ' checked' : '') + '> Show only commodity flow routes</label>' +
+      '<ol>' + (pairRows || '<li class="muted">No modeled imports for this commodity.</li>') + '</ol>' +
+      '<h3>Cross-docked and consumed along shown legs</h3><ol>' + (crossDockRows || '<li class="muted">No cross-dock activity in current scope.</li>') + '</ol>' +
+      tierHtml +
+      '<p class="muted">Blue lanes show imports; orange lanes show exports. Line width scales by imported quantity per day. Labels show per-leg quantity/day. Consumed is local usage at that stop after onward exports.</p>';
+    if (!pairRows) { state.commodityFlowFlowOnly = false; }
+    var flowOnly = document.getElementById('commodity-flow-only');
+    if (flowOnly) {
+      flowOnly.addEventListener('change', function (event) {
+        state.commodityFlowFlowOnly = event.target.checked;
+        invalidate();
+      });
+    }
+    invalidate();
+  } catch (err) {
+    state.commodityFlow = null;
+    state.commodityFlowRouteKeys = {};
+    state.commodityFlowRouteMeta = {};
+    state.commodityFlowLinePaths = {};
+    panel.innerHTML = '<h2>Commodity flow unavailable</h2><p class="muted">' + esc(err.message) + '</p>';
+    invalidate();
+  }
 }
 
 async function showPlanPath(names) {
@@ -6919,6 +7754,7 @@ function renderPrices() {
       document.getElementById('heat-commodity').value = id;
       applyHeat(id);
       showSupplyChain(id);
+      showCommodityFlow(id);
     });
   });
 }
@@ -6933,6 +7769,7 @@ async function applyHeat(commodityId) {
   if (!state.heat) {
     state.heatById = null;
     legend.hidden = true;
+    resetCommodityFlow();
     renderPrices();
     invalidate();
     return;
@@ -7669,6 +8506,26 @@ function wireMarkerLabels(id, property, label) {
   });
 }
 
+async function loadNetworkOverlay() {
+  try {
+    var payload = await getJson('/api/network-overlay?name=' + encodeURIComponent(state.networkOverlayName));
+    var overlay = payload && payload.overlay;
+    if (!overlay || overlay.type !== 'FeatureCollection') {
+      throw new Error('Overlay did not return a GeoJSON FeatureCollection');
+    }
+    state.networkOverlayData = overlay;
+    state.networkOverlayPathCache = {};
+    invalidate();
+  } catch (err) {
+    state.networkOverlayData = null;
+    state.networkOverlayPathCache = {};
+    state.networkOverlayOn = false;
+    var toggle = document.getElementById('planar-network-overlay');
+    if (toggle) { toggle.checked = false; }
+    showStatus('Coffee overlay unavailable: ' + err.message, true);
+  }
+}
+
 function wireControls() {
   wireLocationLabels();
   wireMarkerLabels('junction-labels', 'junctionLabels', 'Junction');
@@ -7831,6 +8688,7 @@ function wireControls() {
   });
   document.getElementById('heat-commodity').addEventListener('change', function (ev) {
     applyHeat(ev.target.value);
+    showCommodityFlow(ev.target.value);
   });
   document.getElementById('goods-search').addEventListener('input', function (ev) {
     state.goodsFilter = ev.target.value;
@@ -7954,6 +8812,17 @@ async function start() {
   document.getElementById('planar-terrain-alpha').addEventListener('input', function (event) {
     state.planarTerrainAlpha = Number(event.target.value) / 100; invalidate();
   });
+  var networkOverlayToggle = document.getElementById('planar-network-overlay');
+  if (networkOverlayToggle) {
+    networkOverlayToggle.addEventListener('change', function (event) {
+      state.networkOverlayOn = event.target.checked;
+      if (state.networkOverlayOn && !state.networkOverlayData) {
+        loadNetworkOverlay();
+        return;
+      }
+      invalidate();
+    });
+  }
   document.getElementById('planar-center').addEventListener('click', function () {
     var target = state.selected || (findLocation('Waterdeep') || {}).id;
     if (target) { focusSettlement(target); }

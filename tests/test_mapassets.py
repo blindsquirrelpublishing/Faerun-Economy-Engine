@@ -1778,6 +1778,43 @@ def test_product_selection_draws_its_recursive_supply_chain_routes():
     assert "showSupplyChain(id);" in MAP_JS
 
 
+def test_network_overlay_uses_route_geometry_when_available():
+    assert "function networkOverlayLinePoints(feature)" in MAP_JS
+    assert "function networkOverlayFastestPath(fromName, toName, expectedKind)" in MAP_JS
+    assert "var preferredRouteId = properties.route_id ? String(properties.route_id).trim() : '';" in MAP_JS
+    assert "var preferred = preferredRouteId + '-leg-' + preferredLegIndex;" in MAP_JS
+    assert "var exact = candidates.find(function (line) { return lineNamedRouteId(line) === preferred; });" in MAP_JS
+    assert "var fastest = networkOverlayFastestPath(properties.from, properties.to, expectedKind);" in MAP_JS
+    assert "state.networkOverlayPathCache = state.networkOverlayPathCache || {};" in MAP_JS
+    assert "var coordinates = networkOverlayLinePoints(feature);" in MAP_JS
+
+
+def test_commodity_flow_panel_and_route_rendering_are_available():
+    assert 'id="commodity-flow" class="commodityflow" hidden' in MAP_HTML
+    assert "var flowUrl = '/api/commodity-flows?commodity='" in MAP_JS
+    assert "function showCommodityFlow(commodityId)" in MAP_JS
+    assert "function commodityFlowRouteMatches(line)" in MAP_JS
+    assert "commodityFlowLineWidth(line)" in MAP_JS
+    assert "function commodityFlowLaneEntries(line)" in MAP_JS
+    assert "flowFocus ? commodityFlowRouteMatches(line)" in MAP_JS
+    assert "if (!planarLegVisible(line) && !(flowOnly && activeFlow)) { return; }" in MAP_JS
+    assert "state.commodityFlowFlowOnly = event.target.checked;" in MAP_JS
+    assert "flowQuantityLabel(lane.quantity_per_day, 'import', lane.from, lane.to)" in MAP_JS
+    assert "flowQuantityLabel(lane.quantity_per_day, 'export', lane.from, lane.to)" in MAP_JS
+    assert "Export ' + fromName + ' → ' + toName + ': ' + value" in MAP_JS
+    assert "pathPointAtFraction(projectedImport, 1 / 3)" in MAP_JS
+    assert "pathPointAtFraction(projectedExport, 2 / 3)" in MAP_JS
+    assert "function flowLaneHitAt(mx, my)" in MAP_JS
+    assert "selectFlowLane(flowHit);" in MAP_JS
+    assert "function clearFlowLaneSelection()" in MAP_JS
+    assert "flowUrl += '&origin=' + encodeURIComponent(selectedSettlement.name);" in MAP_JS
+    assert "showCommodityFlow(ev.target.value);" in MAP_JS
+    assert "state.commodityFlowFlowOnly = true;" in MAP_JS
+    assert "var legFlows = data.leg_flows || []" in MAP_JS
+    assert "scopedLegKeys = new Set();" in MAP_JS
+    assert "if (scopedLegKeys && !scopedLegKeys.has(legKey)) { return; }" in MAP_JS
+
+
 def test_complex_routes_have_distinct_styling_icon_and_direct_selection():
     assert "var COMPLEX_ROUTE_STYLE = 'rgba(211, 67, 43, .98)'" in MAP_JS
     assert "var GROUND_MULTILEG_ROUTE_STYLE = 'rgba(46, 125, 74, .98)'" in MAP_JS

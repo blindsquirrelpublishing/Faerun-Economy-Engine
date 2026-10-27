@@ -371,6 +371,29 @@ def test_halagard_is_halarahhs_sea_gateway():
                for edge in world.edges_from("halagard"))
 
 
+def test_surveyed_market_prefers_nearby_mainland_anchor_over_island_profile(monkeypatch):
+    from faerun import mapdata
+
+    place = [{"name": "Test Crypt", "x": 821.7, "y": 1439.2,
+              "category": "settlement_or_site"}]
+    monkeypatch.setattr(mapdata, "surveyed_places", lambda towns: place)
+    monkeypatch.setattr(mapdata, "surveyed_places_base", lambda towns: place)
+
+    established = [
+        S("Orlumbor", "Sea of Swords", "islands_north", 3000, 726.6, 1436.6,
+          terrain="coast", landmass="orlumbor", traits="port"),
+        S("Dragonspear Castle", "Western Heartlands", "westernheartlands", 80,
+          712.8, 1461.9, terrain="hills", landmass="faerun", traits="frontier"),
+    ]
+
+    market = _surveyed_markets(established)[0]
+
+    assert market.region == "Western Heartlands"
+    assert market.zone == "westernheartlands"
+    assert market.landmass == "faerun"
+    assert market.terrain == "hills"
+
+
 def test_sea_edges_stop_at_intervening_harbours():
     ports = [
         S("Westhaven", "Coast", "coast", 5000, 0, 0, port="Test Sea"),

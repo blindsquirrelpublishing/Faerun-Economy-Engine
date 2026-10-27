@@ -159,11 +159,8 @@
       "lantan",
       "calimport",
       "memnon",
-      "myratma",
       "zazesspur",
       "athkatla",
-      "nashkel",
-      "beregost",
       "baldur_s_gate",
       "daggerford",
       "waterdeep"
@@ -174,7 +171,6 @@
   {
     "name": "The Frostbound Road",
     "stops": [
-      "bryn_shander",
       "luskan",
       "neverwinter",
       "waterdeep",
@@ -222,8 +218,6 @@
   {
     "name": "The Bronze Road",
     "stops": [
-      "mordulkin",
-      "luthcheq",
       "cimbar",
       "airspur",
       "arrabar",
@@ -231,17 +225,6 @@
       "westgate"
     ],
     "quality": 1.1,
-    "kind": "sea"
-  },
-  {
-    "name": "The River Road",
-    "stops": [
-      "skuld",
-      "messemprar",
-      "phsant",
-      "eltabbar"
-    ],
-    "quality": 0.85,
     "kind": "sea"
   },
   {
@@ -286,15 +269,11 @@
     "stops": [
       "calimport",
       "memnon",
-      "myratma",
       "zazesspur",
       "athkatla",
-      "nashkel",
-      "beregost",
       "baldur_s_gate",
       "daggerford",
       "waterdeep",
-      "skuld",
       "messemprar"
     ],
     "quality": 0.9,
@@ -309,12 +288,7 @@
       "airspur",
       "cimbar",
       "messemprar",
-      "bezantur",
-      "highmoon",
-      "essembra",
-      "ashabenford",
-      "archenbridge",
-      "wheloon"
+      "bezantur"
     ],
     "quality": 1.0,
     "kind": "sea"
@@ -323,8 +297,6 @@
     "name": "The Gemcutters' Road",
     "stops": [
       "telflamm",
-      "phsant",
-      "eltabbar",
       "port_nyanzaru",
       "tashluta",
       "lantan",
@@ -338,12 +310,6 @@
   {
     "name": "The Hunters' Coast",
     "stops": [
-      "bryn_shander",
-      "targos",
-      "termalaine",
-      "lonelywood",
-      "easthaven",
-      "good_mead",
       "luskan",
       "neverwinter",
       "waterdeep",
@@ -354,6 +320,29 @@
       "calimport"
     ],
     "quality": 1.0,
+    "kind": "sea"
+  },
+  {
+    "name": "The Luskan Reach",
+    "stops": [
+      "luskan",
+      "neverwinter",
+      "waterdeep",
+      "mintarn",
+      "ruathym"
+    ],
+    "quality": 0.95,
+    "kind": "sea"
+  },
+  {
+    "name": "The Mintarn Circuit",
+    "stops": [
+      "waterdeep",
+      "mintarn",
+      "orlumbor",
+      "daggerford"
+    ],
+    "quality": 0.9,
     "kind": "sea"
   }
 ]

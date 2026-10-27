@@ -63,6 +63,17 @@ def test_every_live_business_has_employee_class_levels():
         )
 
 
+def test_business_settlement_references_match_known_settlements():
+    world = World()
+    known = set(world.settlements)
+
+    for business in world.businesses.values():
+        assert business.headquarters in known
+        assert all(location in known for location in business.locations)
+        assert all(location in known for location in business.inventory)
+        assert all(location in known for location in business.location_addresses)
+
+
 def test_carrier_services_are_businesses_and_map_participants():
     from faerun.mapdata import map_payload
 

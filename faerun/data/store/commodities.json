@@ -923,8 +923,8 @@
     "requires": [],
     "description": "Salted fish is a food good in Faerûn, traded in barrel lots for daily use, craft, and commerce. A staple trade good prized for daily sustenance and household use.",
     "bom": {
-      "fish_fresh": 1.7,
-      "salt": 0.2
+      "fish_fresh": 1.4,
+      "salt": 0.06
     },
     "production_profile": [],
     "demand_profile": [],
@@ -4641,8 +4641,7 @@
     "unit": "sack",
     "weight": 40.0,
     "produced_by": [
-      "log",
-      "craft"
+      "log"
     ],
     "required_skill": {},
     "demand": 1.2,
@@ -6244,7 +6243,7 @@
       "horse"
     ],
     "required_skill": {},
-    "demand": 0.08,
+    "demand": 0.025,
     "luxury": 0.5,
     "perishable": 0.0,
     "demand_traits": {
@@ -6258,7 +6257,6 @@
     "description": "Warhorse is a livestock good in Faerûn, traded in head lots for daily use, craft, and commerce. A living herd animal traded for labor, food, and transport.",
     "bom": {
       "horse_riding": 1.0,
-      "grain": 20.0,
       "saddle": 1.0
     },
     "production_profile": [],
@@ -7684,11 +7682,10 @@
     "unit": "piece",
     "weight": 5.0,
     "produced_by": [
-      "craft",
-      "fish"
+      "craft"
     ],
     "required_skill": {},
-    "demand": 0.05,
+    "demand": 0.02,
     "luxury": 0.9,
     "perishable": 0.0,
     "demand_traits": {
@@ -10618,10 +10615,11 @@
     "unit": "set",
     "weight": 20.0,
     "produced_by": [
-      "tag_harness"
+      "tan",
+      "craft"
     ],
     "required_skill": {},
-    "demand": 1.0,
+    "demand": 0.06,
     "luxury": 0.0,
     "perishable": 0.0,
     "demand_traits": {},
@@ -10863,10 +10861,11 @@
     "unit": "ship",
     "weight": 8000.0,
     "produced_by": [
+      "ship",
       "tag_war_galley"
     ],
     "required_skill": {},
-    "demand": 1.0,
+    "demand": 0.02,
     "luxury": 0.0,
     "perishable": 0.0,
     "demand_traits": {},
@@ -10890,10 +10889,11 @@
     "unit": "ship",
     "weight": 10000.0,
     "produced_by": [
+      "ship",
       "tag_trade_galleon"
     ],
     "required_skill": {},
-    "demand": 1.0,
+    "demand": 0.03,
     "luxury": 0.0,
     "perishable": 0.0,
     "demand_traits": {},

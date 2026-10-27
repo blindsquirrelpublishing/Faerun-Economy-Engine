@@ -811,6 +811,295 @@ def api_supply_chain(world: World, params) -> Dict[str, Any]:
     }
 
 
+def api_commodity_flows(world: World, params) -> Dict[str, Any]:
+    commodity = world.find_commodity(_required(params, "commodity"))
+    origin_param = (_one(params, "origin") or "").strip()
+
+    raw_rows: list[Dict[str, Any]] = []
+    source_requested: Dict[str, float] = {}
+
+    for destination in world.settlements.values():
+        quote = price_for(destination.id, commodity.id, world=world)
+        for row in quote.sources:
+            if row.get("supply_type") != "import":
+                continue
+            source_id = row.get("source_id")
+            quantity = float(row.get("quantity_per_day", 0.0) or 0.0)
+            if not source_id or source_id == destination.id or quantity <= 0.0:
+                continue
+            source = world.settlements.get(source_id)
+            if not source:
+                continue
+            route = world.route(source.id, destination.id, optimise="cost")
+            quantity = round(quantity, 6)
+            raw_rows.append({
+                "source_id": source.id,
+                "source": source.name,
+                "destination_id": destination.id,
+                "destination": destination.name,
+                "quantity_per_day": quantity,
+                "unit_cost": row.get("unit_cost"),
+                "days": row.get("days"),
+                "distance": row.get("distance"),
+                "route": route,
+            })
+            source_requested[source.id] = source_requested.get(source.id, 0.0) + quantity
+
+    source_capacity: Dict[str, Dict[str, float]] = {}
+    for source_id, requested in source_requested.items():
+        source_quote = price_for(source_id, commodity.id, world=world)
+        available = max(0.0, float(source_quote.uncommitted_supply_per_day))
+        if available <= 0.0:
+            available = max(0.0, float(source_quote.exportable_supply_per_day))
+        allocated = min(requested, available) if requested > 0 else 0.0
+        scale = (allocated / requested) if requested > 0 else 0.0
+        utilization = (allocated / available * 100.0) if available > 0 else 0.0
+        source_capacity[source_id] = {
+            "requested_per_day": requested,
+            "available_per_day": available,
+            "allocated_per_day": allocated,
+            "scale": scale,
+            "utilization_pct": utilization,
+        }
+
+    imports: list[Dict[str, Any]] = []
+    exports_by_source: Dict[str, float] = {}
+    imports_by_destination: Dict[str, float] = {}
+    leg_totals: Dict[tuple[str, str], Dict[str, Any]] = {}
+    node_totals: Dict[str, Dict[str, Any]] = {}
+
+    settlement_id_cache: Dict[str, Optional[str]] = {}
+    quote_cache: Dict[str, Any] = {}
+
+    def _settlement_id(name: str) -> Optional[str]:
+        key = str(name or "").strip()
+        if not key:
+            return None
+        if key in settlement_id_cache:
+            return settlement_id_cache[key]
+        found = world.lookup_settlement(key)
+        settlement_id_cache[key] = found.id if found else None
+        return settlement_id_cache[key]
+
+    def _node(name: str, settlement_id: Optional[str] = None) -> Dict[str, Any]:
+        current = node_totals.get(name)
+        if current is None:
+            current = {
+                "name": name,
+                "settlement_id": settlement_id,
+                "imports_per_day": 0.0,
+                "exports_per_day": 0.0,
+            }
+            node_totals[name] = current
+        elif settlement_id and not current.get("settlement_id"):
+            current["settlement_id"] = settlement_id
+        return current
+
+    for row in raw_rows:
+        source_id = row["source_id"]
+        cap = source_capacity.get(source_id, {})
+        scale = float(cap.get("scale", 0.0))
+        quantity = round(float(row["quantity_per_day"]) * scale, 6)
+        if quantity <= 0.0:
+            continue
+
+        flow = {
+            **row,
+            "quantity_per_day": quantity,
+            "source_requested_per_day": round(float(cap.get("requested_per_day", 0.0)), 6),
+            "source_available_per_day": round(float(cap.get("available_per_day", 0.0)), 6),
+            "source_allocated_per_day": round(float(cap.get("allocated_per_day", 0.0)), 6),
+            "source_utilization_pct": round(float(cap.get("utilization_pct", 0.0)), 3),
+        }
+        imports.append(flow)
+
+        exports_by_source[source_id] = exports_by_source.get(source_id, 0.0) + quantity
+        destination_id = row["destination_id"]
+        imports_by_destination[destination_id] = imports_by_destination.get(destination_id, 0.0) + quantity
+
+        route = row.get("route") if isinstance(row.get("route"), dict) else {}
+        legs = route.get("legs", []) if isinstance(route, dict) else []
+        if not legs:
+            legs = [{"from": row["source"], "to": row["destination"], "points": []}]
+
+        for leg in legs:
+            start = str(leg.get("from", "")).strip()
+            end = str(leg.get("to", "")).strip()
+            if not start or not end:
+                continue
+            key = (start, end)
+            bucket = leg_totals.get(key)
+            if bucket is None:
+                bucket = {
+                    "from": start,
+                    "to": end,
+                    "from_id": _settlement_id(start),
+                    "to_id": _settlement_id(end),
+                    "quantity_per_day": 0.0,
+                    "points": leg.get("points") or [],
+                    "source_quantities": {},
+                    "source_meta": {},
+                }
+                leg_totals[key] = bucket
+            bucket["quantity_per_day"] += quantity
+            bucket["source_quantities"][source_id] = bucket["source_quantities"].get(source_id, 0.0) + quantity
+            bucket["source_meta"][source_id] = {
+                "source": row["source"],
+                "available_per_day": flow["source_available_per_day"],
+                "allocated_per_day": flow["source_allocated_per_day"],
+                "utilization_pct": flow["source_utilization_pct"],
+            }
+            if (not bucket.get("points")) and leg.get("points"):
+                bucket["points"] = leg["points"]
+
+            start_node = _node(start, bucket.get("from_id"))
+            end_node = _node(end, bucket.get("to_id"))
+            start_node["exports_per_day"] += quantity
+            end_node["imports_per_day"] += quantity
+
+    totals = {
+        settlement.id: {
+            "exports_per_day": round(exports_by_source.get(settlement.id, 0.0), 6),
+            "imports_per_day": round(imports_by_destination.get(settlement.id, 0.0), 6),
+        }
+        for settlement in world.settlements.values()
+    }
+
+    leg_flows: list[Dict[str, Any]] = []
+    for row in leg_totals.values():
+        source_quantities = row.pop("source_quantities", {})
+        source_meta = row.pop("source_meta", {})
+        primary_source_id = max(source_quantities, key=source_quantities.get) if source_quantities else ""
+        primary_meta = source_meta.get(primary_source_id, {}) if primary_source_id else {}
+        leg_flows.append({
+            **row,
+            "quantity_per_day": round(float(row.get("quantity_per_day", 0.0)), 6),
+            "source_count": len(source_quantities),
+            "primary_source_id": primary_source_id or None,
+            "primary_source": primary_meta.get("source"),
+            "primary_source_quantity_per_day": round(float(source_quantities.get(primary_source_id, 0.0)), 6),
+            "primary_source_available_per_day": round(float(primary_meta.get("available_per_day", 0.0)), 6),
+            "primary_source_allocated_per_day": round(float(primary_meta.get("allocated_per_day", 0.0)), 6),
+            "primary_source_utilization_pct": round(float(primary_meta.get("utilization_pct", 0.0)), 3),
+        })
+
+    node_flows = []
+    for node in node_totals.values():
+        imports_per_day = float(node["imports_per_day"])
+        exports_per_day = float(node["exports_per_day"])
+        cross_docked_per_day = min(imports_per_day, exports_per_day)
+        consumed_per_day = max(0.0, imports_per_day - exports_per_day)
+        settlement_id = node.get("settlement_id")
+        modeled_consumption = 0.0
+        modeled_production = 0.0
+        if settlement_id:
+            quote = quote_cache.get(settlement_id)
+            if quote is None:
+                quote = price_for(settlement_id, commodity.id, world=world)
+                quote_cache[settlement_id] = quote
+            modeled_consumption = float(getattr(quote, "final_consumption_per_day", 0.0) or 0.0)
+            modeled_production = float(getattr(quote, "production_per_day", 0.0) or 0.0)
+        node_flows.append({
+            "name": node["name"],
+            "settlement_id": settlement_id,
+            "imports_per_day": round(imports_per_day, 6),
+            "exports_per_day": round(exports_per_day, 6),
+            "cross_docked_per_day": round(cross_docked_per_day, 6),
+            "consumed_per_day": round(consumed_per_day, 6),
+            "modeled_local_consumption_per_day": round(modeled_consumption, 6),
+            "modeled_local_production_per_day": round(modeled_production, 6),
+            "net_flow_per_day": round(exports_per_day - imports_per_day, 6),
+        })
+
+    tiered_plan = None
+    if origin_param:
+        try:
+            origin = world.find_settlement(origin_param)
+        except KeyError:
+            origin = None
+        if origin is not None:
+            origin_flows = [row for row in imports if row.get("source_id") == origin.id]
+            leg_from_origin: Dict[str, float] = {}
+            node_throughput: Dict[str, float] = {}
+            destination_totals: Dict[str, float] = {}
+
+            for row in origin_flows:
+                qty = float(row.get("quantity_per_day", 0.0) or 0.0)
+                destination_totals[row["destination"]] = destination_totals.get(row["destination"], 0.0) + qty
+                route = row.get("route") if isinstance(row.get("route"), dict) else {}
+                legs = route.get("legs", []) if isinstance(route, dict) else []
+                for index, leg in enumerate(legs):
+                    start = str(leg.get("from", "")).strip()
+                    end = str(leg.get("to", "")).strip()
+                    if not start or not end:
+                        continue
+                    key = f"{start} -> {end}"
+                    leg_from_origin[key] = leg_from_origin.get(key, 0.0) + qty
+                    node_throughput[start] = node_throughput.get(start, 0.0) + qty
+                    node_throughput[end] = node_throughput.get(end, 0.0) + qty
+
+            direct_hubs: Dict[str, float] = {}
+            for row in origin_flows:
+                route = row.get("route") if isinstance(row.get("route"), dict) else {}
+                legs = route.get("legs", []) if isinstance(route, dict) else []
+                if not legs:
+                    continue
+                first_leg = legs[0]
+                hub = str(first_leg.get("to", "")).strip()
+                if not hub:
+                    continue
+                direct_hubs[hub] = direct_hubs.get(hub, 0.0) + float(row.get("quantity_per_day", 0.0) or 0.0)
+
+            tier1 = sorted(direct_hubs.items(), key=lambda item: (-item[1], item[0]))[:6]
+            tier1_names = {name for name, _qty in tier1}
+            tier2_pool = [
+                (name, qty) for name, qty in node_throughput.items()
+                if name != origin.name and name not in tier1_names
+            ]
+            tier2 = sorted(tier2_pool, key=lambda item: (-item[1], item[0]))[:10]
+            tier2_names = {name for name, _qty in tier2}
+            tier3 = sorted(
+                ((name, qty) for name, qty in destination_totals.items()
+                 if name not in tier1_names and name not in tier2_names),
+                key=lambda item: (-item[1], item[0]),
+            )[:20]
+
+            tiered_plan = {
+                "origin": origin.name,
+                "origin_id": origin.id,
+                "total_export_per_day": round(sum(destination_totals.values()), 6),
+                "reachable_markets": len(destination_totals),
+                "tier1_hubs": [{"name": name, "quantity_per_day": round(qty, 6)} for name, qty in tier1],
+                "tier2_feeders": [{"name": name, "quantity_per_day": round(qty, 6)} for name, qty in tier2],
+                "tier3_tail_markets": [{"name": name, "quantity_per_day": round(qty, 6)} for name, qty in tier3],
+                "top_legs": [
+                    {"leg": leg, "quantity_per_day": round(qty, 6)}
+                    for leg, qty in sorted(leg_from_origin.items(), key=lambda item: (-item[1], item[0]))[:25]
+                ],
+            }
+
+    return {
+        "commodity": commodity.id,
+        "commodity_name": commodity.name,
+        "unit": commodity.unit,
+        "flows": sorted(
+            imports,
+            key=lambda row: (-row["quantity_per_day"], row["source"], row["destination"]),
+        ),
+        "leg_flows": sorted(
+            leg_flows,
+            key=lambda row: (-row["quantity_per_day"], row["from"], row["to"]),
+        ),
+        "node_flows": sorted(
+            node_flows,
+            key=lambda row: (-row["cross_docked_per_day"], row["name"]),
+        ),
+        "totals": totals,
+        "tiered_plan": tiered_plan,
+    }
+
+
+
 def api_arbitrage(world: World, params) -> Dict[str, Any]:
     return find_arbitrage(
         _required(params, "origin"),
@@ -866,6 +1155,30 @@ def map_source_boundaries():
 
     path = project_root() / "maps" / "high-forest-source-boundaries.json"
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
+def transport_reference_dir() -> Path:
+    return Path(__file__).resolve().parent.parent / "reference" / "transport"
+
+
+def api_network_overlay(world: World, params) -> Dict[str, Any]:
+    name = (_one(params, "name") or "coffee-feeder-network-port-nyanzaru").strip()
+    if not name:
+        raise ApiError("overlay name is required")
+    if name.endswith(".geojson"):
+        stem = name[:-8]
+    else:
+        stem = name
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+", stem):
+        raise ApiError("overlay name must use letters, numbers, dot, dash, or underscore")
+    path = transport_reference_dir() / f"{stem}.geojson"
+    if not path.is_file():
+        raise ApiError(f"overlay not found: {path.name}", 404)
+    try:
+        overlay = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ApiError(f"overlay could not be read: {exc}") from exc
+    return {"name": path.name, "overlay": overlay}
 
 
 def api_map(world: World, params) -> Dict[str, Any]:
@@ -1029,6 +1342,7 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     "/api/calibration": api_calibration,
     "/api/atlas": api_atlas,
     "/api/map": api_map,
+    "/api/network-overlay": api_network_overlay,
     "/api/terrain-detail": api_terrain_detail,
     "/api/planar-terrain": api_planar_terrain,
     "/api/timeline": api_timeline,
@@ -1055,6 +1369,7 @@ GET_ROUTES: Dict[str, Callable[[World, Dict[str, list]], Dict[str, Any]]] = {
     "/api/route": api_route,
     "/api/transport-plan": api_transport_plan,
     "/api/supply-chain": api_supply_chain,
+    "/api/commodity-flows": api_commodity_flows,
     "/api/arbitrage": api_arbitrage,
     "/api/special-order": api_special_order,
 }
@@ -1270,7 +1585,7 @@ POST_ROUTES: Dict[str, Callable[[World, Dict[str, Any]], Dict[str, Any]]] = {
     "/api/rebuild": post_rebuild,
 }
 
-UNLOCKED_GET_ROUTES = {"/api/bootstrap", "/api/progress", "/api/map", "/api/underlay", "/api/map-route-legs"}
+UNLOCKED_GET_ROUTES = {"/api/bootstrap", "/api/progress", "/api/map", "/api/network-overlay", "/api/underlay", "/api/map-route-legs"}
 
 
 # ---------------------------------------------------------------------------

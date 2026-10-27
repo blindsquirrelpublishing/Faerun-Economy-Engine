@@ -172,6 +172,14 @@ def test_imports_name_their_source(world):
     assert quote.price > price_for(quote.source, "grain", world=world).price
 
 
+def test_small_markets_have_lower_exotic_luxury_demand_pressure(world):
+    commodity = world.find_commodity("genasi_glass_censer")
+    tiny = world.find_settlement("Warlock's Crypt")
+    major = world.find_settlement("Waterdeep")
+
+    assert demand_index(world, tiny, commodity) < demand_index(world, major, commodity)
+
+
 def test_buying_in_bulk_moves_the_market(world):
     one = price_for("Bryn Shander", "grain", world=world, quantity=1)
     many = price_for("Bryn Shander", "grain", world=world, quantity=5000)

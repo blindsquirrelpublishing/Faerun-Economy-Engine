@@ -500,7 +500,7 @@
     "locations": [
       "waterdeep",
       "daggerford",
-      "baldurs_gate"
+      "baldur_s_gate"
     ],
     "specialties": [
       "Trade Way freight",
@@ -528,7 +528,7 @@
     "inventory": {
       "waterdeep": {},
       "daggerford": {},
-      "baldurs_gate": {}
+      "baldur_s_gate": {}
     },
     "services": [
       "Trade Way freight",
@@ -587,7 +587,7 @@
         "city": "Daggerford",
         "zip": "DF-CQ-0004"
       },
-      "baldurs_gate": {
+      "baldur_s_gate": {
         "street": "Coast Way, 27",
         "district": "Outer City",
         "city": "Baldur's Gate",
@@ -599,7 +599,7 @@
       {
         "route": "The Trade Way",
         "origin": "waterdeep",
-        "destination": "baldurs_gate",
+        "destination": "baldur_s_gate",
         "status": "rolling",
         "progress": 0.36
       }
@@ -746,7 +746,7 @@
     "locations": [
       "waterdeep",
       "daggerford",
-      "baldurs_gate",
+      "baldur_s_gate",
       "calimport"
     ],
     "specialties": [
@@ -775,7 +775,7 @@
     "inventory": {
       "waterdeep": {},
       "daggerford": {},
-      "baldurs_gate": {},
+      "baldur_s_gate": {},
       "calimport": {}
     },
     "services": [
@@ -835,7 +835,7 @@
         "city": "Daggerford",
         "zip": "DF-MW-0015"
       },
-      "baldurs_gate": {
+      "baldur_s_gate": {
         "street": "Wide Way, 38",
         "district": "Heapside",
         "city": "Baldur's Gate",
@@ -853,7 +853,7 @@
       {
         "route": "The Genie's Road",
         "origin": "waterdeep",
-        "destination": "baldurs_gate",
+        "destination": "baldur_s_gate",
         "status": "rolling",
         "progress": 0.22
       }
@@ -2470,7 +2470,7 @@
     "headquarters": "eltabbar",
     "locations": [
       "eltabbar",
-      "bezanthur",
+      "bezantur",
       "hlath",
       "westgate"
     ],
@@ -2511,7 +2511,7 @@
         "potion_healing": 14,
         "incense": 21
       },
-      "bezanthur": {
+      "bezantur": {
         "spellbook_blank": 7,
         "spell_components": 7,
         "reagents_rare": 2,
@@ -2570,7 +2570,7 @@
         "city": "Eltabbar",
         "zip": "FA-29-569"
       },
-      "bezanthur": {
+      "bezantur": {
         "street": "Market Road, 720",
         "district": "Trade Quarter",
         "city": "Bezanthur",
@@ -6939,7 +6939,7 @@
     "transport_equipment": {},
     "capacity_lb": 0,
     "capacity_ft3": 0.0
-  },
+  },
   {
     "id": "waelvurs_wagonworks",
     "name": "Waelvur's Wagonworks",
@@ -7714,5 +7714,81 @@
     "transport_equipment": {},
     "capacity_lb": 0,
     "capacity_ft3": 0
+  },
+  {
+    "id": "crowing_cockatrice_jalanthar",
+    "name": "Crowing Cockatrice",
+    "headquarters": "jalanthar",
+    "locations": [
+      "jalanthar"
+    ],
+    "specialties": [
+      "inn",
+      "tavern"
+    ],
+    "offers": {
+      "ale": "standard"
+    },
+    "price_modifier": 1.0,
+    "description": "Inn and tavern of Jalanthar kept by Myles Heldruin, a friendly and talkative innkeeper, after the War of the Silver Marches (Storm King's Thunder, p. 94, via the Forgotten Realms Wiki). Around 1372 DR it was popular for Jalanthar Amber, had been burned three times by orcs and was abandoned with the old village site (Silver Marches, p. 19). Lodging is not modeled; Jalanthar Amber has no commodity, so ale stands in for the house drink.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "jalanthar": {
+        "ale": 21
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 2,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 2
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "jalanthar": {
+        "street": "High Road, 348",
+        "district": "Trade Quarter",
+        "city": "Jalanthar",
+        "zip": "FA-49-348"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
   }
 ]

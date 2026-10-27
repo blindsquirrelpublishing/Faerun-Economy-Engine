@@ -251,7 +251,8 @@
       "rope": 1.0,
       "ship": 2.0,
       "tag_jet": 2.0,
-      "trade": 2.0
+      "trade": 2.0,
+      "weapon": 1.0
     },
     "specialties": {
       "fish_salt": 2.0,
@@ -263,7 +264,7 @@
       "wine_fine"
     ],
     "ruler": "The High Captains",
-    "description": "The City of Sails: a pirate haven where cargo has no questions asked."
+    "description": "The City of Sails, a port at the mouth of the River Mirar built over the ruins of Illusk. Five High Captains, each heading a pirate Ship, rule it; a free port since 1376 DR, it took up legal sea trade along the Sword Coast after 1485 DR while secretly under Jarlaxle and Bregan D'aerthe."
   },
   {
     "id": "neverwinter",
@@ -1548,15 +1549,19 @@
       "military"
     ],
     "industries": {
-      "fish": 2.0,
-      "farm": 1.0,
+      "armor": 1.0,
       "craft": 1.0,
-      "hunt": 1.0
+      "farm": 1.0,
+      "fish": 2.0,
+      "hunt": 1.0,
+      "mine_iron": 1.0,
+      "smith": 1.0,
+      "weapon": 1.0
     },
     "specialties": {},
     "shortages": [],
     "ruler": "",
-    "description": ""
+    "description": "Walled frontier town beside the River Surbrin on the edge of the Evermoors, ruled by a First Speaker and dominated by its merchants. Almost all east and west trade passed through it, and it was known for its steel, exporting iron ore, steel weapons and armor (1371 DR). Ruined by trolls in 1370 DR and rebuilt larger with a double wall; overrun by the orcs of Many-Arrows in 1484 DR and still in ruins in 1485 DR."
   },
   {
     "id": "jalanthar",
@@ -1582,10 +1587,12 @@
       "hunt": 2.0,
       "herd": 1.0
     },
-    "specialties": {},
+    "specialties": {
+      "furs": 1.0
+    },
     "shortages": [],
     "ruler": "",
-    "description": ""
+    "description": "Hamlet of trappers and hunters on the River Rauvin in the Silver Marches, on the trail between Everlund and Sundabar near the southern end of the Moon Pass. Its turf-covered houses are dug into the hillsides against fire and battering. Residents trade furs and hire out as guides. Around 1372 DR, after repeated orc raids, it moved from the river's south bank to the foothills north of it, held 226 people under a council of elders, and hosted a company of the Argent Legion; a protectorate of Luruar without a vote. In the late 15th century DR a retired ranger, Quinn Nardrosz, headed the village council and Myles Heldruin kept the Crowing Cockatrice inn."
   },
   {
     "id": "deadsnows",
@@ -4502,6 +4509,7 @@
       "pirate"
     ],
     "industries": {
+      "brew": 1.0,
       "fish": 3.0,
       "merc": 3.0,
       "salt": 1.0,
@@ -4513,7 +4521,7 @@
     },
     "shortages": [],
     "ruler": "",
-    "description": "Free port of sell-swords and no awkward questions."
+    "description": "Island free port in the Sea of Swords, about 400 miles south-west of Waterdeep, ruled by a tyrant. A haven that asks no questions, welcoming fugitives, pirates and parties seeking neutral ground. Exports mercenaries (the White Sails company), ships and its own drink: golden Mintarn lager, cold green wine, almond brandy and whisky; rock salt is mined in the northern islands. Pays yearly tribute to the red dragon Hoondarrh of Skadaurak Island; Tyrant Bloeth Embuirhan ruled around 1489 DR."
   },
   {
     "id": "orlumbor",
@@ -4696,18 +4704,20 @@
       "agrarian"
     ],
     "industries": {
-      "farm": 2.0,
-      "log": 2.0,
       "craft": 2.0,
+      "farm": 2.0,
+      "fish": 1.0,
+      "herb": 1.0,
       "hunt": 2.0,
-      "herb": 1.0
+      "log": 2.0
     },
     "specialties": {
+      "cheese": 1.0,
       "timber": 1.0
     },
     "shortages": [],
     "ruler": "",
-    "description": ""
+    "description": "Loudwater, the City of Grottos, is a walled garden town where the Grayflow joins the River Delimbiyr in the Gray Vale (Delimbiyr Vale). High Town on the north bank holds the High Lord's Hall and the old elven houses; Low Town on the south bank holds the markets, workshops, warehouses and a modest river harbour, joined by the dwarf-built Flying Fish Bridge. Its people farm, fish and serve the caravans and riverboats of the Delimbiyr Route, and the vale was known for rich cave-ripened cheeses such as mist cheese and for carved hardwoods. About 4,000 people lived there in 1357 to 1370 DR and 8,137 in 1372 DR; trade collapsed after the Spellplague, and by 1479 DR about 2,000 remained behind a stone and timber wall, where carts paid a 5 sp toll at the gates. In the late 1480s DR the wizard Telbor Zazrek ruled as High Lord, secretly a Zhentarim puppet; prices were high, goods not supplied by the Zhentarim were heavily taxed, and refugees from stone giant raids on Llorkh and Orlbar crowded the riverside warehouses."
   },
   {
     "id": "parnast",
@@ -5919,12 +5929,12 @@
     "name": "Dragonspear Castle",
     "region": "Western Heartlands",
     "zone": "westernheartlands",
-    "population": 80,
+    "population": 0,
     "x": 888.6,
     "y": 1353.1,
-    "wealth": 0.8,
-    "tax": 0.06,
-    "security": 0.4,
+    "wealth": 0.2,
+    "tax": 0.0,
+    "security": 0.2,
     "port": null,
     "river": false,
     "terrain": "plains",
@@ -5932,14 +5942,13 @@
     "underdark": false,
     "traits": [
       "frontier",
-      "mercenary",
-      "surveyed_market"
+      "ruin"
     ],
     "industries": {},
     "specialties": {},
     "shortages": [],
     "ruler": "",
-    "description": "A surveyed local market. Its regional profile is inferred from Boareskyr Bridge; goods arrive through that trade hub."
+    "description": "Ruined dwarven fortress landmark, modeled as a non-market waypoint near the Trade Way/Coast Way corridor. Built in 1255 DR by Daeros Dragonspear and later occupied in successive eras by goblinoids, devils, crusaders, undead and vampires. No stable resident community, ruler, market production, or local trade activity is recorded for 1492 DR."
   },
   {
     "id": "durlag_s_tower",
@@ -6391,7 +6400,7 @@
     "specialties": {},
     "shortages": [],
     "ruler": "",
-    "description": "A surveyed local market. Its regional profile is inferred from Everlund; goods arrive through that trade hub."
+    "description": "Grandfather Tree is an arakhor (an elder treant) in the form of a gnarled oak over 350 feet tall, deep in the High Forest, summoned by the elves of Aryvandaar around -12,500 DR to guard the Hall of Mists beneath its roots. It is the sacred ancestral mound of the Uthgardt Tree Ghost tribe, which rediscovered it on Shieldmeet 1368 DR and founded the hamlet of Ghostand in the oaks nearby (224 to about 350 people in 1372 DR, mostly human with wood elves and half-elves), a trading place for forest folk in the late 14th century DR. Great Chief Boorvald Orcbane led the tribe around 1485 DR. The tree itself is a holy site, not a market; no trade goods are recorded."
   },
   {
     "id": "greenest",
@@ -6447,7 +6456,7 @@
     "specialties": {},
     "shortages": [],
     "ruler": "",
-    "description": "A surveyed local market. Its regional profile is inferred from Nesmé; goods arrive through that trade hub."
+    "description": "Permanent settlement of the Uthgardt Griffon tribe in the Surbrin Hills of the Savage Frontier, northeast of Longsaddle, with Shining Creek to the east. In the mid-14th century DR it was a palisaded village of thatched wood-and-earth huts around a longhouse and two warehouses, with hillside farms, trading woven rush goods, cane baskets and trunks for steel weapons under Chief Kralgar Bonesnapper. By 1485 DR it had declined to a poor, hostile hamlet of about 300 under Halric Bonesnapper that raided homesteads in the Dessarin Valley."
   },
   {
     "id": "halagard",
@@ -10208,7 +10217,7 @@
   {
     "id": "warlock_s_crypt",
     "name": "Warlock's Crypt",
-    "region": "Sea of Swords",
+    "region": "Sword Coast",
     "zone": "islands_north",
     "population": 120,
     "x": 821.7,
@@ -10230,7 +10239,7 @@
     "specialties": {},
     "shortages": [],
     "ruler": "",
-    "description": "A surveyed local market. Its regional profile is inferred from Orlumbor; goods arrive through that trade hub."
+    "description": "City of undead in the western Troll Hills on the Sword Coast, near the mouth of the Winding Water, built from the ruins of the Netherese flying enclave Orbedal (Sanctuary), which fell there in -339 DR. Also called Warlock's Keep, a corruption of Larloch's Crypt. Ruled by the lich Larloch, the Shadow King: about sixty liches by 1374 DR, with vampires, wraiths, wights and lesser undead, guarded by trolls and patrolled by bat-riding undead. Travelers are warned to stay out of sight of it. No living community, trade or market is recorded."
   },
   {
     "id": "well_of_dragons",

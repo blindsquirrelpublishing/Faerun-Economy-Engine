@@ -684,5 +684,23 @@
     ],
     "quality": 0.75,
     "kind": "trail"
+  },
+  {
+    "name": "The Mirar",
+    "stops": [
+      "mirabar",
+      "luskan"
+    ],
+    "quality": 0.95,
+    "kind": "river+road"
+  },
+  {
+    "name": "Yartar to Everlund Road",
+    "stops": [
+      "yartar",
+      "everlund"
+    ],
+    "quality": 0.9,
+    "kind": "road"
   }
 ]

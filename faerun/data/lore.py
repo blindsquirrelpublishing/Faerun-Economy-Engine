@@ -85,20 +85,44 @@ LORE = {
     "griffon_s_nest": {
         "status": "researched",
         "paragraphs": [
-            "Griffon's Nest is a permanent settlement of the Uthgardt Griffon tribe in the Surbrin Hills of the Savage Frontier, northeast of Longsaddle, with Shining Creek farther east. Its inhabitants are described as human Uthgardt who worship Uthgar.",
-            "The latest documented snapshot is 1485 DR: a hamlet of approximately 300 inhabitants under Chief Halric Bonesnapper, marked by poverty and reduced contact with outsiders. This is the closest documented account before the project's 1492 DR planning baseline, not proof of unchanged conditions in 1492.",
-            "Historical notes: Kralgar Bonesnapper became chief in 1348 DR. The article records 900 residents in both 1358 and 1366 DR, then 6,713 in 1372 DR during the settlement's prosperous small-city period. Halric is Kralgar's great-grandson. Chief Targ Keifer is separately named circa 1484 DR; the source leaves the relationship between the Targ and Halric dates unresolved.",
-            "The multi-period trade summary lists steel weapons as imports and woven rush goods, cane baskets, and trunks as exports. Earlier accounts describe outlying farms and openness to outside trade under Kralgar. These details do not establish current output, trade volumes, or named operating businesses in the later, more isolated hamlet.",
-            "The mid-14th-century settlement had approximately twenty thatched wood-and-earth huts, a central longhouse, two warehouses, a log palisade, and roughly a dozen hillside farms. These are historical building counts, not a surveyed later layout. Adalfus Stormgatherer is named as a shaman under Kralgar; Keyl is named as Targ's son.",
-            "The stored economy record's 80 inhabitants, Silver Marches region, marsh terrain, unnamed ruler, and inferred Nesme market profile are model inputs awaiting comparison with the sourced hills settlement. This lore entry does not overwrite population, terrain, leadership, production, routes, or map coordinates.",
+            "Griffon's Nest is a permanent settlement of the Uthgardt Griffon tribe in the Surbrin Hills of the Savage Frontier, northeast of Longsaddle, with Shining Creek farther east. Its inhabitants are described as human Uthgardt who worship Uthgar. The site began as a camp of half-orc bandits under Azglyn, whom the Uthgardt destroyed before settling there.",
+            "The latest documented snapshot is 1485 DR: a hamlet of approximately 300 inhabitants under Great Chief Halric Bonesnapper, marked by poverty, hostility to outsiders and small, bold raids on homesteads in the Dessarin Valley. Halric receives other chieftains in his longhouse and fears the tribe has lost Uthgar's favour. This is the closest documented account before the project's 1492 DR planning baseline, not proof of unchanged conditions in 1492.",
+            "Historical notes: Kralgar Bonesnapper became chief in 1348 DR and made the tribe the most educated, skilled and organized of the Uthgardt, open to outside trade while he planned to conquer a great city of the North. The article records 900 residents in both 1358 and 1366 DR, then 6,713 in 1372 DR during the settlement's prosperous small-city period, when un-allied clans joined the tribe. Kralgar was later killed by orcs and the settlement declined under his heirs. The article calls Halric Kralgar's great-grandson; Halric's own page calls him the grandson. Chief Targ Keifer is separately named circa 1484 DR, when he discussed an alliance with Nesme and, with his son Keyl, aided the Companions of the Hall; the source leaves the relationship between the Targ and Halric dates unresolved.",
+            "The infobox trade summary, cited to 1358 to 1366 DR sources, lists steel weapons as imports and woven rush goods, cane baskets, and trunks as exports. These details do not establish current output, trade volumes, or named operating businesses in the later, more isolated hamlet, and no business is named for any period.",
+            "The mid-14th-century settlement had approximately twenty thatched wood-and-earth huts, a central longhouse, two warehouses, a log palisade hung with enemies' heads, and roughly a dozen hillside farms. These are historical building counts, not a surveyed later layout. Adalfus Stormgatherer is named as a shaman under Kralgar. The tribe's ancestral mound in 1372 DR was Shining White.",
         ],
         "sources": [{
             "title": "Forgotten Realms Wiki: Griffon's Nest",
             "url": "https://forgottenrealms.fandom.com/wiki/Griffon%27s_Nest",
-            "accessed": "2026-10-01",
+            "accessed": "2026-10-21",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Halric Bonesnapper",
+            "url": "https://forgottenrealms.fandom.com/wiki/Halric_Bonesnapper",
+            "accessed": "2026-10-21",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Kralgar Bonesnapper",
+            "url": "https://forgottenrealms.fandom.com/wiki/Kralgar_Bonesnapper",
+            "accessed": "2026-10-21",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Targ Keifer",
+            "url": "https://forgottenrealms.fandom.com/wiki/Targ_Keifer",
+            "accessed": "2026-10-21",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Griffon tribe",
+            "url": "https://forgottenrealms.fandom.com/wiki/Griffon_tribe",
+            "accessed": "2026-10-21",
+            "kind": "secondary",
+        }, {
+            "title": "Realms Helps: The North (summary of The North: Guide to the Savage Frontier)",
+            "url": "https://www.realmshelps.net/faerun/north.shtml",
+            "accessed": "2026-10-21",
             "kind": "secondary",
         }],
-        "era_note": "Use 1485 DR, the latest documented snapshot before the 1492 DR project baseline, while retaining 1358, 1366, and 1372 DR history separately. Approximately 300 residents and Halric Bonesnapper are dated to 1485, not verified for 1492. Targ Keifer circa 1484 and Halric in 1485 remain an unresolved source qualification. The real-world access date is not a setting date. This is a reviewed secondary summary, not independent verification of the cited publications.",
+        "era_note": "Use 1485 DR, the latest documented snapshot before the 1492 DR project baseline (Storm King's Thunder, 2016, pp. 67, 74, 89), while retaining 1358, 1366, and 1372 DR history separately (The Savage Frontier, 1988, pp. 24, 29; Volo's Guide to the North, 1993, pp. 45, 221; The North, 1996, p. 73; Forgotten Realms Campaign Setting, 3rd edition, 2001, p. 169). Approximately 300 residents and Halric Bonesnapper are dated to 1485 and not verified for 1492. Targ Keifer circa 1484 (Rise of the King, 2014, pp. 114, 134) and Halric in 1485 remain an unresolved source qualification, as does whether Halric is Kralgar's grandson or great-grandson. The rush, cane basket and trunk exports date from 1358 to 1366 DR; nothing shows they continued after the decline. The real-world access date is not a setting date. These are reviewed secondary summaries (wiki pages and a fan summary of The North), not independent verification of the cited publications.",
     },
     "phandalin": {
         "status": "researched",
@@ -523,5 +547,251 @@ LORE = {
             "kind": "secondary",
         }],
         "era_note": "The 700 population, stone export, stonecutting, fishing fleet, militia and First Captain Haeromos Dothwintyl come from The Savage Frontier (1988), Volo's Guide to the North (1993), City of Splendors (1994) and The North: Guide to the Savage Frontier (1996), circa 1358 to 1369 DR; early history from The Grand History of the Realms (2007); the 1385 DR silting from the Neverwinter Campaign Setting (2011); the 1463 DR resettlement and Dovos Dothwintyl from The Last Threshold (2013); the 1479 and 1484 DR events from Talon of Umberlee (2011) and Night of the Hunter (2014); the fishers majority and frost giant raids from Storm King's Thunder (2016), p. 104; Thaelok's tannery from Forging the Realms (2013). Verified for 1492 DR: nothing directly; the latest facts describe the town just before the planning baseline. No population after 1374 DR was found, and the engine's 800 residents have no source. Underlying publications were not independently consulted.",
+    },
+    "warlock_s_crypt": {
+        "status": "researched",
+        "paragraphs": [
+            "Warlock's Crypt, also called Warlock's Keep, is a city of undead in the western Troll Hills on the Sword Coast, near the mouth of the Winding Water. It was built from the ruins of Orbedal, a Netherese flying enclave once called Sanctuary, which crashed there when magic failed in Netheril in -339 DR. The lich Larloch, the Shadow King, claimed the ruins months later, and the name is a corruption of Larloch's Crypt and Larloch's Keep. Its towers, shaped like taloned hands in black mail, are joined by narrow bridges without rails over walled gardens and courtyards, and a polluted spring that glows at night rises in the cellars of Larloch's tower.",
+            "By 1374 DR about sixty liches lived there, many of them Netherese survivors, with vampires, wraiths, wights and many lesser undead. A troop of trolls guarded the city and undead riders on bonebats hunted travelers. Larloch's first servitor was the archlich Rhaugilath, once Lich-King of Orbedal, who wrote a history of Netheril whose chapters were sent to Candlekeep. Explorers who found the city in 1351 DR carried back a plague that struck Baldur's Gate that year, and around 1366 DR Szass Tam of Thay traded treasures with Larloch for magic items and undead servants.",
+            "No living community, market, trade or business is recorded at the crypt. Travelers were warned to stay out of sight of it. The gold and silver the wiki lists as imports and exports belong to ancient Orbedal, which traded the output of the Netherese mining village of Bandor, not to the crypt. Larloch was still active in 1487 DR, when he tried and failed to drain the mythal of Myth Drannor, and after the death curse of about 1489 DR Rhaugilath escaped his control.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Warlock's Crypt",
+            "url": "https://forgottenrealms.fandom.com/wiki/Warlock%27s_Crypt",
+            "accessed": "2026-10-18",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Larloch",
+            "url": "https://forgottenrealms.fandom.com/wiki/Larloch",
+            "accessed": "2026-10-18",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Rhaugilath",
+            "url": "https://forgottenrealms.fandom.com/wiki/Rhaugilath",
+            "accessed": "2026-10-18",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Troll Hills",
+            "url": "https://forgottenrealms.fandom.com/wiki/Troll_Hills",
+            "accessed": "2026-10-18",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Winding Water",
+            "url": "https://forgottenrealms.fandom.com/wiki/Winding_Water",
+            "accessed": "2026-10-18",
+            "kind": "secondary",
+        }],
+        "era_note": "The description, the sixty liches and the trolls come from the Forgotten Realms Campaign Setting, 2nd edition revised (1993), p. 102, Volo's Guide to the Sword Coast (1994), pp. 49, 63 to 64 and 220 to 221, the 3rd-edition Forgotten Realms Campaign Setting (2001), p. 296, Lords of Darkness (2001), pp. 161 to 162, and Lost Empires of Faerun (2005), pp. 102, 108; Orbedal's history from Netheril: Empire of Magic (1996); the Szass Tam visits from Spellbound (1995) and Volo's Guide to All Things Magical (1996). Larloch's 1487 DR attempt on the Myth Drannor mythal is from The Herald (2014) and Rhaugilath's escape after the death curse from Turn Back the Endless Night (2018). Verified for 1492 DR: nothing directly; Larloch was active in 1487 DR, but the crypt itself is described no later than 1374 DR. No living population is recorded, so the engine's 120 residents are a surveyed-market placeholder copied from Orlumbor at 1/25 of its population. Underlying publications were not independently consulted.",
+    },
+    "dragonspear_castle": {
+        "status": "researched",
+        "paragraphs": [
+            "Dragonspear Castle is a ruined dwarven fortress built across three low hills on the south-western edge of the High Moor in the Western Heartlands, east of the Trollbark Forest and just north of where the Coast Way joins the Trade Way. The half-dwarf adventurer Daeros Dragonspear came up from the dwarven city of Kanaglym in 1255 DR and built it around the lair of his copper dragon companion Halatathlaer, and for a time it was a refuge for dwarves of the region. Tunnels beneath the keep reach the underground Nepenthe River, the ruins of Kanaglym and the Underdark, and a labyrinth below once held the artifact called the Dragonspear.",
+            "In 1290 DR the wizard Ithtaerus Casalia opened a portal to Avernus beneath the castle, tricked Daeros into it and lured rival dragons whose fighting wrecked most of the fortress. Bandits and humanoids followed; hobgoblins raided the Trade Way from it from 1305 DR until expeditions from Waterdeep and Baldur's Gate cleared it in 1315 DR and built the Tempuran temple called the Hold of Battle Lions to guard the portal. Devils took the castle in 1354 DR, causing the First Dragonspear War (1356 DR), and returned under the pit fiend Baazka in the Second Dragonspear War (1363 DR), when a humanoid horde destroyed the Way Inn and attacked Daggerford. In 1368 DR Caelar Argent's Shining Crusade held the castle until a coalition of Baldur's Gate, Waterdeep and Daggerford besieged it.",
+            "No living community, market, trade or business is recorded at the castle. Some time before 1479 DR undead led by the boneclaw Born rose from the Nepenthe River, overran the shrine of Tempus and kept the ruin in fog. Around 1484 to 1485 DR a coven of Shar-worshipping vampires, the Szarlnaxi, laired there under the influence of the rakshasa Nadir and briefly reopened the portal to Avernus before Sir Isteval and his companions closed it. Nothing read describes the castle between 1485 and 1492 DR.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Dragonspear Castle",
+            "url": "https://forgottenrealms.fandom.com/wiki/Dragonspear_Castle",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Szarlnaxi",
+            "url": "https://forgottenrealms.fandom.com/wiki/Szarlnaxi",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Born",
+            "url": "https://forgottenrealms.fandom.com/wiki/Born",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Hold of Battle Lions",
+            "url": "https://forgottenrealms.fandom.com/wiki/Hold_of_Battle_Lions",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Category:Inhabitants of Dragonspear Castle",
+            "url": "https://forgottenrealms.fandom.com/wiki/Category:Inhabitants_of_Dragonspear_Castle",
+            "accessed": "2026-10-19",
+            "kind": "secondary",
+        }],
+        "era_note": "The site, the three hills and the Coast Way and Trade Way junction come from the Forgotten Realms Campaign Set (1987), Cyclopedia of the Realms, p. 39, and Ghosts of Dragonspear Castle (2013), p. 116; the 1255 to 1368 DR history from Volo's Guide to the Sword Coast (1994), pp. 73 to 75, the Forgotten Realms Campaign Setting, 2nd edition revised (1993), p. 91, Hordes of Dragonspear (1992), The Grand History of the Realms (2007), pp. 127 to 146, Elminster's Ecologies (1995) and the video game Baldur's Gate: Siege of Dragonspear (2016); the undead under Born before 1479 DR from the Forgotten Realms Campaign Guide (2008), p. 36, and the Sword Coast Adventurer's Guide (2015), p. 83; the Szarlnaxi vampires and the reopened portal of about 1485 DR from Ghosts of Dragonspear Castle (2013), pp. 122 to 130. All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no source read describes the castle after about 1485 DR, and no living population, ruler or trade is recorded for any period after 1368 DR.",
+    },
+    "loudwater": {
+        "status": "researched",
+        "paragraphs": [
+            "Loudwater, the City of Grottos, stands where the Grayflow joins the River Delimbiyr in the Gray Vale (Delimbiyr Vale), with lands claimed for two days' ride up and down the river. The town spreads over both banks around the arching stone Flying Fish Bridge, built by the dwarf Iirikos Stoneshoulder in 149 DR: High Town on the craggy north bank holds the High Lord's Hall, guild halls and the old elven houses, and Low Town on the south bank holds the markets, taverns, workshops, warehouses and a dug-out river harbour used by barges, coracles and fishing skiffs. It is famed as a garden town of vine-covered wood and stone buildings and for its many grottos, and was home to Mielikki's Green Regents. About 4,000 people lived there in 1357 to 1370 DR, almost a quarter of them half-elves; 8,137 were recorded in 1372 DR.",
+            "Its people farmed, fished (the river fish szorp was a local staple) and served caravans and riverboats; the Loudwater Vale was known for rich cave-ripened cheeses such as mist cheese, and its hardwoods were carved for a chess set sold by Aurora's Emporium in the 1360s DR. In the 14th century DR it was a key stop on the Delimbiyr Route, with trade running east to Llorkh under tight Zhentarim control, and Jolym's shop sold barrels, kegs and packing crates around 1366 DR. These describe trade character, not volumes or prices.",
+            "Trade collapsed after the Spellplague of 1385 DR. By 1479 DR Loudwater was a frontier town of about 2,000, mostly humans and half-elves, behind a stone and timber wall over 20 feet high whose gates charged 5 sp per cart or wagon; it was led by the half-elf warlock Lady Moonfire, with the Loudwater Patrol under Captain Harrowleaf. In the late 1480s DR the retired adventurer Telbor Zazrek ruled as High Lord, secretly a Zhentarim puppet; the cost of living was high and goods not supplied by the Zhentarim were heavily taxed, and refugees from stone giant raids on Llorkh and Orlbar sheltered in riverside warehouses. The town was then largely human. A later Lady of Loudwater is placed around the 1490s DR by comics published in 2025 and 2026, without a year.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Loudwater",
+            "url": "https://forgottenrealms.fandom.com/wiki/Loudwater",
+            "accessed": "2026-10-22",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Category:Inhabitants of Loudwater",
+            "url": "https://forgottenrealms.fandom.com/wiki/Category:Inhabitants_of_Loudwater",
+            "accessed": "2026-10-22",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Telbor Zazrek",
+            "url": "https://forgottenrealms.fandom.com/wiki/Telbor_Zazrek",
+            "accessed": "2026-10-22",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Jolym",
+            "url": "https://forgottenrealms.fandom.com/wiki/Jolym",
+            "accessed": "2026-10-22",
+            "kind": "secondary",
+        }],
+        "era_note": "Geography, occupations, the 4,000 population, the Gauntlets and the Loudwater Guard come from Waterdeep and the North (1987), p. 7, The Savage Frontier (1988), p. 30, Volo's Guide to the North (1993), pp. 190 to 191, City of Splendors (1994), pp. 17 to 18, and The North (1996), pp. 61 to 62, 1357 to 1370 DR; the cheeses from Marco Volo: Departure (1994), p. 22, and Aurora's Whole Realms Catalogue (1992), pp. 112, 124; the 8,137 population and racial counts from the Forgotten Realms Campaign Setting, 3rd edition (2001), p. 169, and Legacy of the Green Regent: Extermination (2003), pp. 20 to 21, 1372 DR; the 2,000 population, wall, toll, Lady Moonfire and Harrowleaf from the Forgotten Realms Campaign Guide (2008), 1479 DR; Telbor Zazrek, the Zhentarim taxes, the refugees and the largely human population from Storm King's Thunder (2016), p. 97, late 1480s DR (the infobox dates Telbor to 1491 DR). All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no population figure is given after 1479 DR, and Honor Among Thieves (2023) and The Fallbacks comics (2025 to 2026) are undated within the 1490s DR.",
+    },
+    "grandfather_tree": {
+        "status": "researched",
+        "paragraphs": [
+            "Grandfather Tree is an arakhor, an elder form of treant, that looks like an enormous gnarled oak more than 350 feet tall and 50 feet across at the base, standing deep in the heart of the High Forest. Two rings of raised earth surround it: four mature oaks on the inner ring mark the quarters of the inner cairn, and the outer ring covers the bones of Uthgardt barbarians, most of them of the Tree Ghost tribe. The gold elves of Aryvandaar summoned it around -12,500 DR to guard the Hall of Mists beneath its roots. Its wards block detection near it and teleportation toward it, speed the healing of its protectors and turn away the evil with bad omens, and it can send out guardian spirits the Uthgardt call tree ghosts. It is hallowed to the northern tribes, to wood elves, satyrs, dryads and treants, and to Eldath, Mielikki, Rillifane Rallathil and Silvanus.",
+            "The tree was the ancestral mound of the Blue Bear tribe until the annis Tanta Hagara corrupted it from 1311 DR; the guardian spirits banished the Blue Bears, and the tribesmen who rejected her split off as the Tree Ghosts in 1313 DR. Mintiper Moonsilver found the tree in 1343 DR, and the crippled shaman Chungred Ghostheart, reading his epic Tree Ghosts as a hidden map, led the tribe back to it on Shieldmeet 1368 DR. The tribe built Ghostand, a hamlet raised on platforms in a stand of tall oaks close to the tree, with backing from Alustriel of Silverymoon and help from wild elves; it became a trading place for the folk of the forest. In 1372 DR it held 224 people by one count and more than 350 by another, under Chieftain Gunther Longtooth and the shaman Hala Spiritwalk, with a wood elf envoy and about twenty ceremonial guards. These describe the late 14th century DR; no goods, volumes or prices are recorded.",
+            "By the late 15th century DR Uthgardt from other tribes had come to live among the Tree Ghosts as pledged protectors of the tree, and around 1485 DR Great Chief Boorvald Orcbane led the tribe in raids on Iceshield orc settlements along the forest edge. After 1486 DR the Red Tiger tribe began searching for the tree to claim it. The tree itself is a holy site rather than a market, and the population, trade and condition of Ghostand after 1372 DR are not described.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Grandfather Tree",
+            "url": "https://forgottenrealms.fandom.com/wiki/Grandfather_Tree",
+            "accessed": "2026-10-23",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Ghostand",
+            "url": "https://forgottenrealms.fandom.com/wiki/Ghostand",
+            "accessed": "2026-10-23",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Tree Ghost tribe",
+            "url": "https://forgottenrealms.fandom.com/wiki/Tree_Ghost_tribe",
+            "accessed": "2026-10-23",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Boorvald Orcbane",
+            "url": "https://forgottenrealms.fandom.com/wiki/Boorvald_Orcbane",
+            "accessed": "2026-10-23",
+            "kind": "secondary",
+        }],
+        "era_note": "The tree's description, wards and history come from The Savage Frontier (1988), pp. 25, 54, The North: Guide to the Savage Frontier (1996), \"The Wilderness\", pp. 19, 31 to 32, 54 to 55, Mintiper's Chapbook parts 8 and 9 (2001), Silver Marches (2002), p. 27, Serpent Kingdoms (2004), pp. 96 to 97, and The Grand History of the Realms (2007), p. 12; Ghostand's 224 residents and racial mix are from Silver Marches, p. 27, and the figure of more than 350 from Mintiper's Chapbook part 8, both 1372 DR; Boorvald Orcbane, the pledged protectors, the post-1370 DR wards and the Red Tiger search are from Storm King's Thunder (2016), pp. 58, 67 to 68, 86 to 87, late 1480s DR. All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no population, ruler or trade is recorded for Ghostand after 1372 DR, and the tribe's leader is dated only to about 1485 DR.",
+    },
+    "mintarn": {
+        "status": "researched",
+        "paragraphs": [
+            "Mintarn is an island in the Sea of Swords about 400 miles south-west of Waterdeep, with the red dragon Hoondarrh laired on Skadaurak Island to its north-west. It is a free port and a haven that asks no questions and turns no one away: fugitives and pirates do business there, rival parties meet on its neutral ground, and its taverns and festhalls were famous for their food, service and danger. Its people call themselves Tarnians. Seats and sites named by the sources are Castle Mintarn, home of the ruler, the hidden pirate harbour-temple of Umberlee called the Cove of the Queen, and Mintarn Mountain, said to hold a small dwarven population with remnants of Clan Ironstar. No population figure is recorded for any period.",
+            "Mintarn is ruled by a tyrant. Tarnheel Embuirhan, a celebrated swordsman, ruled from about 1357 DR with a light hand, ended the island's quarrels with Orlumbor and used force against pirates; later tyrants rose every five or six years but kept the free port. Around 1489 DR the tyrant was Bloeth Embuirhan, thought to be a descendant of Tarnheel, during the island's most prosperous days. Since 896 DR the island has bought Hoondarrh's protection with a large yearly tribute.",
+            "Its exports are skilled mercenaries, ships, food and drink: golden Mintarn lager sold along the Sword Coast (served at the Blushing Mermaid in Baldur's Gate), a cold green wine rarely seen off the island, almond brandy (almonds are grown there) and Best Old Mintarn whisky. Rock salt is mined in its northern islands. It imported Moonshae wood and Mabadann oysters from the Shining Sea, shipped live in water-filled barrels. Dagult Neverember, while Open Lord of Waterdeep, invested in a shipbuilding business, training grounds and the White Sails mercenary company, and hired a Mintarn navy for Waterdeep and soldiers for Neverwinter, the latter recorded there in 1479 DR. In the 1480s DR Hoondarrh toppled two towers of Castle Mintarn and raised the tribute; once Neverember lost Waterdeep and replaced his mercenaries, the island feared by 1489 DR that it could no longer pay. These describe trade character, not volumes or prices.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Mintarn",
+            "url": "https://forgottenrealms.fandom.com/wiki/Mintarn",
+            "accessed": "2026-10-24",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Hoondarrh",
+            "url": "https://forgottenrealms.fandom.com/wiki/Hoondarrh",
+            "accessed": "2026-10-24",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: White Sails",
+            "url": "https://forgottenrealms.fandom.com/wiki/White_Sails",
+            "accessed": "2026-10-24",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Salt",
+            "url": "https://forgottenrealms.fandom.com/wiki/Salt",
+            "accessed": "2026-10-24",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Category: Inhabitants of Mintarn",
+            "url": "https://forgottenrealms.fandom.com/wiki/Category:Inhabitants_of_Mintarn",
+            "accessed": "2026-10-24",
+            "kind": "secondary",
+        }],
+        "era_note": "Geography, the free port and Tarnheel Embuirhan come from the Forgotten Realms Campaign Set (1987) and the 2nd-edition Forgotten Realms Campaign Setting (1993), circa 1357 to 1368 DR; the drinks from the Volo's Guides (1993 and 1994), 14th century DR, with the lager also in Murder in Baldur's Gate (2013), circa 1484 DR; ships and Moonshae wood from Moonshae (1987); rock salt from Power of Faerun (2006); the Cove of the Queen from Faiths and Avatars (1996), circa 1369 DR; Bloeth Embuirhan, Neverember's investment, the toppled towers and the tribute crisis from the Sword Coast Adventurer's Guide (2015), pp. 66 to 67, circa 1489 DR; the Mintarn mercenaries in Neverwinter from Dungeon 195 and Storm over Neverwinter, circa 1479 DR. All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no population is given for any period, and no ruler or trade is recorded after about 1489 DR. The engine's 5,000 residents have no source.",
+    },
+    "luskan": {
+        "status": "researched",
+        "paragraphs": [
+            "Luskan, the City of Sails, is a port at the mouth of the River Mirar on the Sword Coast North, built over the ruins of the older magical city of Illusk. The river splits it into a walled North Bank of warehouses, the Mirabar merchants' fortified compound and the navy's Whitesails Harbor, and a South Bank holding most residents and shops inside a semicircular towered wall, with the Market, the High Captains' Court and Dragon Beach, the original harbour. Five islands lie at the river mouth: Cutlass Island, once the site of the Host Tower of the Arcane, Closeguard Island (Ship Kurth), Blood Island (the garrison), and the uninhabited Fang and Harbor Arm Islands. The city counted about 16,000 people in 1370 DR and 14,173 in 1372 DR, but only about 4,000 in 1480 DR after the Spellplague; no later figure is recorded. Its people were mostly human, with drow present in the late 15th century DR.",
+            "Five High Captains, former pirate lords each leading a faction called a Ship, ruled formally while the wizards of the Host Tower held real power until Lord Brambleberry and Captain Deudermont destroyed the tower in 1376 DR; Luskan then became a free port. By 1480 DR it had no working government and gangs held territories. Some time after 1485 DR the five High Captains took up legal sea trade along the Sword Coast, defended the city and raided the island kingdoms to the west, while secretly serving Jarlaxle and Bregan D'aerthe; around 1489 DR the captains of Ships Rethnor, Suljack, Taerl and Baram were Hartouchen Rethnor, Dagmaer Suljack, Throa Taerl and Barri Baram, with Kurth's seat held by the disguised drow Beniago, the First Captain. The Host Tower, a haunted ruin for more than a century, was rebuilt in 1486 DR (1487 DR in one account) and the Arcane Brotherhood returned under the Archmage Arcane Cashaan, promising to stay out of politics.",
+            "Luskan was the gateway to the north: a market for ore from the Spine of the World and scrimshaw from the Ten Towns, a trader in Mirabar silver, Lurkwood timber and dwarven-made weapons, and in 1370 DR Mirabar's main shipyard. Southern partners met its ships on neutral water off Mintarn rather than be seen with Luskan. The 1370 DR market sold fresh food, firewood and trinkets by permit only. Weapons are listed as an export, and under Bregan D'aerthe Netherese artifacts went to Menzoberranzan; piracy, smuggling and quiet trades in drugs and slaves ran alongside. These describe trade character, not volumes or prices.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Luskan",
+            "url": "https://forgottenrealms.fandom.com/wiki/Luskan",
+            "accessed": "2026-10-25",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Category: Inhabitants of Luskan",
+            "url": "https://forgottenrealms.fandom.com/wiki/Category:Inhabitants_of_Luskan",
+            "accessed": "2026-10-25",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Hartouchen Rethnor",
+            "url": "https://forgottenrealms.fandom.com/wiki/Hartouchen_Rethnor",
+            "accessed": "2026-10-25",
+            "kind": "secondary",
+        }],
+        "era_note": "Geography, districts, the market, the military and the 16,000 figure come from Volo's Guide to the North (1993), pp. 111 to 130, circa 1370 DR; the 14,173 figure from the 3rd-edition Forgotten Realms Campaign Setting (2001), p. 176; the trade goods from A Reader's Guide to R. A. Salvatore's The Legend of Drizzt (2008), pp. 142 to 143, and Tangled Webs (1998), p. 27; the fall of the Host Tower from The Pirate King (2008); the 1480 DR anarchy and 4,000 figure from Shadowbane (2011); Bregan D'aerthe from Night of the Hunter (2014) and The Companions (2013); the legal sea trade after 1485 DR from Storm King's Thunder (2016), pp. 97 to 98; the circa 1489 DR captains, the rebuilt Host Tower (1486 DR) and Cashaan from the Sword Coast Adventurer's Guide (2015), pp. 17, 95 to 98; the weapons export from Icewind Dale II (2002, video game). All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no population is recorded after 1480 DR and no ruler or trade after about 1489 DR. The engine's 16,000 residents match the 1370 DR figure, not the late 15th century DR city.",
+    },
+    "nesme": {
+        "status": "researched",
+        "paragraphs": [
+            "Nesme is a walled trading town in the Savage Frontier beside the River Surbrin, with the Lurkwood to the north, Uthgardt lands to the north and west and the troll-haunted Evermoors to the south-east. It grew on the site of Thaurog's Keep, a half-orc bandit hold of 1269 DR, which Algraetha the Enchantress cleared of wyverns and refounded as Nesme in 1307 DR. Silverymoon lies about 165 miles away by barge, and a road runs south to Mornbryn's Shield in the Surbrin Hills. The town stands on the east bank, with a fortified bridge to a stronghold of the Riders of Nesme on the west bank.",
+            "A First Speaker ruled with a council dominated by merchants; in 1358 DR the town was a theocracy under Jygil Zelnathra, High Priestess of Waukeen, until an election made Tessarin Alaurun First Speaker. The economy rested on trade, with almost all east and west traffic passing through the town, and its profits went into defence, above all the mounted Riders of Nesme. Around 1371 DR it exported iron ore, steel weapons and armor and was known for its exceptional steel. The town held about 6,000 people, more in the trade season; 1372 DR figures of 6,140 and 1,966 conflict.",
+            "A troll army ruined Nesme in 1370 DR; Silverymoon paid for a larger town with a double wall over the winter of 1371 to 1372 DR. In 1484 DR the orcs of Many-Arrows, backed by drow and the white dragon Arauthator, took it under First Speaker Jolen Firth, leaving about 600 survivors as prisoners. The drow later abandoned it, and in 1485 DR the town was a ruin whose rebuilding was blocked by monsters from the Evermoors.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Nesme",
+            "url": "https://forgottenrealms.fandom.com/wiki/Nesm%C3%A9",
+            "accessed": "2026-10-26",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Category: Inhabitants of Nesme",
+            "url": "https://forgottenrealms.fandom.com/wiki/Category:Inhabitants_of_Nesm%C3%A9",
+            "accessed": "2026-10-26",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: River Surbrin",
+            "url": "https://forgottenrealms.fandom.com/wiki/River_Surbrin",
+            "accessed": "2026-10-26",
+            "kind": "secondary",
+        }],
+        "era_note": "The founding comes from The Grand History of the Realms (2007), pp. 128 to 134; the 1358 DR theocracy and election from The Savage Frontier (1988), pp. 31, 62; the wall, the 6,000 figure and the trade season from The North (1996), pp. 31 to 32; trade, defence and the 6,140 figure from The City of Nesme (web article, 2001); the 1,966 figure from Silver Marches (2002), p. 24; the exports, steel and 1370 DR sack from Dungeon 144 (2007), pp. 17 to 19; the rebuilding from The Orc King (2007); the 1484 DR fall from Rise of the King (2014); the 1485 DR ruins from Storm King's Thunder (2016), p. 101. All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no source read describes Nesme after 1485 DR, when it was in ruins, so the engine's living town of 1,800 residents is not supported for the planning year. A deep research pass on 2026-10-26 found no official source, novel or designer statement describing Nesme between 1486 and 1492 DR. The east bank and the fortified bridge come from the wiki's River Surbrin article, whose printed source was not traced.",
+    },
+    "jalanthar": {
+        "status": "researched",
+        "paragraphs": [
+            "Jalanthar is a hamlet on the River Rauvin in the Silver Marches, on the trail between Everlund and Sundabar. The trail runs up the north bank of the Rauvin from Everlund past Lhuvenhead (about forty miles upriver) to Jalanthar, then on through the Moon Pass to Rauvincross, where it crosses the river to Sundabar; a branch to Hilltop leaves it between Lhuvenhead and Jalanthar. The Staunt Pools, deep holes in the river said to hide a freshwater giant squid, lie to the west. The wiki's 1489 DR map describes it as a riverside village at the southern end of the Moon Pass.",
+            "Around 1372 DR the hamlet held 226 people, not counting soldiers: humans 89%, lightfoot halflings 6%, half-elves 4%. Most were trappers and hunters who lived by the fur trade and by hiring out as guides, and many had fought orcs and other raiders. A council of elders led by Elder Storn Crommarth ran the village. Its houses were half buried and turfed like green hills against fire, with strong doors against battering. After repeated orc raids it had moved from the south bank of the river to the foothills north of it; the old site, with the Crowing Cockatrice inn (burned three times and known for Jalanthar Amber), was abandoned, and a company of 50 Argent Legion soldiers under Badel Kilmander camped in the old ruins.",
+            "Jalanthar's leaders joined the 1369 DR conference in Silverymoon that led to the Silver Marches alliance, but when Luruar was formed the larger cities took away its vote, and it became a protectorate without signatory rights. Blue Bear Uthgardt raided it before 1369 DR, and the barlgura Scauuont terrorized it in 1374 DR. After the War of the Silver Marches a retired ranger of the Emerald Enclave, Quinn Nardrosz, headed the village council and Myles Heldruin kept the Crowing Cockatrice.",
+            "The earliest description (Volo's Guide to the North, 1993, set before the 1369 DR conference) puts just over 200 people on the south bank of the Rauvin about halfway between Everlund and Sundabar, in near-ruined buildings with stone foundations and fire-proofed turf roofs. Villagers hired out as guides into the wilderness for about 12 gp a day plus a deposit left with their kin, and the whole village avenged any guide who was cheated or harmed. The Crowing Cockatrice was then a ramshackle fieldstone roadhouse whose taproom served Jalanthar Amber, a very strong local cider, at 4 cp a tankard.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Jalanthar",
+            "url": "https://forgottenrealms.fandom.com/wiki/Jalanthar",
+            "accessed": "2026-10-27",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Trail between Everlund and Sundabar",
+            "url": "https://forgottenrealms.fandom.com/wiki/Trail_between_Everlund_and_Sundabar",
+            "accessed": "2026-10-27",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Quinn Nardrosz",
+            "url": "https://forgottenrealms.fandom.com/wiki/Quinn_Nardrosz",
+            "accessed": "2026-10-27",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Map: Western Faerun (1489 DR)",
+            "url": "https://forgottenrealms.fandom.com/wiki/Map:Western_Faer%C3%BBn_(1489_DR)",
+            "accessed": "2026-10-27",
+            "kind": "secondary",
+        }],
+        "era_note": "The description, population, races, economy, council, relocation, inn and Argent Legion company come from Silver Marches (2002), p. 19, circa 1372 DR; the trail from the Silver Marches map and Lhuvenhead's distance from p. 18; the Staunt Pools from p. 20; the 1369 DR conference and lost vote from pp. 99 to 100 and The North (1996), Cities and Civilization, p. 55, which names Speaker Ychram Peregyn of Jalanthar; the Blue Bear raids from Volo's Guide to the North (1993), p. 206; Scauuont from Lost Empires of Faerun (2005), p. 93; Quinn Nardrosz and Myles Heldruin from Storm King's Thunder (2016), p. 94, set after 1485 DR. All were cited by the Forgotten Realms Wiki and not independently consulted. A deep research pass on 2026-10-27 read Volo's Guide to the North, p. 206, in an unofficial online scan for the earliest description, the guide fees and Jalanthar Amber as a strong cider; the 3rd-edition Forgotten Realms Campaign Setting (2001), p. 172, calls it a small town. Not verified for 1492 DR: no population, trade or ruler is recorded after the late 1480s DR, and no source says how the fall of neighbouring Sundabar in the War of the Silver Marches or the end of Luruar in 1488 DR affected it. The engine's 600 residents are not sourced, and its stored position (beside Nesme, 29 miles away) does not match the sources, which put Jalanthar on the River Rauvin between Lhuvenhead and the Moon Pass, east of Everlund.",
     },
 }
