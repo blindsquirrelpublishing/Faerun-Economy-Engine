@@ -190,6 +190,9 @@ def update_settlement(id: str, **fields: Any) -> Settlement:
     for key, value in fields.items():
         if value is not None:
             setattr(existing, key, value)
+    if fields.get("x") is not None or fields.get("y") is not None:
+        # An explicit position becomes the new raw position that gets saved.
+        existing._base_xy = (existing.x, existing.y)
     if geometry_changed:
         world.rebuild()
     else:

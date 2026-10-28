@@ -794,4 +794,39 @@ LORE = {
         }],
         "era_note": "The description, population, races, economy, council, relocation, inn and Argent Legion company come from Silver Marches (2002), p. 19, circa 1372 DR; the trail from the Silver Marches map and Lhuvenhead's distance from p. 18; the Staunt Pools from p. 20; the 1369 DR conference and lost vote from pp. 99 to 100 and The North (1996), Cities and Civilization, p. 55, which names Speaker Ychram Peregyn of Jalanthar; the Blue Bear raids from Volo's Guide to the North (1993), p. 206; Scauuont from Lost Empires of Faerun (2005), p. 93; Quinn Nardrosz and Myles Heldruin from Storm King's Thunder (2016), p. 94, set after 1485 DR. All were cited by the Forgotten Realms Wiki and not independently consulted. A deep research pass on 2026-10-27 read Volo's Guide to the North, p. 206, in an unofficial online scan for the earliest description, the guide fees and Jalanthar Amber as a strong cider; the 3rd-edition Forgotten Realms Campaign Setting (2001), p. 172, calls it a small town. Not verified for 1492 DR: no population, trade or ruler is recorded after the late 1480s DR, and no source says how the fall of neighbouring Sundabar in the War of the Silver Marches or the end of Luruar in 1488 DR affected it. The engine's 600 residents are not sourced, and its stored position (beside Nesme, 29 miles away) does not match the sources, which put Jalanthar on the River Rauvin between Lhuvenhead and the Moon Pass, east of Everlund.",
     },
+    "everlund": {
+        "status": "researched",
+        "paragraphs": [
+            "Everlund is a walled city of merchant traders and caravan companies on the north bank of the River Rauvin in the Silver Marches, about fifty miles south to south-east of Silverymoon. Once a Rauvin crossing used by traders in the days of Delzoun, it was refounded in 515 DR when the folk of Ascalhorn refurbished an old dwarf-keep there (Besander's Blockhouse), and it grew from a fortified trading post and bridgehead into the second largest city of the Silver Marches and one of its most active trading communities. Two bridges, the Knightbridge to the west and the Dwarfbridge to the east, cross the Rauvin, and five gates (clockwise from the north: Silverymoon, Mountain, Upriver, Bridge and Downriver) open from dawn to dusk, with broad straight streets running like spokes to the centre. The Bell Market at the centre, named for the alarm bell beside the barracks, is its economic and social heart.",
+            "Everlund is the eastern end of the Evermoor Way, the main trade road from the south and west; a road runs north through the Everlund Pass to Silverymoon and a trail follows the Rauvin east to Sundabar. The Striding Giant Rapids block boats downstream, but the river is navigable about 170 miles upstream to Sundabar. Around 1372 DR the city exported amber, charcoal, furniture, furs, stone, syrup, timber and valuable ores (no ore or syrup is named), and imported ale, armor, cheese, clothing, fruit, grain, sugar, weapons and wine; the sweet strong wine evershimmer is made there too. The city hires mercenaries and adventurers to keep the Evermoor Way safe as far as Calling Horns, and caravans arriving after the gates close stay at inns outside the walls. Its people numbered about 12,000 in the 1350s and 1360s DR, 21,388 in 1372 DR (humans 48%, elves 21%, half-elves 14%, lightfoot halflings 9%, shield dwarves 7%) and about 23,000 in 1479 DR.",
+            "For about five centuries a Council of Six Elders has governed the city: the holders of its chief offices (High Captain of the army, High Priest of Corellon Larethian, Keeper of the Bridges, High Sorcerer, Master of the Guilds and an elected Speaker of the Town), led by a First Elder chosen by the others. High Captain Kayl Moorwalker was First Elder in 1372 DR. The Army of the Vale (over 1,300 foot, archers and cavalry in 1372 DR) is quartered in the Great Armory south of the river, and Moongleam Tower, a black stone keep of four joined towers on a knoll near the centre, is a Harper base. In the late 1480s or early 1490s DR the council, then High Captain Horix Zoar, Keeper of the Bridges Kythora Shen, High Sorcerer Vaeril Rhuidhen, Master of the Guilds Boldor Steelshield and Speaker Vatrice Stormwright, voted three to two to withdraw from the Lords' Alliance; the Zoar family had also bought Danivarr's House, one of the city's oldest inns.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Everlund",
+            "url": "https://forgottenrealms.fandom.com/wiki/Everlund",
+            "accessed": "2026-10-28",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Council of Elders",
+            "url": "https://forgottenrealms.fandom.com/wiki/Council_of_Elders",
+            "accessed": "2026-10-28",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Danivarr's House",
+            "url": "https://forgottenrealms.fandom.com/wiki/Danivarr%27s_House",
+            "accessed": "2026-10-28",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Army of the Vale",
+            "url": "https://forgottenrealms.fandom.com/wiki/Army_of_the_Vale",
+            "accessed": "2026-10-28",
+            "kind": "secondary",
+        }, {
+            "title": "Silver Marches (2002), Everlund web excerpt, fan-site copy at RealmsHelps",
+            "url": "https://www.realmshelps.net/faerun/everlund.shtml",
+            "accessed": "2026-10-28",
+            "kind": "primary",
+        }],
+        "era_note": "The founding comes from Lost Empires of Faerun (2005), p. 84; the gates, bridges, Bell Market, temples, river navigation, imports, exports, council and 1372 DR population and races from Silver Marches (2002), pp. 74 to 78 and the book's map; the Army of the Vale from Silver Marches, pp. 76, 89 and 90; the 1358 and 1366 DR populations from earlier 2nd-edition sources (Waterdeep and the North, The Savage Frontier, Volo's Guide to the North, The North); the 1479 DR population from the Forgotten Realms Campaign Guide (2008), p. 146; evershimmer from Volo's Guide to the North (1993), p. 68; the late 15th century council, the Lords' Alliance vote and Danivarr's House from Storm King's Thunder (2016), pp. 81 to 82. All were cited by the Forgotten Realms Wiki and not independently consulted, except that a deep research pass on 2026-10-28 read the Silver Marches web excerpt (2002) in a fan-site copy (realmshelps.net) and confirmed the population, races, trade lists, Council of Six Elders, gates and the tower's position; that excerpt lists no evershimmer, which the wiki takes from Volo's Guide to the North, p. 68. Not verified for 1492 DR: no population is recorded after 1479 DR, the vote to leave the Lords' Alliance is dated only to the late 1480s or early 1490s DR, the First Elder after 1485 DR is not named, and the 1372 DR trade lists and racial shares are not assumed to hold. The engine's 21,000 residents are close to the 1372 DR count but are not tied to a year.",
+    },
 }

@@ -584,4 +584,39 @@ SETTLEMENT_DEMOGRAPHICS = {
             "kind": "secondary",
         }],
     },
+    "everlund": {
+        "status": "quantified",
+        "reference_period": "As of 1372 DR (Silver Marches, 2002, pp. 74 to 78); not a 1492 DR census",
+        "scope": "City of Everlund, 21,388 residents in 1372 DR",
+        "groups": [
+            {"race": "Human", "share_pct": 48, "descriptor": "48% in 1372 DR"},
+            {"race": "Elf", "share_pct": 21, "descriptor": "21% in 1372 DR (subrace not stated)"},
+            {"race": "Half-elf", "share_pct": 14, "descriptor": "14% in 1372 DR"},
+            {"race": "Halfling", "share_pct": 9, "descriptor": "9% in 1372 DR",
+             "subgroups": [{"name": "Lightfoot", "share_pct": 100}]},
+            {"race": "Dwarf", "share_pct": 7, "descriptor": "7% in 1372 DR",
+             "subgroups": [{"name": "Shield", "share_pct": 100}]},
+            {"race": "Other", "share_pct": 1, "descriptor": "1% in 1372 DR"},
+        ],
+        "notes": [
+            "Storm King's Thunder (2016), pp. 81 to 82, as cited by the wiki, names human, sun elf, shield dwarf and half-orc residents in the late 15th century DR; it gives no proportions.",
+            "The same shares appear in the Silver Marches web excerpt (2002), read in a fan-site copy on 2026-10-28.",
+        ],
+        "era_note": (
+            "The table comes from the Everlund article's infobox on the Forgotten Realms Wiki, citing Volo's Guide to the North "
+            "(1993), pp. 165 to 167, and Silver Marches (2002), pp. 74 to 78; not independently consulted. Nothing gives the "
+            "city's makeup in 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Everlund",
+            "url": WIKI + "Everlund",
+            "accessed": "2026-10-28",
+            "kind": "secondary",
+        }, {
+            "title": "Silver Marches (2002), Everlund web excerpt, fan-site copy at RealmsHelps",
+            "url": "https://www.realmshelps.net/faerun/everlund.shtml",
+            "accessed": "2026-10-28",
+            "kind": "primary",
+        }],
+    },
 }

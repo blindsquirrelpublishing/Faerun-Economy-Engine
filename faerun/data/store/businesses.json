@@ -7790,5 +7790,84 @@
     "transport_equipment": {},
     "capacity_lb": 0,
     "capacity_ft3": 0.0
+  },
+  {
+    "id": "danivarrs_house_everlund",
+    "name": "Danivarr's House",
+    "headquarters": "everlund",
+    "locations": [
+      "everlund"
+    ],
+    "specialties": [
+      "luxury inn"
+    ],
+    "offers": {
+      "ale": "fine",
+      "bread": "fine",
+      "wine_common": "fine"
+    },
+    "price_modifier": 1.0,
+    "description": "High-class inn in a former noble's mansion, one of the oldest and largest inns in Everlund, joined to a neighbouring mansion by covered flying bridges (Volo's Guide to the North, p. 169). After the War of the Silver Marches it was bought by the Zoar family and run for them by the one-eyed half-orc Dral Thelev, watched by both the Harpers and the Zhentarim (Storm King's Thunder, p. 82, via the Forgotten Realms Wiki). Lodging is not modeled; the offers stand in for its table and are inferred.",
+    "ability_scores": {
+      "CAP": 10,
+      "OPS": 10,
+      "STA": 10,
+      "PLN": 10,
+      "CTR": 10,
+      "REP": 10
+    },
+    "skills": {},
+    "inventory": {
+      "everlund": {
+        "ale": 14,
+        "bread": 14,
+        "wine_common": 14
+      }
+    },
+    "services": [],
+    "roles": {},
+    "employees": {
+      "owners": 1,
+      "managers": 1,
+      "merchants": 3,
+      "warehouse_staff": 1
+    },
+    "employee_roster": [
+      {
+        "class": "Manager",
+        "level": 5,
+        "count": 1
+      },
+      {
+        "class": "Manager",
+        "level": 3,
+        "count": 1
+      },
+      {
+        "class": "Artisan",
+        "level": 2,
+        "count": 3
+      },
+      {
+        "class": "Laborer",
+        "level": 2,
+        "count": 1
+      }
+    ],
+    "location_addresses": {
+      "everlund": {
+        "street": "High Road, 787",
+        "district": "Trade Quarter",
+        "city": "Everlund",
+        "zip": "FA-69-787"
+      }
+    },
+    "location_mode": "fixed",
+    "itinerary": [],
+    "carrier_service_id": "",
+    "carrier_modes": [],
+    "transport_equipment": {},
+    "capacity_lb": 0,
+    "capacity_ft3": 0.0
   }
 ]

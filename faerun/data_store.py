@@ -97,6 +97,11 @@ def save_settlements(settlements: Iterable[Settlement]) -> None:
         row = asdict(s)
         row.pop("population_basis", None)
         row.pop("guilds", None)
+        # Live x/y carry the calibration warp and saved map edits; the store
+        # keeps the raw position those are applied to on every load.
+        base = getattr(s, "_base_xy", None)
+        if base is not None:
+            row["x"], row["y"] = base
         rows.append(row)
     _save_json("settlements", rows)
 
