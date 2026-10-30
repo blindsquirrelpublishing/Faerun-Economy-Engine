@@ -845,6 +845,7 @@ function drawPlaces(){} function drawPins(){calls.push(['pins']);} function draw
 function drawPlanarLegs(){calls.push(['legs']);} function drawLocationDraft(){}
 function drawPlanarItinerary(){}
 function drawPlanarRuler(){}
+function drawRegionBorders(){} function drawRegionHandles(){} function drawPlanarNetworkOverlay(){}
 """ + draw + """
 drawPlanar();
 assert.deepEqual(crops,[[0,0,1,1]]); assert(clipped); assert.equal(stack.length,0);
@@ -1580,6 +1581,8 @@ function strokePlanarLeg(){calls.push('highlight');}
 function drawPlanarItinerary(){if(state.planRoute && !legEditor.enabled)calls.push('highlight');}
 function drawLocationDraft(){}
 function drawPlanarRuler(){}
+function drawPlanarBoundaries(){} function drawRegionBorders(){} function drawRegionHandles(){}
+function drawPlanarNetworkOverlay(){}
 """ + draw + """
 state.planRoute={mapRoads:true,legs:[{points:[]}]};
 drawPlanar(); assert.deepEqual(calls,['legs','highlight','places','pins','junctions']); calls.length=0;

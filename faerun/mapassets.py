@@ -1209,6 +1209,10 @@ body[data-map-view="terrain"] .terrainlegend { bottom: 78px; }
 .leg-editor { display: none; }
 body[data-map-view="planar"] .leg-editor { display: grid; gap: 8px; border-top: 1px solid var(--cp-border); padding-top: 12px; }
 #leg-edit-tools:not([hidden]) { display: grid; gap: 10px; }
+#region-edit-tools:not([hidden]) { display: grid; gap: 10px; }
+#region-edit-tools label { display: grid; gap: 4px; }
+#region-edit-tools input, #region-edit-tools select { width: 100%; min-width: 0; box-sizing: border-box; }
+#region-edit-info:empty { display: none; }
 #leg-edit-tools label { display: grid; gap: 4px; }
 #leg-edit-tools input, #leg-edit-tools select { width: 100%; min-width: 0; box-sizing: border-box; }
 #leg-edit-tools input[type="checkbox"] { width: auto; justify-self: start; }
@@ -4676,7 +4680,7 @@ function syncLegEditor() {
   document.getElementById('leg-destination').textContent = endpoints ? legEndpointLabel(endpoints.destination) : '-';
   document.getElementById('leg-edit-tools').hidden = !legEditor.enabled;
   document.getElementById('leg-edit-enabled').checked = legEditor.enabled;
-  document.getElementById('leg-edit-enabled').disabled = !legEditor.ready || busy || !!(locationEditor && locationEditor.enabled);
+  document.getElementById('leg-edit-enabled').disabled = !legEditor.ready || busy || !!(locationEditor && locationEditor.enabled) || (typeof regionEditor !== 'undefined' && regionEditor.enabled);
   ['name', 'kind'].forEach(function (field) {
     var control = document.getElementById('leg-' + field);
     control.disabled = !draft || busy;
@@ -5814,6 +5818,7 @@ function drawPlanar() {
   }
   drawPlanarGrid(left, top, right, bottom);
   drawPlanarBoundaries(firstColumn, lastColumn, firstRow, lastRow);
+  drawRegionBorders();
   if (legEditor.enabled) {
     drawPlaces(); drawPins(); drawMapJunctions();
   }
@@ -5824,6 +5829,7 @@ function drawPlanar() {
     drawPlaces(); drawPins(); drawMapJunctions();
   }
   drawLocationDraft();
+  drawRegionHandles();
   ctx.restore();
   drawPlanarRuler();
 }
@@ -5939,6 +5945,8 @@ function endInteract() {
 }
 
 var locationEditor = {enabled: false, draft: null, placing: false, busy: false};
+var regionEditor = {enabled: false, draft: null, ring: 0, point: -1, drawing: false, drag: null,
+  dirty: false, busy: false, undo: [], visible: true};
 var PLACE_TYPES = {location: 'Location', city: 'City', village: 'Village', vale: 'Vale',
   town: 'Town', hamlet: 'Hamlet', fortress: 'Fortress',
   ruin: 'Ruins', site: 'Site', capital: 'Capital',
@@ -6079,8 +6087,8 @@ function syncLocationEditor() {
     document.getElementById('location-edit-' + name).value = draft ? draft[name] : '';
   });
   document.getElementById('location-edit-move').setAttribute('aria-pressed', String(locationEditor.placing));
-  document.getElementById('leg-edit-enabled').disabled = locationEditor.enabled || !legEditor.ready || legEditor.saving;
-  document.getElementById('location-edit-enabled').disabled = locationEditor.busy;
+  document.getElementById('leg-edit-enabled').disabled = locationEditor.enabled || !legEditor.ready || legEditor.saving || (typeof regionEditor !== 'undefined' && regionEditor.enabled);
+  document.getElementById('location-edit-enabled').disabled = locationEditor.busy || (typeof regionEditor !== 'undefined' && regionEditor.enabled);
 }
 
 function refreshLocationOptions() {
@@ -6269,7 +6277,582 @@ function wireLocationEditor() {
   syncLocationEditor();
 }
 
+// ---------------------------------------------------------------------------
+// region borders: drawn from /api/map, edited vertex by vertex
+// ---------------------------------------------------------------------------
+
+function regionBorderList() { return (state.map && state.map.regionBorders) || []; }
+
+var REGION_KINDS = ['island_nation', 'kingdom', 'empire', 'city_state_league', 'theocracy',
+  'magocracy', 'frontier', 'wilderness', 'other'];
+
+function regionColor(id) {
+  var hash = 0;
+  for (var index = 0; index < id.length; index++) { hash = (hash * 31 + id.charCodeAt(index)) % 360; }
+  return 'hsl(' + hash + ', 62%, 42%)';
+}
+
+function regionRings(region) {
+  var draft = regionEditor.draft;
+  return draft && draft.id === region.id ? draft.borders : region.borders;
+}
+
+function regionMargin(region) {
+  var draft = regionEditor.draft;
+  return draft && draft.id === region.id ? draft.seaMarginMiles : region.seaMarginMiles;
+}
+
+function regionPath(rings) {
+  ctx.beginPath();
+  rings.forEach(function (ring) {
+    if (ring.length < 2) { return; }
+    ring.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      if (!index) { ctx.moveTo(screen[0], screen[1]); } else { ctx.lineTo(screen[0], screen[1]); }
+    });
+    if (ring.length > 2) { ctx.closePath(); }
+  });
+}
+
+function drawRegionBorders() {
+  if (MAP_VIEW !== 'planar' || !state.map || !regionEditor.visible) { return; }
+  var scale = planarScale();
+  var shown = regionBorderList().slice();
+  var draft = regionEditor.draft;
+  if (draft && !shown.some(function (region) { return region.id === draft.id; })) {
+    shown.push({id: draft.id, name: draft.name, borders: draft.borders, borderNames: draft.borderNames, seaMarginMiles: draft.seaMarginMiles});
+  }
+  ctx.save();
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  shown.forEach(function (region) {
+    var rings = regionRings(region), margin = Number(regionMargin(region)) || 0;
+    if (!rings.some(function (ring) { return ring.length > 1; })) { return; }
+    var editing = draft && draft.id === region.id;
+    // The region being worked on stands out in orange with a thick glowing border;
+    // every other region steps back while a region is selected.
+    var color = editing ? '#ff6a00' : regionColor(region.id);
+    var dim = draft && !editing ? 0.4 : 1;
+    var territory = !editing && region.territory && region.territory.length ? region.territory : null;
+    if (territory) {
+      // Saved territory: land plus the sea margin, already smoothed and
+      // divided with neighbouring regions on the server.
+      regionPath(territory);
+      ctx.globalAlpha = 0.16 * dim; ctx.fillStyle = color; ctx.fill();
+      ctx.globalAlpha = 0.9 * dim; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.5; ctx.strokeStyle = color; ctx.stroke();
+      ctx.setLineDash([]);
+    } else if (margin > 0) {
+      // A round-joined stroke twice the margin wide is exactly the territory
+      // that lies within the margin of the shoreline.
+      regionPath(rings);
+      ctx.globalAlpha = editing ? 0.3 : 0.14 * dim; ctx.strokeStyle = color; ctx.lineWidth = margin * 2 * scale;
+      ctx.stroke();
+    }
+    regionPath(rings);
+    ctx.globalAlpha = editing ? 0.4 : 0.24 * dim; ctx.fillStyle = color; ctx.fill();
+    ctx.globalAlpha = dim;
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = editing ? 9 : 4; ctx.stroke();
+    if (editing) { ctx.shadowColor = 'rgba(255, 106, 0, 0.85)'; ctx.shadowBlur = 14; }
+    ctx.strokeStyle = color; ctx.lineWidth = editing ? 5 : 2; ctx.stroke();
+    ctx.shadowBlur = 0; ctx.shadowColor = 'transparent';
+    if (editing && rings[regionEditor.ring] && rings[regionEditor.ring].length > 1) {
+      // The polygon being edited gets a pale dashed line along the middle of the border.
+      regionPath([rings[regionEditor.ring]]);
+      ctx.setLineDash([9, 6]); ctx.strokeStyle = '#fff3b0'; ctx.lineWidth = 2; ctx.stroke(); ctx.setLineDash([]);
+    }
+    var names = regionPolygonNames(region);
+    var largest = rings.reduce(function (best, ring) { return ring.length > best.length ? ring : best; }, []);
+    function centreOf(ring) {
+      var xs = ring.map(function (p) { return p[0]; }), ys = ring.map(function (p) { return p[1]; });
+      return planarPoint((Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2,
+        (Math.min.apply(null, ys) + Math.max.apply(null, ys)) / 2);
+    }
+    ctx.textAlign = 'center';
+    rings.forEach(function (ring, index) {
+      if (ring.length < 3 || !names[index]) { return; }
+      var spot = centreOf(ring);
+      ctx.font = 'italic 11px sans-serif'; ctx.lineWidth = 3;
+      ctx.strokeStyle = '#ffffff'; ctx.strokeText(names[index], spot[0], spot[1] + (ring === largest ? 12 : 0));
+      ctx.fillStyle = '#162a20'; ctx.fillText(names[index], spot[0], spot[1] + (ring === largest ? 12 : 0));
+    });
+    if (largest.length > 2) {
+      var label = centreOf(largest);
+      ctx.font = 'bold 13px sans-serif'; ctx.lineWidth = 3;
+      ctx.strokeStyle = '#ffffff'; ctx.strokeText(region.name, label[0], label[1]);
+      ctx.fillStyle = color; ctx.fillText(region.name, label[0], label[1]);
+    }
+  });
+  ctx.restore();
+}
+
+function regionPolygonNames(region) {
+  var draft = regionEditor.draft;
+  return (draft && draft.id === region.id ? draft.borderNames : region.borderNames) || [];
+}
+
+function regionPolygonLabel(draft, index) {
+  return (draft.borderNames && draft.borderNames[index]) || 'Polygon ' + (index + 1);
+}
+
+function alignRegionNames(draft) {
+  draft.borderNames = draft.borderNames || [];
+  while (draft.borderNames.length < draft.borders.length) { draft.borderNames.push(''); }
+  draft.borderNames.length = draft.borders.length;
+}
+
+function drawRegionHandles() {
+  var draft = regionEditor.draft;
+  if (!regionEditor.enabled || !draft) { return; }
+  ctx.save();
+  draft.borders.forEach(function (ring, ringIndex) {
+    ring.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      var selected = ringIndex === regionEditor.ring && index === regionEditor.point;
+      ctx.beginPath(); ctx.arc(screen[0], screen[1], selected ? 7 : 5, 0, Math.PI * 2);
+      ctx.fillStyle = selected ? '#ffd23f' : (ringIndex === regionEditor.ring ? '#ffffff' : '#d9d9d9');
+      ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#162a20'; ctx.stroke();
+    });
+  });
+  ctx.restore();
+}
+
+function regionSnapshot() {
+  var draft = regionEditor.draft;
+  alignRegionNames(draft);
+  regionEditor.undo.push(JSON.stringify({borders: draft.borders, borderNames: draft.borderNames,
+    seaMarginMiles: draft.seaMarginMiles, ring: regionEditor.ring, point: regionEditor.point}));
+  if (regionEditor.undo.length > 60) { regionEditor.undo.shift(); }
+  regionEditor.dirty = true;
+}
+
+function regionLabels() {
+  var names = {};
+  regionBorderList().forEach(function (region) { names[region.name] = true; });
+  (state.map.settlements || []).forEach(function (item) { if (item.region && !item.mobile && !item.mapOnly) { names[item.region] = true; } });
+  return Object.keys(names).sort();
+}
+
+function regionMessage(text) { document.getElementById('region-edit-status').textContent = text || ''; }
+
+function syncRegionEditor() {
+  var draft = regionEditor.draft, busy = regionEditor.busy;
+  document.getElementById('region-edit-tools').hidden = !regionEditor.enabled;
+  document.getElementById('region-edit-enabled').checked = regionEditor.enabled;
+  document.getElementById('region-edit-enabled').disabled = busy || legEditor.enabled || locationEditor.enabled;
+  document.getElementById('region-borders-visible').checked = regionEditor.visible;
+  var ringSelect = document.getElementById('region-edit-ring');
+  ringSelect.replaceChildren();
+  if (draft) {
+    alignRegionNames(draft);
+    draft.borders.forEach(function (ring, index) {
+      ringSelect.add(new Option(regionPolygonLabel(draft, index) + ' (' + ring.length + ' points)', String(index)));
+    });
+    ringSelect.value = String(regionEditor.ring);
+  }
+  var ring = draft && draft.borders[regionEditor.ring];
+  var point = ring && ring[regionEditor.point];
+  var polygonName = document.getElementById('region-edit-polyname');
+  polygonName.value = ring ? draft.borderNames[regionEditor.ring] : '';
+  polygonName.disabled = busy || !ring;
+  document.getElementById('region-edit-x').value = point ? point[0] : '';
+  document.getElementById('region-edit-y').value = point ? point[1] : '';
+  document.getElementById('region-edit-margin').value = draft ? draft.seaMarginMiles : '';
+  document.getElementById('region-edit-kind').value = draft ? (draft.kind || 'other') : 'other';
+  document.getElementById('region-edit-kind').disabled = busy || !draft || !draft.isNew;
+  document.getElementById('region-edit-smooth-miles').disabled = busy || !draft;
+  var smoothable = !!ring && ring.length >= 3;
+  document.getElementById('region-edit-smooth').disabled = busy || !smoothable;
+  document.getElementById('region-edit-smooth-all').disabled = busy || !draft || !draft.borders.some(function (item) { return item.length >= 3; });
+  document.getElementById('region-edit-snap-miles').disabled = busy || !draft;
+  document.getElementById('region-edit-buffer-miles').disabled = busy || !draft;
+  document.getElementById('region-edit-coast').disabled = busy || !smoothable;
+  document.getElementById('region-edit-coast-all').disabled = document.getElementById('region-edit-smooth-all').disabled;
+  document.getElementById('region-edit-add').disabled = busy || regionEditor.dirty;
+  document.getElementById('region-edit-newname').disabled = busy || regionEditor.dirty;
+  ['ring', 'margin', 'newring', 'delring', 'undo', 'save', 'cancel'].forEach(function (name) {
+    document.getElementById('region-edit-' + name).disabled = busy || !draft;
+  });
+  document.getElementById('region-edit-x').disabled = busy || !point;
+  document.getElementById('region-edit-y').disabled = busy || !point;
+  document.getElementById('region-edit-delpoint').disabled = busy || !point;
+  document.getElementById('region-edit-undo').disabled = busy || !draft || !regionEditor.undo.length;
+  document.getElementById('region-edit-save').disabled = busy || !draft || !regionEditor.dirty;
+  document.getElementById('region-edit-delring').disabled = busy || !ring;
+  document.getElementById('region-edit-newring').textContent = regionEditor.drawing ? 'Finish polygon' : 'New polygon';
+  document.getElementById('region-edit-pick').disabled = busy || regionEditor.dirty;
+}
+
+function refreshRegionOptions() {
+  var select = document.getElementById('region-edit-pick');
+  var current = regionEditor.draft ? regionEditor.draft.name : '';
+  select.replaceChildren(new Option('Choose region', ''));
+  regionLabels().forEach(function (label) { select.add(new Option(label, label)); });
+  select.value = current;
+}
+
+function openRegionDraft(label) {
+  var saved = regionBorderList().find(function (region) { return region.name === label; });
+  regionEditor.draft = label ? {
+    id: saved ? saved.id : label, name: label, kind: saved ? saved.kind : 'other', isNew: false,
+    borders: JSON.parse(JSON.stringify(saved ? saved.borders : [])),
+    borderNames: saved && saved.borderNames ? saved.borderNames.slice() : [],
+    seaMarginMiles: saved ? saved.seaMarginMiles : 0,
+    summary: saved ? saved.summary : '', source: saved ? saved.source : '',
+  } : null;
+  regionEditor.ring = 0; regionEditor.point = -1; regionEditor.drawing = false;
+  regionEditor.undo = []; regionEditor.dirty = false;
+  document.getElementById('region-edit-info').textContent = regionEditor.draft ?
+    [regionEditor.draft.summary, regionEditor.draft.source ? 'Border source: ' + regionEditor.draft.source + '.' : ''].join(' ').trim() : '';
+  if (regionEditor.draft && !regionEditor.draft.borders.length) {
+    regionEditor.draft.borders.push([]); regionEditor.drawing = true;
+    regionMessage('No border yet. Click the map to place the first points.');
+  } else { regionMessage(''); }
+  syncRegionEditor(); invalidate();
+}
+
+function regionVertexAt(screenX, screenY) {
+  var draft = regionEditor.draft, best = null, limit = 11;
+  if (!draft) { return null; }
+  draft.borders.forEach(function (ring, ringIndex) {
+    ring.forEach(function (point, index) {
+      var screen = planarPoint(point[0], point[1]);
+      var distance = Math.hypot(screen[0] - screenX, screen[1] - screenY);
+      if (distance < limit) { best = {ring: ringIndex, point: index}; limit = distance; }
+    });
+  });
+  return best;
+}
+
+function regionPointerDown(event) {
+  if (MAP_VIEW !== 'planar' || !regionEditor.enabled || !regionEditor.draft || event.shiftKey || event.button !== 0) { return false; }
+  if (regionEditor.busy) { return true; }
+  var rect = canvas.getBoundingClientRect();
+  var hit = regionVertexAt(event.clientX - rect.left, event.clientY - rect.top);
+  if (!hit) { return false; }
+  regionEditor.ring = hit.ring; regionEditor.point = hit.point;
+  regionEditor.drag = {pointer: event.pointerId, remembered: false};
+  canvas.setPointerCapture(event.pointerId); syncRegionEditor(); invalidate();
+  return true;
+}
+
+function regionDragMove(event, rect) {
+  var drag = regionEditor.drag;
+  if (!drag || drag.pointer !== event.pointerId) { return false; }
+  if (!drag.remembered) { regionSnapshot(); drag.remembered = true; }
+  var world = legWorldPoint(event.clientX - rect.left, event.clientY - rect.top);
+  regionEditor.draft.borders[regionEditor.ring][regionEditor.point] = [Number(world[0].toFixed(2)), Number(world[1].toFixed(2))];
+  syncRegionEditor(); invalidate();
+  return true;
+}
+
+function regionEditorClick(screenX, screenY) {
+  var draft = regionEditor.draft;
+  if (regionEditor.busy) { return; }
+  var world = legWorldPoint(screenX, screenY);
+  if (!draft) {
+    var label = regionLabelAtWorld(world[0], world[1]);
+    if (label) { document.getElementById('region-edit-pick').value = label; openRegionDraft(label); }
+    return;
+  }
+  var hit = regionVertexAt(screenX, screenY);
+  if (hit) { regionEditor.ring = hit.ring; regionEditor.point = hit.point; syncRegionEditor(); invalidate(); return; }
+  var point = [Number(world[0].toFixed(2)), Number(world[1].toFixed(2))];
+  var ring = draft.borders[regionEditor.ring];
+  if (!ring) { draft.borders.push([]); regionEditor.ring = draft.borders.length - 1; ring = draft.borders[regionEditor.ring]; }
+  regionSnapshot();
+  if (regionEditor.drawing || ring.length < 3) {
+    ring.push(point); regionEditor.point = ring.length - 1;
+  } else {
+    // Outside drawing mode a click splits the nearest edge of the active polygon.
+    var bestEdge = 0, bestDistance = Infinity;
+    ring.forEach(function (start, index) {
+      var end = ring[(index + 1) % ring.length];
+      var a = planarPoint(start[0], start[1]), b = planarPoint(end[0], end[1]);
+      var dx = b[0] - a[0], dy = b[1] - a[1], length = dx * dx + dy * dy;
+      var fraction = length ? clamp(((screenX - a[0]) * dx + (screenY - a[1]) * dy) / length, 0, 1) : 0;
+      var distance = Math.hypot(screenX - (a[0] + fraction * dx), screenY - (a[1] + fraction * dy));
+      if (distance < bestDistance) { bestDistance = distance; bestEdge = index; }
+    });
+    ring.splice(bestEdge + 1, 0, point); regionEditor.point = bestEdge + 1;
+  }
+  regionMessage('');
+  syncRegionEditor(); invalidate();
+}
+
+function regionContainsWorld(region, x, y) {
+  var inside = false;
+  return regionRings(region).some(function (ring) {
+    inside = false;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      var a = ring[i], b = ring[j];
+      if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) { inside = !inside; }
+    }
+    return inside;
+  });
+}
+
+function regionLabelAtWorld(x, y) {
+  var found = regionBorderList().find(function (region) { return regionContainsWorld(region, x, y); });
+  return found ? found.name : '';
+}
+
+async function saveRegionDraft() {
+  var draft = regionEditor.draft;
+  if (!draft || regionEditor.busy) { return; }
+  var keep = draft.borders.map(function (ring, index) { return index; }).filter(function (index) { return draft.borders[index].length > 0; });
+  var rings = keep.map(function (index) { return draft.borders[index]; });
+  alignRegionNames(draft);
+  var ringNames = keep.map(function (index) { return draft.borderNames[index]; });
+  if (rings.some(function (ring) { return ring.length < 3; })) { regionMessage('Every polygon needs at least three points.'); return; }
+  regionEditor.busy = true; syncRegionEditor(); regionMessage('Saving...');
+  try {
+    var result = await postJson('/api/map-region', Object.assign({id: draft.id, borders: rings, borderNames: ringNames,
+      seaMarginMiles: Number(draft.seaMarginMiles) || 0, revision: state.map.regionRevision},
+      draft.isNew ? {create: true, kind: draft.kind} : {}));
+    state.map.regionBorders = result.regionBorders; state.map.regionRevision = result.regionRevision;
+    var saved = result.regionBorders.find(function (region) { return region.name === draft.name; });
+    if (saved) { draft.id = saved.id; draft.source = saved.source; draft.kind = saved.kind; }
+    draft.isNew = false;
+    draft.borders = rings; draft.borderNames = ringNames; regionEditor.ring = 0; regionEditor.point = -1; regionEditor.drawing = false;
+    regionEditor.dirty = false; regionEditor.undo = [];
+    refreshRegionOptions();
+    regionMessage('Border saved.');
+  } catch (error) { regionMessage(error.message); }
+  finally { regionEditor.busy = false; syncRegionEditor(); invalidate(); }
+}
+
+function setRegionEditing(enabled) {
+  if (!enabled && regionEditor.dirty && !window.confirm('Discard the unsaved region border?')) { return false; }
+  regionEditor.enabled = enabled;
+  if (!enabled) { openRegionDraft(''); }
+  refreshRegionOptions(); syncRegionEditor(); invalidate();
+  return true;
+}
+
+function wireRegionEditor() {
+  if (MAP_VIEW !== 'planar') { return; }
+  var panel = document.createElement('section');
+  panel.setAttribute('aria-label', 'Region borders');
+  panel.innerHTML = '<label><input type="checkbox" id="region-borders-visible" checked> Region borders</label>' +
+    '<label><input type="checkbox" id="region-edit-enabled"> Edit region borders</label>' +
+    '<div id="region-edit-tools" hidden><label>Region <select id="region-edit-pick"></select></label>' +
+    '<label>New region name <input id="region-edit-newname" maxlength="120" placeholder="e.g. Nelanther Isles"></label>' +
+    '<button type="button" id="region-edit-add">Add region</button>' +
+    '<label>Kind <select id="region-edit-kind">' + REGION_KINDS.map(function (kind) {
+      return '<option value="' + kind + '">' + kind.replace(/_/g, ' ') + '</option>';
+    }).join('') + '</select></label>' +
+    '<label>Polygon <select id="region-edit-ring"></select></label>' +
+    '<label>Polygon name <input id="region-edit-polyname" maxlength="80" placeholder="e.g. Alaron"></label>' +
+    '<button type="button" id="region-edit-newring">New polygon</button>' +
+    '<button type="button" id="region-edit-delring">Delete polygon</button>' +
+    '<label>Sea margin (mi) <input id="region-edit-margin" type="number" min="0" max="200" step="any"></label>' +
+    '<label>Smoothing (mi) <input id="region-edit-smooth-miles" type="number" min="1" max="50" step="any" value="10"></label>' +
+    '<button type="button" id="region-edit-smooth" title="Round off the stair-steps along the selected polygon">Smooth polygon</button>' +
+    '<button type="button" id="region-edit-smooth-all" title="Smooth every polygon of this region">Smooth all polygons</button>' +
+    '<label>Snap reach (mi) <input id="region-edit-snap-miles" type="number" min="0" max="40" step="any" value="6"></label>' +
+    '<label>Sea buffer (mi) <input id="region-edit-buffer-miles" type="number" min="0" max="100" step="any" value="10" title="Sea added around the coast when snapping; the region\'s separate sea margin is then set to 0"></label>' +
+    '<button type="button" id="region-edit-coast" title="Redraw the selected polygon along the mapped coastline">Snap polygon to coast</button>' +
+    '<button type="button" id="region-edit-coast-all" title="Redraw every polygon of this region along the coastline">Snap all to coast</button>' +
+    '<label>East (mi) <input id="region-edit-x" type="number" step="any"></label>' +
+    '<label>South (mi) <input id="region-edit-y" type="number" step="any"></label>' +
+    '<button type="button" id="region-edit-delpoint">Delete point</button>' +
+    '<button type="button" id="region-edit-undo">Undo</button>' +
+    '<button type="button" id="region-edit-save">Save border</button>' +
+    '<button type="button" id="region-edit-cancel">Cancel</button>' +
+    '<p id="region-edit-info"></p></div><p id="region-edit-status" role="status"></p>';
+  document.querySelector('.map-controls').appendChild(panel);
+  panel.style.maxWidth = '100%';
+  panel.querySelectorAll('input:not([type="checkbox"]), select').forEach(function (input) {
+    input.style.maxWidth = '100%'; input.style.boxSizing = 'border-box';
+  });
+  document.getElementById('region-borders-visible').addEventListener('change', function (event) {
+    regionEditor.visible = event.target.checked; invalidate();
+  });
+  document.getElementById('region-edit-enabled').addEventListener('change', function (event) {
+    if (event.target.checked && (!state.map || !mesh || legEditor.enabled || locationEditor.enabled || state.calibOn || state.terrainEditOn)) {
+      event.target.checked = false; return;
+    }
+    if (!setRegionEditing(event.target.checked)) { event.target.checked = true; }
+  });
+  document.getElementById('region-edit-pick').addEventListener('change', function (event) {
+    openRegionDraft(event.target.value);
+  });
+  document.getElementById('region-edit-ring').addEventListener('change', function (event) {
+    regionEditor.ring = Number(event.target.value); regionEditor.point = -1; regionEditor.drawing = false;
+    syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-newring').addEventListener('click', function () {
+    var draft = regionEditor.draft;
+    if (regionEditor.drawing) {
+      regionEditor.drawing = false;
+      var ring = draft.borders[regionEditor.ring];
+      if (ring && !ring.length) { draft.borders.splice(regionEditor.ring, 1); draft.borderNames.splice(regionEditor.ring, 1); regionEditor.ring = 0; }
+      regionMessage('');
+    } else {
+      regionSnapshot(); draft.borders.push([]); regionEditor.ring = draft.borders.length - 1;
+      regionEditor.point = -1; regionEditor.drawing = true;
+      regionMessage('Click the map to trace the new polygon, then choose Finish polygon.');
+    }
+    syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-delring').addEventListener('click', function () {
+    var draft = regionEditor.draft;
+    if (!draft || !draft.borders[regionEditor.ring]) { return; }
+    regionSnapshot(); draft.borders.splice(regionEditor.ring, 1); draft.borderNames.splice(regionEditor.ring, 1);
+    regionEditor.ring = 0; regionEditor.point = -1; regionEditor.drawing = false;
+    syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-delpoint').addEventListener('click', function () {
+    var ring = regionEditor.draft && regionEditor.draft.borders[regionEditor.ring];
+    if (!ring || regionEditor.point < 0) { return; }
+    regionSnapshot(); ring.splice(regionEditor.point, 1); regionEditor.point = -1;
+    syncRegionEditor(); invalidate();
+  });
+  ['x', 'y'].forEach(function (axis, axisIndex) {
+    document.getElementById('region-edit-' + axis).addEventListener('change', function (event) {
+      var ring = regionEditor.draft && regionEditor.draft.borders[regionEditor.ring];
+      var point = ring && ring[regionEditor.point];
+      if (!point || !Number.isFinite(event.target.valueAsNumber)) { syncRegionEditor(); return; }
+      regionSnapshot(); point[axisIndex] = event.target.valueAsNumber;
+      syncRegionEditor(); invalidate();
+    });
+  });
+  document.getElementById('region-edit-margin').addEventListener('change', function (event) {
+    var value = event.target.valueAsNumber;
+    if (!regionEditor.draft || !Number.isFinite(value) || value < 0 || value > 200) { syncRegionEditor(); return; }
+    regionSnapshot(); regionEditor.draft.seaMarginMiles = value; syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-add').addEventListener('click', function () {
+    var input = document.getElementById('region-edit-newname');
+    var name = input.value.trim();
+    if (!name) { regionMessage('Enter a name for the new region.'); return; }
+    if (regionLabels().some(function (label) { return label.toLowerCase() === name.toLowerCase(); })) {
+      regionMessage('A region called ' + name + ' already exists. Choose it from the list.'); return;
+    }
+    input.value = '';
+    document.getElementById('region-edit-pick').value = '';
+    regionEditor.draft = {id: name, name: name, kind: 'island_nation', isNew: true, borders: [[]], borderNames: [''],
+      seaMarginMiles: 10, summary: '', source: ''};
+    regionEditor.ring = 0; regionEditor.point = -1; regionEditor.drawing = true;
+    regionEditor.undo = []; regionEditor.dirty = true;
+    document.getElementById('region-edit-info').textContent = '';
+    regionMessage('Click the map to trace ' + name + '. Choose its kind below; the margin follows it.');
+    syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-kind').addEventListener('change', function (event) {
+    var draft = regionEditor.draft;
+    if (!draft || !draft.isNew) { return; }
+    draft.kind = event.target.value;
+    draft.seaMarginMiles = draft.kind === 'island_nation' ? 10 : 0;
+    syncRegionEditor(); invalidate();
+  });
+  async function smoothRegionRings(indices) {
+    var draft = regionEditor.draft;
+    if (!draft || regionEditor.busy) { return; }
+    var strength = document.getElementById('region-edit-smooth-miles').valueAsNumber;
+    if (!Number.isFinite(strength) || strength <= 0 || strength > 50) { regionMessage('Smoothing must be 1 to 50 miles.'); return; }
+    indices = indices.filter(function (index) { return draft.borders[index] && draft.borders[index].length >= 3; });
+    if (!indices.length) { regionMessage('A polygon needs at least three points before it can be smoothed.'); return; }
+    regionEditor.busy = true; syncRegionEditor(); regionMessage('Smoothing...');
+    try {
+      var result = await postJson('/api/map-region-smooth', {
+        borders: indices.map(function (index) { return draft.borders[index]; }), strengthMiles: strength});
+      var moved = result.reports.filter(function (report) { return report.changed; });
+      if (!moved.length) {
+        regionMessage('Nothing to smooth at ' + strength + ' miles. Try a larger value, or smaller if the outline would cross itself.');
+        return;
+      }
+      regionSnapshot();
+      indices.forEach(function (index, position) { draft.borders[index] = result.borders[position]; });
+      regionEditor.point = -1; regionEditor.drawing = false;
+      var first = result.reports[0];
+      regionMessage(indices.length === 1 ?
+        'Smoothed ' + regionPolygonLabel(draft, indices[0]) + ': ' + first.pointsBefore + ' to ' + first.pointsAfter +
+          ' points, outline moved up to ' + first.maxShiftMiles + ' mi. Undo restores it.' :
+        'Smoothed ' + moved.length + ' of ' + indices.length + ' polygons. Undo restores them.');
+    } catch (error) { regionMessage(error.message); }
+    finally { regionEditor.busy = false; syncRegionEditor(); invalidate(); }
+  }
+  document.getElementById('region-edit-smooth').addEventListener('click', function () {
+    smoothRegionRings([regionEditor.ring]);
+  });
+  document.getElementById('region-edit-smooth-all').addEventListener('click', function () {
+    smoothRegionRings(regionEditor.draft ? regionEditor.draft.borders.map(function (ring, index) { return index; }) : []);
+  });
+  async function fitRegionRings(indices) {
+    var draft = regionEditor.draft;
+    if (!draft || regionEditor.busy) { return; }
+    var snap = document.getElementById('region-edit-snap-miles').valueAsNumber;
+    if (!Number.isFinite(snap) || snap < 0 || snap > 40) { regionMessage('Snap reach must be 0 to 40 miles.'); return; }
+    var buffer = document.getElementById('region-edit-buffer-miles').valueAsNumber;
+    if (!Number.isFinite(buffer) || buffer < 0 || buffer > 100) { regionMessage('Sea buffer must be 0 to 100 miles.'); return; }
+    indices = indices.filter(function (index) { return draft.borders[index] && draft.borders[index].length >= 3; });
+    if (!indices.length) { regionMessage('A polygon needs at least three points before it can be snapped.'); return; }
+    regionEditor.busy = true; syncRegionEditor(); regionMessage('Fitting to the coastline...');
+    try {
+      var result = await postJson('/api/map-region-coast', {
+        borders: indices.map(function (index) { return draft.borders[index]; }), snapMiles: snap,
+        bufferMiles: buffer, regionId: draft.id});
+      var changed = result.reports.filter(function (report) { return report.changed; });
+      if (!changed.length) { regionMessage(result.reports[0].note || 'No coastline found to snap to.'); return; }
+      regionSnapshot();
+      for (var position = indices.length - 1; position >= 0; position--) {
+        if (!result.reports[position].changed) { continue; }
+        var index = indices[position], pieces = result.fitted[position];
+        var name = draft.borderNames[index];
+        draft.borders.splice.apply(draft.borders, [index, 1].concat(pieces));
+        draft.borderNames.splice.apply(draft.borderNames, [index, 1, name].concat(pieces.slice(1).map(function () { return ''; })));
+      }
+      regionEditor.ring = indices[0]; regionEditor.point = -1; regionEditor.drawing = false;
+      var margined = buffer > 0 && Number(draft.seaMarginMiles) > 0;
+      if (buffer > 0) { draft.seaMarginMiles = 0; }
+      var first = result.reports[0];
+      regionMessage((indices.length === 1 ?
+        regionPolygonLabel(draft, indices[0]) + ' now follows the coast with a ' + buffer + ' mile sea buffer: ' +
+          first.pointsBefore + ' to ' + first.pointsAfter + ' points in ' + first.polygons + ' polygon(s). ' :
+        'Snapped ' + changed.length + ' of ' + indices.length + ' polygons to the coast with a ' + buffer + ' mile sea buffer. ') +
+        (margined ? 'The separate sea margin is now 0 so the buffer is not counted twice. ' : '') + 'Undo restores it.');
+    } catch (error) { regionMessage(error.message); }
+    finally { regionEditor.busy = false; syncRegionEditor(); invalidate(); }
+  }
+  document.getElementById('region-edit-coast').addEventListener('click', function () {
+    fitRegionRings([regionEditor.ring]);
+  });
+  document.getElementById('region-edit-coast-all').addEventListener('click', function () {
+    fitRegionRings(regionEditor.draft ? regionEditor.draft.borders.map(function (ring, index) { return index; }) : []);
+  });
+  document.getElementById('region-edit-polyname').addEventListener('change', function (event) {
+    var draft = regionEditor.draft;
+    if (!draft || !draft.borders[regionEditor.ring]) { return; }
+    var name = event.target.value.replace(/\s+/g, ' ').trim();
+    var clash = draft.borderNames.some(function (other, index) {
+      return index !== regionEditor.ring && name && other.toLowerCase() === name.toLowerCase();
+    });
+    if (clash) { regionMessage('Another polygon in this region is already called ' + name + '.'); syncRegionEditor(); return; }
+    regionSnapshot(); draft.borderNames[regionEditor.ring] = name; regionMessage('');
+    syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-undo').addEventListener('click', function () {
+    var last = regionEditor.undo.pop();
+    if (!last || !regionEditor.draft) { return; }
+    var snapshot = JSON.parse(last);
+    regionEditor.draft.borders = snapshot.borders; regionEditor.draft.seaMarginMiles = snapshot.seaMarginMiles;
+    regionEditor.draft.borderNames = snapshot.borderNames || [];
+    regionEditor.ring = Math.min(snapshot.ring, Math.max(0, snapshot.borders.length - 1));
+    regionEditor.point = -1; regionEditor.drawing = false;
+    regionEditor.dirty = regionEditor.undo.length > 0;
+    syncRegionEditor(); invalidate();
+  });
+  document.getElementById('region-edit-save').addEventListener('click', saveRegionDraft);
+  document.getElementById('region-edit-cancel').addEventListener('click', function () {
+    if (regionEditor.dirty && !window.confirm('Discard the unsaved region border?')) { return; }
+    document.getElementById('region-edit-pick').value = '';
+    openRegionDraft('');
+  });
+  syncRegionEditor();
+}
+
 canvas.addEventListener('pointerdown', function (ev) {
+  if (regionPointerDown(ev)) { return; }
   if (legPointerDown(ev)) { return; }
   canvas.setPointerCapture(ev.pointerId);
   drag = {
@@ -6283,6 +6866,7 @@ canvas.addEventListener('pointerdown', function (ev) {
 
 canvas.addEventListener('pointermove', function (ev) {
   var rect = canvas.getBoundingClientRect();
+  if (regionDragMove(ev, rect)) { return; }
   if (legEditor.drag && legEditor.drag.pointer === ev.pointerId) {
     if (!legEditor.drag.remembered) { rememberLeg(); legEditor.drag.remembered = true; }
     var target = snappedLegPoint(ev.clientX - rect.left, ev.clientY - rect.top, ev.altKey);
@@ -6337,6 +6921,7 @@ canvas.addEventListener('pointermove', function (ev) {
 });
 
 function endDrag(ev) {
+  if (regionEditor.drag) { regionEditor.drag = null; syncRegionEditor(); return; }
   if (legEditor.drag) { legEditor.drag = null; syncLegEditor(); return; }
   if (!drag) { return; }
   canvas.classList.remove('dragging');
@@ -6344,6 +6929,9 @@ function endDrag(ev) {
   if (drag.moved < 5 && !drag.pan) {
     var mx = ev.clientX - rect.left;
     var my = ev.clientY - rect.top;
+    if (MAP_VIEW === 'planar' && regionEditor.enabled) {
+      regionEditorClick(mx, my); drag = null; endInteract(); return;
+    }
     if (MAP_VIEW === 'planar' && locationEditor.enabled) {
       locationEditorClick(mx, my); drag = null; endInteract(); return;
     }
@@ -6395,6 +6983,7 @@ function endDrag(ev) {
 
 canvas.addEventListener('pointerup', endDrag);
 canvas.addEventListener('pointercancel', function () {
+  regionEditor.drag = null;
   legEditor.drag = null;
   drag = null;
   canvas.classList.remove('dragging');
@@ -8753,7 +9342,8 @@ function wireControls() {
 
 var mapRefreshBusy = false;
 function mapHasDraft() {
-  return legEditor.dirty || legEditor.saving || !!locationEditor.draft || locationEditor.busy || state.calibDirty;
+  return legEditor.dirty || legEditor.saving || !!locationEditor.draft || locationEditor.busy || state.calibDirty ||
+    (typeof regionEditor !== 'undefined' && (regionEditor.dirty || regionEditor.busy));
 }
 
 async function refreshSharedMap() {
@@ -8791,6 +9381,7 @@ async function start() {
   wireRouteAnimation();
   wireLegEditor();
   wireLocationEditor();
+  wireRegionEditor();
   window.setInterval(function () { if (!document.hidden) { refreshSharedMap(); } }, 5000);
   window.addEventListener('focus', refreshSharedMap);
   document.getElementById('planar-radius').addEventListener('change', function (event) {

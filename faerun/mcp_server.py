@@ -282,17 +282,80 @@ def get_commodity_sources(commodity: str, limit: int = 30) -> Dict[str, Any]:
 
 @mcp.tool()
 def list_regions() -> Dict[str, Any]:
-    """Regions of the Realms covered by the engine, with market counts."""
-    out = []
-    for region in world().regions:
-        members = [s for s in world().settlements.values() if s.region == region]
-        out.append({
-            "region": region,
-            "markets": len(members),
-            "population": sum(s.population for s in members),
-            "settlements": sorted(s.name for s in members),
-        })
+    """Regions of the Realms covered by the engine, with market counts.
+
+    Each row carries the saved region profile (kind, trade dependence, exports,
+    imports, border and sea margin) when one exists, else `profile: null`.
+    """
+    from .regions import region_rows
+
+    out = region_rows(world())
     return {"count": len(out), "regions": out}
+
+
+@mcp.tool()
+def get_region(region: str) -> Dict[str, Any]:
+    """One region's economic profile, border size and member markets.
+
+    `inside_border_not_labelled` lists markets whose position falls inside the
+    border (or its sea margin) without carrying the region label;
+    `labelled_outside_border` lists labelled markets that sit outside it.
+    """
+    from .regions import describe_region
+
+    try:
+        return describe_region(world(), region)
+    except KeyError as exc:
+        return _fail(exc)
+
+
+@mcp.tool()
+def update_region(
+    region: str, name: Optional[str] = None, kind: Optional[str] = None,
+    summary: Optional[str] = None, trade_dependence: Optional[str] = None,
+    industries: Optional[Dict[str, float]] = None, exports: Optional[List[str]] = None,
+    imports: Optional[List[str]] = None, wealth: Optional[float] = None,
+    tariff: Optional[float] = None, ruler: Optional[str] = None, notes: Optional[str] = None,
+    landmasses: Optional[List[str]] = None, aliases: Optional[List[str]] = None,
+    sea_margin_miles: Optional[float] = None,
+    borders: Optional[List[List[List[float]]]] = None,
+    border_names: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    """Create or update a region profile. Omitted fields are unchanged.
+
+    `region` is an id or name; an unknown one creates a new region. `kind` is
+    island_nation, kingdom, empire, city_state_league, theocracy, magocracy,
+    frontier, wilderness or other. `trade_dependence` is self_sufficient, mixed,
+    sea_dependent, import_dependent or isolationist. `exports`/`imports` are
+    commodity ids. `borders` is a list of polygons, each a list of [x, y]
+    world-mile points tracing the shoreline; `border_names` gives one optional
+    name per polygon (for example each island of an archipelago). An island
+    nation also claims `sea_margin_miles` of sea beyond the shore (10 by
+    default). The profile is descriptive: it does not change prices.
+    """
+    from .regions import RegionError, upsert_region
+
+    values = {key: value for key, value in dict(
+        name=name, kind=kind, summary=summary, trade_dependence=trade_dependence,
+        industries=industries, exports=exports, imports=imports, wealth=wealth,
+        tariff=tariff, ruler=ruler, notes=notes, landmasses=landmasses, aliases=aliases,
+        sea_margin_miles=sea_margin_miles, borders=borders, border_names=border_names,
+    ).items() if value is not None}
+    if borders is not None:
+        values["border_source"] = "manual"
+    try:
+        saved = upsert_region(region, values, commodities=world().commodities)
+    except RegionError as exc:
+        return _fail(exc)
+    return {"saved": saved.to_row()}
+
+
+@mcp.tool()
+def delete_region(region: str) -> Dict[str, Any]:
+    """Remove a region profile and its border. Settlement labels are untouched."""
+    from .regions import delete_region as _delete
+
+    return {"removed": _delete(region), "region": region}
 
 
 # ---------------------------------------------------------------------------

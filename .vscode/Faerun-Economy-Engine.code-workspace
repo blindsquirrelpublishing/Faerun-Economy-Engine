@@ -23,6 +23,9 @@
 		},
 		{
 			"path": "../../ADNDWIKI"
+		},
+		{
+			"path": "../../faerun-cartographers"
 		}
 	],
 	"settings": {}

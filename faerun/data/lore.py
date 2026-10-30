@@ -829,4 +829,69 @@ LORE = {
         }],
         "era_note": "The founding comes from Lost Empires of Faerun (2005), p. 84; the gates, bridges, Bell Market, temples, river navigation, imports, exports, council and 1372 DR population and races from Silver Marches (2002), pp. 74 to 78 and the book's map; the Army of the Vale from Silver Marches, pp. 76, 89 and 90; the 1358 and 1366 DR populations from earlier 2nd-edition sources (Waterdeep and the North, The Savage Frontier, Volo's Guide to the North, The North); the 1479 DR population from the Forgotten Realms Campaign Guide (2008), p. 146; evershimmer from Volo's Guide to the North (1993), p. 68; the late 15th century council, the Lords' Alliance vote and Danivarr's House from Storm King's Thunder (2016), pp. 81 to 82. All were cited by the Forgotten Realms Wiki and not independently consulted, except that a deep research pass on 2026-10-28 read the Silver Marches web excerpt (2002) in a fan-site copy (realmshelps.net) and confirmed the population, races, trade lists, Council of Six Elders, gates and the tower's position; that excerpt lists no evershimmer, which the wiki takes from Volo's Guide to the North, p. 68. Not verified for 1492 DR: no population is recorded after 1479 DR, the vote to leave the Lords' Alliance is dated only to the late 1480s or early 1490s DR, the First Elder after 1485 DR is not named, and the 1372 DR trade lists and racial shares are not assumed to hold. The engine's 21,000 residents are close to the 1372 DR count but are not tied to a year.",
     },
+    "mirabar": {
+        "status": "researched",
+        "paragraphs": [
+            "Mirabar is a walled mining city on a knoll on the north bank of the River Mirar in the Sword Coast North, below the Spine of the World, and was called the richest city north of Waterdeep in 1368 DR. Prince Ereskas Torlath of Amn built it in 626 DR on the foundations of an older dwarven tower; goblins sacked it in 753 DR, and from 812 DR its trade with Illusk and Stornanter made all three prosperous. Its surface is squat stone buildings and a few towers behind very thick, sloping walls that are iced in winter. Beneath it lies the Undercity, the dwarves' mining and forging city, reached by a guarded stair and lift from Undercity Square; open pits and rock heaps surround the city, and guarded roads run to its main mines in the Spine of the World, which yield many metals and gems.",
+            "Shield dwarves work the mines and forges and make metal goods for export in the region and beyond, while humans help with the mining, carry the ore to market and defend the city. Cut stone and metal go down the Mirar to Luskan on magically floating barges at high cost and are shipped south; buildings in Amn, Baldur's Gate and Waterdeep use Mirabar stone. Silver from Mirabar is traded through Luskan, where in 1370 DR Mirabar's trading companies (Anvilfist Banner, the Golden Hand and Thalorin's Manymetals) held a whole district and Luskan built Mirabar's ships. Ground minerals and gems colour a brightly glazed local pottery, worthless stone is crushed to surface the roads, and in 1491 DR the city made its own trade bars, one-foot iron spindles worth 5 gp. The reopening of Mithral Hall took customers from Mirabar's mines in the 1370s DR. The city numbered about 23,000 in 1357 and 1370 DR (23,700 with 4,100 dwarves in 1358 DR) and 10,307 in 1372 DR.",
+            "A hereditary marchion holds nominal rule and acts as chief justice, but real power lies with the Council of Sparkling Stones, an elected council of dwarves and humans (42 members in 1368 DR) that meets each autumn to set production quotas and trade agreements. Marchion Elastul Raurym ruled around 1368 to 1370 DR, with the sceptrana Shoudra Stargleam holding authority over trade from 1367 DR; after 1485 DR Marchion Selin Ramur handled only foreign policy and was a key member of the Lords' Alliance. The Axe of Mirabar, about 2,000 soldiers including 500 dwarves in 1370 DR, guards the city and keeps the mines clear of monsters, and mapping the city was forbidden to keep information from Luskan. Mirabarran dwarves helped reseal the primordial beneath Gauntlgrym in 1462 DR, and around 1486 DR (date inferred) Mirabar sent about a thousand dwarf soldiers to join Bruenor's army from Mithral Hall, a reversal of the 1370s DR rivalry.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Mirabar",
+            "url": "https://forgottenrealms.fandom.com/wiki/Mirabar",
+            "accessed": "2026-10-29",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Council of Sparkling Stones",
+            "url": "https://forgottenrealms.fandom.com/wiki/Council_of_Sparkling_Stones",
+            "accessed": "2026-10-29",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Axe of Mirabar",
+            "url": "https://forgottenrealms.fandom.com/wiki/Axe_of_Mirabar",
+            "accessed": "2026-10-29",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Selin Ramur",
+            "url": "https://forgottenrealms.fandom.com/wiki/Selin_Ramur",
+            "accessed": "2026-10-29",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Luskan (silver trade, Mirabar District)",
+            "url": "https://forgottenrealms.fandom.com/wiki/Luskan",
+            "accessed": "2026-10-25",
+            "kind": "secondary",
+        }],
+        "era_note": "The site, mines, walls, council, stone barges, Luskan district and laws come from Volo's Guide to the North (1993), pp. 111, 115 and 151 to 154; the Undercity, dwarven numbers, Axe of Mirabar and Mithral Hall rivalry from The Thousand Orcs (2002); the populations from Waterdeep and the North (1987), p. 8 (1357 DR), Dwarves Deep (1990), p. 61 (1358 DR), The North (1996), p. 27 (1370 DR) and the Forgotten Realms Campaign Setting (2001), p. 176 (1372 DR); the founding and early history from The Grand History of the Realms (2007); the silver trade from A Reader's Guide to R.A. Salvatore's The Legend of Drizzt (2008), pp. 142 to 143, and Tangled Webs (1998), p. 27; Selin Ramur from Storm King's Thunder (2016), p. 98; the Gauntlgrym episode from the novel Gauntlgrym (2010, via Wikipedia) and the soldiers for Bruenor from the novel Archmage (2015, via the wiki), both found in a deep research pass on 2026-10-29; the trade bars from Princes of the Apocalypse (2015), p. 159; the glazed pottery from the video game Baldur's Gate III. All were cited by the Forgotten Realms Wiki and not independently consulted. Not verified for 1492 DR: no population is recorded after 1372 DR, Selin Ramur is dated only to after 1485 DR, the trade bars are the latest economic detail (1491 DR), and the 14th century DR trade companies, council and production pattern are not assumed to hold. The engine's 19,000 residents match no sourced figure.",
+    },
+    "silverymoon": {
+        "status": "researched",
+        "paragraphs": [
+            "Silverymoon, the Gem of the North, is the largest city of the Interior North and the leading city of the Silver Marches, built on a site sacred to Mielikki and Lurue where a bend of the River Rauvin splits it in two. The older Northbank is a walled half circle with three gates (the Moorgate to the west, Hunter's Gate to the north and the Sundabar Gate to the east), the Market running from the wall to the Docks, and the High Palace, most temples and noble houses on its eastern side. The Southbank, reached by the magical Moonbridge (raised in 843 DR, invisible except in moonlight and able to be dispelled to let tall masts pass), began as a caravan and warehouse quarter and grew nearly as large, holding most schools of the Conclave of Silverymoon and the Blacklar Gate and Mulgate. The city numbered about 26,000 in 1357 and 1366 DR, 29,990 in the late 1350s DR (4,200 of them dwarves), 37,073 in 1372 DR and about 40,000 in 1479 DR.",
+            "Its economy rests on the arts and learning: music schools, magical study and the humbler craft of forestry are its main industries. Its exports are books, paper, inks, herbs, glass and glassware, furs, timber, unnamed valuable ores and Silverymoon Blue, a blue-tinted white wine fashionable in Ravens Bluff in the late 14th century DR; it imports food (especially grain and livestock), armor, weapons, footwear, textiles and clothing. Much overland trade comes from Sundabar by the Silver Road (about 165 miles), carrying the wealth of Citadel Adbar, while Everlund's folk dominated the short haul south to Yartar on the Evermoor Way (Everlund about 50 miles, Yartar 320, Waterdeep about 600). Small barges run down the Rauvin to Nesme (about 165 miles) and beyond. Named shops of the 14th century DR include Theldymir's Crystal (fine glass and lenses), Flamebar Canvas (flame silk sails for local barges), Mornbright's Dyes, Lyndal's Ropes and Cables, Dornsar Leathers and the Blue Bottle winery, and the city mints its own moon coin.",
+            "High Mages ruled the city from Ecamane Truesilver's election in 637 DR; Alustriel Silverhand ruled from 1235 to 1369 DR, then gave the office to Taern Hornblade and in 1371 DR became High Lady of the new Confederation of the Silver Marches. The Knights in Silver (704 strong under Mazillor Shatterstave in 1372 DR) patrol about 50 miles around the city, and the Spellguard (32 in 1372 DR) guards it by magic. The Spellplague broke the city's mythal, which later returned dormant in the Moonbridge. Silverymoon fought in the War of the Silver Marches in 1484 to 1485 DR, but its weak help to Sundabar hurt its reputation, and the League of the Silver Marches, already left by Citadel Adbar, Citadel Felbarr and Mithral Hall by 1479 DR, disbanded in 1488 DR. By 1489 DR Taern had stepped down and Methrammar Aerasume, Alustriel's half-elf son and former High Marshal of the Argent Legion, ruled as Lord of Silverymoon, while Taern still spoke for the city at the Council of Waterdeep and in the Lords' Alliance because Methrammar was too blunt a diplomat. No source names a city council.",
+        ],
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Silverymoon",
+            "url": "https://forgottenrealms.fandom.com/wiki/Silverymoon",
+            "accessed": "2026-10-30",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Map:Silverymoon 15th century DR (interactive map)",
+            "url": "https://forgottenrealms.fandom.com/wiki/Map:Silverymoon_15th_century_DR",
+            "accessed": "2026-10-30",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Methrammar Aerasume",
+            "url": "https://forgottenrealms.fandom.com/wiki/Methrammar_Aerasum%C3%A9",
+            "accessed": "2026-10-30",
+            "kind": "secondary",
+        }, {
+            "title": "Forgotten Realms Wiki: Luruar (League of the Silver Marches)",
+            "url": "https://forgottenrealms.fandom.com/wiki/Luruar",
+            "accessed": "2026-10-30",
+            "kind": "secondary",
+        }],
+        "era_note": "The layout, gates and Docks come from Volo's Guide to the North (1993), pp. 170 to 173, Silver Marches (2002), pp. 54 to 63, and The North: Guide to the Savage Frontier (1996), pp. 45 to 55; the trade text, imports and exports from Silver Marches and The North; Silverymoon Blue from the RPGA Living City adventure Before Its Time (1999), p. 25; the populations from Waterdeep and the North (1987), p. 9, Dwarves Deep (1990), p. 61, Volo's Guide to the North, p. 170, Silver Marches, p. 54 (1372 DR) and the Forgotten Realms Campaign Guide (2008), p. 147 (1479 DR); the Spellplague from the Campaign Guide, p. 53; the war, the 1488 DR dissolution of the League, Taern and Methrammar from Vengeance of the Iron Dwarf (2015), the Forgotten Realms Campaign Guide, p. 146, the Sword Coast Adventurer's Guide (2015), pp. 17, 18 and 54, Storm King's Thunder (2016), p. 108, and The Rise of Tiamat (2014), p. 18. All were cited by the Forgotten Realms Wiki and not independently consulted; a deep research pass on 2026-10-30 found no population after 1479 DR, no ruler after 1489 DR and no named ore or 1490s DR business. Not verified for 1492 DR: no population is recorded after 1479 DR, Methrammar is dated only to 1489 DR, and the 14th century DR trade goods, shops and military strengths are not assumed to hold. The engine's 37,000 residents match the 1372 DR figure, not the 1479 DR one.",
+    },
 }

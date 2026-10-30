@@ -1514,7 +1514,8 @@ Global flags work on every subcommand:
 | `faerun trade Mithral Hall` | what a market exports and imports |
 | `faerun settlements --region Amn` | list markets |
 | `faerun commodities --category gem` | list goods |
-| `faerun regions` | regions and their populations |
+| `faerun regions` | regions, populations, kind and border status |
+| `faerun region NAME` | one region's profile, border and member markets |
 | `faerun events` | active events and available templates |
 | `faerun chronicle` | the standing history, in full or for one place |
 | `faerun timeline Neverwinter` | a basket priced through all seven years |
@@ -1656,8 +1657,72 @@ location editing off (cancel any selected route-leg draft first).
 Its panel offers **Rename junction** and **Delete junction**. Deletion asks
 for confirmation and removes only the named junction record, preserving
 connected roads, their names, and every waypoint. Save or cancel unsaved map
-edits before deleting. Location editing and route-leg editing cannot be
-active together.
+edits before deleting. Location editing and route-leg editing cannot be active together.
+
+### Regions and nations
+
+A settlement's `region` is only a label. `faerun/data/store/regions.json` gives
+each label an optional record: `kind` (island nation, kingdom, magocracy, ...),
+`trade_dependence`, a summary, `industries`, `exports` and `imports` (commodity
+ids), optional `wealth`/`tariff` notes, and a **border**: one or more polygons in
+the same world-mile frame as settlements and route legs. The profile is
+descriptive and does not change prices.
+
+Island nations claim sea as well as land. Draw the polygon along the shoreline;
+`sea_margin_miles` (10 by default for `island_nation`) widens the territory out
+from it. A point is in the region when it is inside a polygon or within the
+margin of one. On the map the margin is drawn as a pale halo around the border.
+
+- `faerun regions` lists every label with its kind and whether it has a border;
+  `faerun region Lantan` shows the profile, border area and member markets, and
+  names markets inside the border that lack the label, or labelled markets that
+  fall outside it.
+- MCP: `list_regions`, `get_region`, `update_region` (create or edit a profile,
+  or replace `borders`) and `delete_region`.
+- Web: `GET /api/regions[?name=...]`; `/api/map` also carries `regionBorders`
+  (land polygons plus each region's territory). `POST /api/map-region` saves a
+  border (or creates a region with `create`), and `POST /api/map-region-smooth`
+  returns smoothed polygons without saving; `POST /api/map-region-coast` returns
+  the same polygons fitted to the coastline, also without saving.
+- Map: **Region borders** toggles the overlay. The solid outline is the land
+  polygon; the dashed outline is the territory, meaning land plus the sea
+  margin, smoothed. Where two island realms' margins meet, the contested sea is
+  split along the line equidistant from the two coasts so the territories butt
+  up instead of overlapping, and land is never taken by a neighbour's margin.
+  `faerun region` reports the territory area, and `regions.region_at(x, y)`
+  applies the same rule to a single point.
+- In the 2D map, **Edit region borders** lets you pick a region (or click inside
+  one), drag vertices, click to split the nearest edge, **New polygon** to trace
+  another island (click points, then **Finish polygon**), type exact east/south
+  values, change the sea margin, **Undo**, and **Save border**.
+  **Smooth polygon** (or **Smooth all polygons**) rounds off the stair-steps along
+  the polygon over the chosen number of miles, keeping its area, and reports how far
+  the outline moved.
+  **Snap polygon to coast** (or **Snap all to coast**) redraws a polygon along the
+  coastline the map shows, using the one-mile terrain survey: sea inside the
+  polygon is cut away, coastal land within the snap reach (6 miles by default) is
+  taken in, land joined to the polygon only is kept so a neighbouring island is
+  never absorbed, and inland edges stay where you drew them. A rough polygon that
+  covers several islands comes back as one polygon per island. **Sea buffer (mi)**
+  (10 by default) pushes the fitted outline out over the sea by that distance,
+  rounded off, so the polygon itself carries the buffer; it never covers other
+  land or another region's polygon, so neighbours butt up instead of overlapping.
+  When a buffer is used the region's separate sea margin is set to 0 so the sea
+  is not counted twice; set the buffer to 0 to fit the bare coastline instead.
+  Smoothing and naming both survive; every step can be undone until you save.
+- **Add region** creates a region that no settlement is labelled with, such as the
+  Nelanther Isles: type a name, click Add region, choose its kind (an island
+  nation gets the 10-mile margin), trace its polygons and save. A region that
+  has a settlement label but no profile yet gets one when its first border is saved.
+  Region editing is exclusive with location and route-leg editing.
+- The five island regions (Lantan, Nimbral, Moonshae Isles, Sea of Swords,
+  Trackless Sea) are seeded by `python tools/seed_island_regions.py --write`,
+  which outlines each island from the 5-mile terrain grid and then fits it to the
+  one-mile coastline with a 10-mile sea buffer built into the polygon (so those
+  regions have a sea margin of 0). Nimbral lies beyond
+  that survey, so it starts as a 30-mile placeholder circle. Outlines are
+  editorial starting points, not surveyed borders; a border saved from the map
+  is marked `manual` and is kept when the seeder is run again.
 
 
 The same server serves three focused views:
@@ -2251,7 +2316,10 @@ If you installed the package, `"command": "faerun-mcp"` works instead.
 | `get_commodity` | one good in full |
 | `list_commodity_sources` | goods with source regions, exporters and quality centers |
 | `get_commodity_sources` | detailed producers and quality centers for one good |
-| `list_regions` | regions and their market counts |
+| `list_regions` | regions with market counts and saved profiles |
+| `get_region` | one region's profile, border area and border/label mismatches |
+| `update_region` | create or edit a region profile or its polygon borders |
+| `delete_region` | remove a region profile and border |
 | `list_named_routes` | the great roads and sea lanes |
 | `list_travel_modes` | every way freight moves, and the multimodal penalties |
 

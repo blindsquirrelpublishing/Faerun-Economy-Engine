@@ -90,7 +90,7 @@
     "region": "Icewind Dale",
     "zone": "icewind",
     "population": 750,
-    "x": 148,
+    "x": 148.0,
     "y": 375.7,
     "wealth": 0.65,
     "tax": 0.03,
@@ -160,7 +160,7 @@
     "zone": "icewind",
     "population": 350,
     "x": 102.2,
-    "y": 348,
+    "y": 348.0,
     "wealth": 0.6,
     "tax": 0.02,
     "security": 0.45,
@@ -441,6 +441,8 @@
       "mine_gem": 2.0,
       "mine_gold": 1.0,
       "mine_iron": 3.0,
+      "mine_silver": 1.0,
+      "quarry": 1.0,
       "smith": 3.0,
       "tag_amethyst": 2.0,
       "tag_arsenic": 2.0,
@@ -460,7 +462,7 @@
       "vegetables"
     ],
     "ruler": "Marchion Elastul",
-    "description": "Ore-rich city of the Marchion and the Axe."
+    "description": "Walled mining city on a knoll on the north bank of the River Mirar, called the richest city north of Waterdeep in 1368 DR. Shield dwarves work the mines and forges of the Undercity beneath it while humans move ore to market and defend it; roads lead to guarded mines in the Spine of the World. Cut stone and worked metal go by magically floating barges down the Mirar to Luskan and on south, ground minerals and gems colour its glazed pottery, and in 1491 DR it made its own iron trade bars worth 5 gp. A hereditary marchion (Elastul Raurym around 1368 to 1370 DR; Selin Ramur after 1485 DR, a member of the Lords' Alliance) handles foreign affairs, while the elected Council of Sparkling Stones sets mining quotas and trade terms; the Axe of Mirabar defends the city and mines. Population 23,000 in 1357 and 1370 DR and 10,307 in 1372 DR."
   },
   {
     "id": "longsaddle",
@@ -1283,7 +1285,9 @@
       "alch": 2.0,
       "arcane": 3.0,
       "craft": 3.0,
+      "glass": 1.0,
       "herb": 2.0,
+      "hunt": 1.0,
       "paper": 2.0,
       "tag_deep_runestone": 2.0,
       "tag_falcon_trained": 2.0,
@@ -1295,11 +1299,12 @@
       "trade": 2.0
     },
     "specialties": {
-      "spell_components": 3.0,
+      "arcane_focus": 2.0,
       "book": 2.0,
-      "spellbook_blank": 2.0,
+      "ink": 1.0,
       "reagents_rare": 2.0,
-      "arcane_focus": 2.0
+      "spell_components": 3.0,
+      "spellbook_blank": 2.0
     },
     "shortages": [
       "grain",
@@ -1307,7 +1312,7 @@
       "spices_exotic"
     ],
     "ruler": "High Lady Alustriel's successors",
-    "description": "The Gem of the North, a city of mages, music and mithral-work."
+    "description": "The Gem of the North, the largest city of the Interior North, split by the River Rauvin into the older walled Northbank and the Southbank, joined by the magical Moonbridge. A magocracy of the arts, music and magical study and seat of the Conclave of Silverymoon; it exports books, paper, inks, herbs, glassware, furs, timber and Silverymoon Blue wine, and imports food (especially grain and livestock), armor, weapons, footwear and clothing."
   },
   {
     "id": "everlund",
@@ -1605,7 +1610,7 @@
     "zone": "silvermarches",
     "population": 500,
     "x": 936.5,
-    "y": 745,
+    "y": 745.0,
     "wealth": 0.7,
     "tax": 0.04,
     "security": 0.5,
@@ -1733,7 +1738,7 @@
     "zone": "underdark_north",
     "population": 14000,
     "x": 761.3,
-    "y": 834,
+    "y": 834.0,
     "wealth": 1.0,
     "tax": 0.1,
     "security": 0.5,
@@ -6384,7 +6389,7 @@
     "region": "Silver Marches",
     "zone": "silvermarches",
     "population": 840,
-    "x": 887,
+    "x": 887.0,
     "y": 971.2,
     "wealth": 1.1,
     "tax": 0.06,

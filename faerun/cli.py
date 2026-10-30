@@ -420,20 +420,40 @@ def cmd_commodities(args: argparse.Namespace, world: World) -> None:
 
 
 def cmd_regions(args: argparse.Namespace, world: World) -> None:
-    payload = []
-    for region in world.regions:
-        members = [s for s in world.settlements.values() if s.region == region]
-        payload.append({
-            "region": region,
-            "markets": len(members),
-            "population": sum(s.population for s in members),
-            "settlements": sorted(s.name for s in members),
-        })
-    rows = [[r["region"], r["markets"], f"{r['population']:,}"] for r in payload]
+    from .regions import region_rows
+
+    payload = region_rows(world)
+    rows = [[r["region"], r["markets"], f"{r['population']:,}",
+             (r["profile"] or {}).get("kind", "-"),
+             "border" if (r["profile"] or {}).get("has_border") else "-"] for r in payload]
     emit({"regions": payload},
-         heading("Regions") + "\n" + table(rows, ["Region", "Markets", "Population"],
-                                           aligns="lrr"),
+         heading("Regions") + "\n" + table(rows, ["Region", "Markets", "Population", "Kind", "Border"],
+                                           aligns="lrrll"),
          args.json)
+
+
+def cmd_region(args: argparse.Namespace, world: World) -> None:
+    from .regions import describe_region
+
+    try:
+        report = describe_region(world, args.name)
+    except KeyError as exc:
+        raise SystemExit(str(exc.args[0]))
+    lines = [heading(report["name"]),
+             f"{report['kind']} | trade: {report['trade_dependence']} | "
+             f"{report['markets']} markets, {report['population']:,} people",
+             report["summary"]]
+    if report["has_border"]:
+        lines.append(f"border: {len(report['borders'])} polygon(s), {report['land_square_miles']:,.0f} sq mi "
+                     f"land + {report['sea_margin_miles']:g} mi of sea ({report['border_source'] or 'unknown'})")
+        named = [f"{p['name'] or '(unnamed)'} {p['square_miles']:,.0f} sq mi" for p in report["polygons"]]
+        lines.append("polygons: " + "; ".join(named))
+    for label, key in (("exports", "exports"), ("imports", "imports"),
+                       ("inside border, not labelled", "inside_border_not_labelled"),
+                       ("labelled, outside border", "labelled_outside_border")):
+        if report[key]:
+            lines.append(f"{label}: {', '.join(report[key])}")
+    emit(report, "\n".join(line for line in lines if line), args.json)
 
 
 def cmd_events(args: argparse.Namespace, world: World) -> None:
@@ -850,6 +870,9 @@ def build_parser() -> argparse.ArgumentParser:
     g.set_defaults(func=cmd_commodities)
 
     sub.add_parser("regions", help="list regions").set_defaults(func=cmd_regions)
+    rg = sub.add_parser("region", help="one region's profile, border and markets")
+    rg.add_argument("name")
+    rg.set_defaults(func=cmd_region)
 
     e = sub.add_parser("events", help="show or clear world events")
     e.add_argument("--clear", action="store_true")

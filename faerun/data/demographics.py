@@ -619,4 +619,62 @@ SETTLEMENT_DEMOGRAPHICS = {
             "kind": "primary",
         }],
     },
+    "mirabar": {
+        "status": "quantified",
+        "reference_period": "As of 1358 DR (Dwarves Deep, 1990, p. 61); 1370 DR dwarven count from The Thousand Orcs (2002); not a 1492 DR census",
+        "scope": "City of Mirabar, 23,700 residents in 1358 DR, of whom 4,100 were dwarves",
+        "groups": [
+            {"race": "Dwarf", "share_pct": 17.3, "descriptor": "4,100 of 23,700 in 1358 DR (share computed from the two figures); about 1,600 shield dwarves in 1370 DR, before about 400 left",
+             "subgroups": [{"name": "Shield", "share_pct": None}]},
+            {"race": "Human", "share_pct": None, "descriptor": "Most of the rest in 1358 DR; no share stated"},
+        ],
+        "notes": [
+            "The infobox lists humans and shield dwarves only. The Council of Sparkling Stones had 10 shield dwarves and 32 humans in 1368 DR (Volo's Guide to the North, pp. 153 to 154); that is a council, not the city.",
+            "A gnome alchemist and Illuskan and Damaran humans appear among named residents; a race not named is not evidence of absence.",
+            "A fan paraphrase of Storm King's Thunder (2016), p. 98, read in a deep research pass on 2026-10-29, describes the council after 1485 DR as dwarf elders and the Axe of Mirabar as all shield dwarves; that is not a population share.",
+        ],
+        "era_note": (
+            "The 1358 DR figures come from the Mirabar article's infobox on the Forgotten Realms Wiki, citing Dwarves Deep (1990), p. 61, "
+            "and the 1370 DR dwarven count from The Thousand Orcs (2002), pp. 55 and 289; not independently consulted. The 3rd edition "
+            "figure of 10,307 (1372 DR) has no racial breakdown in the article. Nothing gives the city's makeup in 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Mirabar",
+            "url": WIKI + "Mirabar",
+            "accessed": "2026-10-29",
+            "kind": "secondary",
+        }],
+    },
+    "silverymoon": {
+        "status": "quantified",
+        "reference_period": "Circa 1372 DR (the infobox's society reference is Silver Marches, 2002, p. 54; the year of the table is inferred from that citation); not a 1492 DR census",
+        "scope": "City of Silverymoon, 37,073 residents in 1372 DR (Silver Marches, p. 54)",
+        "groups": [
+            {"race": "Human", "share_pct": 41, "descriptor": "41% (circa 1372 DR)"},
+            {"race": "Elf", "share_pct": 29, "descriptor": "29% (circa 1372 DR; subrace not stated)"},
+            {"race": "Half-elf", "share_pct": 12, "descriptor": "12% (circa 1372 DR)"},
+            {"race": "Dwarf", "share_pct": 10, "descriptor": "10% (circa 1372 DR)",
+             "subgroups": [{"name": "Shield", "share_pct": 100}]},
+            {"race": "Halfling", "share_pct": 5, "descriptor": "5% (circa 1372 DR)",
+             "subgroups": [{"name": "Lightfoot", "share_pct": 100}]},
+            {"race": "Gnome", "share_pct": 2, "descriptor": "2% (circa 1372 DR)"},
+            {"race": "Other", "share_pct": 1, "descriptor": "1% (circa 1372 DR)"},
+        ],
+        "notes": [
+            "Dwarves Deep (1990), p. 61, as cited by the wiki, gives 4,200 dwarves among 29,990 residents in the late 1350s DR (about 14%).",
+            "The wiki notes that Netherese descent was common, giving many residents fair skin and dark hair; that is a description, not a share.",
+            "Named residents of the late 15th century DR include humans, half-elves (Methrammar Aerasume, Dlaarvos Fyredram), elves and a half-orc; a race not named is not evidence of absence.",
+        ],
+        "era_note": (
+            "The percentage table comes from the Silverymoon article's infobox on the Forgotten Realms Wiki, whose society "
+            "reference is Silver Marches (2002), p. 54; not independently consulted. Nothing gives the city's makeup in 1479 DR "
+            "(about 40,000 residents) or 1492 DR."
+        ),
+        "sources": [{
+            "title": "Forgotten Realms Wiki: Silverymoon",
+            "url": WIKI + "Silverymoon",
+            "accessed": "2026-10-30",
+            "kind": "secondary",
+        }],
+    },
 }

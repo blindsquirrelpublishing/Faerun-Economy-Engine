@@ -61,6 +61,8 @@ from .mobile import mobile_location_summary
 from .mobile_economy import mobile_economic_report
 from .mobileassets import MOBILE_ASSETS
 from .mapdata import map_payload, save_terrain_override, terrain_detail, planar_terrain_tile
+from .regions import (RegionError, describe_region, fit_region_borders, map_region_payload, region_rows,
+                      regions_path, save_region_border, smooth_region_borders)
 from .locationedits import apply_location_edits, save_location_edit
 from .routegeometry import load_route_edits, save_route_leg, save_road_junction
 from .underlay import set_override, underlay_bytes, underlay_info
@@ -1127,7 +1129,7 @@ def api_map_revision(world: World, params) -> Dict[str, Any]:
     from .routegeometry import route_edits_path
     from .atlas import project_root
 
-    paths = [location_edits_path(), route_edits_path(), project_root() / "maps" / "terrain-overrides.json",
+    paths = [location_edits_path(), route_edits_path(), regions_path(), project_root() / "maps" / "terrain-overrides.json",
              project_root() / "maps" / "terrain-1-mile.json",
              project_root() / "maps" / "high-forest-regions.json",
              project_root() / "maps" / "high-forest-source-boundaries.json",
@@ -1187,7 +1189,7 @@ def api_map(world: World, params) -> Dict[str, Any]:
     The raster is built once and cached in `mapdata`, so only the first
     request pays for it.
     """
-    return {**apply_location_edits(map_payload(world)), "sourceBoundaries": map_source_boundaries(), "boundaryRegions": map_boundary_regions(), "mapVersion": api_map_revision(world, {})["version"], "travelMilesPerDay": {
+    return {**apply_location_edits(map_payload(world)), **map_region_payload(), "sourceBoundaries": map_source_boundaries(), "boundaryRegions": map_boundary_regions(), "mapVersion": api_map_revision(world, {})["version"], "travelMilesPerDay": {
         kind: values[1] for kind, values in MODES.items() if kind != "teleport"
     }}
 
@@ -1569,6 +1571,41 @@ def post_map_location(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
         raise ApiError(str(exc)) from exc
 
 
+def post_map_region(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        return save_region_border(body, world.regions)
+    except (OSError, RegionError) as exc:
+        raise ApiError(str(exc)) from exc
+
+
+def post_map_region_smooth(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        return smooth_region_borders(body)
+    except RegionError as exc:
+        raise ApiError(str(exc)) from exc
+
+
+def post_map_region_coast(world: World, body: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        waterdeep = world.find_settlement("Waterdeep")
+        return fit_region_borders(body, (float(waterdeep.x), float(waterdeep.y)))
+    except RegionError as exc:
+        raise ApiError(str(exc)) from exc
+
+
+def api_regions(world: World, params) -> Dict[str, Any]:
+    name = _one(params, "name")
+    if name:
+        try:
+            return describe_region(world, name)
+        except KeyError as exc:
+            raise ApiError(str(exc.args[0]), 404) from exc
+    return {**map_region_payload(), "regions": region_rows(world)}
+
+
+GET_ROUTES["/api/regions"] = api_regions
+
+
 POST_ROUTES: Dict[str, Callable[[World, Dict[str, Any]], Dict[str, Any]]] = {
     "/api/lore-desk": post_desk,
     **POST_TRADE_ROUTES,
@@ -1579,6 +1616,9 @@ POST_ROUTES: Dict[str, Callable[[World, Dict[str, Any]], Dict[str, Any]]] = {
     "/api/map-route-leg": post_map_route_leg,
     "/api/map-junction": post_map_junction,
     "/api/map-location": post_map_location,
+    "/api/map-region": post_map_region,
+    "/api/map-region-smooth": post_map_region_smooth,
+    "/api/map-region-coast": post_map_region_coast,
     "/api/atlas/apply": post_atlas_apply,
     "/api/event": post_event,
     "/api/events/clear": post_clear_events,
@@ -1812,7 +1852,7 @@ class Handler(BaseHTTPRequestHandler):
             self._send_json({"error": "no such endpoint"}, 404)
             return
         if (parsed.path in POST_TRADE_ROUTES or parsed.path in POST_BOARD_ROUTES
-                or parsed.path in {"/api/map-route-leg", "/api/map-junction", "/api/map-location", "/api/lore-desk"}):
+                or parsed.path in {"/api/map-route-leg", "/api/map-junction", "/api/map-location", "/api/map-region", "/api/map-region-smooth", "/api/map-region-coast", "/api/lore-desk"}):
             try:
                 self._guard_trade_request(mutation=True)
             except (ApiError, ValueError) as exc:
